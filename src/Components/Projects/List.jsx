@@ -1,9 +1,8 @@
 import React from 'react';
-// import ListItem from './ListItem.jsx';
 import './list.module.css';
+import ListItem from './ListItem';
 
 const List = ({ list }) => {
-  console.log('Probando 2', list);
   return (
     <div>
       <table>
@@ -11,19 +10,16 @@ const List = ({ list }) => {
           <tr>
             <th>Name</th>
             <th>Client</th>
+            <th>Admin</th>
+            <th>Created At</th>
+            <th>Description</th>
             <th>Start Date</th>
-            <th>End Date</th>
-            <th>Members</th>
+            <th>Updated At</th>
+            <th>Employees</th>
             <th>Active</th>
           </tr>
         </thead>
-        <tbody>
-          <div>
-            {list.map(() => {
-              <div>HOLA PROBANDO</div>;
-            })}
-          </div>
-        </tbody>
+        <ListItem listItem={list} />
       </table>
     </div>
   );

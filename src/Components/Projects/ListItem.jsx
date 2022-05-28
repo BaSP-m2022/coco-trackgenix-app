@@ -1,16 +1,23 @@
 import React from 'react';
 
 const ListItem = ({ listItem }) => {
-  return (
-    <tr>
-      <td>{listItem.name}</td>
-      <td>{listItem.clientName}</td>
-      <td>{listItem.startDate}</td>
-      <td>{listItem.endDate}</td>
-      <td>{listItem.employees.length}</td>
-      <td>{listItem.active}</td>
-    </tr>
-  );
+  const test = listItem.map((item) => {
+    console.log('item', item);
+    return (
+      <tr key={item.id}>
+        <td>{item.name}</td>
+        <td>{item.clientName}</td>
+        <td>{item.admins}</td>
+        <td>{item.createdAt}</td>
+        <td>{item.description}</td>
+        <td>{item.starDate}</td>
+        <td>{item.updatedAt}</td>
+        <td>{item.employees.length}</td>
+        <td>{item.active.toString()}</td>
+      </tr>
+    );
+  });
+  return <>{test}</>;
 };
 
 export default ListItem;
