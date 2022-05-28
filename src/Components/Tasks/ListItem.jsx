@@ -1,18 +1,19 @@
 import React from 'react';
+import styles from './tasks.module.css';
 
 const ListItem = ({ listItem }) => {
   const test = listItem.map((item) => {
     console.log('item', item);
     return (
       <tr key={item.id}>
-        <td>{item.description}</td>
+        <td className={styles.description}>{item.description}</td>
         <td>{item.workedHours.toString()}</td>
-        <td>{item.date}</td>
-        <td>
+        <td>{item.date.split('T')[0]}</td>
+        <td className={styles.buttonBox}>
           <button>Edit</button>
         </td>
-        <td>
-          <button>Delete</button>
+        <td className={styles.buttonBox}>
+          <button className={styles.delete}>Delete</button>
         </td>
       </tr>
     );
