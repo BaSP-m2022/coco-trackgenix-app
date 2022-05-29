@@ -2,7 +2,7 @@ import React from 'react';
 import './super-admins.module.css';
 import ListItem from './ListItem';
 
-const List = ({ list }) => {
+const List = ({ list, deleteItem }) => {
   return (
     <div>
       <table>
@@ -15,7 +15,7 @@ const List = ({ list }) => {
             <th>Is Active</th>
           </tr>
         </thead>
-        <ListItem listItem={list} />
+        <ListItem listItem={list} deleteItem={deleteItem} />
       </table>
     </div>
   );
