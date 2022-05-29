@@ -13,6 +13,8 @@ const List = ({ list }) => {
             <th>Phone</th>
             <th>Email</th>
             <th>Active</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <ListItem listItem={list} />
