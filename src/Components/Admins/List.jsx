@@ -1,9 +1,10 @@
 import React from 'react';
 import ListItem from './ListItem';
+import styles from './admins.module.css';
 
-const List = ({ list }) => {
+const List = ({ list, deleteItem }) => {
   return (
-    <div>
+    <div className={styles.container}>
       <table>
         <thead>
           <tr>
@@ -15,7 +16,7 @@ const List = ({ list }) => {
           </tr>
         </thead>
         <tbody>
-          <ListItem listItem={list} />
+          <ListItem listItem={list} deleteItem={deleteItem} />
         </tbody>
       </table>
     </div>

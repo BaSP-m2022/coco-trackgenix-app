@@ -4,22 +4,35 @@ import List from './List';
 
 const Admins = () => {
   const [list, setList] = useState([]);
+
   useEffect(async () => {
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins`);
       const data = await response.json();
-      // save(data);
       setList(data.data);
     } catch (error) {
       console.error(error);
     }
   }, []);
-  console.log(`probando`, list);
+
+  const deleteItem = (_id) => {
+    try {
+      const response = fetch(`https://coco-trackgenix-server.vercel.app/admins/${_id}`, {
+        method: 'DELETE'
+      });
+      console.log(response);
+      alert('Admin deleted.');
+    } catch (error) {
+      console.error(error);
+    }
+    setList(list.filter((listItem) => listItem._id !== _id));
+  };
+
   return (
     <section className={styles.container}>
       <h2>Admins</h2>
       <div>
-        <List list={list} setList={setList} />
+        <List list={list} setList={setList} deleteItem={deleteItem} />
       </div>
     </section>
   );
