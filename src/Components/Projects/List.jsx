@@ -2,7 +2,7 @@ import React from 'react';
 import './list.module.css';
 import ListItem from './ListItem';
 
-const List = ({ list }) => {
+const List = ({ list, deleteItem }) => {
   return (
     <div>
       <table>
@@ -19,7 +19,7 @@ const List = ({ list }) => {
             <th>Active</th>
           </tr>
         </thead>
-        <ListItem listItem={list} />
+        <ListItem listItem={list} deleteItem={deleteItem} />
       </table>
     </div>
   );

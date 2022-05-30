@@ -17,11 +17,19 @@ const Projects = () => {
     }
   }, []);
   console.log('Probando', list);
+
+  const deleteItem = (id) => {
+    setList([...list.filter((item) => item.id !== id)]);
+    return fetch(`https://coco-trackgenix-server.vercel.app/projects/${id}`, {
+      method: 'DELETE'
+    });
+  };
+
   return (
     <section className={styles.container}>
       <h2>Projects</h2>
       <div>
-        <List list={list} setList={setList} />
+        <List list={list} setList={setList} deleteItem={deleteItem} />
       </div>
     </section>
   );
