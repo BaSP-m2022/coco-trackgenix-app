@@ -13,7 +13,9 @@ const ListItem = ({ listItem, deleteItem }) => {
         <td>{item.password}</td>
         <td>{item.active.toString()}</td>
         <td>
-          <button>Edit</button>
+          <a href="http://localhost:4000/super-admins/Form">
+            <button>Edit</button>
+          </a>
         </td>
         <td>
           <button onClick={() => handleDelete(item._id)}>X</button>
