@@ -1,8 +1,8 @@
 import React from 'react';
 
 const ListItem = ({ listItem, deleteItem }) => {
-  const handleDelete = () => {
-    deleteItem(listItem.id);
+  const handleDelete = (_id) => {
+    deleteItem(_id);
   };
 
   const test = listItem.map((item) => {
@@ -19,7 +19,10 @@ const ListItem = ({ listItem, deleteItem }) => {
         <td>{item.employees.length}</td>
         <td>{item.active.toString()}</td>
         <td>
-          <button onClick={() => handleDelete(item.id)}>Delete</button>
+          <button>Edit</button>
+        </td>
+        <td>
+          <button onClick={() => handleDelete(item._id)}>Delete</button>
         </td>
       </tr>
     );
