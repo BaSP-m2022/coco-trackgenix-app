@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './tasks.module.css';
 import List from './List/List';
+import NewItem from './FormList/FormList';
 
 const Tasks = () => {
   const [list, setList] = useState([]);
@@ -25,6 +26,7 @@ const Tasks = () => {
   return (
     <section className={styles.container}>
       <List key={list.id} list={list} deleteItem={deleteItem} setList={setList} />
+      <NewItem />
     </section>
   );
 };
