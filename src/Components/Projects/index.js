@@ -16,7 +16,6 @@ const Projects = () => {
       console.log(error);
     }
   }, []);
-  console.log('Probando', list);
   return (
     <section className={styles.container}>
       <h2>Projects</h2>
