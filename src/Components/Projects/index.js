@@ -36,6 +36,7 @@ const Projects = () => {
       <h2>Projects</h2>
       <div>
         <List list={list} deleteItem={deleteItem} setList={setList} />
+        <a href="/projects/add">Add New Project</a>
       </div>
     </section>
   );
