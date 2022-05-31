@@ -4,7 +4,7 @@ const ListItem = ({ listItem, deleteItem }) => {
   if (listItem.length === 0 || listItem === 'undefined') {
     return 'There are not tasks';
   }
-  const test = listItem.map((props) => {
+  const currentBody = listItem.map((props) => {
     const handleDelete = () => {
       deleteItem(props._id);
     };
@@ -22,7 +22,7 @@ const ListItem = ({ listItem, deleteItem }) => {
       </tr>
     );
   });
-  return <>{test}</>;
+  return <>{currentBody}</>;
 };
 
 export default ListItem;

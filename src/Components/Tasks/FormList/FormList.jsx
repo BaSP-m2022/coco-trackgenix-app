@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 // import styles from './formList.module.css';
 
 const NewItem = () => {
-  // const [item, setItem] = useState({});
   const [newItem, setNewItem] = useState({
     description: '',
     workedHours: ''
@@ -17,13 +16,24 @@ const NewItem = () => {
 
   const createItem = (event) => {
     event.preventDefault();
-    console.log(newItem);
     return fetch(`https://coco-trackgenix-server.vercel.app/tasks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newItem)
     });
   };
+
+  // const endPoint = () => {
+  //   if (props.metodo === 'POST') {
+  //     return fetch(`https://coco-trackgenix-server.vercel.app/tasks`, {
+  //       method: props.metodo,
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(newItem)
+  //     });
+  //   } else {
+  //     (_id = props._id), (description = props.description), (workedHours = props.workedHours);
+  //   }
+  // };
 
   return (
     <div>
