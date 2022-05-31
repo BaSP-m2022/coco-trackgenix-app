@@ -3,7 +3,7 @@ import './super-admins.module.css';
 import ListItem from './ListItem';
 // import Modal from './Modal/Modal';
 
-const List = ({ list, deleteItem }) => {
+const List = ({ list, deleteItem, setId }) => {
   // const closeModal = () => {
   //     setShowModal(false);
   // }
@@ -19,7 +19,7 @@ const List = ({ list, deleteItem }) => {
             <th>Is Active</th>
           </tr>
         </thead>
-        <ListItem listItem={list} deleteItem={deleteItem} />
+        <ListItem listItem={list} deleteItem={deleteItem} setId={setId} />
       </table>
     </div>
   );

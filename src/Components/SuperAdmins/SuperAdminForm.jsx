@@ -2,53 +2,72 @@ import React, { useState } from 'react';
 import styles from './super-admins.module.css';
 
 const EditSuperAdmin = () => {
-  const [superAdminInput, setSuperAdminInput] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    active: ''
-  });
-  const onChangeInput = (event) => {
-    setSuperAdminInput(event.target.value);
-  };
+  const [name, setName] = useState('');
+  const [lastName, setlastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [active, setActive] = useState(false);
+
+  // const onChangeInput = (event) => {
+  //   setSuperAdminInput(event.target.value);
+  //   console.log(event.target.value);
+  // };
+  // const addSuperAdmin = async () => {
+  //   try {
+  //     const res = await fetch(`http://localhost:4000/super-admins/form`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-type': 'application/json'
+  //       },
+  //       body: JSON.stringify({
+  //         name: superAdminInput.firstName,
+  //         lastName: superAdminInput.lastName,
+  //         email: superAdminInput.email,
+  //         password: superAdminInput.password,
+  //         active: true
+  //       })
+  //     });
+  //     const data = await res.json();
+  //     setSuperAdminInput([...superAdminInput, data]);
+  //     return data;
+  //   } catch (error) {
+  //     alert('error');
+  //   }
+  // };
   const onSubmit = (event) => {
     event.preventDefault();
-    setSuperAdminInput({
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      active: ''
-    });
-  };
-  // const options = {
-  //   method: 'PUT',
-  //   headers: {
-  //     'Content-type': 'application/json'
-  //   },
-  //   body: JSON.stringify({
-  //     firstName: superAdminInput.firstName,
-  //     lastName: superAdminInput.lastName,
-  //     email: superAdminInput.email,
-  //     password: superAdminInput.password,
-  //     active: superAdminInput.active
-  //   })
-  // };
 
-  const updateItem = (_id) => {
-    try {
-      const response = fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins/${_id}`, {
-        method: 'PUT'
-      });
-      console.log(response);
-      alert('Se eliminooooo');
-    } catch (error) {
-      console.error(error);
-    }
-    setList(list.filter((listItem) => listItem._id !== _id));
-  };
+    const addSuperAdmin = {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        lastName: lastName,
+        email: email,
+        password: password,
+        active: active
+      })
+    };
+    const url = `https://coco-trackgenix-server.vercel.app/Superadmins`;
 
+    fetch(url, addSuperAdmin)
+      .then((response) => response.json())
+      // eslint-disable-next-line no-console
+      .then((data) => console.log('data:', data));
+
+    // fetch(url, addSuperAdmin).then((response) => {
+    //   if (response.status !== 200 && response.status !== 201) {
+    //     return response.json().then(({ message }) => {
+    //       throw new Error(message);
+    //     });
+    //   }
+    //   // const data = response.json();
+    //   console.log(response.json());
+    //   return response.json();
+    // });
+  };
   return (
     <div className={styles.container}>
       <h2>Form</h2>
@@ -57,9 +76,9 @@ const EditSuperAdmin = () => {
           <label>Name</label>
           <input
             type="text"
-            name="firstName"
-            value={superAdminInput.firstName}
-            onChange={onChangeInput}
+            name="name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
           ></input>
         </div>
         <div>
@@ -67,8 +86,8 @@ const EditSuperAdmin = () => {
           <input
             type="text"
             name="lastName"
-            value={superAdminInput.lastName}
-            onChangeInput={onChangeInput}
+            value={lastName}
+            onChange={(event) => setlastName(event.target.value)}
           ></input>
         </div>
         <div>
@@ -76,8 +95,8 @@ const EditSuperAdmin = () => {
           <input
             type="text"
             name="email"
-            value={superAdminInput.email}
-            onChangeInput={onChangeInput}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           ></input>
         </div>
         <div>
@@ -85,8 +104,8 @@ const EditSuperAdmin = () => {
           <input
             type="password"
             name="password"
-            value={superAdminInput.password}
-            onChangeInput={onChangeInput}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           ></input>
         </div>
         <div>
@@ -94,19 +113,83 @@ const EditSuperAdmin = () => {
           <input
             type="text"
             name="active"
-            value={superAdminInput.active}
-            onChangeInput={onChangeInput}
+            value={active}
+            onChange={(event) => setActive(event.target.value)}
           ></input>
         </div>
-        <div>
-          <input type="submit" value="submit"></input>
-        </div>
+        <button
+          // className={styles.btn}
+          // onMouseDown={() => {
+          //   method('PUT');
+          // }}
+          type="submit"
+        >
+          Accept
+        </button>
       </form>
     </div>
   );
 };
-
 export default EditSuperAdmin;
+
+//   setSuperAdminInput({
+//     firstName: '',
+//     lastName: '',
+//     email: '',
+//     password: '',
+//     active: ''
+//   });
+// };
+
+//   const putSuperAdmin = {
+//     method: 'PUT',
+//     headers: {
+//       'Content-type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       firstName: superAdminInput.firstName,
+//       lastName: superAdminInput.lastName,
+//       email: superAdminInput.email,
+//       password: superAdminInput.password,
+//       active: superAdminInput.active
+//     })
+//   };
+//   const url = `https://coco-trackgenix-server.vercel.app/SuperAdmins/${_id}`;
+
+// };
+
+// const onSubmit = async (_id) => {
+//   try{
+//     const response = await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins/${_id}`, {
+//   method: 'PUT',
+//   headers: {
+//     'Content-type': 'application/json'
+//   }
+//   body: JSON.stringify({
+//     firstName: superAdminInput.firstName,
+//     lastName: superAdminInput.lastName,
+//     email: superAdminInput.email,
+//     password: superAdminInput.password,
+//     active: superAdminInput.active
+//   })
+//   });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// const deleteItem = async (_id) => {
+//   try {
+//     const response = await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins/${_id}`, {
+//       method: 'DELETE'
+//     });
+//     console.log(response);
+//     setList(list.filter((listItem) => listItem._id !== _id));
+//     alert('Se eliminooooo');
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 // import React, { useState } from 'react';
 // import styles from './super-admins.module.css';

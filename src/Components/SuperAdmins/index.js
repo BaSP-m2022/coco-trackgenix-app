@@ -2,7 +2,7 @@ import styles from './super-admins.module.css';
 import React, { useEffect, useState } from 'react';
 import List from './List';
 // import EditSuperAdmin from './SuperAdminForm';
-// import SuperAdminForm from './SuperAdminForm';
+import SuperAdminForm from './SuperAdminForm';
 
 const SuperAdmin = () => {
   const [list, setList] = useState([]);
@@ -30,12 +30,14 @@ const SuperAdmin = () => {
     }
   };
 
+  let [id, setId] = useState('');
+
   return (
     <section className={styles.container}>
       <h2>Super Admin</h2>
       <div>
-        {/* <SuperAdminForm /> */}
-        <List list={list} setList={setList} deleteItem={deleteItem} />
+        <SuperAdminForm id={id} />
+        <List list={list} setList={setList} deleteItem={deleteItem} setId={setId} />
       </div>
     </section>
   );
