@@ -18,6 +18,9 @@ const ListItem = ({ listItem, deleteItem }) => {
         <td>{item.employees.length}</td>
         <td>{item.active.toString()}</td>
         <td>
+          <a href="/projects/edit">Edit</a>
+        </td>
+        <td>
           <button onClick={() => handleDelete(item._id)}>X</button>
         </td>
       </tr>
