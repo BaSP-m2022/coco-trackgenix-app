@@ -36,8 +36,8 @@
 import React from 'react';
 
 const ListItem = ({ listItem, deleteItem }) => {
-  const handleDelete = () => {
-    deleteItem(listItem._id);
+  const handleDelete = (_id) => {
+    deleteItem(_id);
   };
   const timeSheetList = listItem.map((item) => {
     return (
@@ -47,9 +47,8 @@ const ListItem = ({ listItem, deleteItem }) => {
         <td>{item.startDate.toString()}</td>
         <td>{item.endDate.toString()}</td>
         <td>{item.tasks.length === 1 ? item.tasks[0].description : 'Various Task'}</td>
-
         <td>
-          <button onClick={() => handleDelete(listItem._id)}>X</button>
+          <button onClick={() => handleDelete(item._id)}>X</button>
         </td>
         <td>
           <button>Edit</button>
