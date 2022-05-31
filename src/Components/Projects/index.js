@@ -33,8 +33,8 @@ const Projects = () => {
 
   return (
     <section className={styles.container}>
-      <h2>Projects</h2>
       <div>
+        <h2>Projects</h2>
         <List list={list} deleteItem={deleteItem} setList={setList} />
       </div>
     </section>
