@@ -4,3 +4,10 @@
   justify-content: center;
   align-items: center;
 }
+
+.form {
+  display: flex;
+  justify-content: space-around;
+  align-content: space-around;
+  /* border: 1px solid blue; */
+}
