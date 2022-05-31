@@ -6,7 +6,7 @@ const ListItem = ({ listItem, deleteItem }) => {
   };
 
   const test = listItem.map((item) => {
-    console.log('item', item);
+    // console.log('item', item);
 
     return (
       <tr key={item._id}>

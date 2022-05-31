@@ -11,12 +11,12 @@ const AddItem = ({ addItem }) => {
   });
 
   const onChange = (e) => {
-    console.log('evento', e);
+    // console.log('evento', e);
     setAdminInput({ ...adminInput, [e.target.name]: e.target.value });
   };
 
   const onSubmit = (e) => {
-    console.log('hola');
+    console.log('onSubmit', adminInput);
     e.preventDefault();
     addItem(adminInput);
     setAdminInput({
@@ -52,7 +52,7 @@ const AddItem = ({ addItem }) => {
           <label>Active</label>
           <input type="text" name="active" value={adminInput.active} onChange={onChange} />
         </div>
-        <button onClick={() => onSubmit()}> Add </button>
+        <button type="submit"> Add </button>
       </form>
     </div>
   );

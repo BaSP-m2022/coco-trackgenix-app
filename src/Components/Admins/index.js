@@ -11,17 +11,18 @@ const Admins = () => {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins`);
       const data = await response.json();
       setList(data.data);
+      // console.log('data inicial:', data.data);
     } catch (error) {
       console.error(error);
     }
   }, []);
 
-  const deleteItem = (_id) => {
+  const deleteItem = async (_id) => {
     try {
-      const response = fetch(`https://coco-trackgenix-server.vercel.app/admins/${_id}`, {
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins/${_id}`, {
         method: 'DELETE'
       });
-      console.log(response);
+      console.log('delete response:', response);
       alert('Admin deleted');
     } catch (error) {
       console.error(error);
@@ -29,8 +30,24 @@ const Admins = () => {
     setList(list.filter((listItem) => listItem._id !== _id));
   };
 
-  const addItem = () => {
-    return console.log('hola');
+  const addItem = async (e) => {
+    try {
+      // e.preventDefault();
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(e)
+      });
+      alert('Admin created');
+      const data = await response.json();
+      console.log(data);
+      setList([...list, data]);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
