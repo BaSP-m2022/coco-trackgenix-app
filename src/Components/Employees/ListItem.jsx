@@ -1,13 +1,13 @@
 import React from 'react';
 
-const ListItem = ({ listItem, deleteItem, editItem }) => {
+const ListItem = ({ listItem, deleteItem /*editItem*/ }) => {
   const handleDelete = (_id) => {
     deleteItem(_id);
   };
 
-  const handleEdit = (_id) => {
+  /*const handleEdit = (_id) => {
     editItem(_id);
-  };
+  };*/
 
   const test = listItem.map((item) => {
     console.log('item', item);
@@ -19,7 +19,9 @@ const ListItem = ({ listItem, deleteItem, editItem }) => {
         <td>{item.email}</td>
         <td>{item.active.toString()}</td>
         <td>
-          <button onClick={() => handleEdit(item._id)}>Edit</button>
+          <a href="http://localhost:4000/employees/FormEmployee">
+            <button>Edit</button>
+          </a>
         </td>
         <td>
           <button

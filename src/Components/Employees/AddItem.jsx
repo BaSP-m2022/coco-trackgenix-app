@@ -29,7 +29,7 @@ const AddItem = ({ addItem }) => {
   return (
     <div className={styles.formAdd}>
       <div>
-        <h2>Add New User</h2>
+        <h2>Add New Employee</h2>
       </div>
       <div>
         <form onSubmit={onSubmit}>
