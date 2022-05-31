@@ -1,12 +1,12 @@
 import React from 'react';
 
 const ListItem = ({ listItem, deleteItem, editItem }) => {
-  const handleDelete = () => {
-    deleteItem(listItem.id);
+  const handleDelete = (_id) => {
+    deleteItem(_id);
   };
 
-  const handleEdit = () => {
-    editItem(listItem.id);
+  const handleEdit = (_id) => {
+    editItem(_id);
   };
 
   const test = listItem.map((item) => {
@@ -19,10 +19,10 @@ const ListItem = ({ listItem, deleteItem, editItem }) => {
         <td>{item.email}</td>
         <td>{item.active.toString()}</td>
         <td>
-          <button onClick={() => handleEdit(item.id)}>Edit</button>
+          <button onClick={() => handleEdit(item._id)}>Edit</button>
         </td>
         <td>
-          <button onClick={() => handleDelete(item.id)}>X</button>
+          <button onClick={() => handleDelete(item._id)}>X</button>
         </td>
       </tr>
     );
