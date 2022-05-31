@@ -1,13 +1,9 @@
 import React from 'react';
 
-const ListItem = ({ listItem, deleteItem /*editItem*/ }) => {
+const ListItem = ({ listItem, deleteItem }) => {
   const handleDelete = (_id) => {
     deleteItem(_id);
   };
-
-  /*const handleEdit = (_id) => {
-    editItem(_id);
-  };*/
 
   const test = listItem.map((item) => {
     console.log('item', item);

@@ -1,7 +1,7 @@
 import styles from './employees.module.css';
 import React, { useEffect, useState } from 'react';
 import List from './List';
-/*import AddItem from './AddItem';*/
+/*import FormEmployee from './FormEmployee/index.js';*/
 
 const Employees = () => {
   const [list, setList] = useState([]);
@@ -54,6 +54,11 @@ const Employees = () => {
       <h2>Employees</h2>
       <div>
         <List list={list} deleteItem={deleteItem} setList={setList} />
+      </div>
+      <div>
+        <a href="http://localhost:4000/employees/FormEmployee" key={list._id}>
+          <button>Add Employee</button>
+        </a>
       </div>
     </section>
   );
