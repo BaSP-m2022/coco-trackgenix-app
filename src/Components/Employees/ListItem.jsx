@@ -22,7 +22,16 @@ const ListItem = ({ listItem, deleteItem, editItem }) => {
           <button onClick={() => handleEdit(item._id)}>Edit</button>
         </td>
         <td>
-          <button onClick={() => handleDelete(item._id)}>X</button>
+          <button
+            onClick={() => {
+              const result = confirm('are you sure you want to delete?');
+              if (result) {
+                handleDelete(item._id);
+              }
+            }}
+          >
+            X
+          </button>
         </td>
       </tr>
     );
