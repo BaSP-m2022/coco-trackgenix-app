@@ -2,7 +2,7 @@ import React from 'react';
 import ListItem from '../ListItem/ListItem';
 import styles from './list.module.css';
 
-const List = ({ list, deleteItem }) => {
+const List = ({ list, deleteItem, updateItem, createItem }) => {
   return (
     <div className={styles.container}>
       <table>
@@ -14,7 +14,12 @@ const List = ({ list, deleteItem }) => {
           </tr>
         </thead>
         <tbody>
-          <ListItem listItem={list} deleteItem={deleteItem} />
+          <ListItem
+            listItem={list}
+            deleteItem={deleteItem}
+            updateItem={updateItem}
+            createItem={createItem}
+          />
         </tbody>
       </table>
     </div>

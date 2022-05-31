@@ -28,9 +28,10 @@ const Tasks = () => {
     });
   };
 
-  // const [upd]
-  // const updItem = (id) => {
-  //   setList([...list.filter((list) => list._id === id)]);
+  const [updItem, setUpdItem] = useState([]);
+  const updateItem = (id) => {
+    setUpdItem([...updItem.filter((item) => item._id === id)]);
+  };
 
   return (
     <section className={styles.container}>
@@ -38,9 +39,15 @@ const Tasks = () => {
         <button onClick={showList}>{show === false ? 'Add' : 'Back'}</button>
       </div>
       {show === false ? (
-        <List key={list.id} list={list} deleteItem={deleteItem} setList={setList} />
+        <List
+          key={list.id}
+          list={list}
+          deleteItem={deleteItem}
+          setList={setList}
+          updateItem={updateItem}
+        />
       ) : (
-        <NewItem desciption={''} workedHours={''} metodo={'POST'} />
+        <NewItem desciption={''} workedHours={''} />
       )}
     </section>
   );
