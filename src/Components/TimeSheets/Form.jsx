@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Form = ({ edit, itemToUpdate }) => {
+const Form = ({ edit, itemToUpdate, editDate, handleEditDate }) => {
   const [addItem, setItem] = useState({
     tasks: [],
     employeeId: '',
@@ -13,6 +13,9 @@ const Form = ({ edit, itemToUpdate }) => {
   const [tasksItem, setTasksItem] = useState([]);
 
   const onChange = (e) => {
+    if (edit) {
+      handleEditDate(false);
+    }
     setItem({
       ...addItem,
       [e.target.name]: e.target.value
@@ -128,7 +131,9 @@ const Form = ({ edit, itemToUpdate }) => {
           <input
             type="date"
             name="startDate"
-            value={edit ? itemToUpdate[0].startDate : addItem.startDate}
+            value={
+              edit && editDate ? `${itemToUpdate[0].startDate.substring(0, 10)}` : addItem.startDate
+            }
             onChange={onChange}
           />
         </div>
@@ -137,7 +142,7 @@ const Form = ({ edit, itemToUpdate }) => {
           <input
             type="date"
             name="endDate"
-            value={edit ? itemToUpdate[0].endDate : addItem.endDate}
+            value={edit ? `${itemToUpdate[0].endDate.substring(0, 10)}` : addItem.endDate}
             onChange={onChange}
           />
         </div>

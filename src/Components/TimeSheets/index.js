@@ -8,6 +8,7 @@ function TimeSheets() {
   let [edit, setEdit] = useState(false);
   const [list, setList] = useState([]);
   const [itemToUpdate, setItemToUpdate] = useState();
+  const [editDate, setEditDate] = useState(true);
 
   useEffect(() => {
     fetch(`https://coco-trackgenix-server.vercel.app/timesheets`)
@@ -42,7 +43,12 @@ function TimeSheets() {
     setSwitch(change ? (change = false) : (change = true));
     if (edit) {
       setEdit(edit ? (edit = false) : (edit = true));
+      handleEditDate;
     }
+  };
+
+  const handleEditDate = (state) => {
+    setEditDate(state);
   };
 
   const editMode = () => {
@@ -50,23 +56,17 @@ function TimeSheets() {
     setSwitch(change ? (change = false) : (change = true));
   };
 
-  // const addItem = ({ tasks, employeeId, projectId, startDate, endDate }) => {
-  //   const newItem = {
-  //     id: Math.floor(Math.random() * 1000),
-  //     tasks,
-  //     employeeId,
-  //     projectId,
-  //     startDate,
-  //     endDate
-  //   };
-  //   setList([...list, newItem]);
-  // };
   if (change) {
     return (
       <section className={styles.container}>
         <h2>TimeSheets</h2>
         <button onClick={switcher}>back</button>
-        <Form edit={edit} itemToUpdate={itemToUpdate} />
+        <Form
+          edit={edit}
+          itemToUpdate={itemToUpdate}
+          editDate={editDate}
+          handleEditDate={handleEditDate}
+        />
       </section>
     );
   } else {
