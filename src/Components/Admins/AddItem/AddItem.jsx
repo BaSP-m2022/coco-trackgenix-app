@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../admins.module.css';
+import styles from './addItem.module.css';
 
 const AddItem = ({ addItem }) => {
   const [adminInput, setAdminInput] = useState({
@@ -56,7 +56,9 @@ const AddItem = ({ addItem }) => {
           Add
         </button>
       </form>
-      <a href="/admins">Back</a>
+      <a href="/admins" className={styles.button}>
+        Back
+      </a>
     </div>
   );
 };

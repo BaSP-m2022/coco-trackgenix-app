@@ -65,10 +65,12 @@ const Admins = () => {
   } else {
     return (
       <section className={styles.container}>
-        <h2>Admins</h2>
+        <h2 className={styles.h2}>Admins</h2>
         <div>
+          <a href="/admins/add" className={styles.button}>
+            + Add an admin
+          </a>
           <List list={list} setList={setList} deleteItem={deleteItem} />
-          <a href="/admins/add">Add New Admin</a>
         </div>
       </section>
     );
