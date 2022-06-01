@@ -1,0 +1,13 @@
+.noDisplay{
+  display: none;
+}
+.activeDelete{
+  display: block;
+  color: white;
+  background-color: red;
+}
+.activeEdit{
+  display: block;
+  color: white;
+  background-color: navy;
+}
