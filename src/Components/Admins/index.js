@@ -4,6 +4,7 @@ import List from './List';
 import AddItem from './AddItem/AddItem';
 
 const Admins = () => {
+  let [showAddAdmin, setShowAddAdmin] = useState(false);
   const [list, setList] = useState([]);
 
   useEffect(async () => {
@@ -50,15 +51,31 @@ const Admins = () => {
     }
   };
 
-  return (
-    <section className={styles.container}>
-      <h2>Admins</h2>
-      <div>
-        <AddItem addItem={addItem} />
-        <List list={list} setList={setList} deleteItem={deleteItem} />
-      </div>
-    </section>
-  );
+  const switcher = () => {
+    setShowAddAdmin(showAddAdmin ? (showAddAdmin = false) : (showAddAdmin = true));
+  };
+
+  if (showAddAdmin) {
+    return (
+      <section className={styles.container}>
+        <h2>Admins</h2>
+        <button onClick={switcher}>Back</button>
+        <AddItem addItem={addItem} switcher={switcher} />
+      </section>
+    );
+  } else {
+    return (
+      <section className={styles.container}>
+        <h2>Admins</h2>
+        <div>
+          <button className={styles.addButton} onClick={switcher}>
+            Add new
+          </button>
+          <List list={list} setList={setList} deleteItem={deleteItem} />
+        </div>
+      </section>
+    );
+  }
 };
 
 export default Admins;

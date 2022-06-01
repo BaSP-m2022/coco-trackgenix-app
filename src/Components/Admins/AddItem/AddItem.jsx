@@ -52,7 +52,9 @@ const AddItem = ({ addItem }) => {
           <label>Active</label>
           <input type="text" name="active" value={adminInput.active} onChange={onChange} />
         </div>
-        <button type="submit"> Add </button>
+        <button type="submit" value="submit">
+          Add
+        </button>
       </form>
     </div>
   );
