@@ -1,16 +1,16 @@
 import styles from './super-admins.module.css';
 import React, { useEffect, useState } from 'react';
 import List from './List';
-// import EditSuperAdmin from './SuperAdminForm';
 import SuperAdminForm from './SuperAdminForm';
 
 const SuperAdmin = () => {
+  let [change, setSwitch] = useState(false);
+
   const [list, setList] = useState([]);
   useEffect(async () => {
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins`);
       const data = await response.json();
-      // save(data);
       setList(data.data);
     } catch (error) {
       console.error(error);
@@ -24,22 +24,35 @@ const SuperAdmin = () => {
       });
       console.log(response);
       setList(list.filter((listItem) => listItem._id !== _id));
-      alert('Se eliminooooo');
+      alert('The Super Admin have been delete successfully');
     } catch (error) {
       console.error(error);
     }
   };
 
-  let [id, setId] = useState('');
+  const switcher = () => {
+    setSwitch(change ? (change = false) : (change = true));
+  };
 
-  return (
-    <section className={styles.container}>
-      <h2>Super Admin</h2>
-      <div>
-        <SuperAdminForm id={id} />
-        <List list={list} setList={setList} deleteItem={deleteItem} setId={setId} />
-      </div>
-    </section>
-  );
+  if (change) {
+    return (
+      <section className={styles.container}>
+        <h2>Super Admin</h2>
+        <button onClick={switcher}>Back</button>
+        <SuperAdminForm switcher={switcher} />
+      </section>
+    );
+  } else {
+    return (
+      <section className={styles.container}>
+        <h2>Super Admin</h2>
+        {/* <button onClick={() => editSuperAdmin(list._id)}>Edit</button> */}
+        <List list={list} setList={setList} deleteItem={deleteItem} />
+        <button className={styles.addButton} onClick={switcher}>
+          Add new Super Admin
+        </button>
+      </section>
+    );
+  }
 };
 export default SuperAdmin;
