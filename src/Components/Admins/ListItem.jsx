@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './listItem.module.css';
 
 const ListItem = ({ listItem, deleteItem }) => {
   const handleDelete = (_id) => {
@@ -6,20 +7,20 @@ const ListItem = ({ listItem, deleteItem }) => {
   };
 
   const test = listItem.map((item) => {
-    console.log('item', item);
-
     return (
-      <tr key={item._id}>
+      <tr key={item._id} className={styles.tableRow}>
         <td>{item.name}</td>
         <td>{item.lastName}</td>
         <td>{item.email}</td>
         <td>{item.password}</td>
         <td>{JSON.stringify(item.active)}</td>
         <td>
-          <button>Edit</button>
+          <button className={styles.editButton}>Edit</button>
         </td>
         <td>
-          <button onClick={() => handleDelete(item._id)}> X </button>
+          <button onClick={() => handleDelete(item._id)} className={styles.deleteButton}>
+            X
+          </button>
         </td>
       </tr>
     );
