@@ -4,14 +4,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .h2 {
   font-size: 25px;
 }
 
-.button {
+.addBtn {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -23,6 +23,52 @@
   border-radius: 5px;
   text-decoration: none;
   color: #505168;
+}
+
+.listContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(55, 56, 103, 0.2);
+  border-radius: 5px;
+}
+
+.tableHead {
+  width: 600px;
+  background: rgba(55, 56, 103, 0.1);
+  box-shadow: inset 0px -1.2301px 0px #E0E0E0;
+}
+
+.tableRow {
+  width: 600px;
+  background: #FFFFFF;
+  box-shadow: inset 0px -1.2301px 0px #E0E0E0;
+}
+
+.tableRow td {
+  text-align: center;
+}
+
+.editBtn {
+  display: inline-block;
+  padding: 5px 10px;
+background: #AACE9B;
+border-radius: 5px;
+border: 1px solid #AACE9B;
+  color: #ffffff;
+font-size: 12px;
+  cursor: pointer;
+}
+
+.deleteBtn {
+  display: inline-block;
+  padding: 5px 10px;
+background: none;
+border: 0;
+font-size: 12px;
+  cursor: pointer;
 }
 
 .form {

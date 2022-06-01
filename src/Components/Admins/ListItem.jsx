@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import EditAdmin from './AddItem/Edit';
-import styles from './listItem.module.css';
+import EditAdmin from './AdminForm/Edit';
+import styles from './admins.module.css';
 
 const ListItem = ({ listItem, deleteItem }) => {
   const [openModal, setModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
-
-  const handleDelete = (_id) => {
-    deleteItem(_id);
-  };
 
   const handleEdit = (item) => {
     setSelectedItem(item);
@@ -25,12 +21,12 @@ const ListItem = ({ listItem, deleteItem }) => {
           <td>{item.password}</td>
           <td>{JSON.stringify(item.active)}</td>
           <td>
-            <button onClick={() => handleEdit(item)} className={styles.editButton}>
+            <button onClick={() => handleEdit(item)} className={styles.editBtn}>
               Edit
             </button>
           </td>
           <td>
-            <button onClick={() => handleDelete(item._id)} className={styles.deleteButton}>
+            <button onClick={() => deleteItem(item._id)} className={styles.deleteBtn}>
               X
             </button>
           </td>

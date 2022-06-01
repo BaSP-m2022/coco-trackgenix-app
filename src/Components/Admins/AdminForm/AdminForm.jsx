@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import styles from './addItem.module.css';
+import styles from '../admins.module.css';
 
-const AddItem = ({ addItem }) => {
+const AdminForm = ({ addItem }) => {
   const [adminInput, setAdminInput] = useState({
     name: '',
     lastName: '',
@@ -11,7 +11,6 @@ const AddItem = ({ addItem }) => {
   });
 
   const onChange = (e) => {
-    // console.log('evento', e);
     setAdminInput({ ...adminInput, [e.target.name]: e.target.value });
   };
 
@@ -56,11 +55,11 @@ const AddItem = ({ addItem }) => {
           Add
         </button>
       </form>
-      <a href="/admins" className={styles.button}>
+      <a href="/admins" className={styles.addBtn}>
         Back
       </a>
     </div>
   );
 };
 
-export default AddItem;
+export default AdminForm;
