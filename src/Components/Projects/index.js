@@ -24,7 +24,7 @@ const Projects = () => {
         method: 'DELETE'
       });
       console.log(response);
-      alert('Project deleted.');
+      alert(`Project with ID: ${_id} deleted.`);
     } catch (error) {
       console.error(error);
     }
@@ -36,6 +36,7 @@ const Projects = () => {
       <h2>Projects</h2>
       <div>
         <List list={list} deleteItem={deleteItem} setList={setList} />
+        <a href="/projects/add">Add New Project</a>
       </div>
     </section>
   );
