@@ -32,7 +32,7 @@ const Admins = () => {
     <section className={styles.container}>
       <h2 className={styles.h2}>Admins</h2>
       <div>
-        <a href="/admins/add" className={styles.button}>
+        <a href="/admins/add" className={styles.addBtn}>
           + Add an admin
         </a>
         <List list={list} setList={setList} deleteItem={deleteItem} />
