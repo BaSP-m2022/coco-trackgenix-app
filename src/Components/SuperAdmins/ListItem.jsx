@@ -1,10 +1,12 @@
 import React from 'react';
 
-const ListItem = ({ listItem, deleteItem, setId }) => {
+const ListItem = ({ listItem, deleteItem }) => {
+  const editSuperAdmin = (_id) => {
+    window.location = `/super-admins/Form?=${_id}`;
+  };
   const handleDelete = (_id) => {
     deleteItem(_id);
   };
-  //   let url = 'http://localhost:4000/super-admins/Form/';
   const test = listItem.map((item) => {
     return (
       <tr key={item.id}>
@@ -14,9 +16,7 @@ const ListItem = ({ listItem, deleteItem, setId }) => {
         <td>{item.password}</td>
         <td>{item.active.toString()}</td>
         <td>
-          {/* <a href={url + item._id}> */}
-          <button onClick={() => setId(item._id)}>Edit</button>
-          {/* </a> */}
+          <button onClick={() => editSuperAdmin(item._id)}>Edit</button>
         </td>
         <td>
           <button onClick={() => handleDelete(item._id)}>X</button>
