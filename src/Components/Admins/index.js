@@ -3,6 +3,7 @@ import styles from './admins.module.css';
 import List from './List';
 
 const Admins = () => {
+  let [showAddAdmin, setShowAddAdmin] = useState(false);
   const [list, setList] = useState([]);
 
   useEffect(async () => {
@@ -28,14 +29,30 @@ const Admins = () => {
     setList(list.filter((listItem) => listItem._id !== _id));
   };
 
-  return (
-    <section className={styles.container}>
-      <h2>Admins</h2>
-      <div>
-        <List list={list} setList={setList} deleteItem={deleteItem} />
-      </div>
-    </section>
-  );
+  const switcher = () => {
+    setShowAddAdmin(showAddAdmin ? (showAddAdmin = false) : (showAddAdmin = true));
+  };
+
+  if (showAddAdmin) {
+    return (
+      <section className={styles.container}>
+        <h2>Admins</h2>
+        <button onClick={switcher}>Back</button>
+      </section>
+    );
+  } else {
+    return (
+      <section className={styles.container}>
+        <h2>Admins</h2>
+        <div>
+          <button className={styles.addButton} onClick={switcher}>
+            Add new
+          </button>
+          <List list={list} setList={setList} deleteItem={deleteItem} />
+        </div>
+      </section>
+    );
+  }
 };
 
 export default Admins;
