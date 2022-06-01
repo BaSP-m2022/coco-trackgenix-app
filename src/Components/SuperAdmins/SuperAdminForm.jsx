@@ -30,6 +30,7 @@ const AddSuperAdmin = () => {
       .then((response) => response.json())
       // eslint-disable-next-line no-console
       .then((data) => console.log('data:', data));
+    alert('The Super Admin have been created successfully');
   };
   return (
     <div className={styles.container}>
