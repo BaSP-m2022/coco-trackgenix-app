@@ -35,9 +35,13 @@
 
 import React from 'react';
 
-const ListItem = ({ listItem, deleteItem }) => {
+const ListItem = ({ listItem, deleteItem, editMode, updateItem }) => {
   const handleDelete = (_id) => {
     deleteItem(_id);
+  };
+  const handleUpdate = (_id) => {
+    updateItem(_id);
+    editMode();
   };
   const timeSheetList = listItem.map((item) => {
     return (
@@ -51,7 +55,7 @@ const ListItem = ({ listItem, deleteItem }) => {
           <button onClick={() => handleDelete(item._id)}>X</button>
         </td>
         <td>
-          <button>Edit</button>
+          <button onClick={() => handleUpdate(item._id)}>Edit</button>
         </td>
       </tr>
     );

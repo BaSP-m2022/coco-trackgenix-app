@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Form = () => {
+const Form = ({ edit, itemToUpdate }) => {
   const [addItem, setItem] = useState({
     tasks: [],
     employeeId: '',
@@ -28,14 +28,26 @@ const Form = () => {
   };
   const create = (e) => {
     e.preventDefault();
-    try {
-      fetch(`https://coco-trackgenix-server.vercel.app/timesheets`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(addItem)
-      });
-    } catch (error) {
-      console.log(error);
+    if (edit) {
+      try {
+        fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${itemToUpdate[0]._id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(addItem)
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        fetch(`https://coco-trackgenix-server.vercel.app/timesheets`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(addItem)
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -69,7 +81,13 @@ const Form = () => {
           <label>Employee</label>
           <select onChange={onChange} name="employeeId">
             {employeesItem.map((item) => (
-              <option key={item.id} value={item._id}>
+              <option
+                key={item.id}
+                value={item._id}
+                selected={
+                  item.firstName === itemToUpdate[0].employeeId.firstName && edit ? true : false
+                }
+              >
                 {item.firstName}
               </option>
             ))}
@@ -79,7 +97,11 @@ const Form = () => {
           <label>Project</label>
           <select onChange={onChange} name="projectId">
             {projectsItem.map((item) => (
-              <option key={item.id} value={item._id}>
+              <option
+                key={item.id}
+                value={item._id}
+                selected={item.name === itemToUpdate[0].projectId.name && edit ? true : false}
+              >
                 {item.name}
               </option>
             ))}
@@ -89,7 +111,13 @@ const Form = () => {
           <label>Tasks</label>
           <select onChange={onChangeTasks} name="tasks">
             {tasksItem.map((item) => (
-              <option key={item.id} value={item._id}>
+              <option
+                key={item.id}
+                value={item._id}
+                selected={
+                  item.description === itemToUpdate[0].tasks[0].description && edit ? true : false
+                }
+              >
                 {item.description}
               </option>
             ))}
@@ -97,11 +125,21 @@ const Form = () => {
         </div>
         <div>
           <label>Start Date</label>
-          <input type="date" name="startDate" value={addItem.startDate} onChange={onChange} />
+          <input
+            type="date"
+            name="startDate"
+            value={edit ? itemToUpdate[0].startDate : addItem.startDate}
+            onChange={onChange}
+          />
         </div>
         <div>
           <label>End Date</label>
-          <input type="date" name="endDate" value={addItem.endDate} onChange={onChange} />
+          <input
+            type="date"
+            name="endDate"
+            value={edit ? itemToUpdate[0].endDate : addItem.endDate}
+            onChange={onChange}
+          />
         </div>
         <input type="submit" value="submit" />
       </form>

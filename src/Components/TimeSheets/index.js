@@ -5,7 +5,10 @@ import Form from './Form';
 
 function TimeSheets() {
   let [change, setSwitch] = useState(false);
+  let [edit, setEdit] = useState(false);
   const [list, setList] = useState([]);
+  const [itemToUpdate, setItemToUpdate] = useState();
+
   useEffect(() => {
     fetch(`https://coco-trackgenix-server.vercel.app/timesheets`)
       .then((res) => res.json())
@@ -29,7 +32,21 @@ function TimeSheets() {
     }
   };
 
+  const updateItem = (id) => {
+    console.log('list', list);
+    console.log('id', id);
+    setItemToUpdate(list.filter((timeSheet) => timeSheet._id === id));
+  };
+
   const switcher = () => {
+    setSwitch(change ? (change = false) : (change = true));
+    if (edit) {
+      setEdit(edit ? (edit = false) : (edit = true));
+    }
+  };
+
+  const editMode = () => {
+    setEdit(edit ? (edit = false) : (edit = true));
     setSwitch(change ? (change = false) : (change = true));
   };
 
@@ -49,7 +66,7 @@ function TimeSheets() {
       <section className={styles.container}>
         <h2>TimeSheets</h2>
         <button onClick={switcher}>back</button>
-        <Form switcher={switcher} />
+        <Form edit={edit} itemToUpdate={itemToUpdate} />
       </section>
     );
   } else {
@@ -59,7 +76,13 @@ function TimeSheets() {
         <button className={styles.addButton} onClick={switcher}>
           Add new
         </button>
-        <TableList list={list} setList={setList} deleteItem={deleteItem} />
+        <TableList
+          list={list}
+          setList={setList}
+          deleteItem={deleteItem}
+          editMode={editMode}
+          updateItem={updateItem}
+        />
       </section>
     );
   }
