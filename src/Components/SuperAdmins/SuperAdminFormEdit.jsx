@@ -16,10 +16,11 @@ const EditSuperAdmin = () => {
     event.preventDefault();
 
     const params = window.location.search;
-    let id = params.substring(15);
+    // let id = params.get(id);
+    let id = params.substring(2);
 
-    const url = `https://coco-trackgenix-server.vercel.app/Superadmins/${id}`;
-
+    const url = `https://coco-trackgenix-server.vercel.app/superAdmins/${id}`;
+    console.log(id);
     const EditSAdmin = {
       method: 'PUT',
       headers: {
@@ -37,6 +38,7 @@ const EditSuperAdmin = () => {
       .then((response) => response.json())
       // eslint-disable-next-line no-console
       .then((data) => console.log('data:', data));
+    alert('The Super Admin have been edit successfully');
   };
   return (
     <div className={styles.container}>
