@@ -59,7 +59,6 @@ const Admins = () => {
     return (
       <section className={styles.container}>
         <h2>Admins</h2>
-        <button onClick={switcher}>Back</button>
         <AddItem addItem={addItem} switcher={switcher} />
       </section>
     );
@@ -68,10 +67,8 @@ const Admins = () => {
       <section className={styles.container}>
         <h2>Admins</h2>
         <div>
-          <button className={styles.addButton} onClick={switcher}>
-            Add new
-          </button>
           <List list={list} setList={setList} deleteItem={deleteItem} />
+          <a href="/admins/add">Add New Admin</a>
         </div>
       </section>
     );

@@ -56,6 +56,7 @@ const AddItem = ({ addItem }) => {
           Add
         </button>
       </form>
+      <a href="/admins">Back</a>
     </div>
   );
 };

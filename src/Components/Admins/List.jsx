@@ -15,9 +15,7 @@ const List = ({ list, deleteItem }) => {
             <th>Active</th>
           </tr>
         </thead>
-        <tbody>
-          <ListItem listItem={list} deleteItem={deleteItem} />
-        </tbody>
+        <ListItem listItem={list} deleteItem={deleteItem} />
       </table>
     </div>
   );
