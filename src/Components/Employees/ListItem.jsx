@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import FormEmployeeEdit from './FormEmployee/FormEmployeeEdit';
 
 const ListItem = ({ listItem, deleteItem }) => {
+  const [openModal, setModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({});
+  const handleEdit = (item) => {
+    setSelectedItem(item);
+    setModal(true);
+  };
+
   const test = listItem.map((item) => {
     return (
       <tr key={item._id}>
@@ -11,7 +19,7 @@ const ListItem = ({ listItem, deleteItem }) => {
         <td>{item.password}</td>
         <td>{item.active.toString()}</td>
         <td>
-          <button>Edit</button>
+          <button onClick={() => handleEdit(item)}>Edit</button>
         </td>
         <td>
           <button
@@ -28,7 +36,11 @@ const ListItem = ({ listItem, deleteItem }) => {
       </tr>
     );
   });
-  return <>{test}</>;
+  return (
+    <>
+      {test}
+      {openModal && <FormEmployeeEdit item={selectedItem} />}
+    </>
+  );
 };
-
 export default ListItem;

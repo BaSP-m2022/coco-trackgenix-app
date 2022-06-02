@@ -22,7 +22,7 @@ function Layout() {
     case '/employees':
       currentScreen = <Employees />;
       break;
-    case '/employees/Form':
+    case '/employees/form':
       currentScreen = <FormEmployee />;
       break;
     case '/projects':
