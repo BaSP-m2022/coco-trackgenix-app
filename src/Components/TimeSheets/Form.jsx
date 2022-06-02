@@ -18,34 +18,43 @@ const Form = ({
   const [employeesItem, setEmployeesItem] = useState([]);
   const [projectsItem, setProjectsItem] = useState([]);
   const [tasksItem, setTasksItem] = useState([]);
+  const [timeSheetToEdit, setTimeSheetToEdit] = useState({});
 
-  const emptyItem = {
-    tasks: [],
-    employeeId: '',
-    projectId: '',
-    startDate: '',
-    endDate: ''
-  };
-
-  const checkEmptyFields = (e) => {
-    if (addItem.employeeId === '') {
-      console.log('employee entro');
-      console.log(e.target[0].name);
-      console.log(e.target);
-      const name = e.target[0].name;
+  useEffect(() => {
+    if (edit) {
+      setTimeSheetToEdit({
+        tasks: itemToUpdate[0].tasks.filter((task) => task.length > 0),
+        employeeId: itemToUpdate[0].employeeId._id,
+        projectId: itemToUpdate[0].projectId._id,
+        startDate: itemToUpdate[0].startDate.substring(0, 10),
+        endDate: itemToUpdate[0].endDate.substring(0, 10)
+      });
       setItem({
         ...addItem,
-        [name]: e.target[0].value
+        tasks: itemToUpdate[0].tasks.filter((task) => task.length > 0),
+        employeeId: itemToUpdate[0].employeeId._id,
+        projectId: itemToUpdate[0].projectId._id,
+        startDate: itemToUpdate[0].startDate.substring(0, 10),
+        endDate: itemToUpdate[0].endDate.substring(0, 10)
       });
     }
-    if (addItem.projectId === '') setItem({ ...addItem, ['projectId']: e.target[1].value });
-    if (addItem.tasks === []) setItem({ ...addItem, ['tasks']: [e.target[2].value] });
-    if (addItem.startDate === '') setItem({ ...addItem, ['startDate']: e.target[3].value });
-    if (addItem.endDate === '') setItem({ ...addItem, ['endDate']: e.target[4].value });
-  };
-
-  console.log('itemtoupdate', itemToUpdate);
-  console.log('employeesitem', employeesItem);
+  }, []);
+  //   const checkEmptyFields = (e) => {
+  //     if (addItem.employeeId === '') {
+  //       console.log('employee entro');
+  //       console.log(e.target[0].name);
+  //       console.log(e.target);
+  //       const name = e.target[0].name;
+  //       setItem({
+  //         ...addItem,
+  //         [name]: e.target[0].value
+  //       });
+  //     }
+  //     if (addItem.projectId === '') setItem({ ...addItem, ['projectId']: e.target[1].value });
+  //     if (addItem.tasks === []) setItem({ ...addItem, ['tasks']: [e.target[2].value] });
+  //     if (addItem.startDate === '') setItem({ ...addItem, ['startDate']: e.target[3].value });
+  //     if (addItem.endDate === '') setItem({ ...addItem, ['endDate']: e.target[4].value });
+  //   };
 
   const onChange = (e) => {
     console.log('additem', addItem);
@@ -72,13 +81,11 @@ const Form = ({
   };
   const create = (e) => {
     e.preventDefault();
-    console.log('event', e);
-    console.log('value', e.target[0].value);
-    console.log('additem', addItem);
+    console.log('addItme', addItem);
+    console.log('timesheettoedit', timeSheetToEdit);
     if (edit) {
-      if (JSON.stringify(addItem) === JSON.stringify(emptyItem)) {
+      if (JSON.stringify(addItem) === JSON.stringify(timeSheetToEdit)) {
         alert('The data for this time sheet has not been modified');
-        checkEmptyFields(e);
       } else {
         try {
           fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${itemToUpdate[0]._id}`, {
@@ -125,13 +132,11 @@ const Form = ({
     fetch(`https://coco-trackgenix-server.vercel.app/projects`)
       .then((res) => res.json())
       .then((json) => {
-        console.log('projects', json.data);
         setProjectsItem(json.data);
       });
     fetch(`https://coco-trackgenix-server.vercel.app/tasks`)
       .then((res) => res.json())
       .then((json) => {
-        console.log('tasks', json.data);
         setTasksItem(json.data);
       });
   }, []);
