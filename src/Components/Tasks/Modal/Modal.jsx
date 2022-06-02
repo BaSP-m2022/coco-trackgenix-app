@@ -1,52 +1,45 @@
 import React, { useState } from 'react';
 
-const NewFormItem = (props) => {
-  const [newItem, setNewItem] = useState({
-    description: props.description,
-    workedHours: props.workedHours
-  });
-
-  const handleChange = (event) => {
-    setNewItem({
-      ...newItem,
-      [event.target.name]: event.target.value
-    });
-  };
-
+const Modal = ({ updItem }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`https://coco-trackgenix-server.vercel.app/tasks`, {
-      method: 'POST',
+    fetch(`https://coco-trackgenix-server.vercel.app/tasks/${updItem[0]._id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        description: newItem.description,
-        workedHours: newItem.workedHours
+        description: description,
+        workedHours: workedHours
       })
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.error === false) {
-          alert('Task created');
+          alert('Task updated');
         } else {
-          alert('Error');
+          alert(`${data.msg}`);
         }
       })
       .catch((error) => console.log(error));
   };
 
+  const [description, setDescription] = useState(updItem[0].description);
+  const [workedHours, setWorkedHours] = useState(updItem[0].workedHours);
+
   return (
     <div>
-      <h2>New Task</h2>
+      <h2>Edit Task</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Task description</label>
           <input
             type="text"
             name="description"
-            value={newItem.description}
-            onChange={handleChange}
+            value={description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
           ></input>
         </div>
         <div>
@@ -54,16 +47,18 @@ const NewFormItem = (props) => {
           <input
             type="number"
             name="workedHours"
-            value={newItem.workedHours}
-            onChange={handleChange}
+            value={workedHours}
+            onChange={(e) => {
+              setWorkedHours(e.target.value);
+            }}
           />
         </div>
         <div>
-          <button type="submit">Create</button>
+          <button type="submit">Edit</button>
         </div>
       </form>
     </div>
   );
 };
 
-export default NewFormItem;
+export default Modal;

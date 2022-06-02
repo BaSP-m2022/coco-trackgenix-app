@@ -1,26 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
+import EditTaskItem from '../Modal/Modal';
 
-const ListItem = ({ listItem, deleteItem, updateItem }) => {
+const ContentList = ({ listItem, deleteItem }) => {
   if (listItem.length === 0 || listItem === 'undefined') {
     return 'There are not tasks';
   }
-  const currentBody = listItem.map((props) => {
+
+  const [updItem, setUpdItem] = useState([]);
+
+  const [openModal, setModal] = useState(false);
+
+  const updateItem = (id) => {
+    setUpdItem([...listItem.filter((item) => item._id === id)]);
+    setModal(true);
+  };
+  const taskBody = listItem.map((task) => {
     const handleDelete = () => {
-      deleteItem(props._id);
+      deleteItem(task._id);
     };
 
-    const handleUpdate = () => {
-      updateItem(props._id);
-      return (props.description = 'Juanito');
+    const handleUpdate = (task) => {
+      updateItem(task._id);
+      return task;
     };
 
     return (
-      <tr key={props.id}>
-        <td>{props.description}</td>
-        <td>{props.workedHours.toString()}</td>
-        <td>{props.date}</td>
+      <tr key={task.id}>
+        <td>{task.description}</td>
+        <td>{task.workedHours.toString()}</td>
+        <td>{task.date}</td>
         <td>
-          <button onClick={handleUpdate}>Edit</button>
+          <button onClick={() => handleUpdate(task)}>Edit</button>
         </td>
         <td>
           <button onClick={handleDelete}>Delete</button>
@@ -28,7 +38,12 @@ const ListItem = ({ listItem, deleteItem, updateItem }) => {
       </tr>
     );
   });
-  return <>{currentBody}</>;
+  return (
+    <>
+      {taskBody}
+      {openModal && <EditTaskItem updItem={updItem} />}
+    </>
+  );
 };
 
-export default ListItem;
+export default ContentList;

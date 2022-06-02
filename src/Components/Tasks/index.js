@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styles from './tasks.module.css';
 import List from './List/List';
-import NewItem from './FormList/FormList';
+import NewFormItem from './FormList/FormList';
 
 const Tasks = () => {
-  const [list, setList] = useState([]);
-
   const [show, setShow] = useState(false);
+
   const showList = () => {
     setShow(() => !show);
   };
+  const [list, setList] = useState([]);
 
   useEffect(async () => {
     try {
@@ -21,16 +21,17 @@ const Tasks = () => {
     }
   }, [show]);
 
-  const deleteItem = (id) => {
-    setList([...list.filter((list) => list._id !== id)]);
-    return fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`, {
-      method: 'DELETE'
-    });
-  };
-
-  const [updItem, setUpdItem] = useState([]);
-  const updateItem = (id) => {
-    setUpdItem([...updItem.filter((item) => item._id === id)]);
+  const deleteItem = (_id) => {
+    try {
+      const response = fetch(`https://coco-trackgenix-server.vercel.app/tasks/${_id}`, {
+        method: 'DELETE'
+      });
+      console.log(response);
+      alert('Task deleted');
+    } catch (error) {
+      console.error(error);
+    }
+    setList(list.filter((listItem) => listItem._id !== _id));
   };
 
   return (
@@ -42,12 +43,13 @@ const Tasks = () => {
         <List
           key={list.id}
           list={list}
-          deleteItem={deleteItem}
           setList={setList}
-          updateItem={updateItem}
+          deleteItem={deleteItem}
+          // updateItem={updateItem}
+          // updItem={updItem}
         />
       ) : (
-        <NewItem desciption={''} workedHours={''} />
+        <NewFormItem />
       )}
     </section>
   );
