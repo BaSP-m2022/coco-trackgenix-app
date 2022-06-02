@@ -11,7 +11,6 @@ const Projects = () => {
       const data = await response.json();
       console.log(data.data);
       setList(data.data);
-      console.log(setList);
     } catch (error) {
       console.log(error);
     }
@@ -33,8 +32,8 @@ const Projects = () => {
 
   return (
     <section className={styles.container}>
-      <h2>Projects</h2>
       <div>
+        <h2>Projects</h2>
         <List list={list} deleteItem={deleteItem} setList={setList} />
         <a href="/projects/add">Add New Project</a>
       </div>
