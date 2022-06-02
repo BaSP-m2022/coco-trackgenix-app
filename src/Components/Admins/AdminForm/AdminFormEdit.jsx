@@ -8,31 +8,26 @@ const EditAdmin = ({ item }) => {
   const [password, setPassword] = useState(item.password);
   const [active, setActive] = useState(item.active);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetch(`https://coco-trackgenix-server.vercel.app/admins/${item._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      // mode: 'no-cors',
-      body: JSON.stringify({
-        name: name,
-        lastName: lastName,
-        email: email,
-        password: password,
-        active: active
-      })
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        alert('Admin updated succesfully');
-      })
-      .catch((error) => {
-        console.log(error);
-        alert('There was a problem');
+  const handleSubmit = () => {
+    try {
+      fetch(`https://coco-trackgenix-server.vercel.app/admins/${item._id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          lastName: lastName,
+          email: email,
+          password: password,
+          active: active
+        })
       });
+      alert('Admin updated succesfully');
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div className={styles.container}>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import EditAdmin from './AdminForm/Edit';
+import EditAdmin from './AdminForm/AdminFormEdit';
 import styles from './admins.module.css';
 
 const ListItem = ({ listItem, deleteItem }) => {
