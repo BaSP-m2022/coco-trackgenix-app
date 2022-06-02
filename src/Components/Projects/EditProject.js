@@ -5,6 +5,7 @@ const EditProject = ({ item }) => {
   const [name, setName] = useState(item.name);
   const [description, setDescription] = useState(item.description);
   const [startDate, setStartDate] = useState(item.startDate);
+  const [endDate, setEndDate] = useState(item.endDate);
   const [clientName, setClientName] = useState(item.clientName);
   const [active, setActive] = useState(item.active);
   const [employees, setEmployees] = useState(item.employees);
@@ -40,6 +41,7 @@ const EditProject = ({ item }) => {
         name: name,
         description: description,
         startDate: changeDate(startDate),
+        endDate: changeDate(endDate),
         clientName: clientName,
         active: Boolean.valueOf(active),
         employees: addMembers(employees),
@@ -99,6 +101,19 @@ const EditProject = ({ item }) => {
           <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
         </div>
         <div>
+          <label htmlFor="endDate">End Date</label>
+          <input
+            type="date"
+            name="endDate"
+            placeholder="DD/MM/YYYY"
+            onChange={(e) => {
+              setEndDate(e.target.value);
+            }}
+            value={endDate}
+          ></input>
+          <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
+        </div>
+        <div>
           <label htmlFor="clientName">Client Name</label>
           <input
             type="text"
@@ -116,7 +131,7 @@ const EditProject = ({ item }) => {
           <input
             type="text"
             name="active"
-            placeholder="For what client?"
+            placeholder="Set if is 'true' or 'false'"
             onChange={(e) => {
               setActive(e.target.value);
             }}
