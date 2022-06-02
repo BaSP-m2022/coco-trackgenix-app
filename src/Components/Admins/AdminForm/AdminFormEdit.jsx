@@ -64,13 +64,15 @@ const EditAdmin = ({ item }) => {
           </div>
         </div>
         <div>
-          <label htmlFor="active">Active</label>
-          <input type="text" name="active" value={adminInput.active} onChange={onChange}></input>
-        </div>
-        <div>
-          <button type="submit" className={styles.confirmBtn}>
-            Confirm
-          </button>
+          <div className={styles.active}>
+            <label htmlFor="active">Active</label>
+            <input type="text" name="active" value={adminInput.active} onChange={onChange}></input>
+          </div>
+          <div>
+            <button type="submit" className={styles.confirmBtn}>
+              Confirm
+            </button>
+          </div>
         </div>
       </form>
       <a href="/admins" className={styles.addBtn}>
