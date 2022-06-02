@@ -31,43 +31,51 @@ const EditAdmin = ({ item }) => {
   };
   return (
     <div className={styles.container}>
-      <h2>Edit Admin</h2>
-      <form onSubmit={handleSubmit}>
+      <h2 className={styles.h2}>Edit Admin</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <div>
-          <label htmlFor="name">Name</label>
-          <input type="text" name="name" value={adminInput.name} onChange={onChange}></input>
+          <div>
+            <label htmlFor="name">Name</label>
+            <input type="text" name="name" value={adminInput.name} onChange={onChange}></input>
+          </div>
+          <div>
+            <label htmlFor="lastName">Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              value={adminInput.lastName}
+              onChange={onChange}
+            ></input>
+          </div>
         </div>
         <div>
-          <label htmlFor="lastName">Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            value={adminInput.lastName}
-            onChange={onChange}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email" value={adminInput.email} onChange={onChange}></input>
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={adminInput.password}
-            onChange={onChange}
-          ></input>
+          <div>
+            <label htmlFor="email">Email</label>
+            <input type="email" name="email" value={adminInput.email} onChange={onChange}></input>
+          </div>
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={adminInput.password}
+              onChange={onChange}
+            ></input>
+          </div>
         </div>
         <div>
           <label htmlFor="active">Active</label>
           <input type="text" name="active" value={adminInput.active} onChange={onChange}></input>
         </div>
         <div>
-          <button type="submit">Confirm</button>
+          <button type="submit" className={styles.confirmBtn}>
+            Confirm
+          </button>
         </div>
-        <a href="/admins">Cancel</a>
       </form>
+      <a href="/admins" className={styles.addBtn}>
+        Cancel
+      </a>
     </div>
   );
 };

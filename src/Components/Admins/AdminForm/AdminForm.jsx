@@ -66,13 +66,15 @@ const AdminForm = () => {
             <input type="text" name="password" value={adminInput.password} onChange={onChange} />
           </div>
         </div>
-        <div className={styles.active}>
-          <label>Active</label>
-          <input type="text" name="active" value={adminInput.active} onChange={onChange} />
+        <div>
+          <div className={styles.active}>
+            <label>Active</label>
+            <input type="text" name="active" value={adminInput.active} onChange={onChange} />
+          </div>
+          <button type="submit" className={styles.confirmBtn}>
+            Confirm
+          </button>
         </div>
-        <button type="submit" className={styles.confirmBtn}>
-          Confirm
-        </button>
       </form>
       <a href="/admins" className={styles.addBtn}>
         Back
