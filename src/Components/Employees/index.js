@@ -1,7 +1,7 @@
 import styles from './employees.module.css';
 import React, { useEffect, useState } from 'react';
 import List from './List';
-/*import FormEmployee from './FormEmployee/index.js';*/
+//* import FormEmployee from './FormEmployee/FormEmployee';
 
 const Employees = () => {
   const [list, setList] = useState([]);
@@ -15,9 +15,9 @@ const Employees = () => {
     }
   }, []);
 
-  const deleteItem = (_id) => {
+  const deleteItem = async (_id) => {
     try {
-      const response = fetch(`https://coco-trackgenix-server.vercel.app/Employees/${_id}`, {
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/Employees/${_id}`, {
         method: 'DELETE'
       });
       console.log(response);
@@ -56,9 +56,7 @@ const Employees = () => {
         <List list={list} deleteItem={deleteItem} setList={setList} />
       </div>
       <div>
-        <a href="http://localhost:4000/employees/FormEmployee" key={list._id}>
-          <button>Add Employee</button>
-        </a>
+        <button onClick={() => (window.location = '/employees/Form')}>Add Employee</button>
       </div>
     </section>
   );

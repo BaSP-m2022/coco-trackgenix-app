@@ -1,30 +1,24 @@
 import React from 'react';
 
 const ListItem = ({ listItem, deleteItem }) => {
-  const handleDelete = (_id) => {
-    deleteItem(_id);
-  };
-
   const test = listItem.map((item) => {
-    console.log('item', item);
     return (
-      <tr key={item.id}>
+      <tr key={item._id}>
         <td>{item.firstName}</td>
         <td>{item.lastName}</td>
         <td>{item.phone}</td>
         <td>{item.email}</td>
+        <td>{item.password}</td>
         <td>{item.active.toString()}</td>
         <td>
-          <a href="http://localhost:4000/employees/FormEmployee">
-            <button>Edit</button>
-          </a>
+          <button>Edit</button>
         </td>
         <td>
           <button
             onClick={() => {
               const result = confirm('are you sure you want to delete?');
               if (result) {
-                handleDelete(item._id);
+                deleteItem(item._id);
               }
             }}
           >

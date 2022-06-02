@@ -8,7 +8,7 @@ import Employees from '../Employees/index';
 import Projects from '../Projects';
 import TimeSheets from '../TimeSheets';
 import Tasks from '../Tasks/index';
-import FormEmployee from '../Employees/FormEmployee';
+import FormEmployee from '../Employees/FormEmployee/FormEmployee';
 
 function Layout() {
   let currentScreen = <Home />;
@@ -22,7 +22,7 @@ function Layout() {
     case '/employees':
       currentScreen = <Employees />;
       break;
-    case '/FormEmployee':
+    case '/employees/Form':
       currentScreen = <FormEmployee />;
       break;
     case '/projects':
