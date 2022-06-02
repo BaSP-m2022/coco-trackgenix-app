@@ -17,6 +17,8 @@ const List = ({ list, deleteItem }) => {
             <th>Updated At</th>
             <th>Employees</th>
             <th>Active</th>
+            <th>Edit</th>
+            <th>X</th>
           </tr>
         </thead>
         <ListItem listItem={list} deleteItem={deleteItem} />

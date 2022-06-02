@@ -1,0 +1,21 @@
+.list {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px grey solid;
+    text-align: center;
+}
+
+tr {
+    background-color: rgba(55, 56, 103, 0.1);
+    box-shadow: inset 0px -1px 0px #E0E0E0;
+}
+
+td {
+    background-color: #FFFFFF;
+    margin: 10px;
+    box-shadow: inset 0px -1px 0px #E0E0E0;
+    border: 1px;
+    padding: 6px;
+    gap: 16px;
+
+}
