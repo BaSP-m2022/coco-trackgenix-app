@@ -26,7 +26,15 @@ const ListItem = ({ listItem, deleteItem }) => {
             </button>
           </td>
           <td>
-            <button onClick={() => deleteItem(item._id)} className={styles.deleteBtn}>
+            <button
+              onClick={() => {
+                const result = confirm('Are you sure you want to delete?');
+                if (result) {
+                  deleteItem(item._id);
+                }
+              }}
+              className={styles.deleteBtn}
+            >
               X
             </button>
           </td>
