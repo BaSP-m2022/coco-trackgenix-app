@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './super-admins.module.css';
-// import List from './List';
 
 const EditSuperAdmin = () => {
   const backSuperAdmin = () => {
@@ -11,34 +10,17 @@ const EditSuperAdmin = () => {
     alert('The Super Admin have been edit successfully');
   };
 
-  // const [List, setList] = useState([]);
-  // useEffect(async () => {
-  //   try {
-  //     const response = await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins`);
-  //     const data = await response.json();
-  //     setList(data.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, []);
-
-  // const [FName, setFName] = useState('');
-  // const [Lname, setLName] = useState('');
-  // const [Email, seTemail] = useState('');
-  // const [Password, seTpassword] = useState('');
-  // const [Active, seTactive] = useState();
-
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [active, setActive] = useState();
 
+  const params = window.location.search;
+  let id = params.substring(2);
+
   const onSubmit = (event) => {
     event.preventDefault();
-    const params = window.location.search;
-    // let id = params.get(id);
-    let id = params.substring(2);
 
     const url = `https://coco-trackgenix-server.vercel.app/superAdmins/${id}`;
     console.log(id);
@@ -60,6 +42,19 @@ const EditSuperAdmin = () => {
       // eslint-disable-next-line no-console
       .then((data) => console.log('data:', data));
   };
+
+  useEffect(() => {
+    fetch(`https://coco-trackgenix-server.vercel.app/superAdmins/${id}`)
+      .then((response) => response.json())
+      .then((response) => {
+        setName(response.data.name);
+        setLastName(response.data.lastName);
+        setEmail(response.data.email);
+        setPassword(response.data.password);
+        setActive(response.data.active);
+      });
+  }, []);
+
   return (
     <div className={styles.container}>
       <h2>Form Edit</h2>
@@ -69,6 +64,7 @@ const EditSuperAdmin = () => {
           <input
             type="text"
             name="name"
+            placeholder={name}
             value={name}
             onChange={(event) => setName(event.target.value)}
           ></input>
