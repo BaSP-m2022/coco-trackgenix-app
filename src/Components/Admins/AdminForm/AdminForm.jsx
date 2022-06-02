@@ -43,30 +43,36 @@ const AdminForm = () => {
   };
 
   return (
-    <div className={styles.form}>
-      <div>Add New Admin</div>
-      <form onSubmit={onSubmit}>
+    <div className={styles.container}>
+      <h2 className={styles.h2}>Add New Admin</h2>
+      <form onSubmit={onSubmit} className={styles.form}>
         <div>
-          <label>Name</label>
-          <input type="text" name="name" value={adminInput.name} onChange={onChange} />
+          <div>
+            <label>Name</label>
+            <input type="text" name="name" value={adminInput.name} onChange={onChange} />
+          </div>
+          <div>
+            <label>Last Name</label>
+            <input type="text" name="lastName" value={adminInput.lastName} onChange={onChange} />
+          </div>
         </div>
         <div>
-          <label>lastName</label>
-          <input type="text" name="lastName" value={adminInput.lastName} onChange={onChange} />
+          <div>
+            <label>Email</label>
+            <input type="email" name="email" value={adminInput.email} onChange={onChange} />
+          </div>
+          <div>
+            <label>Password</label>
+            <input type="text" name="password" value={adminInput.password} onChange={onChange} />
+          </div>
         </div>
-        <div>
-          <label>Email</label>
-          <input type="email" name="email" value={adminInput.email} onChange={onChange} />
-        </div>
-        <div>
-          <label>Password</label>
-          <input type="text" name="password" value={adminInput.password} onChange={onChange} />
-        </div>
-        <div>
+        <div className={styles.active}>
           <label>Active</label>
           <input type="text" name="active" value={adminInput.active} onChange={onChange} />
         </div>
-        <button type="submit">Add</button>
+        <button type="submit" className={styles.confirmBtn}>
+          Confirm
+        </button>
       </form>
       <a href="/admins" className={styles.addBtn}>
         Back

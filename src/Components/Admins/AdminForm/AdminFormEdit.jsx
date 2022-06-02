@@ -38,7 +38,7 @@ const EditAdmin = ({ item }) => {
           <input type="text" name="name" value={adminInput.name} onChange={onChange}></input>
         </div>
         <div>
-          <label htmlFor="lastName">LastName</label>
+          <label htmlFor="lastName">Last Name</label>
           <input
             type="text"
             name="lastName"
