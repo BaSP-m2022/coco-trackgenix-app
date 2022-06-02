@@ -13,7 +13,7 @@ const ListItem = ({ listItem, deleteItem }) => {
 
   const items = listItem.map((item) => {
     return (
-      <tbody key={item.id}>
+      <tbody key={item._id}>
         <tr key={item._id} className={styles.tableRow}>
           <td>{item.name}</td>
           <td>{item.lastName}</td>

@@ -2,27 +2,27 @@ import React, { useState } from 'react';
 import styles from '../admins.module.css';
 
 const EditAdmin = ({ item }) => {
-  const [name, setName] = useState(item.name);
-  const [lastName, setLastName] = useState(item.lastName);
-  const [email, setEmail] = useState(item.email);
-  const [password, setPassword] = useState(item.password);
-  const [active, setActive] = useState(item.active);
+  const [adminInput, setAdminInput] = useState({
+    name: item.name,
+    lastName: item.lastName,
+    email: item.email,
+    password: item.password,
+    active: item.active
+  });
 
-  const handleSubmit = () => {
+  const onChange = (e) => {
+    setAdminInput({ ...adminInput, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
     try {
-      fetch(`https://coco-trackgenix-server.vercel.app/admins/${item._id}`, {
+      await fetch(`https://coco-trackgenix-server.vercel.app/admins/${item._id}`, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          name: name,
-          lastName: lastName,
-          email: email,
-          password: password,
-          active: active
-        })
+        body: JSON.stringify(adminInput)
       });
       alert('Admin updated succesfully');
     } catch (error) {
@@ -35,65 +35,36 @@ const EditAdmin = ({ item }) => {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            value={name}
-          ></input>
+          <input type="text" name="name" value={adminInput.name} onChange={onChange}></input>
         </div>
         <div>
           <label htmlFor="lastName">LastName</label>
           <input
             type="text"
-            name="description"
-            placeholder="Set a description"
-            onChange={(e) => {
-              setLastName(e.target.value);
-            }}
-            value={lastName}
+            name="lastName"
+            value={adminInput.lastName}
+            onChange={onChange}
           ></input>
         </div>
         <div>
           <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            value={email}
-          ></input>
+          <input type="email" name="email" value={adminInput.email} onChange={onChange}></input>
         </div>
         <div>
           <label htmlFor="password">Password</label>
           <input
             type="password"
             name="password"
-            placeholder="password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            value={password}
+            value={adminInput.password}
+            onChange={onChange}
           ></input>
         </div>
         <div>
           <label htmlFor="active">Active</label>
-          <input
-            type="text"
-            name="active"
-            placeholder="State"
-            onChange={(e) => {
-              setActive(e.target.value);
-            }}
-            value={active}
-          ></input>
+          <input type="text" name="active" value={adminInput.active} onChange={onChange}></input>
         </div>
         <div>
-          <input type="submit" name="admin-submit" value="EDIT ADMIN"></input>
+          <button type="submit">Confirm</button>
         </div>
         <a href="/admins">Cancel</a>
       </form>

@@ -66,9 +66,7 @@ const AdminForm = () => {
           <label>Active</label>
           <input type="text" name="active" value={adminInput.active} onChange={onChange} />
         </div>
-        <button type="submit" value="submit">
-          Add
-        </button>
+        <button type="submit">Add</button>
       </form>
       <a href="/admins" className={styles.addBtn}>
         Back
