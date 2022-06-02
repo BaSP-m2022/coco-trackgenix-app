@@ -11,7 +11,7 @@ const ListItem = ({ listItem, deleteItem }) => {
     setModal(true);
   };
 
-  const items = listItem.map((item) => {
+  const adminListRows = listItem.map((item) => {
     return (
       <tbody key={item._id}>
         <tr key={item._id} className={styles.tableRow}>
@@ -45,7 +45,7 @@ const ListItem = ({ listItem, deleteItem }) => {
 
   return (
     <>
-      {items}
+      {adminListRows}
       {openModal && <EditAdmin item={selectedItem} />}
     </>
   );
