@@ -38,8 +38,8 @@ const SuperAdmin = () => {
     return (
       <section className={styles.container}>
         <h2>Super Admin</h2>
-        <button onClick={switcher}>Back</button>
         <SuperAdminForm switcher={switcher} />
+        <button onClick={switcher}>Back</button>
       </section>
     );
   } else {

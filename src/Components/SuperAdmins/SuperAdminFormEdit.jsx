@@ -1,10 +1,32 @@
 import React, { useState } from 'react';
 import styles from './super-admins.module.css';
+// import List from './List';
 
 const EditSuperAdmin = () => {
   const backSuperAdmin = () => {
     window.location = `/super-admins`;
   };
+
+  const alertSuccessfully = () => {
+    alert('The Super Admin have been edit successfully');
+  };
+
+  // const [List, setList] = useState([]);
+  // useEffect(async () => {
+  //   try {
+  //     const response = await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins`);
+  //     const data = await response.json();
+  //     setList(data.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, []);
+
+  // const [FName, setFName] = useState('');
+  // const [Lname, setLName] = useState('');
+  // const [Email, seTemail] = useState('');
+  // const [Password, seTpassword] = useState('');
+  // const [Active, seTactive] = useState();
 
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -14,7 +36,6 @@ const EditSuperAdmin = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-
     const params = window.location.search;
     // let id = params.get(id);
     let id = params.substring(2);
@@ -38,7 +59,6 @@ const EditSuperAdmin = () => {
       .then((response) => response.json())
       // eslint-disable-next-line no-console
       .then((data) => console.log('data:', data));
-    alert('The Super Admin have been edit successfully');
   };
   return (
     <div className={styles.container}>
@@ -89,7 +109,9 @@ const EditSuperAdmin = () => {
             onChange={(event) => setActive(event.target.value)}
           ></input>
         </div>
-        <button type="submit">Accept</button>
+        <button type="submit" onClick={() => alertSuccessfully()}>
+          Accept
+        </button>
         <button onClick={() => backSuperAdmin()}>Back</button>
       </form>
     </div>

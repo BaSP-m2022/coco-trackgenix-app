@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import styles from './super-admins.module.css';
 
 const AddSuperAdmin = () => {
+  const alertSuccessfully = () => {
+    alert('The Super Admin have been created successfully');
+  };
+
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -30,7 +34,6 @@ const AddSuperAdmin = () => {
       .then((response) => response.json())
       // eslint-disable-next-line no-console
       .then((data) => console.log('data:', data));
-    alert('The Super Admin have been created successfully');
   };
   return (
     <div className={styles.container}>
@@ -81,7 +84,9 @@ const AddSuperAdmin = () => {
             onChange={(event) => setActive(event.target.value)}
           ></input>
         </div>
-        <button type="submit">Accept</button>
+        <button type="submit" onClick={() => alertSuccessfully()}>
+          Accept
+        </button>
       </form>
     </div>
   );
