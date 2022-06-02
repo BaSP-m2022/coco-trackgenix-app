@@ -8,7 +8,8 @@ function TimeSheets() {
   let [edit, setEdit] = useState(false);
   const [list, setList] = useState([]);
   const [itemToUpdate, setItemToUpdate] = useState();
-  const [editDate, setEditDate] = useState(true);
+  const [editStartDate, setEditStartDate] = useState(true);
+  const [editEndDate, setEditEndDate] = useState(true);
 
   useEffect(() => {
     fetch(`https://coco-trackgenix-server.vercel.app/timesheets`)
@@ -18,6 +19,11 @@ function TimeSheets() {
         setList(json.data);
       });
   }, []);
+
+  useEffect(() => {
+    setEditStartDate(true);
+    setEditEndDate(true);
+  }, [change]);
 
   const deleteItem = (id) => {
     setList([...list.filter((listItem) => listItem._id !== id)]);
@@ -43,12 +49,16 @@ function TimeSheets() {
     setSwitch(change ? (change = false) : (change = true));
     if (edit) {
       setEdit(edit ? (edit = false) : (edit = true));
-      handleEditDate;
+      handleEditStartDate;
     }
   };
 
-  const handleEditDate = (state) => {
-    setEditDate(state);
+  const handleEditStartDate = (state) => {
+    setEditStartDate(state);
+  };
+
+  const handleEditEndDate = (state) => {
+    setEditEndDate(state);
   };
 
   const editMode = () => {
@@ -64,8 +74,10 @@ function TimeSheets() {
         <Form
           edit={edit}
           itemToUpdate={itemToUpdate}
-          editDate={editDate}
-          handleEditDate={handleEditDate}
+          editStartDate={editStartDate}
+          editEndDate={editEndDate}
+          handleEditStartDate={handleEditStartDate}
+          handleEditEndDate={handleEditEndDate}
         />
       </section>
     );
