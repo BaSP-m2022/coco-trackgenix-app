@@ -6,6 +6,7 @@ const AddNew = () => {
     name: '',
     description: '',
     startDate: '',
+    endDate: '',
     clientName: '',
     active: false,
     employees: [],
@@ -97,6 +98,18 @@ const AddNew = () => {
             required="required"
             placeholder="DD/MM/YYYY"
             value={project.startDate}
+            onChange={handleChange}
+          ></input>
+          <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
+        </div>
+        <div>
+          <label htmlFor="endDate">End Date</label>
+          <input
+            type="date"
+            name="endDate"
+            required="required"
+            placeholder="DD/MM/YYYY"
+            value={project.endDate}
             onChange={handleChange}
           ></input>
           <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
