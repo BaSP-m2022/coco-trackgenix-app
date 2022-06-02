@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './admins.module.css';
 
 const ListItem = ({ listItem, deleteItem }) => {
-  const test = listItem.map((item) => {
+  const adminListRows = listItem.map((item) => {
     return (
       <tr key={item._id} className={styles.tableRow}>
         <td>{item.name}</td>
@@ -22,7 +22,7 @@ const ListItem = ({ listItem, deleteItem }) => {
     );
   });
 
-  return <>{test}</>;
+  return <>{adminListRows}</>;
 };
 
 export default ListItem;
