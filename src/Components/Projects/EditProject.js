@@ -5,11 +5,30 @@ const EditProject = ({ item }) => {
   const [name, setName] = useState(item.name);
   const [description, setDescription] = useState(item.description);
   const [startDate, setStartDate] = useState(item.startDate);
-  const [endDate, setEndDate] = useState(item.endDate);
   const [clientName, setClientName] = useState(item.clientName);
-  // const [active, setActive] = useState(item.active);
+  const [active, setActive] = useState(item.active);
   const [employees, setEmployees] = useState(item.employees);
   const [admins, setAdmins] = useState(item.admins);
+
+  const changeDate = (date) => {
+    return date.substring(0, 10);
+  };
+
+  const addMembers = (item) => {
+    let splitted = item.split(',');
+    let membersData = [];
+    if (splitted.length === 0) {
+      membersData = '';
+    } else if (splitted.length === 1) {
+      membersData.push({ name: `${splitted}` });
+    } else {
+      for (let i = 0; i < splitted.length; i++) {
+        membersData.push({ name: `${splitted[i]}` });
+      }
+    }
+    return membersData;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(`https://coco-trackgenix-server.vercel.app/projects/${item._id}`, {
@@ -17,15 +36,13 @@ const EditProject = ({ item }) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      // mode: 'no-cors',
       body: JSON.stringify({
         name: name,
         description: description,
-        startDate: startDate,
-        endDate: endDate,
+        startDate: changeDate(startDate),
         clientName: clientName,
-        active: false,
-        employees: employees,
+        active: Boolean.valueOf(active),
+        employees: addMembers(employees),
         admins: admins
       })
     })
@@ -73,26 +90,13 @@ const EditProject = ({ item }) => {
           <input
             type="date"
             name="startDate"
-            placeholder="MM/DD/YYYY"
+            placeholder="DD/MM/YYYY"
             onChange={(e) => {
               setStartDate(e.target.value);
             }}
             value={startDate}
           ></input>
-          <span>Must have MM/DD/YYYYY format. And be a valid Date.</span>
-        </div>
-        <div>
-          <label htmlFor="endDate">End Date</label>
-          <input
-            type="date"
-            name="endDate"
-            placeholder="MM/DD/YYYY"
-            onChange={(e) => {
-              setEndDate(e.target.value);
-            }}
-            value={endDate}
-          ></input>
-          <span>Must have MM/DD/YYYY format. And be a valid Date.</span>
+          <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
         </div>
         <div>
           <label htmlFor="clientName">Client Name</label>
@@ -109,10 +113,15 @@ const EditProject = ({ item }) => {
         </div>
         <div>
           <label htmlFor="active">Active</label>
-          <select name="active">
-            <option value="true">YES</option>
-            <option value="false">NO</option>
-          </select>
+          <input
+            type="text"
+            name="active"
+            placeholder="For what client?"
+            onChange={(e) => {
+              setActive(e.target.value);
+            }}
+            value={active}
+          ></input>
           <span>Set if the project is active or not.</span>
         </div>
         <div>

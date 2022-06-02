@@ -6,10 +6,9 @@ const AddNew = () => {
     name: '',
     description: '',
     startDate: '',
-    endDate: '',
     clientName: '',
     active: false,
-    employees: '',
+    employees: [],
     admins: ''
   };
 
@@ -23,6 +22,21 @@ const AddNew = () => {
     });
   };
 
+  const addMembers = (item) => {
+    let splitted = item.split(',');
+    let membersData = [];
+    if (splitted.length === 0) {
+      membersData = '';
+    } else if (splitted.length === 1) {
+      membersData.push({ name: `${splitted}` });
+    } else {
+      for (let i = 0; i < splitted.length; i++) {
+        membersData.push({ name: `${splitted[i]}` });
+      }
+    }
+    return membersData;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
@@ -30,7 +44,6 @@ const AddNew = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      // mode: 'no-cors',
       body: JSON.stringify({
         name: project.name,
         description: project.description,
@@ -38,17 +51,13 @@ const AddNew = () => {
         endDate: project.endDate,
         clientName: project.clientName,
         active: project.active,
-        // employees: project.employees,
+        employees: addMembers(project.employees),
         admins: project.admins
       })
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
-      // .then((json) => {
-      //   if (!json.error) {
-      //     console.log('hello mfs');
-      //   }
-      // })
+      .then(() => alert('Project created succesfully.'))
       .catch((error) => console.log(error));
   };
 
@@ -86,22 +95,11 @@ const AddNew = () => {
             type="date"
             name="startDate"
             required="required"
-            placeholder="MM/DD/YYYY"
+            placeholder="DD/MM/YYYY"
             value={project.startDate}
             onChange={handleChange}
           ></input>
-          <span>Must have MM/DD/YYYYY format. And be a valid Date.</span>
-        </div>
-        <div>
-          <label htmlFor="endDate">End Date</label>
-          <input
-            type="date"
-            name="endDate"
-            placeholder="MM/DD/YYYY"
-            value={project.endDate}
-            onChange={handleChange}
-          ></input>
-          <span>Must have MM/DD/YYYY format. And be a valid Date.</span>
+          <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
         </div>
         <div>
           <label htmlFor="clientName">Client Name</label>
@@ -117,12 +115,7 @@ const AddNew = () => {
         </div>
         <div>
           <label htmlFor="active">Active</label>
-          <input
-            type="checkbox"
-            name="active"
-            value={project.active}
-            onChange={handleChange}
-          ></input>
+          <input type="text" name="active" value={project.active} onChange={handleChange}></input>
           <span>Set if the project is active or not.</span>
         </div>
         <div>
@@ -130,6 +123,7 @@ const AddNew = () => {
           <input
             type="text"
             name="employees"
+            required="required"
             placeholder="Assign employees with their IDs"
             value={project.employees}
             onChange={handleChange}
