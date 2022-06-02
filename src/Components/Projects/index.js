@@ -16,7 +16,6 @@ const Projects = () => {
       console.log(error);
     }
   }, []);
-  console.log('Probando', list);
 
   const deleteItem = (_id) => {
     try {

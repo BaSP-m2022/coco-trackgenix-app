@@ -11,6 +11,7 @@ tr {
 }
 
 td {
+    text-align: center;
     background-color: #FFFFFF;
     margin: 10px;
     box-shadow: inset 0px -1px 0px #E0E0E0;

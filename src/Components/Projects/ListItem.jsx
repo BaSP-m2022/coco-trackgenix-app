@@ -5,6 +5,24 @@ const ListItem = ({ listItem, deleteItem }) => {
     deleteItem(_id);
   };
 
+  const changeDate = (date) => {
+    let substrained = date.substring(0, 10);
+    let year = Number(substrained.split('-')[0]);
+    let month = Number(substrained.split('-')[1]);
+    let day = Number(substrained.split('-')[2]);
+
+    if (day < 10) {
+      day = `0${day}`;
+    }
+    if (month < 10) {
+      month = `0${month}`;
+    }
+
+    const changedDate = `${month}-${day}-${year}`;
+
+    return changedDate;
+  };
+
   const test = listItem.map((item) => {
     console.log('item', item);
     return (
@@ -12,10 +30,10 @@ const ListItem = ({ listItem, deleteItem }) => {
         <td>{item.name}</td>
         <td>{item.clientName}</td>
         <td>{item.admins}</td>
-        <td>{item.createdAt}</td>
+        <td>{changeDate(item.createdAt)}</td>
         <td>{item.description}</td>
-        <td>{item.startDate}</td>
-        <td>{item.updatedAt}</td>
+        <td>{changeDate(item.startDate)}</td>
+        <td>{changeDate(item.updatedAt)}</td>
         <td>{item.employees.length}</td>
         <td>{item.active.toString()}</td>
         <td>
