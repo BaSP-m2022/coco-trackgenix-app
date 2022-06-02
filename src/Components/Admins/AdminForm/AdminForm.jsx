@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../admins.module.css';
 
-const AdminForm = ({ addItem }) => {
+const AdminForm = () => {
   const [adminInput, setAdminInput] = useState({
     name: '',
     lastName: '',
@@ -14,8 +14,23 @@ const AdminForm = ({ addItem }) => {
     setAdminInput({ ...adminInput, [e.target.name]: e.target.value });
   };
 
+  const addItem = async (e) => {
+    try {
+      await fetch(`https://coco-trackgenix-server.vercel.app/admins`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(e)
+      });
+      alert('Admin created');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const onSubmit = (e) => {
-    console.log('onSubmit', adminInput);
     e.preventDefault();
     addItem(adminInput);
     setAdminInput({
