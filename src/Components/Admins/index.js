@@ -29,11 +29,11 @@ const Admins = () => {
 
   return (
     <section className={styles.container}>
-      <h2 className={styles.h2}>Admins</h2>
+      <h2 className={styles.title}>Admins</h2>
       <div>
-        <a href="/admins/add" className={styles.addBtn}>
+        <button onClick={() => (window.location = '/admins/add')} className={styles.addBtn}>
           + Add an admin
-        </a>
+        </button>
         <List list={list} setList={setList} deleteItem={deleteItem} />
       </div>
     </section>

@@ -7,7 +7,7 @@
   margin-bottom: 15px;
 }
 
-.h2 {
+.title {
   font-size: 25px;
 }
 
@@ -17,12 +17,13 @@
   align-items: center;
   margin: 15px 0;
   padding: 10px 12px;
-  width: 120px;
-  height: 20px;
+  width: 140px;
+  height: 40px;
   background: #AACE9B;
   border-radius: 5px;
   text-decoration: none;
   color: #505168;
+  cursor: pointer;
 }
 
 .listContainer {

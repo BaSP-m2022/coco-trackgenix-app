@@ -44,7 +44,7 @@ const AdminForm = () => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.h2}>Add New Admin</h2>
+      <h2 className={styles.title}>Add New Admin</h2>
       <form onSubmit={onSubmit} className={styles.form}>
         <div>
           <div>
@@ -76,9 +76,9 @@ const AdminForm = () => {
           </button>
         </div>
       </form>
-      <a href="/admins" className={styles.addBtn}>
+      <button onClick={() => (window.location = '/admins')} className={styles.addBtn}>
         Back
-      </a>
+      </button>
     </div>
   );
 };

@@ -31,7 +31,7 @@ const EditAdmin = ({ item }) => {
   };
   return (
     <div className={styles.container}>
-      <h2 className={styles.h2}>Edit Admin</h2>
+      <h2 className={styles.title}>Edit Admin</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div>
           <div>
@@ -75,9 +75,9 @@ const EditAdmin = ({ item }) => {
           </div>
         </div>
       </form>
-      <a href="/admins" className={styles.addBtn}>
+      <button onClick={() => (window.location = '/admins')} className={styles.addBtn}>
         Cancel
-      </a>
+      </button>
     </div>
   );
 };
