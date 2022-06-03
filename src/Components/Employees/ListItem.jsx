@@ -1,14 +1,6 @@
 import React from 'react';
 
-const ListItem = ({ listItem, deleteItem /*editItem*/ }) => {
-  const handleDelete = (_id) => {
-    deleteItem(_id);
-  };
-
-  /*const handleEdit = (_id) => {
-    editItem(_id);
-  };*/
-
+const ListItem = ({ listItem, deleteItem }) => {
   const test = listItem.map((item) => {
     console.log('item', item);
     return (
@@ -19,16 +11,14 @@ const ListItem = ({ listItem, deleteItem /*editItem*/ }) => {
         <td>{item.email}</td>
         <td>{item.active.toString()}</td>
         <td>
-          <a href="http://localhost:4000/employees/FormEmployee">
-            <button>Edit</button>
-          </a>
+          <button>Edit</button>
         </td>
         <td>
           <button
             onClick={() => {
               const result = confirm('are you sure you want to delete?');
               if (result) {
-                handleDelete(item._id);
+                deleteItem(item._id);
               }
             }}
           >

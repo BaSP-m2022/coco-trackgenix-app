@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './employees.module.css';
 
-const AddItem = ({ addItem }) => {
+const EmployeeForm = ({ employeeForm }) => {
   const [userInput, setUserInput] = useState({
     firstName: '',
     lastName: '',
@@ -16,7 +16,7 @@ const AddItem = ({ addItem }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addItem(userInput);
+    employeeForm(userInput);
     setUserInput({
       firstName: '',
       lastName: '',
@@ -47,7 +47,7 @@ const AddItem = ({ addItem }) => {
           </div>
           <div>
             <label>Email</label>
-            <input type="text" name="email" value={userInput.email} onChange={onChange} />
+            <input type="email" name="email" value={userInput.email} onChange={onChange} />
           </div>
           <div>
             <label>Active</label>
@@ -62,4 +62,4 @@ const AddItem = ({ addItem }) => {
   );
 };
 
-export default AddItem;
+export default EmployeeForm;
