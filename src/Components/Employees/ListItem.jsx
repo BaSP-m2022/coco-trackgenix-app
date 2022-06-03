@@ -1,8 +1,7 @@
 import React from 'react';
 
 const ListItem = ({ listItem, deleteItem }) => {
-  const test = listItem.map((item) => {
-    console.log('item', item);
+  const employeeRows = listItem.map((item) => {
     return (
       <tr key={item.id}>
         <td>{item.firstName}</td>
@@ -28,7 +27,7 @@ const ListItem = ({ listItem, deleteItem }) => {
       </tr>
     );
   });
-  return <>{test}</>;
+  return <>{employeeRows}</>;
 };
 
 export default ListItem;
