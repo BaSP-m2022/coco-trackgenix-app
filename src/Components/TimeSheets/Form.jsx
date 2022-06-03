@@ -19,7 +19,6 @@ const Form = ({
 
   useEffect(() => {
     if (edit) {
-      console.log('entrando a useEffect');
       setTimeSheetToEdit({
         tasks: itemToUpdate[0].tasks.filter((task) => task.length > 0),
         employeeId: itemToUpdate[0].employeeId._id,
@@ -38,19 +37,6 @@ const Form = ({
     }
   }, []);
 
-  useEffect(() => {
-    if (edit) {
-      console.log('entrando a useEffect 2');
-      setItem({
-        ...addItem,
-        tasks: itemToUpdate[0].tasks.filter((task) => task.length > 0),
-        employeeId: itemToUpdate[0].employeeId._id,
-        projectId: itemToUpdate[0].projectId._id,
-        startDate: itemToUpdate[0].startDate.substring(0, 10),
-        endDate: itemToUpdate[0].endDate.substring(0, 10)
-      });
-    }
-  }, []);
   //   const checkEmptyFields = (e) => {
   //     if (addItem.employeeId === '') {
   //       console.log('employee entro');
