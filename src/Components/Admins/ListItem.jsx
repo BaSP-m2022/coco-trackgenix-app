@@ -3,12 +3,12 @@ import EditAdmin from './AdminForm/AdminFormEdit';
 import styles from './admins.module.css';
 
 const ListItem = ({ listItem, deleteItem }) => {
-  const [openModal, setModal] = useState(false);
+  const [openEditForm, setEditForm] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
 
   const handleEdit = (item) => {
     setSelectedItem(item);
-    setModal(true);
+    setEditForm(true);
   };
 
   const adminListRows = listItem.map((item) => {
@@ -45,8 +45,8 @@ const ListItem = ({ listItem, deleteItem }) => {
 
   return (
     <>
-      {adminListRows}
-      {openModal && <EditAdmin item={selectedItem} />}
+      {!openEditForm && adminListRows}
+      {openEditForm && <EditAdmin item={selectedItem} />}
     </>
   );
 };
