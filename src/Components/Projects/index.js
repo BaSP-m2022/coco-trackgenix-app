@@ -9,23 +9,20 @@ const Projects = () => {
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects`);
       const data = await response.json();
-      console.log(data.data);
       setList(data.data);
-      console.log(setList);
     } catch (error) {
-      console.log(error);
+      console.error;
     }
   }, []);
 
   const deleteItem = (_id) => {
     try {
-      const response = fetch(`https://coco-trackgenix-server.vercel.app/projects/${_id}`, {
+      fetch(`https://coco-trackgenix-server.vercel.app/projects/${_id}`, {
         method: 'DELETE'
       });
-      console.log(response);
       alert(`Project with ID: ${_id} deleted.`);
     } catch (error) {
-      console.error(error);
+      console.error;
     }
     setList(list.filter((listItem) => listItem._id !== _id));
   };
@@ -35,7 +32,7 @@ const Projects = () => {
       <h2>Projects</h2>
       <div>
         <List list={list} deleteItem={deleteItem} setList={setList} />
-        <a href="/projects/add">Add New Project</a>
+        <button onClick={() => (window.location = '/projects/add')}>ADD NEW</button>
       </div>
     </section>
   );
