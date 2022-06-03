@@ -6,7 +6,8 @@ const Form = ({
   editStartDate,
   handleEditStartDate,
   editEndDate,
-  handleEditEndDate
+  handleEditEndDate,
+  switcher
 }) => {
   const [addItem, setItem] = useState({
     tasks: [],
@@ -19,6 +20,8 @@ const Form = ({
   const [projectsItem, setProjectsItem] = useState([]);
   const [tasksItem, setTasksItem] = useState([]);
   const [timeSheetToEdit, setTimeSheetToEdit] = useState({});
+  const emptyList = [];
+  const [taskList, setTaskList] = useState(emptyList);
 
   useEffect(() => {
     if (edit) {
@@ -55,6 +58,9 @@ const Form = ({
   //     if (addItem.startDate === '') setItem({ ...addItem, ['startDate']: e.target[3].value });
   //     if (addItem.endDate === '') setItem({ ...addItem, ['endDate']: e.target[4].value });
   //   };
+  const handleDeleteTask = (id) => {
+    setTaskList([...taskList.filter((task) => task._id !== id)]);
+  };
 
   const onChange = (e) => {
     console.log('additem', addItem);
@@ -72,17 +78,19 @@ const Form = ({
     });
     console.log(addItem);
   };
-
-  const onChangeTasks = (e) => {
+  useEffect(() => {
     setItem({
       ...addItem,
-      [e.target.name]: [e.target.value]
+      tasks: taskList.map((task) => {
+        return task._id;
+      })
     });
+  }, [taskList]);
+  const onChangeTasks = (e) => {
+    setTaskList([...taskList, tasksItem.find((task) => task._id === e.target.value)]);
   };
   const create = (e) => {
     e.preventDefault();
-    console.log('addItme', addItem);
-    console.log('timesheettoedit', timeSheetToEdit);
     if (edit) {
       if (JSON.stringify(addItem) === JSON.stringify(timeSheetToEdit)) {
         alert('The data for this time sheet has not been modified');
@@ -92,7 +100,9 @@ const Form = ({
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              tasks: addItem.tasks,
+              tasks: taskList.map((task) => {
+                return task._id;
+              }),
               employeeId: addItem.employeeId,
               projectId: addItem.projectId,
               startDate: addItem.startDate,
@@ -100,14 +110,15 @@ const Form = ({
             })
           })
             .then((res) => res.json())
-            .then((json) => {
-              console.log(json.data);
-            })
-            .catch((err) => {
-              console.log(err);
+            .then((res) => {
+              alert(res.msg);
+              console.log(res);
+              if (!res.error) {
+                switcher();
+              }
             });
         } catch (error) {
-          console.log('mal');
+          console.log(error);
         }
       }
     } else {
@@ -116,7 +127,14 @@ const Form = ({
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(addItem)
-        });
+        })
+          .then((response) => response.json())
+          .then((response) => {
+            alert(response.error ? `Error! ${response.msg}` : `Success! ${response.message}`);
+            if (!response.error) {
+              switcher();
+            }
+          });
       } catch (error) {
         console.log(error);
       }
@@ -150,6 +168,11 @@ const Form = ({
         <div>
           <label>Employee</label>
           <select onChange={onChange} name="employeeId">
+            {
+              <option disabled selected>
+                Select a employee
+              </option>
+            }
             {employeesItem.map((item) => (
               <option
                 key={item.id}
@@ -166,6 +189,11 @@ const Form = ({
         <div>
           <label>Project</label>
           <select onChange={onChange} name="projectId">
+            {
+              <option disabled selected>
+                Select a project
+              </option>
+            }
             {projectsItem.map((item) => (
               <option
                 key={item.id}
@@ -180,18 +208,43 @@ const Form = ({
         <div>
           <label>Tasks</label>
           <select onChange={onChangeTasks} name="tasks">
+            {
+              <option disabled selected>
+                Select a task
+              </option>
+            }
             {tasksItem.map((item) => (
               <option
                 key={item.id}
                 value={item._id}
                 selected={
-                  edit && item.description === itemToUpdate[0].tasks[0].description ? true : false
+                  edit &&
+                  itemToUpdate[0].tasks.length &&
+                  item.description === itemToUpdate[0].tasks[0].description
+                    ? true
+                    : false
                 }
               >
                 {item.description}
               </option>
             ))}
           </select>
+        </div>
+        <div>
+          <table>
+            <tbody>
+              {taskList.map((task, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{task.description}</td>
+                    <td>
+                      <button onClick={() => handleDeleteTask(task._id)}>X</button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
         <div>
           <label>Start Date</label>

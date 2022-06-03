@@ -18,7 +18,7 @@ function TimeSheets() {
         console.log('data', json.data);
         setList(json.data);
       });
-  }, []);
+  }, [change]);
 
   useEffect(() => {
     setEditStartDate(true);
@@ -40,8 +40,6 @@ function TimeSheets() {
   };
 
   const updateItem = (id) => {
-    console.log('list', list);
-    console.log('id', id);
     setItemToUpdate(list.filter((timeSheet) => timeSheet._id === id));
   };
 
@@ -78,6 +76,7 @@ function TimeSheets() {
           editEndDate={editEndDate}
           handleEditStartDate={handleEditStartDate}
           handleEditEndDate={handleEditEndDate}
+          switcher={switcher}
         />
       </section>
     );
