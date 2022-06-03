@@ -28,12 +28,12 @@ const NewFormItem = (props) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.error === false) {
-          alert('Task created');
+          alert(`${data.msg}`);
         } else {
-          alert('Error');
+          alert(`${data.msg}`);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   };
 
   return (

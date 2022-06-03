@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 const Modal = ({ updItem }) => {
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch(`https://coco-trackgenix-server.vercel.app/tasks/${updItem[0]._id}`, {
+    await fetch(`https://coco-trackgenix-server.vercel.app/tasks/${updItem[0]._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -16,12 +16,12 @@ const Modal = ({ updItem }) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.error === false) {
-          alert('Task updated');
+          alert(`${data.msg}`);
         } else {
           alert(`${data.msg}`);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   };
 
   const [description, setDescription] = useState(updItem[0].description);

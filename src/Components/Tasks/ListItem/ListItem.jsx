@@ -14,6 +14,7 @@ const ContentList = ({ listItem, deleteItem }) => {
     setUpdItem([...listItem.filter((item) => item._id === id)]);
     setModal(true);
   };
+
   const taskBody = listItem.map((task) => {
     const handleDelete = () => {
       deleteItem(task._id);
@@ -38,6 +39,7 @@ const ContentList = ({ listItem, deleteItem }) => {
       </tr>
     );
   });
+
   return (
     <>
       {taskBody}

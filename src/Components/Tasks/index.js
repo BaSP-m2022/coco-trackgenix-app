@@ -9,6 +9,7 @@ const Tasks = () => {
   const showList = () => {
     setShow(() => !show);
   };
+
   const [list, setList] = useState([]);
 
   useEffect(async () => {
@@ -23,10 +24,9 @@ const Tasks = () => {
 
   const deleteItem = (_id) => {
     try {
-      const response = fetch(`https://coco-trackgenix-server.vercel.app/tasks/${_id}`, {
+      fetch(`https://coco-trackgenix-server.vercel.app/tasks/${_id}`, {
         method: 'DELETE'
       });
-      console.log(response);
       alert('Task deleted');
     } catch (error) {
       console.error(error);
@@ -40,14 +40,7 @@ const Tasks = () => {
         <button onClick={showList}>{show === false ? 'Add' : 'Back'}</button>
       </div>
       {show === false ? (
-        <List
-          key={list.id}
-          list={list}
-          setList={setList}
-          deleteItem={deleteItem}
-          // updateItem={updateItem}
-          // updItem={updItem}
-        />
+        <List key={list.id} list={list} setList={setList} deleteItem={deleteItem} />
       ) : (
         <NewFormItem />
       )}
