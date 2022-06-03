@@ -15,7 +15,7 @@ const ListItem = ({ listItem, deleteItem }) => {
         <td>
           <button
             onClick={() => {
-              const result = confirm('are you sure you want to delete?');
+              const result = confirm('Are you sure you want to delete?');
               if (result) {
                 deleteItem(item._id);
               }
