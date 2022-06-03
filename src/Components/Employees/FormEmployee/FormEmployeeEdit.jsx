@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../employees.module.css';
 
-const FormEmployeeEdit = ({ item }) => {
-  const [employeeInput, setEmployeeInput] = useState({
-    firstName: item.firstName,
-    lastName: item.lastName,
-    phone: item.phone,
-    email: item.email,
-    password: item.password,
-    active: item.active
-  });
+const FormEmployeeEdit = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [active, setActive] = useState('');
 
-  const onChange = (e) => {
-    setEmployeeInput({ ...employeeInput, [e.target.name]: e.target.value });
-  };
+  const params = window.location.search;
+  let id = params.substring(2);
+
+  const url = `https://coco-trackgenix-server.vercel.app/employees/${id}`;
 
   const formEmployee = async (employeeInput) => {
     try {
-      await fetch(`https://coco-trackgenix-server.vercel.app/employees/${item._id}`, {
+      await fetch(url, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',
@@ -33,15 +32,19 @@ const FormEmployeeEdit = ({ item }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    formEmployee(employeeInput);
-    setEmployeeInput({
-      firstName: employeeInput.firstName,
-      lastName: employeeInput.lastName,
-      phone: employeeInput.phone,
-      email: employeeInput.email,
-      password: employeeInput.password,
-      active: employeeInput.active
-    });
+    formEmployee(firstName, lastName, phone, email, password, active);
+    useEffect(() => {
+      fetch(`https://coco-trackgenix-server.vercel.app/employees/${id}`)
+        .then((response) => response.json())
+        .then((response) => {
+          setFirstName(response.data.firstName);
+          setLastName(response.data.lastName);
+          setPhone(response.data.phone);
+          setEmail(response.data.email);
+          setPassword(response.data.password);
+          setActive(response.data.active);
+        });
+    }, []);
   };
 
   return (
@@ -56,30 +59,54 @@ const FormEmployeeEdit = ({ item }) => {
             <input
               type="text"
               name="firstName"
-              value={employeeInput.firstName}
-              onChange={onChange}
-              required
+              value={firstName}
+              onChange={(event) => setFirstName(event.target.value)}
             />
           </div>
           <div>
             <label>Last Name</label>
-            <input type="text" name="lastName" value={employeeInput.lastName} onChange={onChange} />
+            <input
+              type="text"
+              name="lastName"
+              value={lastName}
+              onChange={(event) => setLastName(event.target.value)}
+            />
           </div>
           <div>
             <label>Phone</label>
-            <input type="number" name="phone" value={employeeInput.phone} onChange={onChange} />
+            <input
+              type="number"
+              name="phone"
+              value={phone}
+              onChange={(event) => setPhone(event.target.value)}
+            />
           </div>
           <div>
             <label>Email</label>
-            <input type="email" name="email" value={employeeInput.email} onChange={onChange} />
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
           </div>
           <div>
             <label>Password</label>
-            <input type="text" name="password" value={employeeInput.password} onChange={onChange} />
+            <input
+              type="text"
+              name="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
           </div>
           <div>
             <label>Active</label>
-            <input type="text" name="active" value={employeeInput.active} onChange={onChange} />
+            <input
+              type="text"
+              name="active"
+              value={active}
+              onChange={(event) => setActive(event.target.value)}
+            />
           </div>
           <div>
             <input type="submit" value="submit" />
