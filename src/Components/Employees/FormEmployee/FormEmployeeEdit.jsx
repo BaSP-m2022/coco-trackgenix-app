@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from '../employees.module.css';
 
 const FormEmployeeEdit = ({ item }) => {
-  const [userInput, setUserInput] = useState({
+  const [employeeInput, setEmployeeInput] = useState({
     firstName: item.firstName,
     lastName: item.lastName,
     phone: item.phone,
@@ -12,10 +12,10 @@ const FormEmployeeEdit = ({ item }) => {
   });
 
   const onChange = (e) => {
-    setUserInput({ ...userInput, [e.target.name]: e.target.value });
+    setEmployeeInput({ ...employeeInput, [e.target.name]: e.target.value });
   };
 
-  const formEmployee = async () => {
+  const formEmployee = async (employeeInput) => {
     try {
       await fetch(`https://coco-trackgenix-server.vercel.app/employees/${item._id}`, {
         method: 'PUT',
@@ -23,12 +23,25 @@ const FormEmployeeEdit = ({ item }) => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify()
+        body: JSON.stringify(employeeInput)
       });
       alert('Employee modified');
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    formEmployee(employeeInput);
+    setEmployeeInput({
+      firstName: employeeInput.firstName,
+      lastName: employeeInput.lastName,
+      phone: employeeInput.phone,
+      email: employeeInput.email,
+      password: employeeInput.password,
+      active: employeeInput.active
+    });
   };
 
   return (
@@ -37,30 +50,36 @@ const FormEmployeeEdit = ({ item }) => {
         <h2>Add New Employee</h2>
       </div>
       <div>
-        <form onSubmit={formEmployee}>
+        <form onSubmit={onSubmit}>
           <div>
             <label>Name</label>
-            <input type="text" name="firstName" value={userInput.firstName} onChange={onChange} />
+            <input
+              type="text"
+              name="firstName"
+              value={employeeInput.firstName}
+              onChange={onChange}
+              required
+            />
           </div>
           <div>
             <label>Last Name</label>
-            <input type="text" name="lastName" value={userInput.lastName} onChange={onChange} />
+            <input type="text" name="lastName" value={employeeInput.lastName} onChange={onChange} />
           </div>
           <div>
             <label>Phone</label>
-            <input type="number" name="phone" value={userInput.phone} onChange={onChange} />
+            <input type="number" name="phone" value={employeeInput.phone} onChange={onChange} />
           </div>
           <div>
             <label>Email</label>
-            <input type="email" name="email" value={userInput.email} onChange={onChange} />
+            <input type="email" name="email" value={employeeInput.email} onChange={onChange} />
           </div>
           <div>
             <label>Password</label>
-            <input type="text" name="password" value={userInput.password} onChange={onChange} />
+            <input type="text" name="password" value={employeeInput.password} onChange={onChange} />
           </div>
           <div>
             <label>Active</label>
-            <input type="text" name="active" value={userInput.active} onChange={onChange} />
+            <input type="text" name="active" value={employeeInput.active} onChange={onChange} />
           </div>
           <div>
             <input type="submit" value="submit" />

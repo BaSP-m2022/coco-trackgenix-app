@@ -1,7 +1,6 @@
 import styles from './employees.module.css';
 import React, { useEffect, useState } from 'react';
 import List from './List';
-//* import FormEmployee from './FormEmployee/FormEmployee';
 
 const Employees = () => {
   const [list, setList] = useState([]);
@@ -27,27 +26,6 @@ const Employees = () => {
     }
     setList(list.filter((listItem) => listItem._id !== _id));
   };
-
-  /*const addItem = ({ firstName, lastName, phone, email, active }) => {
-    const newItem = {
-      firstName,
-      lastName,
-      phone,
-      email,
-      active
-    };
-    try {
-      const response = fetch(`https://coco-trackgenix-server.vercel.app/Employees/`, {
-        method: 'POST'
-      });
-      console.log(response);
-      alert('Employee created');
-    } catch (error) {
-      console.error(error);
-    }
-    setList([list, newItem]);
-  };
-*/
 
   return (
     <section className={styles.container}>
