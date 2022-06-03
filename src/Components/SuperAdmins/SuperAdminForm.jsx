@@ -2,11 +2,6 @@ import React, { useState } from 'react';
 import styles from './super-admins.module.css';
 
 const AddSuperAdmin = () => {
-  const alertSuccessfully = () => {
-    alert('The Super Admin have been created successfully');
-    window.location = `/super-admins`;
-  };
-
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -34,7 +29,14 @@ const AddSuperAdmin = () => {
     fetch(url, addSuperAdmin)
       .then((response) => response.json())
       // eslint-disable-next-line no-console
-      .then((data) => console.log('data:', data));
+      .then((data) => {
+        if (!data.error) {
+          alert('The Super Admin have been created successfully');
+          window.location = `/super-admins`;
+        } else {
+          alert('Error something is wrong');
+        }
+      });
   };
   return (
     <div className={styles.container}>
@@ -85,9 +87,7 @@ const AddSuperAdmin = () => {
             onChange={(event) => setActive(event.target.value)}
           ></input>
         </div>
-        <button type="submit" onClick={() => alertSuccessfully()}>
-          Accept
-        </button>
+        <button type="submit">Accept</button>
       </form>
     </div>
   );
