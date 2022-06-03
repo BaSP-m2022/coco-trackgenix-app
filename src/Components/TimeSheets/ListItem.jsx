@@ -17,13 +17,22 @@ const ListItem = ({ listItem, deleteItem, editMode, updateItem }) => {
       return 'Various Tasks';
     }
   };
+  const dateFormatter = (inputDate) => {
+    const date = new Date(inputDate);
+
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+
+    return `${month}/${day}/${year}`;
+  };
   const timeSheetList = listItem.map((item) => {
     return (
       <tr key={item._id}>
         <td>{item.employeeId.firstName}</td>
         <td>{item.projectId != null ? item.projectId.name : 'No project'}</td>
-        <td>{item.startDate.substring(0, 10).split('-').reverse().join('-')}</td>
-        <td>{item.endDate.substring(0, 10).split('-').reverse().join('-')}</td>
+        <td>{dateFormatter(item.startDate.substring(0, 10))}</td>
+        <td>{dateFormatter(item.endDate.substring(0, 10))}</td>
         <td>{amountOfTasks(item.tasks)}</td>
         <td>
           <button onClick={() => handleDelete(item._id)}>X</button>
