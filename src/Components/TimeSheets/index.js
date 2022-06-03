@@ -16,7 +16,6 @@ function TimeSheets() {
   }, []);
   const deleteItem = (id) => {
     setList([...list.filter((listItem) => listItem._id !== id)]);
-    console.log(id);
     try {
       const response = fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${id}`, {
         method: 'DELETE'
