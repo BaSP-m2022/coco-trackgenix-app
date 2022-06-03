@@ -2,7 +2,7 @@ import React from 'react';
 import ListItem from '../ListItem/ListItem';
 import styles from '../tasks.module.css';
 
-const List = ({ list, deleteItem, updateItem, createItem, showList }) => {
+const List = ({ list, deleteItem, showEdit, createItem, showList }) => {
   return (
     <div className={styles.container}>
       <h2>Tasks</h2>
@@ -18,7 +18,7 @@ const List = ({ list, deleteItem, updateItem, createItem, showList }) => {
           <ListItem
             listItem={list}
             deleteItem={deleteItem}
-            updateItem={updateItem}
+            showEdit={showEdit}
             createItem={createItem}
             showList={showList}
           />

@@ -5,11 +5,14 @@ import NewItem from './FormList/FormList';
 
 const Tasks = () => {
   const [list, setList] = useState([]);
-
   const [show, setShow] = useState(false);
-  const showList = (showCase) => {
-    setShow(() => showCase);
+  const showList = () => {
+    setShow(() => !show);
   };
+  // const [showE, setShowE] = useState(false);
+  // const showEdit = () => {
+  //   setShowE(() => !showE);
+  // };
 
   useEffect(async () => {
     try {
@@ -28,27 +31,25 @@ const Tasks = () => {
     });
   };
 
-  const [updItem, setUpdItem] = useState([]);
-  const updateItem = (id) => {
-    setUpdItem([...updItem.filter((item) => item._id === id)]);
-  };
-
+  let output;
+  if (show == false) {
+    output = (
+      <List
+        key={list.id}
+        list={list}
+        deleteItem={deleteItem}
+        setList={setList}
+        showList={showList}
+      />
+    );
+  } else if (show == true) {
+    output = <NewItem desciption={''} workedHours={''} />;
+  }
   return (
     <section className={styles.container}>
-      {show === false ? (
-        <List
-          key={list.id}
-          list={list}
-          deleteItem={deleteItem}
-          setList={setList}
-          updateItem={updateItem}
-          showList={showList}
-        />
-      ) : (
-        <NewItem desciption={''} workedHours={''} />
-      )}
+      {output}
       <div>
-        <button onClick={showList}>{show === false ? 'Add' : 'Back'}</button>
+        <button onClick={showList}>{show == false ? 'NewTask' : 'Cancel'}</button>
       </div>
     </section>
   );
