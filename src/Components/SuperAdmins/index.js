@@ -46,7 +46,6 @@ const SuperAdmin = () => {
     return (
       <section className={styles.container}>
         <h2>Super Admin</h2>
-        {/* <button onClick={() => editSuperAdmin(list._id)}>Edit</button> */}
         <List list={list} setList={setList} deleteItem={deleteItem} />
         <button className={styles.addButton} onClick={switcher}>
           Add new Super Admin

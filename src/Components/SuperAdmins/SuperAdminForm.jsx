@@ -4,6 +4,7 @@ import styles from './super-admins.module.css';
 const AddSuperAdmin = () => {
   const alertSuccessfully = () => {
     alert('The Super Admin have been created successfully');
+    window.location = `/super-admins`;
   };
 
   const [name, setName] = useState('');
@@ -60,7 +61,7 @@ const AddSuperAdmin = () => {
         <div>
           <label>Email</label>
           <input
-            type="text"
+            type="email"
             name="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}

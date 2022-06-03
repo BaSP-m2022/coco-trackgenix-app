@@ -8,6 +8,7 @@ const EditSuperAdmin = () => {
 
   const alertSuccessfully = () => {
     alert('The Super Admin have been edit successfully');
+    window.location = `/super-admins`;
   };
 
   const [name, setName] = useState('');
@@ -23,7 +24,6 @@ const EditSuperAdmin = () => {
     event.preventDefault();
 
     const url = `https://coco-trackgenix-server.vercel.app/superAdmins/${id}`;
-    console.log(id);
     const EditSAdmin = {
       method: 'PUT',
       headers: {
@@ -81,7 +81,7 @@ const EditSuperAdmin = () => {
         <div>
           <label>Email</label>
           <input
-            type="text"
+            type="email"
             name="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}

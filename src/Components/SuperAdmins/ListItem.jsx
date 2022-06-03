@@ -4,10 +4,7 @@ const ListItem = ({ listItem, deleteItem }) => {
   const editSuperAdmin = (_id) => {
     window.location = `/super-admins/Form?=${_id}`;
   };
-  const handleDelete = (_id) => {
-    deleteItem(_id);
-  };
-  const test = listItem.map((item) => {
+  const SuperAdminTable = listItem.map((item) => {
     return (
       <tr key={item.id}>
         <td>{item.name}</td>
@@ -19,12 +16,12 @@ const ListItem = ({ listItem, deleteItem }) => {
           <button onClick={() => editSuperAdmin(item._id)}>Edit</button>
         </td>
         <td>
-          <button onClick={() => handleDelete(item._id)}>X</button>
+          <button onClick={() => deleteItem(item._id)}>X</button>
         </td>
       </tr>
     );
   });
-  return <>{test}</>;
+  return <>{SuperAdminTable}</>;
 };
 
 export default ListItem;
