@@ -3,4 +3,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+.addButton {
+  margin: 0px 25px 25px 25px
 }
