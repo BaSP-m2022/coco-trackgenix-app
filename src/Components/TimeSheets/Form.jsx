@@ -37,22 +37,6 @@ const Form = ({
     }
   }, []);
 
-  //   const checkEmptyFields = (e) => {
-  //     if (addItem.employeeId === '') {
-  //       console.log('employee entro');
-  //       console.log(e.target[0].name);
-  //       console.log(e.target);
-  //       const name = e.target[0].name;
-  //       setItem({
-  //         ...addItem,
-  //         [name]: e.target[0].value
-  //       });
-  //     }
-  //     if (addItem.projectId === '') setItem({ ...addItem, ['projectId']: e.target[1].value });
-  //     if (addItem.tasks === []) setItem({ ...addItem, ['tasks']: [e.target[2].value] });
-  //     if (addItem.startDate === '') setItem({ ...addItem, ['startDate']: e.target[3].value });
-  //     if (addItem.endDate === '') setItem({ ...addItem, ['endDate']: e.target[4].value });
-  //   };
   const handleDeleteTask = (id) => {
     setTaskList([...taskList.filter((task) => task._id !== id)]);
   };
@@ -89,8 +73,8 @@ const Form = ({
   const create = (e) => {
     e.preventDefault();
     if (edit) {
-      console.log('additem', addItem);
-      console.log('setItemToEdit', timeSheetToEdit);
+      console.log('addItem', addItem);
+      console.log('timeSheetToEdit', timeSheetToEdit);
       if (JSON.stringify(addItem) === JSON.stringify(timeSheetToEdit)) {
         alert('The data for this time sheet has not been modified');
       } else {

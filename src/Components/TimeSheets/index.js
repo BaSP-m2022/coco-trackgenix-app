@@ -15,7 +15,6 @@ function TimeSheets() {
     fetch(`https://coco-trackgenix-server.vercel.app/timesheets`)
       .then((res) => res.json())
       .then((json) => {
-        console.log('data', json.data);
         setList(json.data);
       });
   }, [change]);
