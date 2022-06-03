@@ -8,7 +8,7 @@ const ListItem = ({ listItem, deleteItem }) => {
     const month = date.getMonth();
     const year = date.getFullYear();
 
-    return `${day}/${month}/${year}`;
+    return `${month}/${day}/${year}`;
   };
   const timeSheetList = listItem.map((item) => {
     return (
