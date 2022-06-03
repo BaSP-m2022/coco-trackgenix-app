@@ -30,6 +30,8 @@ const FormEmployeeEdit = () => {
     }
   };
 
+  console.log(id);
+
   const onSubmit = (e) => {
     e.preventDefault();
     formEmployee(firstName, lastName, phone, email, password, active);
