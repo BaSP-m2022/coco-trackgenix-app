@@ -25,6 +25,7 @@ const AdminForm = () => {
         body: JSON.stringify(e)
       });
       alert('Admin created');
+      window.location = '/admins';
     } catch (error) {
       console.error(error);
     }
