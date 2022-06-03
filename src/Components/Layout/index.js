@@ -1,11 +1,13 @@
 import Header from '../Header/index';
 import Footer from '../Footer/index';
 import Admins from '../Admins/index';
+import AdminForm from '../Admins/AdminForm/AdminForm';
 import SuperAdmins from '../SuperAdmins/index';
 import Home from '../Home/index';
 import styles from './layout.module.css';
 import Employees from '../Employees/index';
 import Projects from '../Projects';
+import AddNew from '../Projects/AddNew';
 import TimeSheets from '../TimeSheets';
 import Tasks from '../Tasks/index';
 import SuperAdminFormEdit from '../SuperAdmins/SuperAdminFormEdit';
@@ -15,6 +17,9 @@ function Layout() {
   switch (window.location.pathname) {
     case '/admins':
       currentScreen = <Admins />;
+      break;
+    case '/admins/add':
+      currentScreen = <AdminForm />;
       break;
     case '/super-admins':
       currentScreen = <SuperAdmins />;
@@ -27,6 +32,9 @@ function Layout() {
       break;
     case '/projects':
       currentScreen = <Projects />;
+      break;
+    case '/projects/add':
+      currentScreen = <AddNew />;
       break;
     case '/time-sheets':
       currentScreen = <TimeSheets />;
