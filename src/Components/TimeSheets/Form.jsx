@@ -9,13 +9,7 @@ const Form = ({
   handleEditEndDate,
   switcher
 }) => {
-  const [addItem, setItem] = useState({
-    tasks: [],
-    employeeId: '',
-    projectId: '',
-    startDate: '',
-    endDate: ''
-  });
+  const [addItem, setItem] = useState({});
   const [employeesItem, setEmployeesItem] = useState([]);
   const [projectsItem, setProjectsItem] = useState([]);
   const [tasksItem, setTasksItem] = useState([]);
@@ -25,6 +19,7 @@ const Form = ({
 
   useEffect(() => {
     if (edit) {
+      console.log('entrando a useEffect');
       setTimeSheetToEdit({
         tasks: itemToUpdate[0].tasks.filter((task) => task.length > 0),
         employeeId: itemToUpdate[0].employeeId._id,
@@ -32,6 +27,20 @@ const Form = ({
         startDate: itemToUpdate[0].startDate.substring(0, 10),
         endDate: itemToUpdate[0].endDate.substring(0, 10)
       });
+      setItem({
+        ...addItem,
+        tasks: itemToUpdate[0].tasks.filter((task) => task.length > 0),
+        employeeId: itemToUpdate[0].employeeId._id,
+        projectId: itemToUpdate[0].projectId._id,
+        startDate: itemToUpdate[0].startDate.substring(0, 10),
+        endDate: itemToUpdate[0].endDate.substring(0, 10)
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (edit) {
+      console.log('entrando a useEffect 2');
       setItem({
         ...addItem,
         tasks: itemToUpdate[0].tasks.filter((task) => task.length > 0),
@@ -79,12 +88,14 @@ const Form = ({
     console.log(addItem);
   };
   useEffect(() => {
-    setItem({
-      ...addItem,
-      tasks: taskList.map((task) => {
-        return task._id;
-      })
-    });
+    if (taskList.length) {
+      setItem({
+        ...addItem,
+        tasks: taskList.map((task) => {
+          return task._id;
+        })
+      });
+    }
   }, [taskList]);
   const onChangeTasks = (e) => {
     setTaskList([...taskList, tasksItem.find((task) => task._id === e.target.value)]);
@@ -92,6 +103,8 @@ const Form = ({
   const create = (e) => {
     e.preventDefault();
     if (edit) {
+      console.log('additem', addItem);
+      console.log('setItemToEdit', timeSheetToEdit);
       if (JSON.stringify(addItem) === JSON.stringify(timeSheetToEdit)) {
         alert('The data for this time sheet has not been modified');
       } else {
