@@ -135,6 +135,7 @@ const AddNew = () => {
           <input
             type="text"
             name="employees"
+            required="required"
             placeholder="Assign employees with their IDs"
             value={project.employees}
             onChange={handleChange}
