@@ -5,6 +5,7 @@ const AddNew = () => {
     <div>
       <h2>Add New Project</h2>
       <h3>-Form-</h3>
+      <button onClick={() => (window.location = '/projects')}>BACK</button>
     </div>
   );
 };
