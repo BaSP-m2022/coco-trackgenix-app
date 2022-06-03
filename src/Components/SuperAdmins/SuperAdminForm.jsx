@@ -34,7 +34,9 @@ const AddSuperAdmin = () => {
           alert('The Super Admin have been created successfully');
           window.location = `/super-admins`;
         } else {
-          alert('Error something is wrong');
+          alert(
+            'Error something is wrong. Remember the first and last name must be greater than two character, less than fifty and must not contain symbols. The email address cannot be repeated and must to be example@example.com. The password must be longer than four characters. The active must be true or false'
+          );
         }
       });
   };
