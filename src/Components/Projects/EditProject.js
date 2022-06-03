@@ -49,12 +49,11 @@ const EditProject = ({ item }) => {
       })
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
+      .then(() => {
         alert('Project updated succesfully!');
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        console.error;
         alert('There was a problem!');
       });
   };
@@ -168,7 +167,7 @@ const EditProject = ({ item }) => {
         <div>
           <input type="submit" name="project-submit" value="EDIT PROJECT"></input>
         </div>
-        <a href="/projects">Cancel</a>
+        <button onClick={() => (window.location = '/projects')}>BACK</button>
       </form>
     </div>
   );

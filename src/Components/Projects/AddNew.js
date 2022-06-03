@@ -57,13 +57,12 @@ const AddNew = () => {
       })
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
       .then(() => alert('Project created succesfully.'))
-      .catch((error) => console.log(error));
+      .catch(() => console.error);
   };
 
   return (
-    <section className={styles.container}>
+    <div className={styles.container}>
       <h2>Add New Project</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -136,7 +135,6 @@ const AddNew = () => {
           <input
             type="text"
             name="employees"
-            required="required"
             placeholder="Assign employees with their IDs"
             value={project.employees}
             onChange={handleChange}
@@ -158,9 +156,9 @@ const AddNew = () => {
         <div>
           <input type="submit" name="project-submit" value="ADD NEW PROJECT"></input>
         </div>
-        <a href="/projects">Cancel</a>
+        <button onClick={() => (window.location = '/projects')}>BACK</button>
       </form>
-    </section>
+    </div>
   );
 };
 
