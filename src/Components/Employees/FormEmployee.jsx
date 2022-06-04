@@ -58,6 +58,7 @@ const EmployeeForm = ({ employeeForm }) => {
           </div>
         </form>
       </div>
+      <button onClick={() => (window.location = '/employees')}>Return</button>
     </div>
   );
 };

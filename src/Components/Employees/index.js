@@ -33,6 +33,9 @@ const Employees = () => {
       <div>
         <List list={list} deleteItem={deleteItem} setList={setList} />
       </div>
+      <div>
+        <button onClick={() => (window.location = '/employees/form')}>Add Employee</button>
+      </div>
     </section>
   );
 };
