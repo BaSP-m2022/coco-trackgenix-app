@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styles from './admin.form.edit.module.css';
 
 const EditAdmin = ({ item, showModal, closeModal }) => {
-  const [nameInput, setNameInput] = useState([item.name]);
-  const [lastNameInput, setLastNameInput] = useState([item.lastName]);
-  const [emailInput, setEmailInput] = useState([item.email]);
-  const [passwordInput, setPasswordInput] = useState([item.password]);
-  const [activeInput, setActiveInput] = useState([item.active]);
+  const [nameInput, setNameInput] = useState(item.name);
+  const [lastNameInput, setLastNameInput] = useState(item.lastName);
+  const [emailInput, setEmailInput] = useState(item.email);
+  const [passwordInput, setPasswordInput] = useState(item.password);
+  const [activeInput, setActiveInput] = useState(item.active);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -16,7 +16,7 @@ const AdminForm = () => {
 
   const addItem = async (e) => {
     try {
-      await fetch(`https://coco-trackgenix-server.vercel.app/admins`, {
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -24,8 +24,13 @@ const AdminForm = () => {
         },
         body: JSON.stringify(e)
       });
-      alert('Admin created');
-      window.location = '/admins';
+      const data = await response.json();
+      if (data.error === false) {
+        alert(`${data.msg}`);
+        window.location = '/admins';
+      } else {
+        alert(`${data.msg}`);
+      }
     } catch (error) {
       console.error(error);
     }
