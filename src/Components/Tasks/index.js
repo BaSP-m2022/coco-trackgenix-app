@@ -20,7 +20,7 @@ const Tasks = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [show]);
+  }, []);
 
   const deleteItem = (_id) => {
     try {

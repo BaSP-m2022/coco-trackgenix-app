@@ -29,6 +29,7 @@ const NewFormItem = (props) => {
       .then((data) => {
         if (data.error === false) {
           alert(`${data.msg}`);
+          window.location = '/tasks';
         } else {
           alert(`${data.msg}`);
         }
