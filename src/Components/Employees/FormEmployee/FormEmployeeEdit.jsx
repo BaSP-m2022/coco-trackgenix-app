@@ -14,7 +14,20 @@ const FormEmployeeEdit = () => {
 
   const url = `https://coco-trackgenix-server.vercel.app/employees/${id}`;
 
-  const formEmployee = async (employeeInput) => {
+  useEffect(() => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((response) => {
+        setFirstName(response.data.firstName);
+        setLastName(response.data.lastName);
+        setPhone(response.data.phone);
+        setEmail(response.data.email);
+        setPassword(response.data.password);
+        setActive(response.data.active);
+      });
+  }, []);
+
+  const formEmployee = async () => {
     try {
       await fetch(url, {
         method: 'PUT',
@@ -22,7 +35,14 @@ const FormEmployeeEdit = () => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(employeeInput)
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          phone: phone,
+          email: email,
+          password: password,
+          active: active
+        })
       });
       alert('Employee modified');
     } catch (error) {
@@ -30,29 +50,15 @@ const FormEmployeeEdit = () => {
     }
   };
 
-  console.log(id);
-
   const onSubmit = (e) => {
     e.preventDefault();
-    formEmployee(firstName, lastName, phone, email, password, active);
-    useEffect(() => {
-      fetch(`https://coco-trackgenix-server.vercel.app/employees/${id}`)
-        .then((response) => response.json())
-        .then((response) => {
-          setFirstName(response.data.firstName);
-          setLastName(response.data.lastName);
-          setPhone(response.data.phone);
-          setEmail(response.data.email);
-          setPassword(response.data.password);
-          setActive(response.data.active);
-        });
-    }, []);
+    formEmployee();
   };
 
   return (
     <div className={styles.formAdd}>
       <div>
-        <h2>Add New Employee</h2>
+        <h2>Edit Employee</h2>
       </div>
       <div>
         <form onSubmit={onSubmit}>
@@ -95,7 +101,7 @@ const FormEmployeeEdit = () => {
           <div>
             <label>Password</label>
             <input
-              type="text"
+              type="password"
               name="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}

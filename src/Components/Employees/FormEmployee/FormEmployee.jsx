@@ -74,7 +74,12 @@ const FormEmployee = () => {
           </div>
           <div>
             <label>Password</label>
-            <input type="text" name="password" value={employeeInput.password} onChange={onChange} />
+            <input
+              type="password"
+              name="password"
+              value={employeeInput.password}
+              onChange={onChange}
+            />
           </div>
           <div>
             <label>Active</label>

@@ -1,12 +1,11 @@
 import React from 'react';
-//* import FormEmployeeEdit from './FormEmployee/FormEmployeeEdit';
 
 const ListItem = ({ listItem, deleteItem }) => {
-  const handleEdit = (_id) => {
-    window.location = `/employees/form?=${_id}`;
+  const handleEdit = (item) => {
+    window.location = `/employees/formEdit?=${item._id}`;
   };
 
-  const test = listItem.map((item) => {
+  const employeeRows = listItem.map((item) => {
     return (
       <tr key={item._id}>
         <td>{item.firstName}</td>
@@ -16,7 +15,7 @@ const ListItem = ({ listItem, deleteItem }) => {
         <td>{item.password}</td>
         <td>{item.active.toString()}</td>
         <td>
-          <button onClick={() => handleEdit(item._id)}>Edit</button>
+          <button onClick={() => handleEdit(item)}>Edit</button>
         </td>
         <td>
           <button
@@ -33,6 +32,6 @@ const ListItem = ({ listItem, deleteItem }) => {
       </tr>
     );
   });
-  return <>{test}</>;
+  return <>{employeeRows}</>;
 };
 export default ListItem;
