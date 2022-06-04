@@ -44,8 +44,19 @@ const FormEmployeeEdit = () => {
           active: active
         })
       });
-      alert('Employee modified');
-      window.location = '/employees';
+      if (
+        (firstName !== '' || firstName === firstName) &&
+        (lastName !== '' || lastName === lastName) &&
+        (phone !== '' || phone === phone) &&
+        (email !== '' || email === email) &&
+        (password !== '' || password === password) &&
+        (active !== '' || active === active)
+      ) {
+        alert('There is an empty field or you have not done any edits');
+      } else {
+        alert('Employee modified');
+        window.location = '/employees';
+      }
     } catch (error) {
       console.error(error);
     }

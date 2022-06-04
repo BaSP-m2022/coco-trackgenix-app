@@ -25,8 +25,19 @@ const FormEmployee = () => {
         },
         body: JSON.stringify(e)
       });
-      alert('Employee created');
-      window.location = '/employees';
+      if (
+        employeeInput.firstName !== '' &&
+        employeeInput.lastName !== '' &&
+        employeeInput.phone !== '' &&
+        employeeInput.email !== '' &&
+        employeeInput.password !== '' &&
+        employeeInput.active !== ''
+      ) {
+        alert('Employee created');
+        window.location = '/employees';
+      } else {
+        alert('Please fill every field');
+      }
     } catch (error) {
       console.error(error);
     }
