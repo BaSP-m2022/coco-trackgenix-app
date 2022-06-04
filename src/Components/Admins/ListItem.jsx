@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import EditAdmin from './AdminForm/AdminFormEdit';
+import EditAdmin from './Modal/AdminFormEdit';
 import styles from './admins.module.css';
 
 const ListItem = ({ listItem, deleteItem }) => {
-  const [openEditForm, setEditForm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
 
   const handleEdit = (item) => {
     setSelectedItem(item);
-    setEditForm(true);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   const adminListRows = listItem.map((item) => {
@@ -45,8 +49,8 @@ const ListItem = ({ listItem, deleteItem }) => {
 
   return (
     <>
-      {!openEditForm && adminListRows}
-      {openEditForm && <EditAdmin item={selectedItem} />}
+      {adminListRows}
+      {showModal && <EditAdmin item={selectedItem} showModal={showModal} closeModal={closeModal} />}
     </>
   );
 };

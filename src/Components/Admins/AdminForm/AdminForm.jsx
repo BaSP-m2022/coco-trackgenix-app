@@ -77,7 +77,7 @@ const AdminForm = () => {
           </button>
         </div>
       </form>
-      <button onClick={() => (window.location = '/admins')} className={styles.addBtn}>
+      <button onClick={() => (window.location = '/admins')} className={styles.backBtn}>
         Back
       </button>
     </div>
