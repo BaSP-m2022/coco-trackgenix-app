@@ -1,22 +1,55 @@
 import React from 'react';
 
-const ListItem = ({ listItem }) => {
-  const projectsContentList = listItem.map((project) => {
+const ListItem = ({ listItem, deleteItem }) => {
+  const handleDelete = (_id) => {
+    deleteItem(_id);
+  };
+
+  const changeDate = (date) => {
+    let changedDate;
+    if (!date) {
+      changedDate = null;
+    } else {
+      let substrained = date.substring(0, 10);
+      let year = Number(substrained.split('-')[0]);
+      let month = Number(substrained.split('-')[1]);
+      let day = Number(substrained.split('-')[2]);
+
+      if (day < 10) {
+        day = `0${day}`;
+      }
+      if (month < 10) {
+        month = `0${month}`;
+      }
+
+      changedDate = `${month}-${day}-${year}`;
+    }
+
+    return changedDate;
+  };
+
+  const test = listItem.map((item) => {
     return (
-      <tr key={project.id}>
-        <td>{project.name}</td>
-        <td>{project.clientName}</td>
-        <td>{project.admins}</td>
-        <td>{project.createdAt}</td>
-        <td>{project.description}</td>
-        <td>{project.starDate}</td>
-        <td>{project.updatedAt}</td>
-        <td>{project.employees.length}</td>
-        <td>{project.active.toString()}</td>
+      <tr key={item.id}>
+        <td>{item.name}</td>
+        <td>{item.clientName}</td>
+        <td>{item.admins}</td>
+        <td>{changeDate(item.createdAt)}</td>
+        <td>{item.description}</td>
+        <td>{changeDate(item.startDate)}</td>
+        <td>{changeDate(item.updatedAt)}</td>
+        <td>{item.employees.length}</td>
+        <td>{item.active.toString()}</td>
+        <td>
+          <button>Edit</button>
+        </td>
+        <td>
+          <button onClick={() => handleDelete(item._id)}>X</button>
+        </td>
       </tr>
     );
   });
-  return <>{projectsContentList}</>;
+  return <>{test}</>;
 };
 
 export default ListItem;
