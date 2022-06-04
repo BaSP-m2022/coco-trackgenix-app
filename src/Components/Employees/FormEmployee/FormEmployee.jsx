@@ -26,6 +26,7 @@ const FormEmployee = () => {
         body: JSON.stringify(e)
       });
       alert('Employee created');
+      window.location = '/employees';
     } catch (error) {
       console.error(error);
     }
