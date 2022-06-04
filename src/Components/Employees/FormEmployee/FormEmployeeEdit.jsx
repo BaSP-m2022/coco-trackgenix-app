@@ -45,6 +45,7 @@ const FormEmployeeEdit = () => {
         })
       });
       alert('Employee modified');
+      window.location = '/employees';
     } catch (error) {
       console.error(error);
     }
