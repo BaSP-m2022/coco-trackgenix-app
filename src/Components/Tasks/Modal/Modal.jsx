@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './modal.module.css';
 
-const Modal = ({ updItem, openModal }) => {
+const Modal = ({ updItem, openModal, closeModal }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await fetch(`https://coco-trackgenix-server.vercel.app/tasks/${updItem[0]._id}`, {
@@ -30,7 +30,7 @@ const Modal = ({ updItem, openModal }) => {
   const [workedHours, setWorkedHours] = useState(updItem[0].workedHours);
 
   return (
-    <div onClick={() => (window.location = '/tasks')}>
+    <div>
       {openModal === false ? (
         ''
       ) : (
@@ -61,7 +61,7 @@ const Modal = ({ updItem, openModal }) => {
                 />
               </div>
               <div>
-                <button type="button" onClick={() => (window.location = '/tasks')}>
+                <button type="button" onClick={closeModal}>
                   Cancel
                 </button>
                 <button type="submit">Edit</button>

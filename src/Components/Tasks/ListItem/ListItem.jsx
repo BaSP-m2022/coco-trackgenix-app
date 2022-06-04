@@ -12,7 +12,11 @@ const ContentList = ({ listItem, deleteItem }) => {
 
   const updateItem = (id) => {
     setUpdItem([...listItem.filter((item) => item._id === id)]);
-    setModal(!openModal);
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
   };
 
   const taskBody = listItem.map((task) => {
@@ -42,7 +46,9 @@ const ContentList = ({ listItem, deleteItem }) => {
   return (
     <>
       {taskBody}
-      {openModal && <EditTaskItem updItem={updItem} openModal={openModal} />}
+      {openModal && (
+        <EditTaskItem updItem={updItem} openModal={openModal} closeModal={closeModal} />
+      )}
     </>
   );
 };
