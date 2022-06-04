@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './addNew.module.css';
 
 const AddNew = () => {
@@ -60,6 +60,23 @@ const AddNew = () => {
       .then(() => alert('Project created succesfully.'))
       .catch(() => console.error);
   };
+
+  const [employeesData, setEmployeesData] = useState([]);
+  const [adminsData, setAdminsData] = useState([]);
+  console.log('employees', employeesData);
+  console.log('admins', adminsData);
+  useEffect(() => {
+    fetch(`https://coco-trackgenix-server.vercel.app/employees`)
+      .then((res) => res.json())
+      .then((json) => {
+        setEmployeesData(...employeesData, json.data);
+      });
+    fetch(`https://coco-trackgenix-server.vercel.app/admins`)
+      .then((res) => res.json())
+      .then((json) => {
+        setAdminsData(...adminsData, json.data);
+      });
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -132,26 +149,24 @@ const AddNew = () => {
         </div>
         <div>
           <label htmlFor="employees">Employees</label>
-          <input
-            type="text"
-            name="employees"
-            required="required"
-            placeholder="Assign employees with their IDs"
-            value={project.employees}
-            onChange={handleChange}
-          ></input>
+          <select name="employees" onChange={handleChange}>
+            {employeesData.map((item) => (
+              <option key={item.id} value={item._id}>
+                {item.firstName + ' ' + item.lastName}
+              </option>
+            ))}
+          </select>
           <span>Must be the ID of an existing employee. Separate IDs with a comma.</span>
         </div>
         <div>
           <label htmlFor="admins">Admins</label>
-          <input
-            type="text"
-            name="admins"
-            required="required"
-            placeholder="Assign the admins"
-            value={project.admins}
-            onChange={handleChange}
-          ></input>
+          <select name="admins" onChange={handleChange}>
+            {adminsData.map((item) => (
+              <option key={item.id} value={item._id}>
+                {item.name + ' ' + item.lastName}
+              </option>
+            ))}
+          </select>
           <span>Must have less than 50 characters. Only admin names.</span>
         </div>
         <div>
