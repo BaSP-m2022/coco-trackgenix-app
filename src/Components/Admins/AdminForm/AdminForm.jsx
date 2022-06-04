@@ -51,7 +51,7 @@ const AdminForm = () => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Add New Admin</h2>
-      <form onSubmit={onSubmit} className={styles.form}>
+      <form onSubmit={onSubmit} className={styles.formContainer}>
         <div>
           <div>
             <label>Name</label>

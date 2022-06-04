@@ -43,7 +43,7 @@ const EditAdmin = ({ item, showModal, closeModal }) => {
     <div className={styles.modalContainer}>
       <div className={styles.editModal}>
         <h2 className={styles.title}>Edit Admin</h2>
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.formContainer}>
           <div>
             <div>
               <label htmlFor="name">Name</label>

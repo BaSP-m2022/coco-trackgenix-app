@@ -87,7 +87,7 @@
   cursor: pointer;
 }
 
-.form {
+.formContainer {
   display: flex;
   justify-content: space-between;
   width: 700px;
@@ -95,7 +95,7 @@
   color: #505168;
 }
 
-.form div {
+.formContainer div {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
