@@ -28,11 +28,22 @@ const ContentList = ({ listItem, deleteItem }) => {
       updateItem(task._id);
     };
 
+    const dateFormatter = (inputDate) => {
+      const date = new Date(inputDate);
+      const day = date.getDay();
+      const month = date.getMonth();
+      const year = date.getFullYear();
+      const hour = date.getHours();
+      const minute = date.getMinutes();
+      return `${month}/${day}/${year} - ${hour}:${minute} hrs`;
+    };
+    console.log(task.date);
+
     return (
       <tr key={task.id}>
         <td>{task.description}</td>
         <td>{task.workedHours.toString()}</td>
-        <td>{task.date}</td>
+        <td>{dateFormatter(task.date)}</td>
         <td>
           <button onClick={() => handleUpdate(task)}>Edit</button>
         </td>
