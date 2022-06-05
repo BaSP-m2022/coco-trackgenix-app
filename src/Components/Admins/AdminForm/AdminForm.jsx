@@ -16,7 +16,7 @@ const AdminForm = () => {
 
   const addItem = async (e) => {
     try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins`, {
+      await fetch(`https://coco-trackgenix-server.vercel.app/admins`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -24,13 +24,8 @@ const AdminForm = () => {
         },
         body: JSON.stringify(e)
       });
-      const data = await response.json();
-      if (data.error === false) {
-        alert(`${data.msg}`);
-        window.location = '/admins';
-      } else {
-        alert(`${data.msg}`);
-      }
+      alert(`Admin created`);
+      window.location = '/admins';
     } catch (error) {
       console.error(error);
     }
@@ -38,14 +33,25 @@ const AdminForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addItem(adminInput);
-    setAdminInput({
-      name: '',
-      lastName: '',
-      email: '',
-      password: '',
-      active: ''
-    });
+    if (
+      adminInput.name === '' ||
+      adminInput.lastName === '' ||
+      adminInput.email === '' ||
+      adminInput.password === '' ||
+      adminInput.active === ''
+    ) {
+      alert('Please fill all the fields');
+    } else {
+      console.log(adminInput);
+      addItem(adminInput);
+      setAdminInput({
+        name: '',
+        lastName: '',
+        email: '',
+        password: '',
+        active: ''
+      });
+    }
   };
 
   return (
