@@ -1,0 +1,73 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    /* background: #2C2C2C;
+    opacity: 0.7; */
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px;
+    /* width: 400px;
+    height: 250px; */
+    background-color: #fff;
+    border-radius: 7px;
+}
+
+.modalWrapper h2 {
+    color: #000000;
+}
+
+.modalWrapper p {
+    width: 220px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 26px;
+    color: #505168;
+}
+
+.modalWrapper div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 220px;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    border: 0;
+    background-color: white;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.cancelBtn {
+    width: 90px;
+    padding: 10px 24px;
+    background: #fff;
+    border: 1px solid #505168;
+    border-radius: 5px;
+    color: #505168;
+    cursor: pointer;
+}
+
+.confirmBtn {
+    padding: 10px 24px;
+    background: #AACE9B;
+    border-radius: 5px;
+    color: #505168;
+    cursor: pointer;
+}
