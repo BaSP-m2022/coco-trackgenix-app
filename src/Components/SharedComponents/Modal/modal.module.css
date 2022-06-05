@@ -18,8 +18,8 @@
     flex-direction: column;
     align-items: center;
     padding: 32px;
-    /* width: 400px;
-    height: 250px; */
+    width: 600px;
+    /* height: 250px; */
     background-color: #fff;
     border-radius: 7px;
 }
@@ -29,7 +29,7 @@
 }
 
 .modalWrapper p {
-    width: 220px;
+    /* width: 220px; */
     text-align: center;
     font-weight: 400;
     font-size: 22px;
