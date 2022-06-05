@@ -28,38 +28,30 @@ const FormEmployeeEdit = () => {
   }, []);
 
   const formEmployee = async () => {
-    try {
-      await fetch(url, {
-        method: 'PUT',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          phone: phone,
-          email: email,
-          password: password,
-          active: active
-        })
-      });
-      if (
-        (firstName !== '' || firstName === firstName) &&
-        (lastName !== '' || lastName === lastName) &&
-        (phone !== '' || phone === phone) &&
-        (email !== '' || email === email) &&
-        (password !== '' || password === password) &&
-        (active !== '' || active === active)
-      ) {
-        alert('There is an empty field or you have not done any edits');
-      } else {
-        alert('Employee modified');
-        window.location = '/employees';
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        email: email,
+        password: password,
+        active: active
+      })
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error === false) {
+          alert('Employee modified');
+          window.location = '/employees';
+        } else {
+          alert('There is an empty field or you have not done edits');
+        }
+      })
+      .catch((error) => console.error(error));
   };
 
   const onSubmit = (e) => {
