@@ -1,16 +1,21 @@
 import React from 'react';
 
 const ListItem = ({ listItem, deleteItem }) => {
+  const handleEdit = (item) => {
+    window.location = `/employees/formEdit?=${item._id}`;
+  };
+
   const employeeRows = listItem.map((item) => {
     return (
-      <tr key={item.id}>
+      <tr key={item._id}>
         <td>{item.firstName}</td>
         <td>{item.lastName}</td>
         <td>{item.phone}</td>
         <td>{item.email}</td>
+        <td>{item.password}</td>
         <td>{item.active.toString()}</td>
         <td>
-          <button>Edit</button>
+          <button onClick={() => handleEdit(item)}>Edit</button>
         </td>
         <td>
           <button
@@ -29,5 +34,4 @@ const ListItem = ({ listItem, deleteItem }) => {
   });
   return <>{employeeRows}</>;
 };
-
 export default ListItem;

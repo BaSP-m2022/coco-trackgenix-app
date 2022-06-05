@@ -12,6 +12,7 @@ const List = ({ list, deleteItem }) => {
             <th>Last Name</th>
             <th>Phone</th>
             <th>Email</th>
+            <th>Password</th>
             <th>Active</th>
             <th></th>
             <th></th>
