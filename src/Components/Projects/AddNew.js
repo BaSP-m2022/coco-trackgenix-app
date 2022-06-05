@@ -23,21 +23,6 @@ const AddNew = () => {
     });
   };
 
-  const addMembers = (item) => {
-    let splitted = item.split(',');
-    let membersData = [];
-    if (splitted.length === 0) {
-      membersData = '';
-    } else if (splitted.length === 1) {
-      membersData.push({ name: `${splitted}` });
-    } else {
-      for (let i = 0; i < splitted.length; i++) {
-        membersData.push({ name: `${splitted[i]}` });
-      }
-    }
-    return membersData;
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
@@ -52,7 +37,7 @@ const AddNew = () => {
         endDate: project.endDate,
         clientName: project.clientName,
         active: project.active,
-        employees: addMembers(project.employees),
+        employees: project.employees,
         admins: project.admins
       })
     })
@@ -63,8 +48,7 @@ const AddNew = () => {
 
   const [employeesData, setEmployeesData] = useState([]);
   const [adminsData, setAdminsData] = useState([]);
-  console.log('employees', employeesData);
-  console.log('admins', adminsData);
+
   useEffect(() => {
     fetch(`https://coco-trackgenix-server.vercel.app/employees`)
       .then((res) => res.json())

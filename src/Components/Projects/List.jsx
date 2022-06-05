@@ -15,7 +15,6 @@ const List = ({ list, deleteItem }) => {
             <th>Description</th>
             <th>Start Date</th>
             <th>End Date</th>
-            <th>Updated At</th>
             <th>Employees</th>
             <th>Active</th>
             <th>Edit</th>
