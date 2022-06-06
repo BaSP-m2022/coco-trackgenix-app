@@ -15,14 +15,14 @@ const Modal = ({ children, handleConfirm, showModal, closeModal }) => {
           X
         </button>
         {children}
-        <div>
+        <footer className={styles.buttonsFooter}>
           <button onClick={closeModal} className={styles.cancelBtn}>
             Cancel
           </button>
           <button onClick={handleConfirm} className={styles.confirmBtn}>
             Confirm
           </button>
-        </div>
+        </footer>
       </div>
     </div>
   );
