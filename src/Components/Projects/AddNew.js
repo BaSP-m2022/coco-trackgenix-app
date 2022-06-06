@@ -17,10 +17,31 @@ const AddNew = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === 'employees') {
+      setProject({
+        ...project,
+        [name]: [value]
+      });
+    }
     setProject({
       ...project,
       [name]: value
     });
+  };
+
+  const addMembers = (item) => {
+    let splitted = item.split(',');
+    let membersData = [];
+    if (splitted.length === 0) {
+      membersData = '';
+    } else if (splitted.length === 1) {
+      membersData.push({ name: `${splitted}` });
+    } else {
+      for (let i = 0; i < splitted.length; i++) {
+        membersData.push({ name: `${splitted[i]}` });
+      }
+    }
+    return membersData;
   };
 
   const handleSubmit = (e) => {
@@ -37,28 +58,25 @@ const AddNew = () => {
         endDate: project.endDate,
         clientName: project.clientName,
         active: project.active,
-        employees: project.employees,
+        employees: addMembers(project.employees),
         admins: project.admins
       })
     })
       .then((response) => response.json())
-      .then(() => alert('Project created succesfully.'))
+      .then(() => {
+        alert('Project created succesfully.');
+        window.location = '/projects';
+      })
       .catch(() => console.error);
   };
 
   const [employeesData, setEmployeesData] = useState([]);
-  const [adminsData, setAdminsData] = useState([]);
 
   useEffect(() => {
     fetch(`https://coco-trackgenix-server.vercel.app/employees`)
       .then((res) => res.json())
       .then((json) => {
         setEmployeesData(...employeesData, json.data);
-      });
-    fetch(`https://coco-trackgenix-server.vercel.app/admins`)
-      .then((res) => res.json())
-      .then((json) => {
-        setAdminsData(...adminsData, json.data);
       });
   }, []);
 
@@ -144,13 +162,13 @@ const AddNew = () => {
         </div>
         <div>
           <label htmlFor="admins">Admins</label>
-          <select name="admins" onChange={handleChange}>
-            {adminsData.map((item) => (
-              <option key={item.id} value={item._id}>
-                {item.name + ' ' + item.lastName}
-              </option>
-            ))}
-          </select>
+          <input
+            name="admins"
+            required="required"
+            placeholder="Assign the admins"
+            value={project.admins}
+            onChange={handleChange}
+          ></input>
           <span>Must have less than 50 characters. Only admin names.</span>
         </div>
         <div>

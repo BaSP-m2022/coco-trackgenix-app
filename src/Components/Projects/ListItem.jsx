@@ -47,7 +47,7 @@ const ListItem = ({ listItem, deleteItem }) => {
           <td>{changeDate(item.createdAt)}</td>
           <td>{item.description}</td>
           <td>{changeDate(item.startDate)}</td>
-          <td>{changeDate(item.updatedAt)}</td>
+          <td>{changeDate(item.endDate)}</td>
           <td>{item.employees.length}</td>
           <td>{item.active.toString()}</td>
           <td>

@@ -2,13 +2,26 @@ import React, { useState } from 'react';
 import styles from './editProject.module.css';
 
 const EditProject = ({ item }) => {
+  const checkEmployees = (employees) => {
+    let response;
+    if (employees.length === 0) {
+      response = 'No employees defined yet';
+    } else if (employees.length === 1) {
+      response = employees[0].name;
+    } else {
+      response = 'Various employees';
+    }
+
+    return response;
+  };
+
   const [name, setName] = useState(item.name);
   const [description, setDescription] = useState(item.description);
   const [startDate, setStartDate] = useState(item.startDate);
   const [endDate, setEndDate] = useState(item.endDate);
   const [clientName, setClientName] = useState(item.clientName);
   const [active, setActive] = useState(item.active);
-  const [employees, setEmployees] = useState(item.employees);
+  const [employees, setEmployees] = useState(checkEmployees(item.employees));
   const [admins, setAdmins] = useState(item.admins);
 
   const changeDate = (date) => {
@@ -51,6 +64,7 @@ const EditProject = ({ item }) => {
       .then((response) => response.json())
       .then(() => {
         alert('Project updated succesfully!');
+        window.location = '/projects';
       })
       .catch(() => {
         console.error;
