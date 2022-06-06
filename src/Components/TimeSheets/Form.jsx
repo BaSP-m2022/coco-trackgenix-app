@@ -78,7 +78,11 @@ const Form = ({
     }
   }, [taskList]);
   const onChangeTasks = (e) => {
-    setTaskList([...taskList, tasksItem.find((task) => task._id === e.target.value)]);
+    if (taskList.find((task) => task._id === e.target.value) === undefined) {
+      setTaskList([...taskList, tasksItem.find((task) => task._id === e.target.value)]);
+    } else {
+      alert('This task has already been selected');
+    }
   };
   const create = (e) => {
     e.preventDefault();
