@@ -12,6 +12,7 @@ import TimeSheets from '../TimeSheets';
 import Tasks from '../Tasks/index';
 import FormEmployee from '../Employees/FormEmployee/FormEmployee';
 import FormEmployeeEdit from '../Employees/FormEmployee/FormEmployeeEdit';
+import Navigation from '../Navigation';
 
 function Layout() {
   let currentScreen = <Home />;
@@ -45,6 +46,9 @@ function Layout() {
       break;
     case '/tasks':
       currentScreen = <Tasks />;
+      break;
+    case '/nav':
+      currentScreen = <Navigation />;
       break;
     default:
       break;
