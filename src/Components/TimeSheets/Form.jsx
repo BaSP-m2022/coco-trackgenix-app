@@ -16,21 +16,33 @@ const Form = ({
   const [timeSheetToEdit, setTimeSheetToEdit] = useState({});
   const emptyList = [];
   const [taskList, setTaskList] = useState(emptyList);
+  const [employeeNameExist, setEmployeeNameExist] = useState(false);
+  const [projectNameExist, setProjectNameExist] = useState(false);
 
   useEffect(() => {
     if (edit) {
+      if (itemToUpdate[0].employeeId !== null) {
+        setEmployeeNameExist(true);
+      }
+      if (itemToUpdate[0].projectId !== null) {
+        setProjectNameExist(true);
+      }
       setTimeSheetToEdit({
         tasks: itemToUpdate[0].tasks.filter((task) => task.length > 0),
-        employeeId: itemToUpdate[0].employeeId._id,
-        projectId: itemToUpdate[0].projectId._id,
+        employeeId:
+          itemToUpdate[0].employeeId !== null ? itemToUpdate[0].employeeId._id : 'no employee',
+        projectId:
+          itemToUpdate[0].projectId !== null ? itemToUpdate[0].projectId._id : 'no project',
         startDate: itemToUpdate[0].startDate.substring(0, 10),
         endDate: itemToUpdate[0].endDate.substring(0, 10)
       });
       setItem({
         ...addItem,
         tasks: itemToUpdate[0].tasks.filter((task) => task.length > 0),
-        employeeId: itemToUpdate[0].employeeId._id,
-        projectId: itemToUpdate[0].projectId._id,
+        employeeId:
+          itemToUpdate[0].employeeId !== null ? itemToUpdate[0].employeeId._id : 'no employee',
+        projectId:
+          itemToUpdate[0].projectId !== null ? itemToUpdate[0].projectId._id : 'no project',
         startDate: itemToUpdate[0].startDate.substring(0, 10),
         endDate: itemToUpdate[0].endDate.substring(0, 10)
       });
@@ -161,7 +173,11 @@ const Form = ({
                 key={item.id}
                 value={item._id}
                 selected={
-                  edit && item.firstName === itemToUpdate[0].employeeId.firstName ? true : false
+                  edit &&
+                  employeeNameExist &&
+                  item.firstName === itemToUpdate[0].employeeId.firstName
+                    ? true
+                    : false
                 }
               >
                 {item.firstName}
@@ -181,7 +197,11 @@ const Form = ({
               <option
                 key={item.id}
                 value={item._id}
-                selected={edit && item.name === itemToUpdate[0].projectId.name ? true : false}
+                selected={
+                  edit && projectNameExist && item.name === itemToUpdate[0].projectId.name
+                    ? true
+                    : false
+                }
               >
                 {item.name}
               </option>
