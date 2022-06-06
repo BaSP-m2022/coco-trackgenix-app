@@ -68,6 +68,7 @@ const Form = ({
       [e.target.name]: e.target.value
     });
     console.log(addItem);
+    console.log('project', projectsItem);
   };
   useEffect(() => {
     if (taskList.length) {
@@ -91,6 +92,7 @@ const Form = ({
         alert('The data for this time sheet has not been modified');
       } else {
         try {
+          console.log('ADD ITEM project ID', addItem.projectId);
           fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${itemToUpdate[0]._id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
