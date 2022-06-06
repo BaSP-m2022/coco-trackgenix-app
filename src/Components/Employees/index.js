@@ -1,6 +1,7 @@
 import styles from './employees.module.css';
 import React, { useEffect, useState } from 'react';
 import List from './List';
+import ReturnButton from '../Shared/Modal/GenBtn';
 
 const Employees = () => {
   const [list, setList] = useState([]);
@@ -34,7 +35,12 @@ const Employees = () => {
         <List list={list} deleteItem={deleteItem} setList={setList} />
       </div>
       <div>
-        <button onClick={() => (window.location = '/employees/form')}>Add Employee</button>
+        <ReturnButton
+          buttonName={'Return'}
+          colorBorder={'rgb'}
+          colorString={'rgb'}
+          colorInside={'rgb'}
+        ></ReturnButton>
       </div>
     </section>
   );
