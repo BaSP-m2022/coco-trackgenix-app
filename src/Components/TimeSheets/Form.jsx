@@ -54,7 +54,6 @@ const Form = ({
   };
 
   const onChange = (e) => {
-    console.log('additem', addItem);
     if (edit) {
       if (e.target.name === 'startDate') {
         handleEditStartDate(false);
@@ -67,8 +66,6 @@ const Form = ({
       ...addItem,
       [e.target.name]: e.target.value
     });
-    console.log(addItem);
-    console.log('project', projectsItem);
   };
   useEffect(() => {
     if (taskList.length) {
@@ -86,13 +83,10 @@ const Form = ({
   const create = (e) => {
     e.preventDefault();
     if (edit) {
-      console.log('addItem', addItem);
-      console.log('timeSheetToEdit', timeSheetToEdit);
       if (JSON.stringify(addItem) === JSON.stringify(timeSheetToEdit)) {
         alert('The data for this time sheet has not been modified');
       } else {
         try {
-          console.log('ADD ITEM project ID', addItem.projectId);
           fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${itemToUpdate[0]._id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -109,7 +103,6 @@ const Form = ({
             .then((res) => res.json())
             .then((res) => {
               alert(res.msg);
-              console.log(res);
               if (!res.error) {
                 switcher();
               }
@@ -133,7 +126,7 @@ const Form = ({
             }
           });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
