@@ -36,10 +36,11 @@ const Employees = () => {
       </div>
       <div>
         <ReturnButton
-          buttonName={'Return'}
-          colorBorder={'rgb'}
-          colorString={'rgb'}
-          colorInside={'rgb'}
+          buttonName="Add Employee"
+          buttonBorderColor="rgb(80, 81, 104)"
+          buttonTextColor="rgb(80, 81, 104)"
+          buttonColor="rgb(255, 255, 255)"
+          buttonFunction={() => (window.location = '/employees/form')}
         ></ReturnButton>
       </div>
     </section>

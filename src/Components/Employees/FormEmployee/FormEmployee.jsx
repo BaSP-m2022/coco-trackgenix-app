@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../employees.module.css';
+import EspButton from '../../Shared/Modal/GenBtn';
 
 const FormEmployee = () => {
   const [employeeInput, setEmployeeInput] = useState({
@@ -102,7 +103,13 @@ const FormEmployee = () => {
           </div>
         </form>
       </div>
-      <button onClick={() => (window.location = '/employees')}>Return</button>
+      <EspButton
+        buttonName="Return"
+        buttonBorderColor="rgb(80, 81, 104)"
+        buttonTextColor="rgb(80, 81, 104)"
+        buttonColor="rgb(255, 255, 255)"
+        buttonFunction={() => (window.location = '/employees')}
+      ></EspButton>
     </div>
   );
 };

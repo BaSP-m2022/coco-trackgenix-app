@@ -1,9 +1,23 @@
 import React from 'react';
 import styles from './GenBtn.module.css';
 
-const GenericButton = ({ buttonName }) => {
+const GenericButton = ({
+  buttonName,
+  buttonColor,
+  buttonBorderColor,
+  buttonTextColor,
+  buttonFunction
+}) => {
   return (
-    <button href="" className={styles.buttonStyle}>
+    <button
+      className={styles.buttonStyle}
+      onClick={buttonFunction}
+      style={{
+        backgroundColor: buttonColor,
+        borderColor: buttonBorderColor,
+        color: buttonTextColor
+      }}
+    >
       {buttonName}
     </button>
   );
