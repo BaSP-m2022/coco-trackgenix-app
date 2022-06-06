@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
-import EditProject from './EditProject';
+import React from 'react';
 
 const ListItem = ({ listItem, deleteItem }) => {
-  const [openModal, setModal] = useState(false);
-  const [selectedItem, setSelectedItem] = useState({});
-
   const handleDelete = (_id) => {
     deleteItem(_id);
   };
 
-  const handleEdit = (item) => {
-    setSelectedItem(item);
-    setModal(true);
+  const handleEdit = (_id) => {
+    window.location = `/projects/edit?=${_id}`;
   };
 
   const changeDate = (date) => {
@@ -51,7 +46,7 @@ const ListItem = ({ listItem, deleteItem }) => {
           <td>{item.employees.length}</td>
           <td>{item.active.toString()}</td>
           <td>
-            <button onClick={() => handleEdit(item)}>Edit</button>
+            <button onClick={() => handleEdit(item._id)}>Edit</button>
           </td>
           <td>
             <button onClick={() => handleDelete(item._id)}>X</button>
@@ -61,11 +56,6 @@ const ListItem = ({ listItem, deleteItem }) => {
     );
   });
 
-  return (
-    <>
-      {items}
-      {openModal && <EditProject item={selectedItem} />}
-    </>
-  );
+  return <>{items}</>;
 };
 export default ListItem;

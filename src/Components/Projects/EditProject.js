@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './editProject.module.css';
 
-const EditProject = ({ item }) => {
+const EditProject = () => {
   const checkEmployees = (employees) => {
     let response;
     if (employees.length === 0) {
@@ -15,17 +15,38 @@ const EditProject = ({ item }) => {
     return response;
   };
 
-  const [name, setName] = useState(item.name);
-  const [description, setDescription] = useState(item.description);
-  const [startDate, setStartDate] = useState(item.startDate);
-  const [endDate, setEndDate] = useState(item.endDate);
-  const [clientName, setClientName] = useState(item.clientName);
-  const [active, setActive] = useState(item.active);
-  const [employees, setEmployees] = useState(checkEmployees(item.employees));
-  const [admins, setAdmins] = useState(item.admins);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [clientName, setClientName] = useState('');
+  const [active, setActive] = useState('');
+  const [employees, setEmployees] = useState(checkEmployees([]));
+  const [admins, setAdmins] = useState('');
 
+  const params = window.location.search;
+  let id = params.substring(2);
   const changeDate = (date) => {
-    return date.substring(0, 10);
+    let changedDate;
+    if (!date) {
+      changedDate = null;
+    } else {
+      let substrained = date.substring(0, 10);
+      let year = Number(substrained.split('-')[0]);
+      let month = Number(substrained.split('-')[1]);
+      let day = Number(substrained.split('-')[2]);
+
+      if (day < 10) {
+        day = `0${day}`;
+      }
+      if (month < 10) {
+        month = `0${month}`;
+      }
+
+      changedDate = `${month}-${day}-${year}`;
+    }
+
+    return changedDate;
   };
 
   const addMembers = (item) => {
@@ -45,7 +66,7 @@ const EditProject = ({ item }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`https://coco-trackgenix-server.vercel.app/projects/${item._id}`, {
+    fetch(`https://coco-trackgenix-server.vercel.app/projects/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -71,6 +92,22 @@ const EditProject = ({ item }) => {
         alert('There was a problem!');
       });
   };
+
+  useEffect(() => {
+    fetch(`https://coco-trackgenix-server.vercel.app/projects/${id}`)
+      .then((response) => response.json())
+      .then((response) => {
+        setName(response.data.name);
+        setDescription(response.data.description);
+        setStartDate(response.data.startDate);
+        setEndDate(response.data.endDate);
+        setClientName(response.data.clientName);
+        setActive(response.data.active);
+        setEmployees(response.data.employees);
+        setAdmins(response.data.admins);
+      });
+  }, []);
+
   return (
     <div className={styles.container}>
       <h2>Edit Project</h2>
