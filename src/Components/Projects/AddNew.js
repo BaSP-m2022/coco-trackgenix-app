@@ -156,6 +156,9 @@ const AddNew = () => {
         <div>
           <label htmlFor="employees">Employees</label>
           <select name="employees" onChange={handleChange}>
+            <option disabled selected>
+              Select an employee
+            </option>
             {employeesData.map((item) => (
               <option key={item.id} value={item._id}>
                 {item.firstName + ' ' + item.lastName}
