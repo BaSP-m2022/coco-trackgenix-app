@@ -1,7 +1,7 @@
 import React from 'react';
 import ListItem from './ListItem';
 
-const TableList = ({ list, deleteItem }) => {
+const TableList = ({ list, deleteItem, editMode, updateItem }) => {
   return (
     <div>
       <table>
@@ -15,7 +15,12 @@ const TableList = ({ list, deleteItem }) => {
           </tr>
         </thead>
         <tbody>
-          <ListItem listItem={list} deleteItem={deleteItem} />
+          <ListItem
+            listItem={list}
+            deleteItem={deleteItem}
+            editMode={editMode}
+            updateItem={updateItem}
+          />
         </tbody>
       </table>
     </div>

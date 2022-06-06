@@ -1,18 +1,21 @@
 import React from 'react';
+import './employees.module.css';
 import ListItem from './ListItem';
-import styles from './admins.module.css';
 
 const List = ({ list, deleteItem }) => {
   return (
-    <div className={styles.listContainer}>
+    <div>
       <table>
-        <thead className={styles.tableHead}>
+        <thead>
           <tr>
             <th>Name</th>
             <th>Last Name</th>
+            <th>Phone</th>
             <th>Email</th>
             <th>Password</th>
             <th>Active</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <ListItem listItem={list} deleteItem={deleteItem} />
