@@ -30,15 +30,19 @@ const AddNew = () => {
   };
 
   const addMembers = (item) => {
-    let splitted = item.split(',');
     let membersData = [];
-    if (splitted.length === 0) {
-      membersData = '';
-    } else if (splitted.length === 1) {
-      membersData.push({ name: `${splitted}` });
+    if (!item) {
+      membersData = null;
     } else {
-      for (let i = 0; i < splitted.length; i++) {
-        membersData.push({ name: `${splitted[i]}` });
+      let splitted = item.split(',');
+      if (splitted.length === 0) {
+        membersData = '';
+      } else if (splitted.length === 1) {
+        membersData.push({ name: `${splitted}` });
+      } else {
+        for (let i = 0; i < splitted.length; i++) {
+          membersData.push({ name: `${splitted[i]}` });
+        }
       }
     }
     return membersData;
@@ -63,8 +67,8 @@ const AddNew = () => {
       })
     })
       .then((response) => response.json())
-      .then(() => {
-        alert('Project created succesfully.');
+      .then((response) => {
+        alert(response.error ? `Error! ${response.msg}` : `Success! ${response.msg}`);
         window.location = '/projects';
       })
       .catch(() => console.error);
