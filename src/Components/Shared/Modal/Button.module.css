@@ -1,29 +1,7 @@
 .buttonStyle{
   margin: 10px 0 10px 0;
   padding: 10px 15px;
-  border: 2px rgba(80, 81, 104, 1) solid;
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  color: rgba(80, 81, 104, 1);
-}
-
-.button{
-  margin: 100px 0 10px 0;
-  padding: 10px 15px;
-  border: 2px rgba(80, 81, 104, 1) solid;
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  color: rgba(80, 81, 104, 1);
-}
-
-.hola{
-  margin: 100px 0 10px 0;
-  padding: 10px 15px;
-  border: 2px rgb(0, 201, 242) solid;
+  border: 2px rgb(80, 81, 104) solid;
   background-color: rgb(255, 255, 255);
   border-radius: 5px;
   font-family: Roboto, Arial, Helvetica, sans-serif;
