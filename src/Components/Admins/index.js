@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './admins.module.css';
 import List from './List';
 
-const Admins = () => {
+const Admins = (props) => {
   const [list, setList] = useState([]);
 
   useEffect(async () => {
@@ -31,7 +31,7 @@ const Admins = () => {
     <section className={styles.container}>
       <h2 className={styles.title}>Admins</h2>
       <div>
-        <button onClick={() => (window.location = '/admins/add')} className={styles.addBtn}>
+        <button onClick={() => props.history.push('admins/add')} className={styles.addBtn}>
           + Add an admin
         </button>
         <List list={list} setList={setList} deleteItem={deleteItem} />

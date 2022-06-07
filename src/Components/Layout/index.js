@@ -10,6 +10,7 @@ import Projects from '../Projects';
 import AddNew from '../Projects/AddNew';
 import TimeSheets from '../TimeSheets';
 import Tasks from '../Tasks/index';
+import TaskForm from '../Tasks/TaskForm/TaskForm';
 import EditProject from '../Projects/EditProject';
 import SuperAdminFormEdit from '../SuperAdmins/SuperAdminFormEdit';
 import FormEmployee from '../Employees/FormEmployee/FormEmployee';
@@ -22,18 +23,19 @@ function Layout() {
       <Header />
       <Switch>
         <Route path="/home" component={Home} />
-        <Route path="/admins" component={Admins} />
+        <Route exact path="/admins" component={Admins} />
         <Route path="/admins/add" component={AdminForm} />
-        <Route path="/super-admins" component={SuperAdmins} />
+        <Route exact path="/super-admins" component={SuperAdmins} />
         <Route path="/super-admins/Form" component={SuperAdminFormEdit} />
-        <Route path="/employees" component={Employees} />
+        <Route exact path="/employees" component={Employees} />
         <Route path="/employees/form" component={FormEmployee} />
         <Route path="/employees/formEdit" component={FormEmployeeEdit} />
-        <Route path="/projects" component={Projects} />
+        <Route exact path="/projects" component={Projects} />
         <Route path="/projects/add" component={AddNew} />
         <Route path="/projects/edit" component={EditProject} />
-        <Route path="/time-sheets" component={TimeSheets} />
-        <Route path="/tasks" component={Tasks} />
+        <Route exact path="/time-sheets" component={TimeSheets} />
+        <Route exact path="/tasks" component={Tasks} />
+        <Route path="/tasks/add" component={TaskForm} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>

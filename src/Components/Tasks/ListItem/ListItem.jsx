@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import EditTaskItem from '../Modal/Modal';
+import Modal from '../Modal/Modal';
 
 const ContentList = ({ listItem, deleteItem }) => {
   if (listItem.length === 0 || listItem === 'undefined') {
@@ -57,9 +57,7 @@ const ContentList = ({ listItem, deleteItem }) => {
   return (
     <>
       {taskBody}
-      {openModal && (
-        <EditTaskItem updItem={updItem} openModal={openModal} closeModal={closeModal} />
-      )}
+      {openModal && <Modal updItem={updItem} openModal={openModal} closeModal={closeModal} />}
     </>
   );
 };

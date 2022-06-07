@@ -2,7 +2,7 @@ import styles from './employees.module.css';
 import React, { useEffect, useState } from 'react';
 import List from './List';
 
-const Employees = () => {
+const Employees = (props) => {
   const [list, setList] = useState([]);
   useEffect(async () => {
     try {
@@ -34,7 +34,7 @@ const Employees = () => {
         <List list={list} deleteItem={deleteItem} setList={setList} />
       </div>
       <div>
-        <button onClick={() => (window.location = '/employees/form')}>Add Employee</button>
+        <button onClick={() => props.history.push('/employees/form')}>Add Employee</button>
       </div>
     </section>
   );

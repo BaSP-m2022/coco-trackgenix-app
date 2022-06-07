@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styles from './admin.form.edit.module.css';
 
-const EditAdmin = ({ item, showModal, closeModal }) => {
+const EditAdmin = (props) => {
+  const { item, showModal, closeModal } = props;
   const [nameInput, setNameInput] = useState(item.name);
   const [lastNameInput, setLastNameInput] = useState(item.lastName);
   const [emailInput, setEmailInput] = useState(item.email);
@@ -27,7 +28,7 @@ const EditAdmin = ({ item, showModal, closeModal }) => {
       .then((data) => {
         if (data.error === false) {
           alert(`${data.msg}`);
-          window.location = '/admins';
+          closeModal();
         } else {
           alert(`${data.msg}`);
         }
