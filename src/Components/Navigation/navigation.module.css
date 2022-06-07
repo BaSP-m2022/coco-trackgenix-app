@@ -27,7 +27,7 @@
   width: 290px;
   height: 120px;
   margin: 10px;
-  transition-duration: 0.5s;
+  transition-duration: 0.3s;
 }
 .navButton:hover {
   background-color: white;
