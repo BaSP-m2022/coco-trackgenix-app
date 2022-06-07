@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './tasks.module.css';
 import List from './List/List';
+import Logo from '../SharedComponents/Logo/Logo';
 
 const Tasks = (props) => {
   const [list, setList] = useState([]);
@@ -29,6 +30,7 @@ const Tasks = (props) => {
 
   return (
     <section className={styles.container}>
+      <Logo />
       <div>
         <button onClick={() => props.history.push('tasks/add')}>Add</button>
         <List key={list.id} list={list} setList={setList} deleteItem={deleteItem} />
