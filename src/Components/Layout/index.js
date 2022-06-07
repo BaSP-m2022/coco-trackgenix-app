@@ -14,54 +14,30 @@ import EditProject from '../Projects/EditProject';
 import SuperAdminFormEdit from '../SuperAdmins/SuperAdminFormEdit';
 import FormEmployee from '../Employees/FormEmployee/FormEmployee';
 import FormEmployeeEdit from '../Employees/FormEmployee/FormEmployeeEdit';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 function Layout() {
-  let currentScreen = <Home />;
-  switch (window.location.pathname) {
-    case '/admins':
-      currentScreen = <Admins />;
-      break;
-    case '/admins/add':
-      currentScreen = <AdminForm />;
-      break;
-    case '/super-admins':
-      currentScreen = <SuperAdmins />;
-      break;
-    case '/super-admins/Form':
-      currentScreen = <SuperAdminFormEdit />;
-      break;
-    case '/employees':
-      currentScreen = <Employees />;
-      break;
-    case '/employees/form':
-      currentScreen = <FormEmployee />;
-      break;
-    case '/employees/formEdit':
-      currentScreen = <FormEmployeeEdit />;
-      break;
-    case '/projects':
-      currentScreen = <Projects />;
-      break;
-    case '/projects/add':
-      currentScreen = <AddNew />;
-      break;
-    case '/projects/edit':
-      currentScreen = <EditProject />;
-      break;
-    case '/time-sheets':
-      currentScreen = <TimeSheets />;
-      break;
-    case '/tasks':
-      currentScreen = <Tasks />;
-      break;
-    default:
-      break;
-  }
-
   return (
     <div className={styles.container}>
       <Header />
-      {currentScreen}
+      <Switch>
+        <Route path="/home" component={Home} />
+        <Route path="/admins" component={Admins} />
+        <Route path="/admins/add" component={AdminForm} />
+        <Route path="/super-admins" component={SuperAdmins} />
+        <Route path="/super-admins/Form" component={SuperAdminFormEdit} />
+        <Route path="/employees" component={Employees} />
+        <Route path="/employees/form" component={FormEmployee} />
+        <Route path="/employees/formEdit" component={FormEmployeeEdit} />
+        <Route path="/projects" component={Projects} />
+        <Route path="/projects/add" component={AddNew} />
+        <Route path="/projects/edit" component={EditProject} />
+        <Route path="/time-sheets" component={TimeSheets} />
+        <Route path="/tasks" component={Tasks} />
+        <Route exact path="/">
+          <Redirect to="/home" />
+        </Route>
+      </Switch>
       <Footer />
     </div>
   );
