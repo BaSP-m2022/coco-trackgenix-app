@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Form = ({
+const TimeSheetsForm = ({
   edit,
   itemToUpdate,
   editStartDate,
@@ -277,4 +277,4 @@ const Form = ({
     </div>
   );
 };
-export default Form;
+export default TimeSheetsForm;
