@@ -10,6 +10,10 @@ import Projects from '../Projects';
 import AddNew from '../Projects/AddNew';
 import TimeSheets from '../TimeSheets';
 import Tasks from '../Tasks/index';
+import EditProject from '../Projects/EditProject';
+import SuperAdminFormEdit from '../SuperAdmins/SuperAdminFormEdit';
+import FormEmployee from '../Employees/FormEmployee/FormEmployee';
+import FormEmployeeEdit from '../Employees/FormEmployee/FormEmployeeEdit';
 
 function Layout() {
   let currentScreen = <Home />;
@@ -23,14 +27,26 @@ function Layout() {
     case '/super-admins':
       currentScreen = <SuperAdmins />;
       break;
+    case '/super-admins/Form':
+      currentScreen = <SuperAdminFormEdit />;
+      break;
     case '/employees':
       currentScreen = <Employees />;
+      break;
+    case '/employees/form':
+      currentScreen = <FormEmployee />;
+      break;
+    case '/employees/formEdit':
+      currentScreen = <FormEmployeeEdit />;
       break;
     case '/projects':
       currentScreen = <Projects />;
       break;
     case '/projects/add':
       currentScreen = <AddNew />;
+      break;
+    case '/projects/edit':
+      currentScreen = <EditProject />;
       break;
     case '/time-sheets':
       currentScreen = <TimeSheets />;

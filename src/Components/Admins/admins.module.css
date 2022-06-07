@@ -7,7 +7,7 @@
   margin-bottom: 15px;
 }
 
-.h2 {
+.title {
   font-size: 25px;
 }
 
@@ -17,12 +17,28 @@
   align-items: center;
   margin: 15px 0;
   padding: 10px 12px;
-  width: 120px;
+  width: 140px;
+  height: 40px;
+  background: #AACE9B;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #505168;
+  cursor: pointer;
+}
+
+.backBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 15px 0;
+  padding: 10px 12px;
+  width: 80px;
   height: 20px;
   background: #AACE9B;
   border-radius: 5px;
   text-decoration: none;
   color: #505168;
+  cursor: pointer;
 }
 
 .listContainer {
@@ -54,19 +70,53 @@
 .editBtn {
   display: inline-block;
   padding: 5px 10px;
-background: #AACE9B;
-border-radius: 5px;
-border: 1px solid #AACE9B;
+  background: #AACE9B;
+  border-radius: 5px;
+  border: 1px solid #AACE9B;
   color: #ffffff;
-font-size: 12px;
+  font-size: 12px;
   cursor: pointer;
 }
 
 .deleteBtn {
   display: inline-block;
   padding: 5px 10px;
-background: none;
-border: 0;
-font-size: 12px;
+  background: none;
+  border: 0;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.formContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 700px;
+  height: 150px;
+  color: #505168;
+}
+
+.formContainer div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.active {
+  align-self: center;
+}
+
+.confirmBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-end;
+  margin: 15px 0;
+  padding: 10px 12px;
+  width: 140px;
+  height: 30px;
+  background: #AACE9B;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #505168;
   cursor: pointer;
 }

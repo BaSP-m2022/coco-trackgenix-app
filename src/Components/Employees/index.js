@@ -1,27 +1,43 @@
-import { useEffect, useState } from 'react';
 import styles from './employees.module.css';
+import React, { useEffect, useState } from 'react';
+import List from './List';
 
-function Employees() {
-  const [employees, saveEmployees] = useState([]);
-
-  useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/users`)
-      .then((response) => response.json())
-      .then((response) => {
-        saveEmployees(response);
-      });
+const Employees = () => {
+  const [list, setList] = useState([]);
+  useEffect(async () => {
+    try {
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/Employees`);
+      const data = await response.json();
+      setList(data.data);
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
+
+  const deleteItem = async (_id) => {
+    try {
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/Employees/${_id}`, {
+        method: 'DELETE'
+      });
+      console.log(response);
+      alert('Employee deleted');
+    } catch (error) {
+      console.error(error);
+    }
+    setList(list.filter((listItem) => listItem._id !== _id));
+  };
 
   return (
     <section className={styles.container}>
       <h2>Employees</h2>
       <div>
-        {employees.map((employee) => {
-          return <div key={employee.id}>{employee.name}</div>;
-        })}
+        <List list={list} deleteItem={deleteItem} setList={setList} />
+      </div>
+      <div>
+        <button onClick={() => (window.location = '/employees/form')}>Add Employee</button>
       </div>
     </section>
   );
-}
+};
 
 export default Employees;
