@@ -15,13 +15,12 @@ const Admins = () => {
     }
   }, []);
 
-  const deleteItem = (_id) => {
+  const deleteItem = async (_id) => {
     try {
-      const response = fetch(`https://coco-trackgenix-server.vercel.app/admins/${_id}`, {
+      await fetch(`https://coco-trackgenix-server.vercel.app/admins/${_id}`, {
         method: 'DELETE'
       });
-      console.log(response);
-      alert('Admin deleted.');
+      alert('Admin deleted');
     } catch (error) {
       console.error(error);
     }
@@ -30,11 +29,11 @@ const Admins = () => {
 
   return (
     <section className={styles.container}>
-      <h2 className={styles.h2}>Admins</h2>
+      <h2 className={styles.title}>Admins</h2>
       <div>
-        <a href="/admins/add" className={styles.addBtn}>
+        <button onClick={() => (window.location = '/admins/add')} className={styles.addBtn}>
           + Add an admin
-        </a>
+        </button>
         <List list={list} setList={setList} deleteItem={deleteItem} />
       </div>
     </section>

@@ -59,6 +59,10 @@ const SuperAdmin = () => {
         {/* <button className={styles.addButton} onClick={switcher}>
           Add new Super Admin
         </button> */}
+        {/* <List list={list} setList={setList} deleteItem={deleteItem} /> */}
+        <button className={styles.addButton} onClick={switcher}>
+          Add new Super Admin
+        </button>
       </section>
     );
   }

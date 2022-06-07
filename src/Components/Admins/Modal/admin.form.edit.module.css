@@ -1,0 +1,66 @@
+.modalContainer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+  
+.editModal{
+    padding: 10px 35px 35px;
+    background-color: #fff;
+    border-radius: 7px;
+}
+
+.formContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 700px;
+    height: 150px;
+    color: #505168;
+}
+
+.formContainer div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.active {
+    align-self: center;
+}
+
+.confirmBtn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: flex-end;
+    margin: 15px 0;
+    padding: 10px 12px;
+    width: 140px;
+    height: 30px;
+    background: #AACE9B;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #505168;
+    cursor: pointer;
+  }
+
+.backBtn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 15px 0;
+    padding: 10px 12px;
+    width: 80px;
+    height: 20px;
+    background: #AACE9B;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #505168;
+    cursor: pointer;
+}

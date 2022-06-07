@@ -12,3 +12,8 @@
   width: 150px;
   margin-left: 40px;
 }
+
+.addButton {
+  display: flex;
+  flex-direction: column;
+}
