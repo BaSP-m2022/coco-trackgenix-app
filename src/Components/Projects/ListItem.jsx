@@ -5,6 +5,10 @@ const ListItem = ({ listItem, deleteItem }) => {
     deleteItem(_id);
   };
 
+  const handleEdit = (_id) => {
+    window.location = `/projects/edit?=${_id}`;
+  };
+
   const changeDate = (date) => {
     let changedDate;
     if (!date) {
@@ -28,28 +32,30 @@ const ListItem = ({ listItem, deleteItem }) => {
     return changedDate;
   };
 
-  const test = listItem.map((item) => {
+  const items = listItem.map((item) => {
     return (
-      <tr key={item.id}>
-        <td>{item.name}</td>
-        <td>{item.clientName}</td>
-        <td>{item.admins}</td>
-        <td>{changeDate(item.createdAt)}</td>
-        <td>{item.description}</td>
-        <td>{changeDate(item.startDate)}</td>
-        <td>{changeDate(item.updatedAt)}</td>
-        <td>{item.employees.length}</td>
-        <td>{item.active.toString()}</td>
-        <td>
-          <button>Edit</button>
-        </td>
-        <td>
-          <button onClick={() => handleDelete(item._id)}>X</button>
-        </td>
-      </tr>
+      <tbody key={item.id}>
+        <tr key={item.id}>
+          <td>{item.name}</td>
+          <td>{item.clientName}</td>
+          <td>{item.admins}</td>
+          <td>{changeDate(item.createdAt)}</td>
+          <td>{item.description}</td>
+          <td>{changeDate(item.startDate)}</td>
+          <td>{changeDate(item.endDate)}</td>
+          <td>{item.employees.length}</td>
+          <td>{item.active.toString()}</td>
+          <td>
+            <button onClick={() => handleEdit(item._id)}>Edit</button>
+          </td>
+          <td>
+            <button onClick={() => handleDelete(item._id)}>X</button>
+          </td>
+        </tr>
+      </tbody>
     );
   });
-  return <>{test}</>;
-};
 
+  return <>{items}</>;
+};
 export default ListItem;

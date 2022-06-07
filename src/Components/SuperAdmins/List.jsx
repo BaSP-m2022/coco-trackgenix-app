@@ -1,21 +1,21 @@
 import React from 'react';
+import './super-admins.module.css';
 import ListItem from './ListItem';
-import styles from './admins.module.css';
 
-const List = ({ list, deleteItem }) => {
+const List = ({ list, deleteItem, setId }) => {
   return (
-    <div className={styles.listContainer}>
+    <div>
       <table>
-        <thead className={styles.tableHead}>
+        <thead>
           <tr>
             <th>Name</th>
             <th>Last Name</th>
             <th>Email</th>
             <th>Password</th>
-            <th>Active</th>
+            <th>Is Active</th>
           </tr>
         </thead>
-        <ListItem listItem={list} deleteItem={deleteItem} />
+        <ListItem listItem={list} deleteItem={deleteItem} setId={setId} />
       </table>
     </div>
   );

@@ -19,14 +19,14 @@ const ListItem = ({ listItem, deleteItem }) => {
           <Button buttonFunction={() => handleEdit(item)}></Button>
         </td>
         <td>
-          <Button
-            buttonFunction={() => {
-              const result = confirm('are you sure you want to delete?');
+          <button
+            onClick={() => {
+              const result = confirm('Are you sure you want to delete?');
               if (result) {
                 deleteItem(item._id);
               }
             }}
-          ></Button>
+          ></button>
         </td>
       </tr>
     );
