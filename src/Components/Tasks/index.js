@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './tasks.module.css';
 import List from './List/List';
 import NewFormItem from './FormList/FormList';
+import Logo from '../SharedComponents/Logo/Logo';
 
 const Tasks = () => {
   const [show, setShow] = useState(false);
@@ -36,6 +37,7 @@ const Tasks = () => {
 
   return (
     <section className={styles.container}>
+      <Logo />
       <div>
         <button onClick={showList}>{show === false ? 'Add' : 'Back'}</button>
       </div>
