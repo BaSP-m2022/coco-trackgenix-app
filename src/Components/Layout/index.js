@@ -10,6 +10,7 @@ import Projects from '../Projects';
 import AddNew from '../Projects/AddNew';
 import TimeSheets from '../TimeSheets';
 import Tasks from '../Tasks/index';
+import EditProject from '../Projects/EditProject';
 import SuperAdminFormEdit from '../SuperAdmins/SuperAdminFormEdit';
 import FormEmployee from '../Employees/FormEmployee/FormEmployee';
 import FormEmployeeEdit from '../Employees/FormEmployee/FormEmployeeEdit';
@@ -43,6 +44,9 @@ function Layout() {
       break;
     case '/projects/add':
       currentScreen = <AddNew />;
+      break;
+    case '/projects/edit':
+      currentScreen = <EditProject />;
       break;
     case '/time-sheets':
       currentScreen = <TimeSheets />;
