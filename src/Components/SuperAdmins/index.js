@@ -1,6 +1,5 @@
 import styles from './super-admins.module.css';
 import React, { useEffect, useState } from 'react';
-// import List from './List';
 import SuperAdminForm from './SuperAdminForm';
 import Table from '../Shared/Table';
 
@@ -55,14 +54,6 @@ const SuperAdmin = () => {
           headers={['name', 'lastName', 'email', 'password', 'active']}
           deleteItem={deleteItem}
         />
-        {/* <List list={list} setList={setList} deleteItem={deleteItem} /> */}
-        {/* <button className={styles.addButton} onClick={switcher}>
-          Add new Super Admin
-        </button> */}
-        {/* <List list={list} setList={setList} deleteItem={deleteItem} /> */}
-        <button className={styles.addButton} onClick={switcher}>
-          Add new Super Admin
-        </button>
       </section>
     );
   }

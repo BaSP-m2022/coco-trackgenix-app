@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './super-admins.module.css';
+import Button from '../Shared/Modal/Button.jsx';
 
 const AddSuperAdmin = () => {
   const [name, setName] = useState('');
@@ -89,7 +90,10 @@ const AddSuperAdmin = () => {
             onChange={(event) => setActive(event.target.value)}
           ></input>
         </div>
-        <button type="submit">Accept</button>
+        <Button type="submit">Accept</Button>
+        <Button type="submit" handleClick={() => (window.location = '/super-admins')}>
+          Back
+        </Button>
       </form>
     </div>
   );
