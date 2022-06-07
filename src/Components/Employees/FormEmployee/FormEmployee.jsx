@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../employees.module.css';
 
-const FormEmployee = () => {
+const FormEmployee = (props) => {
   const [employeeInput, setEmployeeInput] = useState({
     firstName: '',
     lastName: '',
@@ -34,7 +34,7 @@ const FormEmployee = () => {
         employeeInput.active !== ''
       ) {
         alert('Employee created');
-        window.location = '/employees';
+        props.history.push('/employees');
       } else {
         alert('Please fill every field');
       }
@@ -102,7 +102,7 @@ const FormEmployee = () => {
           </div>
         </form>
       </div>
-      <button onClick={() => (window.location = '/employees')}>Return</button>
+      <button onClick={() => props.history.push('/employees')}>Return</button>
     </div>
   );
 };

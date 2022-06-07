@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const NewFormItem = (props) => {
+const TaskForm = (props) => {
   const [newItem, setNewItem] = useState({
     description: props.description,
     workedHours: props.workedHours
@@ -29,7 +29,7 @@ const NewFormItem = (props) => {
       .then((data) => {
         if (data.error === false) {
           alert(`${data.msg}`);
-          window.location = '/tasks';
+          props.history.push('/tasks');
         } else {
           alert(`${data.msg}`);
         }
@@ -40,6 +40,7 @@ const NewFormItem = (props) => {
   return (
     <div>
       <h2>New Task</h2>
+      <button onClick={() => props.history.push('/tasks')}>BACK</button>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Task description</label>
@@ -67,4 +68,4 @@ const NewFormItem = (props) => {
   );
 };
 
-export default NewFormItem;
+export default TaskForm;

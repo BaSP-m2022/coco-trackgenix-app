@@ -18,7 +18,7 @@ const Modal = ({ updItem, openModal, closeModal }) => {
       .then((data) => {
         if (data.error === false) {
           alert(`${data.msg}`);
-          window.location = '/tasks';
+          closeModal();
         } else {
           alert(`${data.msg}`);
         }
