@@ -1,5 +1,5 @@
 import React from 'react';
-import EspButton from '../Shared/Modal/GenBtn';
+import Button from '../Shared/Modal/Button';
 
 const ListItem = ({ listItem, deleteItem }) => {
   const handleEdit = (item) => {
@@ -16,27 +16,17 @@ const ListItem = ({ listItem, deleteItem }) => {
         <td>{item.password}</td>
         <td>{item.active.toString()}</td>
         <td>
-          <EspButton
-            buttonName="Edit"
-            buttonBorderColor="rgb(80, 81, 104)"
-            buttonTextColor="rgb(80, 81, 104)"
-            buttonColor="rgb(255, 255, 255)"
-            buttonFunction={() => handleEdit(item)}
-          ></EspButton>
+          <Button buttonFunction={() => handleEdit(item)}></Button>
         </td>
         <td>
-          <EspButton
-            buttonName="Delete"
-            buttonBorderColor="rgb(80, 81, 104)"
-            buttonTextColor="rgb(80, 81, 104)"
-            buttonColor="rgb(255, 255, 255)"
+          <Button
             buttonFunction={() => {
               const result = confirm('are you sure you want to delete?');
               if (result) {
                 deleteItem(item._id);
               }
             }}
-          ></EspButton>
+          ></Button>
         </td>
       </tr>
     );

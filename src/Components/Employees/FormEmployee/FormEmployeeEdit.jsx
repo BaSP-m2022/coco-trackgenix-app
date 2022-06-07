@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../employees.module.css';
-import EspButton from '../../Shared/Modal/GenBtn';
+import EspButton from '../../Shared/Modal/Button';
 
 const FormEmployeeEdit = () => {
   const [firstName, setFirstName] = useState('');
