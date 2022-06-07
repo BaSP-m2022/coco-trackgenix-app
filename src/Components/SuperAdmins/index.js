@@ -37,9 +37,9 @@ const SuperAdmin = () => {
     setSwitch(change ? (change = false) : (change = true));
   };
 
-  const handleEdit = () => {
+  const handleEdit = (_id) => {
     // console.log('Here goes the code for the confirm');
-    window.location = '/super-admins/Form';
+    window.location = `/super-admins/Form?=${_id}`;
   };
 
   if (change) {
