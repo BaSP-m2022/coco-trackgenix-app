@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './projects.module.css';
 import List from './List.jsx';
+import Logo from '../SharedComponents/Logo/Logo';
 
 const Projects = () => {
   const [list, setList] = useState([]);
@@ -29,6 +30,7 @@ const Projects = () => {
 
   return (
     <section className={styles.container}>
+      <Logo />
       <div>
         <h2>Projects</h2>
         <List list={list} deleteItem={deleteItem} setList={setList} />
