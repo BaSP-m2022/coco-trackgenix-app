@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../employees.module.css';
-import EspButton from '../../Shared/Modal/Button';
 
 const FormEmployeeEdit = () => {
   const [firstName, setFirstName] = useState('');
@@ -126,13 +125,6 @@ const FormEmployeeEdit = () => {
           </div>
         </form>
       </div>
-      <EspButton
-        buttonName="Add Employee"
-        buttonBorderColor="rgb(80, 81, 104)"
-        buttonTextColor="rgb(80, 81, 104)"
-        buttonColor="rgb(255, 255, 255)"
-        buttonFunction={() => (window.location = '/employees/form')}
-      ></EspButton>
       <button onClick={() => (window.location = '/employees')}>Return</button>
     </div>
   );

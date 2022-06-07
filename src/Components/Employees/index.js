@@ -1,7 +1,6 @@
 import styles from './employees.module.css';
 import React, { useEffect, useState } from 'react';
 import List from './List';
-import Button from '../Shared/Modal/Button';
 
 const Employees = () => {
   const [list, setList] = useState([]);
@@ -35,9 +34,7 @@ const Employees = () => {
         <List list={list} deleteItem={deleteItem} setList={setList} />
       </div>
       <div>
-        <Button type={styles.hola} handleClick={() => (window.location = '/employees/form')}>
-          Add Employee
-        </Button>
+        <button onClick={() => (window.location = '/employees/form')}>Add Employee</button>
       </div>
     </section>
   );

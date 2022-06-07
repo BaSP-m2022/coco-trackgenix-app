@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '../Shared/Modal/Button';
 
 const ListItem = ({ listItem, deleteItem }) => {
   const handleEdit = (item) => {
@@ -16,7 +15,7 @@ const ListItem = ({ listItem, deleteItem }) => {
         <td>{item.password}</td>
         <td>{item.active.toString()}</td>
         <td>
-          <Button buttonFunction={() => handleEdit(item)}></Button>
+          <button onClick={() => handleEdit(item)}>Edit</button>
         </td>
         <td>
           <button
