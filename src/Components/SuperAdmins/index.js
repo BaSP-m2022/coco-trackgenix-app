@@ -28,7 +28,6 @@ const SuperAdmin = () => {
       });
       console.log(response);
       setList(list.filter((listItem) => listItem._id !== _id));
-      alert('The Super Admin have been delete successfully');
     } catch (error) {
       console.error(error);
     }

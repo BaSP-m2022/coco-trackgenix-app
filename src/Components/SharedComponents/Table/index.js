@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './table.module.css';
 import Button from '../Button/Button';
+import Modal from '../Modal/Modal';
 
-const Table = ({ data, headers, children, handleEdit, handleDelete }) => {
+const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [rowMember, setRow] = useState();
+
   return (
     <div className={styles.container}>
       <div className={styles.buttonAdd}>{children}</div>
@@ -28,16 +32,47 @@ const Table = ({ data, headers, children, handleEdit, handleDelete }) => {
                   return <td key={index}>{row[header]}</td>;
                 })}
                 <td>
-                  <Button handleClick={handleEdit}>Edit</Button>
+                  <Button type={styles.editBtn} handleClick={handleEdit}>
+                    Edit
+                  </Button>
                 </td>
                 <td>
-                  <Button handleClick={handleDelete}>X</Button>
+                  <Button
+                    type={styles.deleteBtn}
+                    handleClick={() => {
+                      setIsOpen(true);
+                      setRow(row._id);
+                    }}
+                  >
+                    X
+                  </Button>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <h2>Warning</h2>
+        <div>
+          <p>Are you sure you want to delete this item?</p>
+          <p>You will not be able to recover it</p>
+        </div>
+        <div>
+          <Button type={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
+            Cancel
+          </Button>
+          <Button
+            type={styles.confirmANDdeleteBtn}
+            handleClick={() => {
+              deleteItem(rowMember);
+              setIsOpen(false);
+            }}
+          >
+            Confirm
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };
