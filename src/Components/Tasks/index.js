@@ -37,9 +37,7 @@ const Tasks = () => {
 
   return (
     <section className={styles.container}>
-      <div>
-        <Logo />
-      </div>
+      <Logo />
       <div>
         <button onClick={showList}>{show === false ? 'Add' : 'Back'}</button>
       </div>
