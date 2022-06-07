@@ -10,7 +10,7 @@ const NavBar = (props) => {
         <div className={styles.userName}>User Name</div>
         <div className={styles.userRole}>User Role</div>
       </div>
-      <div className={styles.appName}>Menu</div>
+      <div className={styles.menu}>Menu</div>
       <ul className={styles.rutes}>
         <li>
           <button onClick={() => props.history.push('projects')}>projects</button>

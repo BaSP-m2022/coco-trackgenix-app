@@ -8,39 +8,40 @@
   background: linear-gradient(180deg, #50A780 0%, rgba(80, 167, 128, 0) 100%), linear-gradient(180deg, #50A780 0%, rgba(80, 167, 128, 0) 100%);;
 }
 
-.userInfo > div {
+.userInfo {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   align-content: center;
   width: 100%;
-  margin-bottom: 10px;
 }
 
 .userImg {
-  margin-left: 10%;
+  margin-bottom: 5px;
 }
 
 .userName {
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 1.25rem;
   line-height: 23px;
   color: #000000;
+  margin-bottom: 10px;
 }
 
 .userRole {
   font-weight: 400;
-  font-size: 1.75rem;
+  font-size: 2rem;
   line-height: 35px;
   color: #FFFFFF;
+  margin-bottom: 20px;
 }
 
-.appName {
+.menu {
   width: 100%;
   margin-left: 0px 0px 10px 0px;
   text-align: left;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: bold;
   border-bottom: 2px solid #ED2626;
 }
@@ -59,7 +60,7 @@
 .rutes > li > button {
   width: 100%;
   padding: 0px;
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: 600;
   text-align: left;
   text-decoration: none;
