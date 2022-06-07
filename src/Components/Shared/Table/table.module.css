@@ -6,3 +6,7 @@
 .tableCell {
   border: 1px solid black;
 }
+
+.container > table {
+  border-collapse: collapse;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './table.styles.css';
+import styles from './table.module.css';
 
 const Table = ({ data, headers, deleteItem }) => {
   const editSuperAdmin = (_id) => {
@@ -8,7 +8,7 @@ const Table = ({ data, headers, deleteItem }) => {
   return (
     <div className={styles.container}>
       <button>Add new Super Admin</button>
-      <table className={styles.container}>
+      <table>
         <thead>
           <tr>
             {headers.map((header, index) => {
@@ -18,6 +18,8 @@ const Table = ({ data, headers, deleteItem }) => {
                 </th>
               );
             })}
+            <th className={styles.tableCell}>Edit</th>
+            <th className={styles.tableCell}>Delete</th>
           </tr>
         </thead>
         <tbody>

@@ -12,6 +12,9 @@ const SuperAdmin = () => {
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins`);
       const data = await response.json();
+      data.data.map((superadmin) => {
+        superadmin.active = superadmin.active ? 'true' : 'false';
+      });
       setList(data.data);
     } catch (error) {
       console.error(error);
@@ -53,9 +56,9 @@ const SuperAdmin = () => {
           deleteItem={deleteItem}
         />
         {/* <List list={list} setList={setList} deleteItem={deleteItem} /> */}
-        <button className={styles.addButton} onClick={switcher}>
+        {/* <button className={styles.addButton} onClick={switcher}>
           Add new Super Admin
-        </button>
+        </button> */}
       </section>
     );
   }
