@@ -1,8 +1,8 @@
 import styles from './super-admins.module.css';
 import React, { useEffect, useState } from 'react';
 import SuperAdminForm from './SuperAdminForm';
-import Table from '../Shared/Table';
-import Button from '../Shared/Modal/Button';
+import Table from '../SharedComponents/Table';
+import Button from '../SharedComponents/Button/Button';
 
 const SuperAdmin = () => {
   let [change, setSwitch] = useState(false);

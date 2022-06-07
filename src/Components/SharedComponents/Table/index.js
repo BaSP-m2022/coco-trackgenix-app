@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './table.module.css';
-import Button from '../Modal/Button';
+import Button from '../Button/Button';
 
-const Table = ({ data, headers, children, handleEdit }) => {
+const Table = ({ data, headers, children, handleEdit, handleDelete }) => {
   return (
     <div className={styles.container}>
       <div className={styles.buttonAdd}>{children}</div>
@@ -31,7 +31,7 @@ const Table = ({ data, headers, children, handleEdit }) => {
                   <Button handleClick={handleEdit}>Edit</Button>
                 </td>
                 <td>
-                  <Button>X</Button>
+                  <Button handleClick={handleDelete}>X</Button>
                 </td>
               </tr>
             );

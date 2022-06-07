@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './super-admins.module.css';
-import Button from '../Shared/Modal/Button.jsx';
+import Button from '../SharedComponents/Button/Button';
 
 const AddSuperAdmin = () => {
   const [name, setName] = useState('');
