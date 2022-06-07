@@ -1,0 +1,70 @@
+.navbar {
+  width: 10vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 3%;
+  min-height: 100px;
+  background: linear-gradient(180deg, #50A780 0%, rgba(80, 167, 128, 0) 100%), linear-gradient(180deg, #50A780 0%, rgba(80, 167, 128, 0) 100%);;
+}
+
+.userInfo > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.userImg {
+  margin-left: 10%;
+}
+
+.userName {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 23px;
+  color: #000000;
+}
+
+.userRole {
+  font-weight: 400;
+  font-size: 1.75rem;
+  line-height: 35px;
+  color: #FFFFFF;
+}
+
+.appName {
+  width: 100%;
+  margin-left: 0px 0px 10px 0px;
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-bottom: 2px solid #ED2626;
+}
+
+.rutes {
+  padding-inline-start: 0px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.rutes > li {
+  margin: 0px 0px 20px 0px;
+  list-style: none;
+}
+
+.rutes > li > button {
+  width: 100%;
+  padding: 0px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+  text-transform: capitalize;
+  color: rgba(80, 81, 104, 1);
+  border: none;
+  background: none;
+}
