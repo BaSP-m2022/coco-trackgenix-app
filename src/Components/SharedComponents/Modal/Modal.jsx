@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './modal.module.css';
 
-const Modal = ({ children, handleConfirm, showModal, closeModal }) => {
+const Modal = ({ children, showModal, closeModal }) => {
   const handleModalOverlayClick = (e) => e.stopPropagation();
 
   if (!showModal) {
@@ -15,14 +15,6 @@ const Modal = ({ children, handleConfirm, showModal, closeModal }) => {
           X
         </button>
         {children}
-        <footer className={styles.buttonsFooter}>
-          <button onClick={closeModal} className={styles.cancelBtn}>
-            Cancel
-          </button>
-          <button onClick={handleConfirm} className={styles.confirmBtn}>
-            Confirm
-          </button>
-        </footer>
       </div>
     </div>
   );
