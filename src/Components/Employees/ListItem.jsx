@@ -25,7 +25,9 @@ const ListItem = ({ listItem, deleteItem }) => {
                 deleteItem(item._id);
               }
             }}
-          ></button>
+          >
+            X
+          </button>
         </td>
       </tr>
     );
