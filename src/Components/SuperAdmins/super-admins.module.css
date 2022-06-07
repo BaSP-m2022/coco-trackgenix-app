@@ -1,11 +1,14 @@
 .container {
   flex: 1;
+  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
 .container h2 {
-  color: red;
+  color: #373867;
+  font-family: 'Arial';
+  width: 150px;
+  margin-left: 40px;
 }

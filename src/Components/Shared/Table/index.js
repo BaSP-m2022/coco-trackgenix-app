@@ -7,7 +7,9 @@ const Table = ({ data, headers, deleteItem }) => {
   };
   return (
     <div className={styles.container}>
-      <button>Add new Super Admin</button>
+      <div className={styles.buttonAdd}>
+        <button>Add new Super Admin</button>
+      </div>
       <table>
         <thead>
           <tr>
@@ -25,7 +27,7 @@ const Table = ({ data, headers, deleteItem }) => {
         <tbody>
           {data.map((row) => {
             return (
-              <tr key={row._id} className={styles.tableCell}>
+              <tr key={row._id} className={styles.tableNames}>
                 {headers.map((header, index) => {
                   return <td key={index}>{row[header]}</td>;
                 })}
