@@ -20,7 +20,7 @@ const Projects = () => {
       fetch(`https://coco-trackgenix-server.vercel.app/projects/${_id}`, {
         method: 'DELETE'
       });
-      alert('Project deleted.');
+      alert(`Project with ID: ${_id} deleted.`);
     } catch (error) {
       console.error;
     }
