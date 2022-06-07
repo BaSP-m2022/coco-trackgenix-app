@@ -2,6 +2,7 @@ import styles from './super-admins.module.css';
 import React, { useEffect, useState } from 'react';
 import SuperAdminForm from './SuperAdminForm';
 import Table from '../Shared/Table';
+import Button from '../Shared/Modal/Button';
 
 const SuperAdmin = () => {
   let [change, setSwitch] = useState(false);
@@ -10,11 +11,11 @@ const SuperAdmin = () => {
   useEffect(async () => {
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins`);
-      const data = await response.json();
-      data.data.map((superadmin) => {
+      const resp = await response.json();
+      resp.data.map((superadmin) => {
         superadmin.active = superadmin.active ? 'true' : 'false';
       });
-      setList(data.data);
+      setList(resp.data);
     } catch (error) {
       console.error(error);
     }
@@ -37,6 +38,11 @@ const SuperAdmin = () => {
     setSwitch(change ? (change = false) : (change = true));
   };
 
+  const handleEdit = () => {
+    // console.log('Here goes the code for the confirm');
+    window.location = '/super-admins/Form';
+  };
+
   if (change) {
     return (
       <section className={styles.container}>
@@ -52,8 +58,13 @@ const SuperAdmin = () => {
         <Table
           data={list}
           headers={['name', 'lastName', 'email', 'password', 'active']}
+          handleEdit={handleEdit}
           deleteItem={deleteItem}
-        />
+        >
+          <Button handleClick={() => (window.location = '/super-admins/formAdd')}>
+            Add Super Admin
+          </Button>
+        </Table>
       </section>
     );
   }

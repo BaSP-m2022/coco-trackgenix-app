@@ -2,17 +2,10 @@ import React from 'react';
 import styles from './table.module.css';
 import Button from '../Modal/Button';
 
-const Table = ({ data, headers, deleteItem }) => {
-  const editSuperAdmin = (_id) => {
-    window.location = `/super-admins/Form?=${_id}`;
-  };
+const Table = ({ data, headers, children, handleEdit }) => {
   return (
     <div className={styles.container}>
-      <div className={styles.buttonAdd}>
-        <Button handleClick={() => (window.location = '/super-admins/formAdd')}>
-          Add Super Admin
-        </Button>
-      </div>
+      <div className={styles.buttonAdd}>{children}</div>
       <table>
         <thead>
           <tr>
@@ -35,10 +28,10 @@ const Table = ({ data, headers, deleteItem }) => {
                   return <td key={index}>{row[header]}</td>;
                 })}
                 <td>
-                  <Button handleClick={() => editSuperAdmin(row._id)}>Edit</Button>
+                  <Button handleClick={handleEdit}>Edit</Button>
                 </td>
                 <td>
-                  <Button handleClick={() => deleteItem(row._id)}>X</Button>
+                  <Button>X</Button>
                 </td>
               </tr>
             );
