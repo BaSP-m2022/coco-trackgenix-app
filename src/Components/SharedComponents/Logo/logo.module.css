@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+.container {
+  width: 339px;
+  height: 66px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: transparent;
+}
+
+.logo{
+  width: 60px;
+  height: 60px;
+}
+
+.companyName {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Roboto';
+  font-style: normal;
+}
+.title {
+  margin: 0;
+  box-sizing: content-box;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 40px;
+}
+.subtitle {
+  margin: 0;
+  box-sizing: content-box;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 29px;
+}
