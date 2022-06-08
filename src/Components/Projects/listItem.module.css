@@ -1,0 +1,19 @@
+.editButtonProject{
+    padding: 10px 15px;
+    border: 0px;
+    background-color: rgb(170, 206, 155);
+    border-radius: 5px;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    color: rgba(80, 81, 104, 1);
+}
+
+.deleteButtonProject{
+    padding: 10px 15px;
+    border: 0px;
+    background-color: rgb(170, 206, 155);
+    border-radius: 5px;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    color: rgba(80, 81, 104, 1);
+}

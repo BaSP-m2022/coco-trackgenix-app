@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styles from './projects.module.css';
-import List from './List.jsx';
 import Logo from '../SharedComponents/Logo/Logo';
+import Button from '../SharedComponents/Button/Button';
+import Table from '../SharedComponents/Table/index';
 
-const Projects = () => {
+const Projects = (props) => {
   const [list, setList] = useState([]);
 
   useEffect(async () => {
@@ -31,10 +32,27 @@ const Projects = () => {
   return (
     <section className={styles.container}>
       <Logo />
-      <div>
+      <div className="forButton">
         <h2>Projects</h2>
-        <List list={list} deleteItem={deleteItem} setList={setList} />
-        <button onClick={() => (window.location = '/projects/add')}>ADD NEW</button>
+        <Table
+          data={list}
+          headers={[
+            'name',
+            'clientName',
+            'admins',
+            'createdAt',
+            'description',
+            'startDate',
+            'endDate',
+            'employees',
+            'active'
+          ]}
+          handleEdit={deleteItem}
+          setList={setList}
+        ></Table>
+        <Button type={styles.addProject} handleClick={() => props.history.push('/projects/add')}>
+          + Add new Project
+        </Button>
       </div>
     </section>
   );

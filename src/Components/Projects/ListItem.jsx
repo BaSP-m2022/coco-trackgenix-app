@@ -1,12 +1,14 @@
 import React from 'react';
+import styles from './listItem.module.css';
+import Button from '../SharedComponents/Button/Button';
 
-const ListItem = ({ listItem, deleteItem }) => {
+const ListItem = ({ listItem, deleteItem, props }) => {
   const handleDelete = (_id) => {
     deleteItem(_id);
   };
 
   const handleEdit = (_id) => {
-    window.location = `/projects/edit?=${_id}`;
+    props.history.push(`/projects/edit?=${_id}`);
   };
 
   const changeDate = (date) => {
@@ -46,10 +48,14 @@ const ListItem = ({ listItem, deleteItem }) => {
           <td>{item.employees.length}</td>
           <td>{item.active.toString()}</td>
           <td>
-            <button onClick={() => handleEdit(item._id)}>Edit</button>
+            <Button type={styles.editButtonProject} handleClick={() => handleEdit(item._id)}>
+              Edit
+            </Button>
           </td>
           <td>
-            <button onClick={() => handleDelete(item._id)}>X</button>
+            <Button type={styles.deleteButtonProject} handleClick={() => handleDelete(item._id)}>
+              Delete
+            </Button>
           </td>
         </tr>
       </tbody>
