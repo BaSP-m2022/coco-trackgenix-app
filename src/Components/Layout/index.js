@@ -1,5 +1,5 @@
-import Header from '../Header/index';
-import Footer from '../Footer/index';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import Admins from '../Admins/index';
 import AdminForm from '../Admins/AdminForm/AdminForm';
 import SuperAdmins from '../SuperAdmins/index';
@@ -16,6 +16,7 @@ import SuperAdminFormEdit from '../SuperAdmins/SuperAdminFormEdit';
 import SuperAdminForm from '../SuperAdmins/SuperAdminForm';
 import FormEmployee from '../Employees/FormEmployee/FormEmployee';
 import FormEmployeeEdit from '../Employees/FormEmployee/FormEmployeeEdit';
+import Navigation from '../Navigation';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 function Layout() {
@@ -23,7 +24,7 @@ function Layout() {
     <div className={styles.container}>
       <Header />
       <Switch>
-        <Route path="/home" component={Home} />
+        <Route exact path="/home" component={Home} />
         <Route exact path="/admins" component={Admins} />
         <Route path="/admins/add" component={AdminForm} />
         <Route exact path="/super-admins" component={SuperAdmins} />
@@ -38,6 +39,7 @@ function Layout() {
         <Route exact path="/time-sheets" component={TimeSheets} />
         <Route exact path="/tasks" component={Tasks} />
         <Route path="/tasks/add" component={TaskForm} />
+        <Route path="/nav" component={Navigation} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
