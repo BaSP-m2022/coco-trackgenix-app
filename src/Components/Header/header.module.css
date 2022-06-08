@@ -30,8 +30,8 @@
   min-width: 100px;
   width: 8%;
 }
-.headerContainer span{
-  margin: 0 8px;
+.headerContainer .burguerButton {
+  background-color: #49A37B;
 }
 
 .styleIcon {

@@ -22,7 +22,7 @@ function Layout() {
     <div className={styles.container}>
       <Header />
       <Switch>
-        <Route path="/home" component={Home} />
+        <Route exact path="/home" component={Home} />
         <Route exact path="/admins" component={Admins} />
         <Route path="/admins/add" component={AdminForm} />
         <Route exact path="/super-admins" component={SuperAdmins} />
