@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styles from './super-admins.module.css';
 
-const EditSuperAdmin = () => {
+const EditSuperAdmin = (props) => {
   const backSuperAdmin = () => {
-    window.location = `/super-admins`;
+    props.history.push('/super-admins');
   };
 
   const alertSuccessfully = () => {
     alert('The Super Admin have been edit successfully');
-    window.location = `/super-admins`;
+    props.history.push('/super-admins');
   };
 
   const [name, setName] = useState('');
