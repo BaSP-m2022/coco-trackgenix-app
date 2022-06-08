@@ -40,7 +40,7 @@ function Layout() {
         <Route exact path="/tasks" component={Tasks} />
         <Route path="/tasks/add" component={TaskForm} />
         <Route path="/nav" component={Navigation} />
-        <Route exact path="/">
+        <Route exact path="/" component={Home}>
           <Redirect to="/home" />
         </Route>
       </Switch>

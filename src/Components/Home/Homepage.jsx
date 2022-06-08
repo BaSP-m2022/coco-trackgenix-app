@@ -1,11 +1,24 @@
+import React from 'react';
 import styles from './home.module.css';
+import simplicity from '../../Assets/simplicity.png';
+import efficiency from '../../Assets/efficiency-img.png';
+import confidence from '../../Assets/confidence-img.png';
+import main from '../../Assets/main.png';
+import about from '../../Assets/about.png';
+import management from '../../Assets/management-img.png';
+import aboutTwo from '../../Assets/about-two.png';
+import tracking from '../../Assets/tracking-img.png';
+import Logo from '../SharedComponents/Logo/Logo';
 
 function Home() {
   return (
     <div className={styles.whiteBackground}>
+      <div className={styles.logo}>
+        <Logo />
+      </div>
       <main className={styles.container}>
         <section className={styles.trackgenix}>
-          <img src="" alt="" />
+          <img src={main} alt="main-img" />
           <p>
             Presentation of the company : A nice message about us that you find very attractive,
             friendly, that gives you confidence to stay on the site.Presentation of the company : A
@@ -15,23 +28,23 @@ function Home() {
         </section>
         <section className={styles.assets}>
           <div className={styles.assetsCard}>
-            <img src="" alt="simplicity-img" />
+            <img src={simplicity} alt="simplicity-img" />
             <p>Simplicity</p>
           </div>
           <div className={styles.assetsCard}>
-            <img src="" alt="efficiency-img" />
+            <img src={efficiency} alt="efficiency-img" />
             <p>Efficiency</p>
           </div>
           <div className={styles.assetsCard}>
-            <img src="" alt="tracking-img" />
+            <img src={tracking} alt="tracking-img" />
             <p>Tracking</p>
           </div>
           <div className={styles.assetsCard}>
-            <img src="" alt="confidence-img" />
+            <img src={confidence} alt="confidence-img" />
             <p>Confidence</p>
           </div>
           <div className={styles.assetsCard}>
-            <img src="" alt="management-img" />
+            <img src={management} alt="management-img" />
             <p>Management</p>
           </div>
         </section>
@@ -59,21 +72,27 @@ function Home() {
           <div>
             <h2>About Us</h2>
             <h4>Confidenciality agreements</h4>
-            <div>
-              <img src="" alt="about-img" />
+            <div className={styles.aboutContainer}>
+              <img src={about} alt="about-img" />
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa temporibus minima quis
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident, soluta? Ipsam
+                ipsa laudantium voluptatem reiciendis temporibus dolor distinctio suscipit veniam
+                adipisci ab tempore, labore fuga itaque laboriosam reprehenderit quae! Ipsum. Lorem
+                ipsum dolor sit amet consectetur adipisicing elit. Ipsa temporibus minima quis
                 commodi sint, vel esse recusandae incidunt sed fugiat inventore. Illo dolorum natus
                 facilis adipisci ipsum similique molestiae autem.
               </p>
             </div>
-            <div>
+            <div className={styles.aboutContainer}>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam magni maxime quos
-                illum eius iusto similique impedit fuga consequatur fugit corrupti expedita nisi ad
-                accusantium natus tempora, distinctio, est molestias.
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab amet accusantium earum
+                aspernatur placeat distinctio fugit illum consectetur vitae, quos officiis rem aut
+                magnam aliquid officia id? Obcaecati, temporibus sunt? Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Magnam magni maxime quos illum eius iusto similique
+                impedit fuga consequatur fugit corrupti expedita nisi ad accusantium natus tempora,
+                distinctio, est molestias.
               </p>
-              <img src="" alt="about-two" />
+              <img src={aboutTwo} alt="about-two" />
             </div>
           </div>
         </section>
