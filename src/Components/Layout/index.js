@@ -11,6 +11,7 @@ import AddNew from '../Projects/AddNew';
 import TimeSheets from '../TimeSheets';
 import Tasks from '../Tasks/index';
 import TaskForm from '../Tasks/TaskForm/TaskForm';
+import TaskFormEdit from '../Tasks/TaskForm/TaskFormEdit';
 import EditProject from '../Projects/EditProject';
 import SuperAdminFormEdit from '../SuperAdmins/SuperAdminFormEdit';
 import SuperAdminForm from '../SuperAdmins/SuperAdminForm';
@@ -39,7 +40,7 @@ function Layout() {
         <Route exact path="/time-sheets" component={TimeSheets} />
         <Route exact path="/tasks" component={Tasks} />
         <Route path="/tasks/add" component={TaskForm} />
-        <Route path="/tasks/edit" component={TaskForm} />
+        <Route path="/tasks/edit" component={TaskFormEdit} />
         <Route path="/nav" component={Navigation} />
         <Route exact path="/">
           <Redirect to="/home" />

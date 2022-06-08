@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './tasks.module.css';
 import Logo from '../SharedComponents/Logo/Logo';
 import Table from '../SharedComponents/Table/index';
+import Button from '../SharedComponents/Button/Button';
 
 const Tasks = (props) => {
   const [list, setList] = useState([]);
@@ -27,16 +28,22 @@ const Tasks = (props) => {
     }
     setList(list.filter((listItem) => listItem._id !== _id));
   };
+  const handleEdit = (_id) => {
+    window.location = `/tasks/edit?=${_id}`;
+  };
 
   return (
     <section className={styles.container}>
       <Logo />
+      <h2 className={styles.title}>Tasks</h2>
       <div>
-        <button onClick={() => props.history.push('tasks/add')}>Add</button>
+        <Button type={styles.buttonAdd} handleClick={() => props.history.push('tasks/add')}>
+          + Add Task
+        </Button>
         <Table
           data={list}
           headers={['description', 'workedHours', 'date']}
-          handleEdit={() => props.history.push('/tasks/edit')}
+          handleEdit={handleEdit}
           deleteItem={deleteItem}
         />
       </div>

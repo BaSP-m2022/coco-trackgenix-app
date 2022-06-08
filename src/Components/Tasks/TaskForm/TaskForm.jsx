@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Logo from '../../SharedComponents/Logo/Logo';
+import styles from './taskForm.module.css';
+import Button from '../../SharedComponents/Button/Button';
 
 const TaskForm = (props) => {
   const [newItem, setNewItem] = useState({
@@ -39,10 +41,12 @@ const TaskForm = (props) => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <Logo />
-      <h2>New Task</h2>
-      <button onClick={() => props.history.push('/tasks')}>BACK</button>
+      <h2 className={styles.title}>New Task</h2>
+      <Button type={styles.buttonAdd} handleClick={() => props.history.push('/tasks')}>
+        BACK
+      </Button>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Task description</label>
@@ -63,7 +67,7 @@ const TaskForm = (props) => {
           />
         </div>
         <div>
-          <button type="submit">Create</button>
+          <Button type="submit">Create</Button>
         </div>
       </form>
     </div>
