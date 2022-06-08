@@ -1,6 +1,6 @@
-import Header from '../Header/index';
+import Header from '../Header/Header';
 import NavBar from '../NavBar/NavBar';
-import Footer from '../Footer/index';
+import Footer from '../Footer/Footer';
 import Admins from '../Admins/index';
 import AdminForm from '../Admins/AdminForm/AdminForm';
 import SuperAdmins from '../SuperAdmins/index';
@@ -14,8 +14,10 @@ import Tasks from '../Tasks/index';
 import TaskForm from '../Tasks/TaskForm/TaskForm';
 import EditProject from '../Projects/EditProject';
 import SuperAdminFormEdit from '../SuperAdmins/SuperAdminFormEdit';
+import SuperAdminForm from '../SuperAdmins/SuperAdminForm';
 import FormEmployee from '../Employees/FormEmployee/FormEmployee';
 import FormEmployeeEdit from '../Employees/FormEmployee/FormEmployeeEdit';
+import Navigation from '../Navigation';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 function Layout() {
@@ -25,11 +27,12 @@ function Layout() {
       <div className={styles.main}>
         <NavBar />
         <Switch>
-          <Route path="/home" component={Home} />
+          <Route exact path="/home" component={Home} />
           <Route exact path="/admins" component={Admins} />
           <Route path="/admins/add" component={AdminForm} />
           <Route exact path="/super-admins" component={SuperAdmins} />
           <Route path="/super-admins/Form" component={SuperAdminFormEdit} />
+          <Route path="/super-admins/formAdd" component={SuperAdminForm} />
           <Route exact path="/employees" component={Employees} />
           <Route path="/employees/form" component={FormEmployee} />
           <Route path="/employees/formEdit" component={FormEmployeeEdit} />
@@ -39,6 +42,7 @@ function Layout() {
           <Route exact path="/time-sheets" component={TimeSheets} />
           <Route exact path="/tasks" component={Tasks} />
           <Route path="/tasks/add" component={TaskForm} />
+          <Route path="/nav" component={Navigation} />
           <Route exact path="/">
             <Redirect to="/home" />
           </Route>
