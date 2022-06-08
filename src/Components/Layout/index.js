@@ -16,6 +16,7 @@ import SuperAdminFormEdit from '../SuperAdmins/SuperAdminFormEdit';
 import SuperAdminForm from '../SuperAdmins/SuperAdminForm';
 import FormEmployee from '../Employees/FormEmployee/FormEmployee';
 import FormEmployeeEdit from '../Employees/FormEmployee/FormEmployeeEdit';
+import Navigation from '../Navigation';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 function Layout() {
@@ -38,6 +39,7 @@ function Layout() {
         <Route exact path="/time-sheets" component={TimeSheets} />
         <Route exact path="/tasks" component={Tasks} />
         <Route path="/tasks/add" component={TaskForm} />
+        <Route path="/nav" component={Navigation} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
