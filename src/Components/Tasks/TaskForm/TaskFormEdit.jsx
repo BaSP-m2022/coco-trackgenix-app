@@ -49,7 +49,7 @@ const TaskFormEdit = (props) => {
       <Logo />
       <h2 className={styles.title}>Edit Task</h2>
       <div className={styles.formContainer}>
-        <Button type={styles.buttonAdd} handleClick={() => props.history.push('/tasks')}>
+        <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
           BACK
         </Button>
         <form className={styles.form} onSubmit={handleSubmit}>
@@ -77,9 +77,7 @@ const TaskFormEdit = (props) => {
               />
             </div>
           </div>
-          <div>
-            <Button type={('submit', styles.buttonAdd)}>Edit</Button>
-          </div>
+          <Button type={('submit', styles.buttonForm)}>Edit</Button>
         </form>
       </div>
     </div>

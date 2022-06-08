@@ -13,11 +13,12 @@
   color: #373867;
 }
 
-.buttonAdd {
+.buttonAdd, .buttonForm {
   display: flex;
   flex-direction: row;
   height: 37px;
   align-items: center;
+  justify-content: center;
   margin-left: 10px;
   padding: 14px 36px;
   gap: 10px;
@@ -27,6 +28,9 @@
   font-size: 16px;
   line-height: 19px;
   color: #505168;
+}
+.buttonForm {
+    margin-left: 0px;
 }
 .formContainer {
   display: flex;
