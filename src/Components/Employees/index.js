@@ -1,6 +1,7 @@
 import styles from './employees.module.css';
 import React, { useEffect, useState } from 'react';
-import List from './List';
+import Table from '../SharedComponents/Table';
+import Button from '../SharedComponents/Button/Button';
 
 const Employees = (props) => {
   const [list, setList] = useState([]);
@@ -27,15 +28,25 @@ const Employees = (props) => {
     setList(list.filter((listItem) => listItem._id !== _id));
   };
 
+  const handleEdit = (item) => {
+    window.location = `/employees/formEdit?=${item._id}`;
+  };
+
   return (
     <section className={styles.container}>
       <h2>Employees</h2>
-      <div>
-        <List list={list} deleteItem={deleteItem} setList={setList} />
-      </div>
-      <div>
-        <button onClick={() => props.history.push('/employees/form')}>Add Employee</button>
-      </div>
+      <Table
+        data={list}
+        headers={['name', 'lastname', 'phone', 'email', 'password', 'active']}
+        handleEdit={handleEdit}
+        deleteItem={deleteItem}
+      ></Table>
+      <Button
+        type={styles.addSuperAdminBtn}
+        handleClick={() => props.history.push('/employees/form')}
+      >
+        Add Employee
+      </Button>
     </section>
   );
 };

@@ -53,6 +53,7 @@ thead {
   border: 2px solid #373867;
   width: 100px;
   height: 50px;
+  text-transform: capitalize;
 }
 
 table {
