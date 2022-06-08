@@ -29,8 +29,8 @@ const Projects = () => {
 
   return (
     <section className={styles.container}>
-      <h2>Projects</h2>
       <div>
+        <h2>Projects</h2>
         <List list={list} deleteItem={deleteItem} setList={setList} />
         <button onClick={() => (window.location = '/projects/add')}>ADD NEW</button>
       </div>

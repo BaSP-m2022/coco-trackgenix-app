@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './employees.module.css';
 
-const EmployeeForm = ({ employeeForm }) => {
+const EmployeeForm = ({ employeeForm, history }) => {
   const [userInput, setUserInput] = useState({
     firstName: '',
     lastName: '',
@@ -58,7 +58,7 @@ const EmployeeForm = ({ employeeForm }) => {
           </div>
         </form>
       </div>
-      <button onClick={() => (window.location = '/employees')}>Return</button>
+      <button onClick={() => history.push('/employees')}>Return</button>
     </div>
   );
 };
