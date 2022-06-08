@@ -3,7 +3,7 @@ import styles from './projects.module.css';
 import List from './List.jsx';
 import Logo from '../SharedComponents/Logo/Logo';
 
-const Projects = () => {
+const Projects = (props) => {
   const [list, setList] = useState([]);
 
   useEffect(async () => {
@@ -34,7 +34,7 @@ const Projects = () => {
       <div>
         <h2>Projects</h2>
         <List list={list} deleteItem={deleteItem} setList={setList} />
-        <button onClick={() => (window.location = '/projects/add')}>ADD NEW</button>
+        <button onClick={() => props.history.push('/projects/add')}>ADD NEW</button>
       </div>
     </section>
   );

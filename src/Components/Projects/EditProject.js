@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './editProject.module.css';
 
-const EditProject = () => {
+const EditProject = (props) => {
   const checkEmployees = (employees) => {
     let response;
     if (employees.length === 0) {
@@ -218,7 +218,7 @@ const EditProject = () => {
         <div>
           <input type="submit" name="project-submit" value="EDIT PROJECT"></input>
         </div>
-        <button onClick={() => (window.location = '/projects')}>BACK</button>
+        <button onClick={() => props.history.push('/projects')}>BACK</button>
       </form>
     </div>
   );

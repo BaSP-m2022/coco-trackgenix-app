@@ -1,12 +1,12 @@
 import React from 'react';
 
-const ListItem = ({ listItem, deleteItem }) => {
+const ListItem = ({ listItem, deleteItem, props }) => {
   const handleDelete = (_id) => {
     deleteItem(_id);
   };
 
   const handleEdit = (_id) => {
-    window.location = `/projects/edit?=${_id}`;
+    props.history.push(`/projects/edit?=${_id}`);
   };
 
   const changeDate = (date) => {

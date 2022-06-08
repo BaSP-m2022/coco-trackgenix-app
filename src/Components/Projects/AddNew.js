@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './addNew.module.css';
 
-const AddNew = () => {
+const AddNew = (props) => {
   const initialValues = {
     name: '',
     description: '',
@@ -181,7 +181,7 @@ const AddNew = () => {
         <div>
           <input type="submit" name="project-submit" value="ADD NEW PROJECT"></input>
         </div>
-        <button onClick={() => (window.location = '/projects')}>BACK</button>
+        <button onClick={() => props.history.goBack()}>BACK</button>
       </form>
     </div>
   );
