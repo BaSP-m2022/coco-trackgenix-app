@@ -1,5 +1,5 @@
-import Header from '../Header/index';
-import Footer from '../Footer/index';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import Admins from '../Admins/index';
 import AdminForm from '../Admins/AdminForm/AdminForm';
 import SuperAdmins from '../SuperAdmins/index';
@@ -24,7 +24,7 @@ function Layout() {
     <div className={styles.container}>
       <Header />
       <Switch>
-        <Route path="/home" component={Home} />
+        <Route exact path="/home" component={Home} />
         <Route exact path="/admins" component={Admins} />
         <Route path="/admins/add" component={AdminForm} />
         <Route exact path="/super-admins" component={SuperAdmins} />
