@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Form = ({
-  edit,
-  itemToUpdate,
-  editStartDate,
-  handleEditStartDate,
-  editEndDate,
-  handleEditEndDate,
-  switcher
-}) => {
+const TimeSheetsForm = (props) => {
   const [addItem, setItem] = useState({});
   const [employeesItem, setEmployeesItem] = useState([]);
   const [projectsItem, setProjectsItem] = useState([]);
@@ -16,57 +8,58 @@ const Form = ({
   const [timeSheetToEdit, setTimeSheetToEdit] = useState({});
   const emptyList = [];
   const [taskList, setTaskList] = useState(emptyList);
-  const [employeeNameExist, setEmployeeNameExist] = useState(false);
-  const [projectNameExist, setProjectNameExist] = useState(false);
+  // const [employeeNameExist, setEmployeeNameExist] = useState(false);
+  // const [projectNameExist, setProjectNameExist] = useState(false);
+
+  const [itemToUpdate, setItemToUpdate] = useState({});
+
+  const params = window.location.search;
+  let idParam = params.substring(2);
 
   useEffect(() => {
-    if (edit) {
-      if (itemToUpdate[0].employeeId !== null) {
-        setEmployeeNameExist(true);
-      }
-      if (itemToUpdate[0].projectId !== null) {
-        setProjectNameExist(true);
-      }
-      setTimeSheetToEdit({
-        tasks: itemToUpdate[0].tasks.filter((task) => task.length > 0),
-        employeeId:
-          itemToUpdate[0].employeeId !== null ? itemToUpdate[0].employeeId._id : 'no employee',
-        projectId:
-          itemToUpdate[0].projectId !== null ? itemToUpdate[0].projectId._id : 'no project',
-        startDate: itemToUpdate[0].startDate.substring(0, 10),
-        endDate: itemToUpdate[0].endDate.substring(0, 10)
+    fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${idParam}`)
+      .then((res) => res.json())
+      .then((json) => {
+        setItemToUpdate(json.data);
       });
-      setItem({
-        ...addItem,
-        tasks: itemToUpdate[0].tasks.filter((task) => task.length > 0),
-        employeeId:
-          itemToUpdate[0].employeeId !== null ? itemToUpdate[0].employeeId._id : 'no employee',
-        projectId:
-          itemToUpdate[0].projectId !== null ? itemToUpdate[0].projectId._id : 'no project',
-        startDate: itemToUpdate[0].startDate.substring(0, 10),
-        endDate: itemToUpdate[0].endDate.substring(0, 10)
-      });
-    }
   }, []);
+
+  useEffect(() => {
+    // if (itemToUpdate !== null) {
+    //   setEmployeeNameExist(true);
+    // }
+    // if (itemToUpdate !== null) {
+    //   setProjectNameExist(true);
+    // }
+    console.log('item employe id', itemToUpdate.employeeId);
+    setTimeSheetToEdit({
+      tasks: itemToUpdate.tasks,
+      employeeId: itemToUpdate.employeeId !== null ? itemToUpdate.employeeId : 'no employee',
+      projectId: itemToUpdate.projectId !== null ? itemToUpdate.projectId : 'no project',
+      startDate: itemToUpdate.startDate,
+      endDate: itemToUpdate.endDate
+    });
+    setItem({
+      ...addItem,
+      tasks: itemToUpdate.tasks,
+      employeeId: itemToUpdate.employeeId !== null ? itemToUpdate.employeeId : 'no employee',
+      projectId: itemToUpdate.projectId !== null ? itemToUpdate.projectId : 'no project',
+      startDate: itemToUpdate.startDate,
+      endDate: itemToUpdate.endDate
+    });
+  }, [itemToUpdate]);
 
   const handleDeleteTask = (id) => {
     setTaskList([...taskList.filter((task) => task._id !== id)]);
   };
 
   const onChange = (e) => {
-    if (edit) {
-      if (e.target.name === 'startDate') {
-        handleEditStartDate(false);
-      }
-      if (e.target.name === 'endDate') {
-        handleEditEndDate(false);
-      }
-    }
     setItem({
       ...addItem,
       [e.target.name]: e.target.value
     });
   };
+
   useEffect(() => {
     if (taskList.length) {
       setItem({
@@ -77,6 +70,7 @@ const Form = ({
       });
     }
   }, [taskList]);
+
   const onChangeTasks = (e) => {
     if (taskList.find((task) => task._id === e.target.value) === undefined) {
       setTaskList([...taskList, tasksItem.find((task) => task._id === e.target.value)]);
@@ -84,53 +78,35 @@ const Form = ({
       alert('This task has already been selected');
     }
   };
+
   const create = (e) => {
     e.preventDefault();
-    if (edit) {
-      if (JSON.stringify(addItem) === JSON.stringify(timeSheetToEdit)) {
-        alert('The data for this time sheet has not been modified');
-      } else {
-        try {
-          fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${itemToUpdate[0]._id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              tasks: taskList.map((task) => {
-                return task._id;
-              }),
-              employeeId: addItem.employeeId,
-              projectId: addItem.projectId,
-              startDate: addItem.startDate,
-              endDate: addItem.endDate
-            })
-          })
-            .then((res) => res.json())
-            .then((res) => {
-              alert(res.msg);
-              if (!res.error) {
-                switcher();
-              }
-            });
-        } catch (error) {
-          console.log(error);
-        }
-      }
+    if (JSON.stringify(addItem) === JSON.stringify(timeSheetToEdit)) {
+      alert('The data for this time sheet has not been modified');
     } else {
       try {
-        fetch(`https://coco-trackgenix-server.vercel.app/timesheets`, {
-          method: 'POST',
+        fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${idParam}`, {
+          method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(addItem)
+          body: JSON.stringify({
+            tasks: taskList.map((task) => {
+              return task._id;
+            }),
+            employeeId: addItem.employeeId,
+            projectId: addItem.projectId,
+            startDate: addItem.startDate,
+            endDate: addItem.endDate
+          })
         })
-          .then((response) => response.json())
-          .then((response) => {
-            alert(response.error ? `Error! ${response.msg}` : `Success! ${response.message}`);
-            if (!response.error) {
-              switcher();
+          .then((res) => res.json())
+          .then((res) => {
+            alert(res.msg);
+            if (!res.error) {
+              props.history.push('/time-sheets');
             }
           });
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     }
   };
@@ -156,10 +132,12 @@ const Form = ({
   return (
     <div>
       <div>
-        <h2>{edit ? 'Edit Time-sheet' : 'Add New Time-sheet'}</h2>
+        <h2>Edit Time-sheet</h2>
       </div>
       <form onSubmit={create}>
         <div>
+          <h2>TimeSheets</h2>
+          <button onClick={() => props.history.push('/time-sheets')}>back</button>
           <label>Employee</label>
           <select onChange={onChange} name="employeeId">
             {
@@ -172,9 +150,8 @@ const Form = ({
                 key={item.id}
                 value={item._id}
                 selected={
-                  edit &&
-                  employeeNameExist &&
-                  item.firstName === itemToUpdate[0].employeeId.firstName
+                  itemToUpdate.employeeId !== null &&
+                  itemToUpdate.employeeId.firstName === item.employeeId.firstName
                     ? true
                     : false
                 }
@@ -196,11 +173,11 @@ const Form = ({
               <option
                 key={item.id}
                 value={item._id}
-                selected={
-                  edit && projectNameExist && item.name === itemToUpdate[0].projectId.name
-                    ? true
-                    : false
-                }
+                // selected={
+                //   itemToUpdate.projectId !== null && item.name === itemToUpdate.projectId.name
+                //     ? true
+                //     : false
+                // }
               >
                 {item.name}
               </option>
@@ -220,9 +197,7 @@ const Form = ({
                 key={item.id}
                 value={item._id}
                 selected={
-                  edit &&
-                  itemToUpdate[0].tasks.length &&
-                  item.description === itemToUpdate[0].tasks[0].description
+                  itemToUpdate.tasks && item.description === itemToUpdate.tasks[0].description
                     ? true
                     : false
                 }
@@ -253,28 +228,17 @@ const Form = ({
           <input
             type="date"
             name="startDate"
-            value={
-              edit && editStartDate
-                ? `${itemToUpdate[0].startDate.substring(0, 10)}`
-                : addItem.startDate
-            }
+            // value={`${itemToUpdate.startDate}`}
             onChange={onChange}
           />
         </div>
         <div>
           <label>End Date</label>
-          <input
-            type="date"
-            name="endDate"
-            value={
-              edit && editEndDate ? `${itemToUpdate[0].endDate.substring(0, 10)}` : addItem.endDate
-            }
-            onChange={onChange}
-          />
+          <input type="date" name="endDate" onChange={onChange} />
         </div>
         <input type="submit" value="submit" />
       </form>
     </div>
   );
 };
-export default Form;
+export default TimeSheetsForm;

@@ -1,8 +1,8 @@
 import React from 'react';
+// import styles from './time-sheets.module.css';
 import ListItem from './ListItem';
 
-const TableList = ({ list, deleteItem, editMode, updateItem }) => {
-  // console.log('added modals');
+const TableList = ({ list, deleteItem }) => {
   return (
     <div>
       <table>
@@ -16,12 +16,7 @@ const TableList = ({ list, deleteItem, editMode, updateItem }) => {
           </tr>
         </thead>
         <tbody>
-          <ListItem
-            listItem={list}
-            deleteItem={deleteItem}
-            editMode={editMode}
-            updateItem={updateItem}
-          />
+          <ListItem listItem={list} deleteItem={deleteItem} />
         </tbody>
       </table>
     </div>
