@@ -1,38 +1,50 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import userIcon from '../../Assets/user.svg';
 import styles from './navBar.module.css';
 
-const NavBar = (props) => {
-  if (window.location.pathname == '/home' || window.location.pathname == '/nav') {
+const NavBar = () => {
+  if (location.pathname == '/home' || location.pathname == '/nav') {
     return null;
   } else {
     return (
       <nav className={styles.navbar}>
         <div className={styles.userInfo}>
           <img src={userIcon} className={styles.userImg} />
-          <div className={styles.userName}>User Name</div>
-          <div className={styles.userRole}>User Role</div>
+          <div className={styles.userName}>user name</div>
+          <div className={styles.userRole}>user role</div>
         </div>
-        <div className={styles.menu}>Menu</div>
+        <div className={styles.menu}>menu</div>
         <ul className={styles.rutes}>
           <li>
-            <button onClick={() => props.history.push('/projects/')}>projects</button>
+            <Link className={styles.links} to="/projects">
+              projects
+            </Link>
           </li>
           <li>
-            <button onClick={() => props.history.push('/employees/')}>employees</button>
+            <Link className={styles.links} to="/employees">
+              employees
+            </Link>
           </li>
           <li>
-            <button onClick={() => props.history.push('/time-sheets/')}>timesheets</button>
+            <Link className={styles.links} to="/time-sheets">
+              timesheets
+            </Link>
           </li>
           <li>
-            <button onClick={() => props.history.push('/tasks/')}>tasks</button>
+            <Link className={styles.links} to="/tasks">
+              tasks
+            </Link>
           </li>
           <li>
-            <button onClick={() => props.history.push('/admins/')}>admins</button>
+            <Link className={styles.links} to="/admins">
+              admins
+            </Link>
           </li>
           <li>
-            <button onClick={() => props.history.push('/super-admins/')}>super admin</button>
+            <Link className={styles.links} to="/super-admins">
+              super admins
+            </Link>
           </li>
         </ul>
       </nav>

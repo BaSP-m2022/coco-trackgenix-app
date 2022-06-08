@@ -22,6 +22,7 @@
   align-content: center;
   width: 100%;
   margin-top: 1.5vh;
+  text-transform: capitalize;
 }
 
 .userImg {
@@ -48,6 +49,7 @@
   width: 100%;
   margin-bottom: 1vh;
   text-align: left;
+  text-transform: capitalize;
   font-size: 1.25rem;
   font-weight: bold;
   border-bottom: 0.2vh solid #ED2626;
@@ -64,10 +66,10 @@
   list-style: none;
 }
 
-.rutes > li > button {
+.links {
   width: 100%;
   padding: 0;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-weight: 600;
   text-align: left;
   text-decoration: none;
@@ -75,4 +77,9 @@
   color: rgba(80, 81, 104, 1);
   border: none;
   background: none;
+  cursor: pointer;
+}
+
+.links:hover {
+  color: #FFFFFF;
 }
