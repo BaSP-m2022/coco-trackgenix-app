@@ -48,36 +48,40 @@ const TaskFormEdit = (props) => {
     <div className={styles.container}>
       <Logo />
       <h2 className={styles.title}>Edit Task</h2>
-      <Button type={styles.buttonAdd} handleClick={() => props.history.push('/tasks')}>
-        BACK
-      </Button>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Task description</label>
-          <input
-            type="text"
-            name="description"
-            value={description}
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-          ></input>
-        </div>
-        <div>
-          <label>Worked Hours</label>
-          <input
-            type="number"
-            name="workedHours"
-            value={workedHours}
-            onChange={(e) => {
-              setWorkedHours(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <button type="submit">Edit</button>
-        </div>
-      </form>
+      <div className={styles.formContainer}>
+        <Button type={styles.buttonAdd} handleClick={() => props.history.push('/tasks')}>
+          BACK
+        </Button>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div>
+            <div className={styles.inputDescription}>
+              <label>Task description</label>
+              <input
+                type="text"
+                name="description"
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+              ></input>
+            </div>
+            <div className={styles.inputWorkedHours}>
+              <label>Worked Hours</label>
+              <input
+                type="number"
+                name="workedHours"
+                value={workedHours}
+                onChange={(e) => {
+                  setWorkedHours(e.target.value);
+                }}
+              />
+            </div>
+          </div>
+          <div>
+            <Button type={('submit', styles.buttonAdd)}>Edit</Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

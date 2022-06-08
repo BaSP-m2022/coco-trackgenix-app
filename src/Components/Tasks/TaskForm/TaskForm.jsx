@@ -44,32 +44,36 @@ const TaskForm = (props) => {
     <div className={styles.container}>
       <Logo />
       <h2 className={styles.title}>New Task</h2>
-      <Button type={styles.buttonAdd} handleClick={() => props.history.push('/tasks')}>
-        BACK
-      </Button>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Task description</label>
-          <input
-            type="text"
-            name="description"
-            value={newItem.description}
-            onChange={handleChange}
-          ></input>
-        </div>
-        <div>
-          <label>Worked Hours</label>
-          <input
-            type="number"
-            name="workedHours"
-            value={newItem.workedHours}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <Button type="submit">Create</Button>
-        </div>
-      </form>
+      <div className={styles.formContainer}>
+        <Button type={styles.buttonAdd} handleClick={() => props.history.push('/tasks')}>
+          BACK
+        </Button>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div>
+            <div className={styles.inputDescription}>
+              <label>Task description</label>
+              <input
+                type="text"
+                name="description"
+                value={newItem.description}
+                onChange={handleChange}
+              ></input>
+            </div>
+            <div className={styles.inputWorkedHours}>
+              <label>Worked Hours</label>
+              <input
+                type="number"
+                name="workedHours"
+                value={newItem.workedHours}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <div>
+            <Button type={('submit', styles.buttonAdd)}>Create</Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

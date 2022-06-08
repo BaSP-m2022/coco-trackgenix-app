@@ -28,3 +28,29 @@
   line-height: 19px;
   color: #505168;
 }
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 50%;
+}
+
+.inputsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.form {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.inputDescription,
+.inputWorkedHours {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
