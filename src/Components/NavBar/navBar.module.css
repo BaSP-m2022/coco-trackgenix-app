@@ -1,0 +1,85 @@
+.navbar {
+  width: 15vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 0 3%;
+  min-height: 100px;
+  background: linear-gradient(180deg, #50A780 0%, rgba(80, 167, 128, 0) 100%),
+              linear-gradient(180deg, #50A780 0%, rgba(80, 167, 128, 0) 100%),
+              linear-gradient(180deg, #50a780 0%, rgba(80, 167, 128, 0) 100%),
+              linear-gradient(180deg, #50a780 0%, rgba(80, 167, 128, 0) 100%),
+              linear-gradient(180deg, #50a780 0%, rgba(80, 167, 128, 0) 100%);
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  margin-top: 1.5vh;
+  text-transform: capitalize;
+}
+
+.userImg {
+  width: 90%;
+  height: 90%;
+  margin-bottom: 0.5vh;
+}
+
+.userName {
+  font-weight: 400;
+  font-size: 1rem;
+  color: #000000;
+  margin-bottom: 0.5vh;
+}
+
+.userRole {
+  font-weight: 400;
+  font-size: 1.75rem;
+  color: #FFFFFF;
+  margin-bottom: 1vh;
+}
+
+.menu {
+  width: 100%;
+  margin-bottom: 1vh;
+  text-align: left;
+  text-transform: capitalize;
+  font-size: 1.25rem;
+  font-weight: bold;
+  border-bottom: 0.2vh solid #ED2626;
+}
+
+.rutes {
+  padding-inline-start: 0;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.rutes > li {
+  margin: 0 0 1.5vh 0;
+  list-style: none;
+}
+
+.links {
+  width: 100%;
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+  text-transform: capitalize;
+  color: rgba(80, 81, 104, 1);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.links:hover {
+  color: #FFFFFF;
+}
