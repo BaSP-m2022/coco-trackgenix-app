@@ -6,7 +6,7 @@
 .container{
   width: 100%;
   padding: 0 150px;
-  background-color: #49A37B;
+  background-color: #50A780;
 }
 .headerContainer{
   width: 100%;
@@ -31,7 +31,7 @@
   width: 8%;
 }
 .headerContainer .burguerButton {
-  background-color: #49A37B;
+  background-color: #50A780;
 }
 
 .styleIcon {
