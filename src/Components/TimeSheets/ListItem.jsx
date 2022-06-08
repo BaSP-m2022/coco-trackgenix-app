@@ -1,4 +1,6 @@
 import React from 'react';
+import styles from './time-sheets.module.css';
+import Button from '../SharedComponents/Button/Button';
 
 const ListItem = ({ listItem, deleteItem }) => {
   const handleDelete = (_id) => {
@@ -41,10 +43,14 @@ const ListItem = ({ listItem, deleteItem }) => {
         <td>{dateFormatter(item.endDate.substring(0, 10))}</td>
         <td>{amountOfTasks(item.tasks)}</td>
         <td>
-          <button onClick={() => handleDelete(item._id)}>X</button>
+          <Button type={styles.editBtn} handleClick={() => editTimeSheet(item._id)}>
+            Edit
+          </Button>
         </td>
         <td>
-          <button onClick={() => editTimeSheet(item._id)}>Edit</button>
+          <Button type={styles.deleteBtn} handleClick={() => handleDelete(item._id)}>
+            X
+          </Button>
         </td>
       </tr>
     );

@@ -1,6 +1,7 @@
-import styles from './time-sheets.module.css';
-import TableList from './TableList';
 import React, { useState, useEffect } from 'react';
+import styles from './time-sheets.module.css';
+import Button from '../SharedComponents/Button/Button';
+import TableList from './TableList';
 
 function TimeSheets(props) {
   const [list, setList] = useState([]);
@@ -28,10 +29,10 @@ function TimeSheets(props) {
 
   return (
     <section className={styles.container}>
-      <h2>TimeSheets</h2>
-      <button className={styles.addButton} onClick={() => props.history.push('/time-sheets/add')}>
-        Add new
-      </button>
+      <h2 className={styles.title}>TimeSheets</h2>
+      <Button type={styles.addBtn} handleClick={() => props.history.push('/time-sheets/add')}>
+        Add Time Sheet
+      </Button>
       <TableList list={list} setList={setList} deleteItem={deleteItem} />
     </section>
   );
