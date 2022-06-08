@@ -1,9 +1,13 @@
 import styles from './employees.module.css';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Table from '../SharedComponents/Table';
+import Modal from '../SharedComponents/Modal/Modal';
 import Button from '../SharedComponents/Button/Button';
+import Logo from '../SharedComponents/Logo/Logo';
 
 const Employees = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [list, setList] = useState([]);
   useEffect(async () => {
     try {
@@ -24,20 +28,22 @@ const Employees = (props) => {
         method: 'DELETE'
       });
       console.log(response);
-      alert('Employee deleted');
+      setIsOpen(true);
     } catch (error) {
       console.error(error);
     }
     setList(list.filter((listItem) => listItem._id !== _id));
   };
 
+  let history = useHistory();
   const handleEdit = (item) => {
-    window.location = `/employees/formEdit?=${item._id}`;
+    history.push(`/employees/formEdit?=${item._id}`);
   };
 
   return (
     <section className={styles.container}>
-      <h2>Employees</h2>
+      <Logo />
+      <h2 className={styles.title}>Employees</h2>
       <Table
         data={list}
         headers={['firstName', 'lastName', 'phone', 'email', 'password', 'active']}
@@ -45,11 +51,22 @@ const Employees = (props) => {
         deleteItem={deleteItem}
       ></Table>
       <Button
-        type={styles.addSuperAdminBtn}
+        type={styles.addEmployeeBtn}
         handleClick={() => props.history.push('/employees/form')}
       >
         Add Employee
       </Button>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <h2>Success!</h2>
+        <div>
+          <p>Employee deleted Succesffully</p>
+        </div>
+        <div>
+          <Button type={styles.addEmployeeBtn} handleClick={() => setIsOpen(false)}>
+            OK
+          </Button>
+        </div>
+      </Modal>
     </section>
   );
 };
