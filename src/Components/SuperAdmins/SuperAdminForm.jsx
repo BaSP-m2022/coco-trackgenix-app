@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styles from './super-admins.module.css';
+import Button from '../SharedComponents/Button/Button';
 
-const AddSuperAdmin = () => {
+const AddSuperAdmin = (props) => {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -89,7 +90,10 @@ const AddSuperAdmin = () => {
             onChange={(event) => setActive(event.target.value)}
           ></input>
         </div>
-        <button type="submit">Accept</button>
+        <Button type="submit">Accept</Button>
+        <Button type="submit" handleClick={() => props.history.push('/super-admins')}>
+          Back
+        </Button>
       </form>
     </div>
   );
