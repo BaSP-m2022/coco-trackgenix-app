@@ -2,6 +2,7 @@ import React from 'react';
 import ListItem from './ListItem';
 
 const TableList = ({ list, deleteItem, editMode, updateItem }) => {
+  // console.log('added modals');
   return (
     <div>
       <table>
