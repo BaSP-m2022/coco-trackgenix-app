@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const TimeSheetsForm = ({
-  edit,
-  itemToUpdate,
-  editStartDate,
-  handleEditStartDate,
-  editEndDate,
-  handleEditEndDate,
-  switcher
-}) => {
+const TimeSheetsForm = ({ props }) => {
   const [addItem, setItem] = useState({});
   const [employeesItem, setEmployeesItem] = useState([]);
   const [projectsItem, setProjectsItem] = useState([]);
@@ -18,6 +10,46 @@ const TimeSheetsForm = ({
   const [taskList, setTaskList] = useState(emptyList);
   const [employeeNameExist, setEmployeeNameExist] = useState(false);
   const [projectNameExist, setProjectNameExist] = useState(false);
+
+  let [edit, setEdit] = useState(false);
+  const [itemToUpdate, setItemToUpdate] = useState();
+  const [editStartDate, setEditStartDate] = useState(true);
+  const [editEndDate, setEditEndDate] = useState(true);
+
+  const params = window.location.search;
+  let idParam = params.substring(2);
+
+  if (idParam != null) {
+    console.log('id', idParam);
+    setItemToUpdate(idParam);
+    editMode();
+  }
+
+  useEffect(() => {
+    setEditStartDate(true);
+    setEditEndDate(true);
+  }, []);
+
+  // const updateItem = (id) => {
+  //   setItemToUpdate(list.filter((timeSheet) => timeSheet._id === id));
+  // };
+
+  if (edit) {
+    setEdit(edit ? (edit = false) : (edit = true));
+    handleEditStartDate;
+  }
+
+  const handleEditStartDate = (state) => {
+    setEditStartDate(state);
+  };
+
+  const handleEditEndDate = (state) => {
+    setEditEndDate(state);
+  };
+
+  const editMode = () => {
+    setEdit(edit ? (edit = false) : (edit = true));
+  };
 
   useEffect(() => {
     if (edit) {
@@ -108,7 +140,7 @@ const TimeSheetsForm = ({
             .then((res) => {
               alert(res.msg);
               if (!res.error) {
-                switcher();
+                props.history.push('/time-sheets');
               }
             });
         } catch (error) {
@@ -126,7 +158,7 @@ const TimeSheetsForm = ({
           .then((response) => {
             alert(response.error ? `Error! ${response.msg}` : `Success! ${response.message}`);
             if (!response.error) {
-              switcher();
+              props.history.push('/time-sheets');
             }
           });
       } catch (error) {
@@ -160,6 +192,8 @@ const TimeSheetsForm = ({
       </div>
       <form onSubmit={create}>
         <div>
+          <h2>TimeSheets</h2>
+          <button onClick={test}>back</button>
           <label>Employee</label>
           <select onChange={onChange} name="employeeId">
             {

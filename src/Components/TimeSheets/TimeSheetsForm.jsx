@@ -19,10 +19,15 @@ const TimeSheetsForm = ({ props }) => {
   const params = window.location.search;
   let idParam = params.substring(2);
 
-  if (idParam != 0) {
+  const test = (idParam) => {
     console.log('id', idParam);
-    updateItem(idParam);
-    editMode();
+  };
+
+  if (idParam == null) {
+    console.log('id', idParam);
+    setItemToUpdate(idParam);
+    // editMode();
+    setEdit(edit === false);
   }
 
   useEffect(() => {
@@ -30,9 +35,11 @@ const TimeSheetsForm = ({ props }) => {
     setEditEndDate(true);
   }, []);
 
-  const updateItem = (id) => {
-    setItemToUpdate(list.filter((timeSheet) => timeSheet._id === id));
-  };
+  // const updateItem = (id) => {
+  //   setItemToUpdate(list.filter((timeSheet) => timeSheet._id === id));
+  // };
+
+  setEdit(edit == false);
 
   if (edit) {
     setEdit(edit ? (edit = false) : (edit = true));
@@ -47,9 +54,9 @@ const TimeSheetsForm = ({ props }) => {
     setEditEndDate(state);
   };
 
-  const editMode = () => {
-    setEdit(edit ? (edit = false) : (edit = true));
-  };
+  // const editMode = () => {
+  //   setEdit(edit ? (edit = false) : (edit = true));
+  // };
 
   useEffect(() => {
     if (edit) {
@@ -193,7 +200,7 @@ const TimeSheetsForm = ({ props }) => {
       <form onSubmit={create}>
         <div>
           <h2>TimeSheets</h2>
-          <button>back</button>
+          <button onClick={test}>back</button>
           <label>Employee</label>
           <select onChange={onChange} name="employeeId">
             {

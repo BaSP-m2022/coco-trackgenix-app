@@ -40,7 +40,7 @@ function Layout() {
         <Route path="/projects/edit" component={EditProject} />
         <Route exact path="/time-sheets" component={TimeSheets} />
         <Route path="/time-sheets/add" component={TimeSheetsForm} />
-        <Route path="/time-sheets/edit/:" component={TimeSheetsFormEdit} />
+        <Route path="/time-sheets/edit" component={TimeSheetsFormEdit} />
         <Route exact path="/tasks" component={Tasks} />
         <Route path="/tasks/add" component={TaskForm} />
         <Route path="/nav" component={Navigation} />
