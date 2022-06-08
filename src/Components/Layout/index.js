@@ -3,7 +3,7 @@ import Footer from '../Footer/index';
 import Admins from '../Admins/index';
 import AdminForm from '../Admins/AdminForm/AdminForm';
 import SuperAdmins from '../SuperAdmins/index';
-import Home from '../Home/index';
+import Home from '../Home/Homepage';
 import styles from './layout.module.css';
 import Employees from '../Employees/index';
 import Projects from '../Projects';

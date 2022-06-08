@@ -1,6 +1,108 @@
-.container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+*{
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  box-sizing: border-box;
 }
+
+.whiteBackground{
+  background-color: #fff;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  padding: 0 150px;
+}
+
+.trackgenix{
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: 15px 0;
+}
+
+.trackgenix p{
+  font-size: 1.3rem;
+}
+
+.assets{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.assetsCard{
+  background-color: #E9E9E9 ;
+  border-radius: 10px;
+  padding: 8px;
+}
+
+.assetsCard p{
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.cards{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.cards div{
+  width: 45%;
+}
+
+.cards h2{
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.cards li{
+  margin-left: 18px;
+}
+
+.about{
+  background-color: #E9E9E9 ;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+.about h2 {
+  font-weight: 700;
+}
+
+.about h4 {
+  text-decoration: underline;
+  margin-bottom: 5px;
+  color: #404040;
+}
+
+.extra{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  background-color: #49A37B;
+  color: #dbdbdb;
+}
+
+.extra h3{
+  color: #000;
+  font-size: 1.4rem;
+}
+
+.whiteBackground
+.verticalLine{
+  height: 85px;
+  border-radius: 4px;
+  width: 1.5px;
+  background-color: #404040;
+}
+
+
