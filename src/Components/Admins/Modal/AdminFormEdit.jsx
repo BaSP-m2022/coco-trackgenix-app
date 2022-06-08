@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './admin.form.edit.module.css';
 
-const EditAdmin = (props) => {
-  const { item, showModal, closeModal } = props;
-  const [nameInput, setNameInput] = useState(item.name);
-  const [lastNameInput, setLastNameInput] = useState(item.lastName);
-  const [emailInput, setEmailInput] = useState(item.email);
-  const [passwordInput, setPasswordInput] = useState(item.password);
-  const [activeInput, setActiveInput] = useState(item.active);
-
+const EditAdmin = () => {
+  const [nameInput, setNameInput] = useState('');
+  const [lastNameInput, setLastNameInput] = useState('');
+  const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
+  const [activeInput, setActiveInput] = useState('');
+  const params = window.location.search;
+  let id = params.substring(2);
+  console.log(id);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch(`https://coco-trackgenix-server.vercel.app/admins/${item._id}`, {
+    await fetch(`https://coco-trackgenix-server.vercel.app/admins/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -28,7 +29,6 @@ const EditAdmin = (props) => {
       .then((data) => {
         if (data.error === false) {
           alert(`${data.msg}`);
-          closeModal();
         } else {
           alert(`${data.msg}`);
         }
@@ -36,9 +36,17 @@ const EditAdmin = (props) => {
       .catch((error) => console.error(error));
   };
 
-  if (!showModal) {
-    return null;
-  }
+  useEffect(() => {
+    fetch(`https://coco-trackgenix-server.vercel.app/admins/${id}`)
+      .then((response) => response.json())
+      .then((response) => {
+        setNameInput(response.data.name);
+        setLastNameInput(response.data.lastName);
+        setEmailInput(response.data.email);
+        setPasswordInput(response.data.password);
+        setActiveInput(response.data.active);
+      });
+  }, []);
 
   return (
     <div className={styles.modalContainer}>
@@ -102,9 +110,7 @@ const EditAdmin = (props) => {
             </div>
           </div>
         </form>
-        <button onClick={closeModal} className={styles.backBtn}>
-          Cancel
-        </button>
+        <button className={styles.backBtn}>Cancel</button>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Admins from '../Admins/index';
 import AdminForm from '../Admins/AdminForm/AdminForm';
+import EditAdmin from '../Admins/Modal/AdminFormEdit';
 import SuperAdmins from '../SuperAdmins/index';
 import Home from '../Home/index';
 import styles from './layout.module.css';
@@ -27,6 +28,7 @@ function Layout() {
         <Route exact path="/home" component={Home} />
         <Route exact path="/admins" component={Admins} />
         <Route path="/admins/add" component={AdminForm} />
+        <Route path="/admins/edit" component={EditAdmin} />
         <Route exact path="/super-admins" component={SuperAdmins} />
         <Route path="/super-admins/Form" component={SuperAdminFormEdit} />
         <Route path="/super-admins/formAdd" component={SuperAdminForm} />
