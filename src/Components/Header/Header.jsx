@@ -1,6 +1,8 @@
 import React from 'react';
 import style from './header.module.css';
 import burguerMenu from '../../Assets/burguer-menu.png';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const Header = () => (
   <header className={style.container}>
@@ -13,9 +15,17 @@ const Header = () => (
         <span></span>
       )}
       <input type="text" placeholder="Search" />
-      <button type="button">Sign Out</button>
+      {location.pathname === '/home' ? (
+        <button type="button">
+          <Link to="/nav">Navigation</Link>
+        </button>
+      ) : (
+        <button type="button">
+          <Link to="/home">Home</Link>
+        </button>
+      )}
     </div>
   </header>
 );
 
-export default Header;
+export default withRouter(Header);
