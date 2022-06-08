@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Logo from '../../SharedComponents/Logo/Logo';
 
 const TaskForm = (props) => {
   const [newItem, setNewItem] = useState({
@@ -39,6 +40,7 @@ const TaskForm = (props) => {
 
   return (
     <div>
+      <Logo />
       <h2>New Task</h2>
       <button onClick={() => props.history.push('/tasks')}>BACK</button>
       <form onSubmit={handleSubmit}>

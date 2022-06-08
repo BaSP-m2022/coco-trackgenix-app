@@ -38,6 +38,7 @@ function Layout() {
         <Route exact path="/time-sheets" component={TimeSheets} />
         <Route exact path="/tasks" component={Tasks} />
         <Route path="/tasks/add" component={TaskForm} />
+        <Route path="/tasks/edit" component={TaskForm} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>

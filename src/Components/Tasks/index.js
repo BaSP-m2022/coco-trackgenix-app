@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './tasks.module.css';
-import List from './List/List';
 import Logo from '../SharedComponents/Logo/Logo';
+import Table from '../SharedComponents/Table/index';
 
 const Tasks = (props) => {
   const [list, setList] = useState([]);
@@ -33,7 +33,12 @@ const Tasks = (props) => {
       <Logo />
       <div>
         <button onClick={() => props.history.push('tasks/add')}>Add</button>
-        <List key={list.id} list={list} setList={setList} deleteItem={deleteItem} />
+        <Table
+          data={list}
+          headers={['description', 'workedHours', 'date']}
+          handleEdit={() => props.history.push('/tasks/edit')}
+          deleteItem={deleteItem}
+        />
       </div>
     </section>
   );
