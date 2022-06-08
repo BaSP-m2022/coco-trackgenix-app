@@ -9,6 +9,9 @@ const Employees = (props) => {
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/Employees`);
       const data = await response.json();
+      data.data.map((item) => {
+        item.active = item.active ? 'true' : 'false';
+      });
       setList(data.data);
     } catch (error) {
       console.error(error);
@@ -37,7 +40,7 @@ const Employees = (props) => {
       <h2>Employees</h2>
       <Table
         data={list}
-        headers={['name', 'lastname', 'phone', 'email', 'password', 'active']}
+        headers={['firstName', 'lastName', 'phone', 'email', 'password', 'active']}
         handleEdit={handleEdit}
         deleteItem={deleteItem}
       ></Table>
