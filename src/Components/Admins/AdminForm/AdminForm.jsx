@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../admins.module.css';
 
-const AdminForm = () => {
+const AdminForm = (props) => {
   const [adminInput, setAdminInput] = useState({
     name: '',
     lastName: '',
@@ -25,7 +25,7 @@ const AdminForm = () => {
         body: JSON.stringify(e)
       });
       alert(`Admin created`);
-      window.location = '/admins';
+      props.history.push('/admins');
     } catch (error) {
       console.error(error);
     }
@@ -88,7 +88,7 @@ const AdminForm = () => {
           </button>
         </div>
       </form>
-      <button onClick={() => (window.location = '/admins')} className={styles.backBtn}>
+      <button onClick={() => props.history.push('/admins')} className={styles.backBtn}>
         Back
       </button>
     </div>
