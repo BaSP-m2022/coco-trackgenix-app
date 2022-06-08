@@ -1,12 +1,13 @@
 import React from 'react';
 
-const ListItem = ({ listItem, deleteItem, editMode, updateItem }) => {
+const ListItem = ({ listItem, deleteItem, editMode, updateItem, props }) => {
   const handleDelete = (_id) => {
     deleteItem(_id);
   };
   const handleUpdate = (_id) => {
     updateItem(_id);
     editMode();
+    props.history.push('/time-sheets/edit');
   };
   const amountOfTasks = (tasks) => {
     if (tasks.length === 1) {

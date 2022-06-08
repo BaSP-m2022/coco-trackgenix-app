@@ -7,7 +7,8 @@ const TimeSheetsForm = ({
   handleEditStartDate,
   editEndDate,
   handleEditEndDate,
-  switcher
+  switcher,
+  props
 }) => {
   const [addItem, setItem] = useState({});
   const [employeesItem, setEmployeesItem] = useState([]);
@@ -128,6 +129,7 @@ const TimeSheetsForm = ({
             if (!response.error) {
               switcher();
             }
+            props.history.push('/time-sheets');
           });
       } catch (error) {
         console.error(error);
