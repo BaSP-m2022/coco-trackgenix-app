@@ -1,5 +1,5 @@
-import Header from '../Header/index';
-import Footer from '../Footer/index';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 import Admins from '../Admins/index';
 import AdminForm from '../Admins/AdminForm/AdminForm';
 import SuperAdmins from '../SuperAdmins/index';
