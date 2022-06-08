@@ -32,13 +32,13 @@ const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
                   return <td key={index}>{row[header]}</td>;
                 })}
                 <td>
-                  <Button type={styles.editBtn} handleClick={() => handleEdit(row._id)}>
+                  <Button type={styles.editANDdeleteBtn} handleClick={() => handleEdit(row._id)}>
                     Edit
                   </Button>
                 </td>
                 <td>
                   <Button
-                    type={styles.deleteBtn}
+                    type={styles.editANDdeleteBtn}
                     handleClick={() => {
                       setIsOpen(true);
                       setRow(row._id);

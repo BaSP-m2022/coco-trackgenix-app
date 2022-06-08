@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../employees.module.css';
 
-const FormEmployeeEdit = () => {
+const FormEmployeeEdit = (props) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
@@ -46,7 +46,7 @@ const FormEmployeeEdit = () => {
       .then((data) => {
         if (data.error === false) {
           alert('Employee modified');
-          window.location = '/employees';
+          props.history.push('/employees');
         } else {
           alert('There is an empty field or you have not done edits');
         }
@@ -125,7 +125,7 @@ const FormEmployeeEdit = () => {
           </div>
         </form>
       </div>
-      <button onClick={() => (window.location = '/employees')}>Return</button>
+      <button onClick={() => props.history.push('/employees')}>Return</button>
     </div>
   );
 };

@@ -29,6 +29,20 @@
   cursor: pointer;
 }
 
+.editANDdeleteBtn {
+  width: 60px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  background: #AACE9B;
+  border: 1px solid #505168;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #505168;
+  cursor: pointer;
+}
+
 .container table {
   width: 100%;
   flex-direction: column;

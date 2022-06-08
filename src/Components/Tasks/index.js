@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from './tasks.module.css';
 import List from './List/List';
-import NewFormItem from './FormList/FormList';
 import Logo from '../SharedComponents/Logo/Logo';
 
-const Tasks = () => {
-  const [show, setShow] = useState(false);
-
-  const showList = () => {
-    setShow(() => !show);
-  };
-
+const Tasks = (props) => {
   const [list, setList] = useState([]);
 
   useEffect(async () => {
@@ -39,13 +32,9 @@ const Tasks = () => {
     <section className={styles.container}>
       <Logo />
       <div>
-        <button onClick={showList}>{show === false ? 'Add' : 'Back'}</button>
-      </div>
-      {show === false ? (
+        <button onClick={() => props.history.push('tasks/add')}>Add</button>
         <List key={list.id} list={list} setList={setList} deleteItem={deleteItem} />
-      ) : (
-        <NewFormItem />
-      )}
+      </div>
     </section>
   );
 };

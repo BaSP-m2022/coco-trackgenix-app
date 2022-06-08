@@ -12,8 +12,22 @@
   width: 150px;
   margin-left: 40px;
 }
-
+/* 
 .addButton {
   display: flex;
   flex-direction: column;
+} */
+
+.addSuperAdminBtn {
+  width: 170px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  background: #AACE9B;
+  border: 1px solid #505168;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #505168;
+  cursor: pointer;
 }

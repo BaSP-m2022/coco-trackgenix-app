@@ -4,7 +4,7 @@ import SuperAdminForm from './SuperAdminForm';
 import Table from '../SharedComponents/Table';
 import Button from '../SharedComponents/Button/Button';
 
-const SuperAdmin = () => {
+const SuperAdmin = (props) => {
   let [change, setSwitch] = useState(false);
 
   const [list, setList] = useState([]);
@@ -38,7 +38,6 @@ const SuperAdmin = () => {
   };
 
   const handleEdit = (_id) => {
-    // console.log('Here goes the code for the confirm');
     window.location = `/super-admins/Form?=${_id}`;
   };
 
@@ -60,7 +59,10 @@ const SuperAdmin = () => {
           handleEdit={handleEdit}
           deleteItem={deleteItem}
         >
-          <Button handleClick={() => (window.location = '/super-admins/formAdd')}>
+          <Button
+            type={styles.addSuperAdminBtn}
+            handleClick={() => props.history.push('super-admins/formAdd')}
+          >
             Add Super Admin
           </Button>
         </Table>
