@@ -16,7 +16,8 @@
   transition-duration: 0.3s;
 }
 
-.confirmANDdeleteBtn {
+.deleteBtn,
+.confirmBtn {
   width: 110px;
   height: 50px;
   margin: 0 20px;
@@ -29,6 +30,9 @@
   color: #505168;
   cursor: pointer;
   transition-duration: 0.3s;
+}
+.deleteBtn {
+  background-color: white;
 }
 
 .editANDdeleteBtn {
@@ -46,10 +50,14 @@
   transition-duration: 0.3s;
 }
 .buttonAdd:hover,
-.confirmANDdeleteBtn:hover,
+.confirmBtn:hover,
+.deleteBtn:hover,
 .editANDdeleteBtn:hover {
   background-color: white;
   border: 2px solid #aace9b;
+}
+.deleteBtn:hover {
+  background-color: rgb(255, 255, 255);
 }
 
 .container table {

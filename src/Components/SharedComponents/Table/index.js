@@ -59,11 +59,11 @@ const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
           <p>You will not be able to recover it</p>
         </div>
         <div>
-          <Button type={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
+          <Button type={styles.deleteBtn} handleClick={() => setIsOpen(false)}>
             Cancel
           </Button>
           <Button
-            type={styles.confirmANDdeleteBtn}
+            type={styles.confirmBtn}
             handleClick={() => {
               deleteItem(rowMember);
               setIsOpen(false);

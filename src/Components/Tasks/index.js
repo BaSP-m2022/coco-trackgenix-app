@@ -9,10 +9,21 @@ const Tasks = (props) => {
   const [list, setList] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
+  const dateFormatter = (inputDate) => {
+    const date = new Date(inputDate);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
+  };
+
   useEffect(async () => {
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/tasks`);
       const data = await response.json();
+      data.data.forEach((task) => {
+        task.date = dateFormatter(task.date).substring(0, 10);
+      });
       setList(data.data);
     } catch (error) {
       console.error(error);
