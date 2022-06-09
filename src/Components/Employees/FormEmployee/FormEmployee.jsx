@@ -7,7 +7,6 @@ import Button from '../../SharedComponents/Button/Button';
 const FormEmployee = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState();
-  const [status, setStatus] = useState();
   const [employeeInput, setEmployeeInput] = useState({
     firstName: '',
     lastName: '',
@@ -31,10 +30,8 @@ const FormEmployee = (props) => {
         },
         body: JSON.stringify(e)
       });
-      setStatus(response.status);
       setModalText(createMsg(response.status));
       setIsOpen(true);
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -120,7 +117,6 @@ const FormEmployee = (props) => {
         </Button>
       </div>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
-        <h2>Status: {status}</h2>
         <div>
           <p>{modalText}</p>
         </div>

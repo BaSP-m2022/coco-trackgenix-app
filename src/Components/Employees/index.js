@@ -44,18 +44,18 @@ const Employees = (props) => {
     <section className={styles.container}>
       <Logo />
       <h2 className={styles.title}>Employees</h2>
-      <Table
-        data={list}
-        headers={['firstName', 'lastName', 'phone', 'email', 'password', 'active']}
-        handleEdit={handleEdit}
-        deleteItem={deleteItem}
-      ></Table>
       <Button
         type={styles.addEmployeeBtn}
         handleClick={() => props.history.push('/employees/form')}
       >
         Add Employee
       </Button>
+      <Table
+        data={list}
+        headers={['firstName', 'lastName', 'phone', 'email', 'password', 'active']}
+        handleEdit={handleEdit}
+        deleteItem={deleteItem}
+      ></Table>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>Success!</h2>
         <div>

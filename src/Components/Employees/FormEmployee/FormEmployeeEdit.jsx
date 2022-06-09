@@ -50,7 +50,7 @@ const FormEmployeeEdit = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setStatus(checkStatus(data.msg));
+        setStatus(data.msg);
         setModalText(data.msg);
         setIsOpen(true);
       })
@@ -62,12 +62,12 @@ const FormEmployeeEdit = (props) => {
     formEmployee();
   };
 
-  const checkStatus = (e) => {
+  const detour = (status) => {
     let result;
-    if (e == 'Status 200') {
-      result = '200';
+    if (status == 'Status 200') {
+      props.history.push('/employees');
     } else {
-      result = '400';
+      setIsOpen(false);
     }
 
     return result;
@@ -76,7 +76,7 @@ const FormEmployeeEdit = (props) => {
   const checkEmployee = () => {
     let result;
     if (!modalText) {
-      result = 'There was an error';
+      result = 'Fields filled incorrectly, please check the data';
     } else {
       result = 'Employee updated succesfully';
     }
@@ -155,12 +155,11 @@ const FormEmployeeEdit = (props) => {
         </Button>
       </div>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
-        <h2>Status: {status}</h2>
         <div>
           <p>{checkEmployee(modalText)}</p>
         </div>
         <div>
-          <Button type={styles.addEmployeeBtn} handleClick={() => props.history.push('/employees')}>
+          <Button type={styles.addEmployeeBtn} handleClick={() => detour(status)}>
             ok
           </Button>
         </div>
