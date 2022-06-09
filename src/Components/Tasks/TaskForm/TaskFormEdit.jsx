@@ -1,35 +1,38 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Logo from '../../SharedComponents/Logo/Logo';
-import styles from './taskForm.module.css';
 import Button from '../../SharedComponents/Button/Button';
+import styles from './taskForm.module.css';
+import { useState, useEffect } from 'react';
 import Modal from '../../SharedComponents/Modal/Modal';
 
-const TaskForm = (props) => {
-  const [newItem, setNewItem] = useState({
-    description: props.description,
-    workedHours: props.workedHours
-  });
+const TaskFormEdit = (props) => {
+  const [description, setDescription] = useState('');
+  const [workedHours, setWorkedHours] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [responseMsg, setResponseMsg] = useState('');
   const [resStatus, setResStatus] = useState(false);
+  const params = window.location.search;
+  let id = params.substring(2);
 
-  const handleChange = (event) => {
-    setNewItem({
-      ...newItem,
-      [event.target.name]: event.target.value
-    });
-  };
+  useEffect(() => {
+    fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`)
+      .then((response) => response.json())
+      .then((response) => {
+        setDescription(response.data.description);
+        setWorkedHours(response.data.workedHours);
+      });
+  }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch(`https://coco-trackgenix-server.vercel.app/tasks`, {
-      method: 'POST',
+    await fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        description: newItem.description,
-        workedHours: newItem.workedHours
+        description: description,
+        workedHours: workedHours
       })
     })
       .then((response) => response.json())
@@ -59,7 +62,7 @@ const TaskForm = (props) => {
   return (
     <div className={styles.container}>
       <Logo />
-      <h2 className={styles.title}>New Task</h2>
+      <h2 className={styles.title}>Edit Task</h2>
       <div className={styles.formContainer}>
         <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
           BACK
@@ -71,8 +74,10 @@ const TaskForm = (props) => {
               <input
                 type="text"
                 name="description"
-                value={newItem.description}
-                onChange={handleChange}
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
               ></input>
             </div>
             <div className={styles.inputWorkedHours}>
@@ -80,20 +85,22 @@ const TaskForm = (props) => {
               <input
                 type="number"
                 name="workedHours"
-                value={newItem.workedHours}
-                onChange={handleChange}
+                value={workedHours}
+                onChange={(e) => {
+                  setWorkedHours(e.target.value);
+                }}
               />
             </div>
           </div>
           <Button type={('submit', styles.buttonForm)} handleClick={() => setIsOpen(true)}>
-            Create
+            Edit
           </Button>
         </form>
       </div>
       <Modal showModal={isOpen} closeModal={handleOkBtn}>
         <h2>{resStatus ? 'Success!' : 'Warning!'}</h2>
         <h3 className={styles.modalMsg}>
-          {resStatus ? responseMsg : `The task could not be created because ${responseMsg}`}
+          {resStatus ? responseMsg : `The task could not be updated because ${responseMsg}`}
         </h3>
         <Button type={styles.buttonForm} handleClick={handleOkBtn}>
           Ok
@@ -102,5 +109,4 @@ const TaskForm = (props) => {
     </div>
   );
 };
-
-export default TaskForm;
+export default TaskFormEdit;
