@@ -32,8 +32,9 @@ const FormEmployee = (props) => {
         body: JSON.stringify(e)
       });
       setStatus(response.status);
-      setModalText(response.statusText);
+      setModalText(createMsg(response.status));
       setIsOpen(true);
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -50,6 +51,17 @@ const FormEmployee = (props) => {
       password: '',
       active: ''
     });
+  };
+
+  const createMsg = (s) => {
+    let result;
+    if (s == 201) {
+      result = 'Employee created succesfully';
+    } else {
+      result = 'There was an error';
+    }
+
+    return result;
   };
 
   return (

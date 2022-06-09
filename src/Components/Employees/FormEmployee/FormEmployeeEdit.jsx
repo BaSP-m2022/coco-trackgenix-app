@@ -50,7 +50,7 @@ const FormEmployeeEdit = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setStatus();
+        setStatus(checkStatus(data.msg));
         setModalText(data.msg);
         setIsOpen(true);
       })
@@ -60,6 +60,28 @@ const FormEmployeeEdit = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     formEmployee();
+  };
+
+  const checkStatus = (e) => {
+    let result;
+    if (e == 'Status 200') {
+      result = '200';
+    } else {
+      result = '400';
+    }
+
+    return result;
+  };
+
+  const checkEmployee = () => {
+    let result;
+    if (!modalText) {
+      result = 'There was an error';
+    } else {
+      result = 'Employee updated succesfully';
+    }
+
+    return result;
   };
 
   return (
@@ -128,16 +150,18 @@ const FormEmployeeEdit = (props) => {
             <input className={styles.addEmployeeBtn} type="submit" value="submit" />
           </div>
         </form>
-        <button onClick={() => props.history.push('/employees')}>Return</button>
+        <Button type={styles.addEmployeeBtn} handleClick={() => props.history.push('/employees')}>
+          return
+        </Button>
       </div>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>Status: {status}</h2>
         <div>
-          <p>{modalText}</p>
+          <p>{checkEmployee(modalText)}</p>
         </div>
         <div>
           <Button type={styles.addEmployeeBtn} handleClick={() => props.history.push('/employees')}>
-            OK
+            ok
           </Button>
         </div>
       </Modal>
