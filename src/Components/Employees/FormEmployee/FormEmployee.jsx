@@ -55,7 +55,7 @@ const FormEmployee = (props) => {
     if (s == 201) {
       result = 'Employee created succesfully';
     } else {
-      result = 'There was an error';
+      result = 'Fields filled incorrectly, please check the data';
     }
 
     return result;
