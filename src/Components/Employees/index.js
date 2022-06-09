@@ -37,7 +37,7 @@ const Employees = (props) => {
 
   let history = useHistory();
   const handleEdit = (item) => {
-    history.push(`/employees/formEdit?=${item._id}`);
+    history.push(`/employees/formEdit?=${item}`);
   };
 
   return (
