@@ -3,13 +3,16 @@ import Logo from '../../SharedComponents/Logo/Logo';
 import Button from '../../SharedComponents/Button/Button';
 import styles from './taskForm.module.css';
 import { useState, useEffect } from 'react';
+import Modal from '../../SharedComponents/Modal/Modal';
 
 const TaskFormEdit = (props) => {
   const [description, setDescription] = useState('');
   const [workedHours, setWorkedHours] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+  const [responseMsg, setResponseMsg] = useState('');
+  const [resStatus, setResStatus] = useState(false);
   const params = window.location.search;
   let id = params.substring(2);
-  console.log(id);
 
   useEffect(() => {
     fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`)
@@ -35,13 +38,21 @@ const TaskFormEdit = (props) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.error === false) {
-          alert(`${data.msg}`);
-          props.history.push('/tasks');
+          setResStatus(true);
+          setResponseMsg(data.msg.substring(9));
         } else {
-          alert(`${data.msg}`);
+          setResStatus(false);
+          setResponseMsg(data.msg.substring(9));
         }
       })
       .catch((error) => console.error(error));
+  };
+  const handleOkBtn = () => {
+    if (resStatus) {
+      props.history.push('/tasks');
+    } else {
+      setIsOpen(false);
+    }
   };
 
   return (
@@ -77,9 +88,18 @@ const TaskFormEdit = (props) => {
               />
             </div>
           </div>
-          <Button type={('submit', styles.buttonForm)}>Edit</Button>
+          <Button type={('submit', styles.buttonForm)} handleClick={() => setIsOpen(true)}>
+            Edit
+          </Button>
         </form>
       </div>
+      <Modal showModal={isOpen} closeModal={handleOkBtn}>
+        <h2>{resStatus ? 'Success!' : 'Warning!'}</h2>
+        <h3>{resStatus ? responseMsg : `The task could not be updated because ${responseMsg}`}</h3>
+        <Button type={styles.buttonForm} handleClick={handleOkBtn}>
+          Ok
+        </Button>
+      </Modal>
     </div>
   );
 };

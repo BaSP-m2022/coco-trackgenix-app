@@ -3,9 +3,11 @@ import styles from './tasks.module.css';
 import Logo from '../SharedComponents/Logo/Logo';
 import Table from '../SharedComponents/Table/index';
 import Button from '../SharedComponents/Button/Button';
+import Modal from '../SharedComponents/Modal/Modal';
 
 const Tasks = (props) => {
   const [list, setList] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(async () => {
     try {
@@ -22,7 +24,7 @@ const Tasks = (props) => {
       fetch(`https://coco-trackgenix-server.vercel.app/tasks/${_id}`, {
         method: 'DELETE'
       });
-      alert('Task deleted');
+      setIsOpen(true);
     } catch (error) {
       console.error(error);
     }
@@ -36,7 +38,7 @@ const Tasks = (props) => {
     <section className={styles.container}>
       <Logo />
       <h2 className={styles.title}>Tasks</h2>
-      <div>
+      <div className={styles.tableContainer}>
         <Button type={styles.buttonAdd} handleClick={() => props.history.push('tasks/add')}>
           + Add Task
         </Button>
@@ -47,6 +49,12 @@ const Tasks = (props) => {
           deleteItem={deleteItem}
         />
       </div>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <h2>Tasks has been deleted successfully!</h2>
+        <Button type={styles.buttonAdd} handleClick={() => setIsOpen(false)}>
+          Ok
+        </Button>
+      </Modal>
     </section>
   );
 };

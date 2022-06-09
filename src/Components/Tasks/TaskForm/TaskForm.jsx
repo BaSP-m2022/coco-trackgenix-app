@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import Logo from '../../SharedComponents/Logo/Logo';
 import styles from './taskForm.module.css';
 import Button from '../../SharedComponents/Button/Button';
+import Modal from '../../SharedComponents/Modal/Modal';
 
 const TaskForm = (props) => {
   const [newItem, setNewItem] = useState({
     description: props.description,
     workedHours: props.workedHours
   });
+  const [isOpen, setIsOpen] = useState(false);
+  const [responseMsg, setResponseMsg] = useState('');
+  const [resStatus, setResStatus] = useState(false);
 
   const handleChange = (event) => {
     setNewItem({
@@ -31,13 +35,21 @@ const TaskForm = (props) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.error === false) {
-          alert(`${data.msg}`);
-          props.history.push('/tasks');
+          setResStatus(true);
+          setResponseMsg(data.msg.substring(9));
         } else {
-          alert(`${data.msg}`);
+          setResStatus(false);
+          setResponseMsg(data.msg.substring(9));
         }
       })
       .catch((error) => console.error(error));
+  };
+  const handleOkBtn = () => {
+    if (resStatus) {
+      props.history.push('/tasks');
+    } else {
+      setIsOpen(false);
+    }
   };
 
   return (
@@ -69,9 +81,18 @@ const TaskForm = (props) => {
               />
             </div>
           </div>
-          <Button type={('submit', styles.buttonForm)}>Create</Button>
+          <Button type={('submit', styles.buttonForm)} handleClick={() => setIsOpen(true)}>
+            Create
+          </Button>
         </form>
       </div>
+      <Modal showModal={isOpen} closeModal={handleOkBtn}>
+        <h2>{resStatus ? 'Success!' : 'Warning!'}</h2>
+        <h3>{resStatus ? responseMsg : `The task could not be created because ${responseMsg}`}</h3>
+        <Button type={styles.buttonForm} handleClick={handleOkBtn}>
+          Ok
+        </Button>
+      </Modal>
     </div>
   );
 };
