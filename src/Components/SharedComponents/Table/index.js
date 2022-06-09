@@ -32,13 +32,13 @@ const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
                   return <td key={index}>{row[header]}</td>;
                 })}
                 <td>
-                  <Button type={styles.editANDdeleteBtn} handleClick={() => handleEdit(row._id)}>
+                  <Button class={styles.editANDdeleteBtn} handleClick={() => handleEdit(row._id)}>
                     Edit
                   </Button>
                 </td>
                 <td>
                   <Button
-                    type={styles.editANDdeleteBtn}
+                    class={styles.editANDdeleteBtn}
                     handleClick={() => {
                       setIsOpen(true);
                       setRow(row._id);
@@ -59,11 +59,11 @@ const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
           <p>You will not be able to recover it</p>
         </div>
         <div>
-          <Button type={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
+          <Button class={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
             Cancel
           </Button>
           <Button
-            type={styles.confirmANDdeleteBtn}
+            class={styles.confirmANDdeleteBtn}
             handleClick={() => {
               deleteItem(rowMember);
               setIsOpen(false);
