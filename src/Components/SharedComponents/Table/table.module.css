@@ -15,7 +15,7 @@
   justify-content: center;
 }
 
-.stylesModalBtn {
+.stylesModalBtn, .deleteModalBtn {
   width: 110px;
   height: 50px;
   margin: 0 20px;
@@ -27,6 +27,11 @@
   font-weight: 700;
   color: #505168;
   cursor: pointer;
+}
+
+.stylesModalBtn:hover {
+  background-color: white;
+  border: 2px solid #aace9b;
 }
 
 .stylesBtn {
@@ -41,6 +46,21 @@
   font-weight: 700;
   color: #505168;
   cursor: pointer;
+}
+
+.stylesBtn:hover {
+  background-color: white;
+  border: 2px solid #aace9b;
+}
+
+.deleteModalBtn {
+  background-color: white;
+}
+
+.deleteModalBtn:hover {
+  background-color: rgb(255, 255, 255);
+  background-color: white;
+  border: 2px solid #aace9b;
 }
 
 .container table {

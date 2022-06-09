@@ -119,16 +119,10 @@ const EditSuperAdmin = (props) => {
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>Warning</h2>
         <div>
-          <p>Are you sure you want to edit this item?</p>
-          <p>
-            If you click confirm the item will be edited and if you do not want to edit it click on
-            cancel!
-          </p>
+          <p>Success!</p>
+          <p>The Super Admin was successfully edited</p>
         </div>
         <div>
-          <Button type={styles.stylesModalBtn} handleClick={() => setIsOpen(false)}>
-            Cancel
-          </Button>
           <Button
             type={('submit', styles.stylesModalBtn)}
             handleClick={() => {
@@ -136,7 +130,7 @@ const EditSuperAdmin = (props) => {
               props.history.push('/super-admins');
             }}
           >
-            Confirm
+            Ok
           </Button>
         </div>
       </Modal>

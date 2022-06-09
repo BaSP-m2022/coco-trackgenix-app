@@ -99,16 +99,10 @@ const AddSuperAdmin = (props) => {
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>Warning</h2>
         <div>
-          <p>Are you sure you want to create this item?</p>
-          <p>
-            If you click confirm the item will be created and if you do not want to create it click
-            on cancel!
-          </p>
+          <p>Success!</p>
+          <p>The Super Admin was successfully created</p>
         </div>
         <div>
-          <Button type={styles.stylesModalBtn} handleClick={() => setIsOpen(false)}>
-            Cancel
-          </Button>
           <Button
             type={('submit', styles.stylesModalBtn)}
             handleClick={() => {
@@ -116,7 +110,7 @@ const AddSuperAdmin = (props) => {
               props.history.push('/super-admins');
             }}
           >
-            Confirm
+            Ok
           </Button>
         </div>
       </Modal>

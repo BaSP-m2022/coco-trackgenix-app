@@ -13,6 +13,9 @@
   width: 150px;
   margin-top: 20px;
   margin-left: 50px;
+  font-weight: 600;
+  font-size: 45px;
+  line-height: 60px;
 }
 
 .stylesModalBtn {
@@ -29,6 +32,11 @@
   cursor: pointer;
 }
 
+.stylesModalBtn:hover {
+  background-color: white;
+  border: 2px solid #aace9b;
+}
+
 .addSuperAdminBtn {
   width: 170px;
   height: 50px;
@@ -43,6 +51,11 @@
   cursor: pointer;
 }
 
+.addSuperAdminBtn:hover {
+  background-color: white;
+  border: 2px solid #aace9b;
+}
+
 .stylesBtn {
   width: 60px;
   height: 30px;
@@ -55,4 +68,9 @@
   font-weight: 700;
   color: #505168;
   cursor: pointer;
+}
+
+.stylesBtn:hover {
+  background-color: white;
+  border: 2px solid #aace9b;
 }
