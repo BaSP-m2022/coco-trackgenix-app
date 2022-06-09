@@ -42,7 +42,11 @@ const TaskFormEdit = (props) => {
           setResponseMsg(data.msg.substring(9));
         } else {
           setResStatus(false);
-          setResponseMsg(data.msg.substring(9));
+          if (data.msg.includes('fails to match the required pattern')) {
+            setResponseMsg('the data entered is not correct');
+          } else {
+            setResponseMsg('all fields should be completed.');
+          }
         }
       })
       .catch((error) => console.error(error));

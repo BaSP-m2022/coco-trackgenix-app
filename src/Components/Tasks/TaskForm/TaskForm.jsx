@@ -39,7 +39,11 @@ const TaskForm = (props) => {
           setResponseMsg(data.msg.substring(9));
         } else {
           setResStatus(false);
-          setResponseMsg(data.msg.substring(9));
+          if (data.msg.includes('fails to match the required pattern')) {
+            setResponseMsg('the data entered is not correct');
+          } else {
+            setResponseMsg('all fields should be completed.');
+          }
         }
       })
       .catch((error) => console.error(error));
@@ -88,7 +92,9 @@ const TaskForm = (props) => {
       </div>
       <Modal showModal={isOpen} closeModal={handleOkBtn}>
         <h2>{resStatus ? 'Success!' : 'Warning!'}</h2>
-        <h3>{resStatus ? responseMsg : `The task could not be created because ${responseMsg}`}</h3>
+        <h3 className={styles.modalMsg}>
+          {resStatus ? responseMsg : `The task could not be created because ${responseMsg}`}
+        </h3>
         <Button type={styles.buttonForm} handleClick={handleOkBtn}>
           Ok
         </Button>
