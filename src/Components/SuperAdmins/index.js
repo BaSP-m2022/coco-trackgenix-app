@@ -62,7 +62,7 @@ const SuperAdmin = (props) => {
           deleteItem={deleteItem}
         >
           <Button
-            class={styles.addSuperAdminBtn}
+            type={styles.addSuperAdminBtn}
             handleClick={() => props.history.push('super-admins/formAdd')}
           >
             Add Super Admin

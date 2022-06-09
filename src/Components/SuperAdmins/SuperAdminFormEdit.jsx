@@ -105,14 +105,14 @@ const EditSuperAdmin = (props) => {
           ></input>
         </div>
         <Button
-          class={styles.stylesBtn}
+          type={styles.stylesBtn}
           handleClick={() => {
             setIsOpen(true);
           }}
         >
           Accept
         </Button>
-        <Button class={styles.stylesBtn} handleClick={() => backSuperAdmin()}>
+        <Button type={styles.stylesBtn} handleClick={() => backSuperAdmin()}>
           Back
         </Button>
       </form>
@@ -126,12 +126,11 @@ const EditSuperAdmin = (props) => {
           </p>
         </div>
         <div>
-          <Button class={styles.stylesModalBtn} handleClick={() => setIsOpen(false)}>
+          <Button type={styles.stylesModalBtn} handleClick={() => setIsOpen(false)}>
             Cancel
           </Button>
           <Button
-            type="submit"
-            class={styles.stylesModalBtn}
+            type={('submit', styles.stylesModalBtn)}
             handleClick={() => {
               setIsOpen(false);
               props.history.push('/super-admins');
