@@ -15,7 +15,7 @@
   justify-content: center;
 }
 
-.confirmANDdeleteBtn {
+.stylesModalBtn {
   width: 110px;
   height: 50px;
   margin: 0 20px;
@@ -29,7 +29,7 @@
   cursor: pointer;
 }
 
-.editANDdeleteBtn {
+.stylesBtn {
   width: 60px;
   height: 30px;
   margin: 0;

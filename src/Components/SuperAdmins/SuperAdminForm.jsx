@@ -85,33 +85,33 @@ const AddSuperAdmin = (props) => {
           ></input>
         </div>
         <Button
-          class={styles.editANDdeleteBtn}
+          class={styles.stylesBtn}
           handleClick={() => {
             setIsOpen(true);
           }}
         >
           Accept
         </Button>
-        <Button
-          class={styles.editANDdeleteBtn}
-          handleClick={() => props.history.push('/super-admins')}
-        >
+        <Button class={styles.stylesBtn} handleClick={() => props.history.push('/super-admins')}>
           Back
         </Button>
       </form>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>Warning</h2>
         <div>
-          <p>Are you sure you want to delete this item?</p>
-          <p>You will not be able to recover it</p>
+          <p>Are you sure you want to create this item?</p>
+          <p>
+            If you click confirm the item will be created and if you do not want to create it click
+            on cancel!
+          </p>
         </div>
         <div>
-          <Button class={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
+          <Button class={styles.stylesModalBtn} handleClick={() => setIsOpen(false)}>
             Cancel
           </Button>
           <Button
             type="submit"
-            class={styles.confirmANDdeleteBtn}
+            class={styles.stylesModalBtn}
             handleClick={() => {
               setIsOpen(false);
               props.history.push('/super-admins');

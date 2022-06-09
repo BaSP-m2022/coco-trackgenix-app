@@ -105,30 +105,33 @@ const EditSuperAdmin = (props) => {
           ></input>
         </div>
         <Button
-          class={styles.editANDdeleteBtn}
+          class={styles.stylesBtn}
           handleClick={() => {
             setIsOpen(true);
           }}
         >
           Accept
         </Button>
-        <Button class={styles.editANDdeleteBtn} handleClick={() => backSuperAdmin()}>
+        <Button class={styles.stylesBtn} handleClick={() => backSuperAdmin()}>
           Back
         </Button>
       </form>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>Warning</h2>
         <div>
-          <p>Are you sure you want to delete this item?</p>
-          <p>You will not be able to recover it</p>
+          <p>Are you sure you want to edit this item?</p>
+          <p>
+            If you click confirm the item will be edited and if you do not want to edit it click on
+            cancel!
+          </p>
         </div>
         <div>
-          <Button class={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
+          <Button class={styles.stylesModalBtn} handleClick={() => setIsOpen(false)}>
             Cancel
           </Button>
           <Button
             type="submit"
-            class={styles.confirmANDdeleteBtn}
+            class={styles.stylesModalBtn}
             handleClick={() => {
               setIsOpen(false);
               props.history.push('/super-admins');

@@ -53,9 +53,7 @@ const SuperAdmin = (props) => {
   } else {
     return (
       <section className={styles.container}>
-        <div className={styles.logo}>
-          <Logo />
-        </div>
+        <Logo />
         <h2>Super Admin</h2>
         <Table
           data={list}
