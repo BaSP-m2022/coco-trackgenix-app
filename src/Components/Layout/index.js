@@ -3,6 +3,7 @@ import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 import Admins from '../Admins/index';
 import AdminForm from '../Admins/AdminForm/AdminForm';
+import EditAdmin from '../Admins/Modal/AdminFormEdit';
 import SuperAdmins from '../SuperAdmins/index';
 import Home from '../Home/Homepage';
 import styles from './layout.module.css';
@@ -20,7 +21,6 @@ import FormEmployee from '../Employees/FormEmployee/FormEmployee';
 import FormEmployeeEdit from '../Employees/FormEmployee/FormEmployeeEdit';
 import Navigation from '../Navigation';
 import { Switch, Route, Redirect } from 'react-router-dom';
-
 function Layout() {
   return (
     <div className={styles.container}>
@@ -31,6 +31,7 @@ function Layout() {
           <Route exact path="/home" component={Home} />
           <Route exact path="/admins" component={Admins} />
           <Route path="/admins/add" component={AdminForm} />
+          <Route path="/admins/edit" component={EditAdmin} />
           <Route exact path="/super-admins" component={SuperAdmins} />
           <Route path="/super-admins/Form" component={SuperAdminFormEdit} />
           <Route path="/super-admins/formAdd" component={SuperAdminForm} />
@@ -54,5 +55,4 @@ function Layout() {
     </div>
   );
 }
-
 export default Layout;
