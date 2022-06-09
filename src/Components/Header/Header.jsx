@@ -1,31 +1,77 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './header.module.css';
 import burguerMenu from '../../Assets/burguer-menu.png';
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-const Header = () => (
-  <header className={style.container}>
-    <div className={style.headerContainer}>
-      {location.pathname === '/home' ? (
-        <button className={style.burguerButton}>
-          <img className={style.styleIcon} src={burguerMenu} alt="burguer-menu" />
-        </button>
-      ) : (
-        <span></span>
-      )}
-      <input type="text" placeholder="Search" />
-      {location.pathname === '/home' ? (
-        <button type="button">
-          <Link to="/nav">Navigation</Link>
-        </button>
-      ) : (
-        <button type="button">
-          <Link to="/home">Home</Link>
-        </button>
-      )}
-    </div>
-  </header>
-);
+const Header = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+  return (
+    <header className={style.container}>
+      {sidebarOpen ? (
+        <div className={style.background} onCli={toggleSidebar}>
+          <nav className={style.navbar}>
+            <h2>Menu</h2>
+            <ul className={style.rutes}>
+              <li>
+                <Link className={style.links} to="/timesheets">
+                  TimeSheets
+                </Link>
+              </li>
+              <li>
+                <Link className={style.links} to="/">
+                  Reports
+                </Link>
+              </li>
+              <li>
+                <Link className={style.links} to="/">
+                  Trackgenix
+                </Link>
+              </li>
+              <li>
+                <Link className={style.links} to="/">
+                  Resources
+                </Link>
+              </li>
+            </ul>
+            <div className={style.contact}>
+              <h3>Contact Us</h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis laborum blanditiis
+                eaque veniam dolore quisquam tenetur aspernatur perspiciatis fuga excepturi ipsam,
+                alias quia! Ut perspiciatis quis dolore deserunt aliquam libero.
+              </p>
+            </div>
+            <div className={style.location}>
+              <p>trackgenix@info.com</p>
+              <p>Rosario, Argentina. S2000</p>
+            </div>
+          </nav>
+        </div>
+      ) : null}
+      <div className={style.headerContainer}>
+        {location.pathname === '/home' ? (
+          <button className={style.burguerButton} onClick={toggleSidebar}>
+            <img className={style.styleIcon} src={burguerMenu} alt="burguer-menu" />
+          </button>
+        ) : (
+          <span></span>
+        )}
+        <input type="text" placeholder="Search" />
+        {location.pathname === '/home' ? (
+          <Link to="/nav" className={style.navigation}>
+            Navigation
+          </Link>
+        ) : (
+          <Link to="/home" className={style.navigation}>
+            Home
+          </Link>
+        )}
+      </div>
+    </header>
+  );
+};
 
 export default withRouter(Header);
