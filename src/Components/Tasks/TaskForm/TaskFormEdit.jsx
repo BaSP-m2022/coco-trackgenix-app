@@ -99,7 +99,9 @@ const TaskFormEdit = (props) => {
       </div>
       <Modal showModal={isOpen} closeModal={handleOkBtn}>
         <h2>{resStatus ? 'Success!' : 'Warning!'}</h2>
-        <h3>{resStatus ? responseMsg : `The task could not be updated because ${responseMsg}`}</h3>
+        <h3 className={styles.modalMsg}>
+          {resStatus ? responseMsg : `The task could not be updated because ${responseMsg}`}
+        </h3>
         <Button type={styles.buttonForm} handleClick={handleOkBtn}>
           Ok
         </Button>
