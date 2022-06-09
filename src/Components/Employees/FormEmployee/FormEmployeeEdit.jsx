@@ -53,7 +53,6 @@ const FormEmployeeEdit = (props) => {
         setStatus();
         setModalText(data.msg);
         setIsOpen(true);
-        console.log(data);
       })
       .catch((error) => console.error(error));
   };
