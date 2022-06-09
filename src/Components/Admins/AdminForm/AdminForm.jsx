@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import styles from '../admins.module.css';
+import Button from '../../SharedComponents/Button/Button';
+import Modal from '../../SharedComponents/Modal/Modal';
 
 const AdminForm = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [adminInput, setAdminInput] = useState({
     name: '',
     lastName: '',
@@ -9,7 +12,9 @@ const AdminForm = (props) => {
     password: '',
     active: ''
   });
-
+  const backAdmin = () => {
+    props.history.push('/admins');
+  };
   const onChange = (e) => {
     setAdminInput({ ...adminInput, [e.target.name]: e.target.value });
   };
@@ -24,7 +29,6 @@ const AdminForm = (props) => {
         },
         body: JSON.stringify(e)
       });
-      alert(`Admin created`);
       props.history.push('/admins');
     } catch (error) {
       console.error(error);
@@ -83,14 +87,41 @@ const AdminForm = (props) => {
             <label>Active</label>
             <input type="text" name="active" value={adminInput.active} onChange={onChange} />
           </div>
-          <button type="submit" className={styles.confirmBtn}>
-            Confirm
-          </button>
+          <Button
+            class={styles.editANDdeleteBtn}
+            handleClick={() => {
+              setIsOpen(true);
+            }}
+          >
+            Accept
+          </Button>
         </div>
+        <Button class={styles.editANDdeleteBtn} handleClick={() => backAdmin()}>
+          Back
+        </Button>
       </form>
-      <button onClick={() => props.history.push('/admins')} className={styles.backBtn}>
-        Back
-      </button>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <h2>Warning</h2>
+        <div>
+          <p>Are you sure you want to delete this item?</p>
+          <p>You will not be able to recover it</p>
+        </div>
+        <div>
+          <Button class={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            class={styles.confirmANDdeleteBtn}
+            handleClick={() => {
+              setIsOpen(false);
+              props.history.push('/admins');
+            }}
+          >
+            Confirm
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };

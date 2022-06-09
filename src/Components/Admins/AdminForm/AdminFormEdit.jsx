@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styles from './admin.form.edit.module.css';
+import Button from '../../SharedComponents/Button/Button';
+import Modal from '../../SharedComponents/Modal/Modal';
 
-const EditAdmin = () => {
+const AdminFormEdit = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [lastNameInput, setLastNameInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
@@ -10,6 +13,9 @@ const EditAdmin = () => {
   const params = window.location.search;
   let id = params.substring(2);
   console.log(id);
+  const backAdmin = () => {
+    props.history.push('/admins');
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     await fetch(`https://coco-trackgenix-server.vercel.app/admins/${id}`, {
@@ -104,15 +110,44 @@ const EditAdmin = () => {
               ></input>
             </div>
             <div>
-              <button type="submit" className={styles.confirmBtn}>
-                Confirm
-              </button>
+              <Button
+                class={styles.editANDdeleteBtn}
+                handleClick={() => {
+                  setIsOpen(true);
+                }}
+              >
+                Accept
+              </Button>
+              <Button class={styles.editANDdeleteBtn} handleClick={() => backAdmin()}>
+                Back
+              </Button>
             </div>
           </div>
         </form>
-        <button className={styles.backBtn}>Cancel</button>
       </div>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <h2>Warning</h2>
+        <div>
+          <p></p>
+          <p>Are you sure to edit this penis?</p>
+        </div>
+        <div>
+          <Button class={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            class={styles.confirmANDdeleteBtn}
+            handleClick={() => {
+              setIsOpen(false);
+              props.history.push('/admins');
+            }}
+          >
+            Confirm
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };
-export default EditAdmin;
+export default AdminFormEdit;

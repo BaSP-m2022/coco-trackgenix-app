@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './admins.module.css';
-import List from './List';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+// import List from './List';
 import Logo from '../SharedComponents/Logo/Logo';
+import Table from '../SharedComponents/Table';
 
 const Admins = (props) => {
   const [list, setList] = useState([]);
@@ -27,7 +29,10 @@ const Admins = (props) => {
     }
     setList(list.filter((listItem) => listItem._id !== _id));
   };
-
+  let history = useHistory();
+  const handleEdit = (_id) => {
+    history.push(`/admins/edit?=${_id}`);
+  };
   return (
     <section className={styles.container}>
       <Logo />
@@ -36,7 +41,14 @@ const Admins = (props) => {
         <button onClick={() => props.history.push('admins/add')} className={styles.addBtn}>
           + Add an admin
         </button>
-        <List list={list} setList={setList} deleteItem={deleteItem} />
+        <Table
+          data={list}
+          headers={['name', 'lastName', 'email', 'password', 'active']}
+          handleEdit={handleEdit}
+          deleteItem={deleteItem}
+          setList={setList}
+        />
+        {/* <List list={list} setList={setList} deleteItem={deleteItem} /> */}
       </div>
     </section>
   );
