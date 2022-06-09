@@ -89,8 +89,9 @@
 
 .formContainer {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  width: 700px;
+  width: 180px;
   height: 150px;
   color: #505168;
 }
@@ -119,4 +120,38 @@
   text-decoration: none;
   color: #505168;
   cursor: pointer;
+}
+
+.confirmANDdeleteBtn {
+  width: 110px;
+  height: 50px;
+  margin: 0 20px;
+  padding: 10px 24px;
+  background: #aace9b;
+  border: 1px solid #505168;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #505168;
+  cursor: pointer;
+}
+
+.editANDdeleteBtn {
+  width: 60px;
+  height: 30px;
+  margin: 30px;
+  padding: 0;
+  background: #aace9b;
+  border: 1px solid #505168;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #505168;
+  cursor: pointer;
+}
+
+.buttonsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row !important;
 }

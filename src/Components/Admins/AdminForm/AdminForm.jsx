@@ -87,32 +87,33 @@ const AdminForm = (props) => {
             <label>Active</label>
             <input type="text" name="active" value={adminInput.active} onChange={onChange} />
           </div>
+        </div>
+        <div className={styles.buttonsContainer}>
           <Button
-            class={styles.editANDdeleteBtn}
-            handleClick={() => {
+            type={styles.editANDdeleteBtn}
+            handleClick={(e) => {
               setIsOpen(true);
+              e.stopPropagation();
             }}
           >
             Accept
           </Button>
+          <Button type={styles.editANDdeleteBtn} handleClick={() => backAdmin()}>
+            Back
+          </Button>
         </div>
-        <Button class={styles.editANDdeleteBtn} handleClick={() => backAdmin()}>
-          Back
-        </Button>
       </form>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>Warning</h2>
         <div>
-          <p>Are you sure you want to delete this item?</p>
-          <p>You will not be able to recover it</p>
+          <p>Are you sure to create a new admin?</p>
         </div>
         <div>
-          <Button class={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
+          <Button type={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
             Cancel
           </Button>
           <Button
-            type="submit"
-            class={styles.confirmANDdeleteBtn}
+            type={('submit', styles.confirmANDdeleteBtn)}
             handleClick={() => {
               setIsOpen(false);
               props.history.push('/admins');

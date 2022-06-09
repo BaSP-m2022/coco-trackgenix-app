@@ -12,7 +12,6 @@ const AdminFormEdit = (props) => {
   const [activeInput, setActiveInput] = useState('');
   const params = window.location.search;
   let id = params.substring(2);
-  console.log(id);
   const backAdmin = () => {
     props.history.push('/admins');
   };
@@ -55,7 +54,7 @@ const AdminFormEdit = (props) => {
   }, []);
 
   return (
-    <div className={styles.modalContainer}>
+    <div className={styles.container}>
       <div className={styles.editModal}>
         <h2 className={styles.title}>Edit Admin</h2>
         <form onSubmit={handleSubmit} className={styles.formContainer}>
@@ -109,16 +108,16 @@ const AdminFormEdit = (props) => {
                 onChange={(e) => setActiveInput(e.target.value)}
               ></input>
             </div>
-            <div>
+            <div className={styles.buttonsContainer}>
               <Button
-                class={styles.editANDdeleteBtn}
+                type={styles.editANDdeleteBtn}
                 handleClick={() => {
                   setIsOpen(true);
                 }}
               >
                 Accept
               </Button>
-              <Button class={styles.editANDdeleteBtn} handleClick={() => backAdmin()}>
+              <Button type={styles.editANDdeleteBtn} handleClick={() => backAdmin()}>
                 Back
               </Button>
             </div>
@@ -129,15 +128,14 @@ const AdminFormEdit = (props) => {
         <h2>Warning</h2>
         <div>
           <p></p>
-          <p>Are you sure to edit this penis?</p>
+          <p>Are you sure to confirm this edit?</p>
         </div>
         <div>
-          <Button class={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
+          <Button type={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
             Cancel
           </Button>
           <Button
-            type="submit"
-            class={styles.confirmANDdeleteBtn}
+            type={('submit', styles.confirmANDdeleteBtn)}
             handleClick={() => {
               setIsOpen(false);
               props.history.push('/admins');
