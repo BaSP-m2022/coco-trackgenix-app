@@ -1,5 +1,5 @@
 import React from 'react';
-import ContentList from '../ListItem/ListItem';
+import ListItem from '../ListItem/ListItem';
 import styles from './list.module.css';
 
 const List = ({ list, deleteItem, updateItem, createItem }) => {
@@ -14,7 +14,7 @@ const List = ({ list, deleteItem, updateItem, createItem }) => {
           </tr>
         </thead>
         <tbody>
-          <ContentList
+          <ListItem
             listItem={list}
             deleteItem={deleteItem}
             updateItem={updateItem}

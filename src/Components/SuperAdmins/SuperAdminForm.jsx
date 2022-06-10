@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import styles from './super-admins.module.css';
 import Button from '../SharedComponents/Button/Button';
+import Modal from '../SharedComponents/Modal/Modal';
+import Logo from '../SharedComponents/Logo/Logo';
 
 const AddSuperAdmin = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -30,19 +34,11 @@ const AddSuperAdmin = (props) => {
     fetch(url, addSuperAdmin)
       .then((response) => response.json())
       // eslint-disable-next-line no-console
-      .then((data) => {
-        if (!data.error) {
-          alert('The Super Admin have been created successfully');
-          window.location = `/super-admins`;
-        } else {
-          alert(
-            'Error something is wrong. Remember the first and last name must be greater than two character, less than fifty and must not contain symbols. The email address cannot be repeated and must to be example@example.com. The password must be longer than four characters. The active must be true or false'
-          );
-        }
-      });
+      .then((data) => console.log('data:', data));
   };
   return (
     <div className={styles.container}>
+      <Logo />
       <h2>Form</h2>
       <form onSubmit={onSubmit}>
         <div>
@@ -90,11 +86,36 @@ const AddSuperAdmin = (props) => {
             onChange={(event) => setActive(event.target.value)}
           ></input>
         </div>
-        <Button type="submit">Accept</Button>
-        <Button type="submit" handleClick={() => props.history.push('/super-admins')}>
+        <Button
+          type={styles.stylesBtn}
+          handleClick={() => {
+            setIsOpen(true);
+          }}
+        >
+          Accept
+        </Button>
+        <Button type={styles.stylesBtn} handleClick={() => props.history.push('/super-admins')}>
           Back
         </Button>
       </form>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <h2>Warning</h2>
+        <div>
+          <p>Success!</p>
+          <p>The Super Admin was successfully created</p>
+        </div>
+        <div>
+          <Button
+            type={('submit', styles.stylesModalBtn)}
+            handleClick={() => {
+              setIsOpen(false);
+              props.history.push('/super-admins');
+            }}
+          >
+            Ok
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };
