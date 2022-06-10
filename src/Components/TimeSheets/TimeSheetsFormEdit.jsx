@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const TimeSheetsForm = (props) => {
+const TimeSheetsFormEdit = (props) => {
   const [addItem, setItem] = useState({});
   const [employeesItem, setEmployeesItem] = useState([]);
   const [projectsItem, setProjectsItem] = useState([]);
@@ -205,4 +205,4 @@ const TimeSheetsForm = (props) => {
     </div>
   );
 };
-export default TimeSheetsForm;
+export default TimeSheetsFormEdit;
