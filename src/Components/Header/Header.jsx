@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import style from './header.module.css';
 import burguerMenu from '../../Assets/burguer-menu.png';
+import closeBtn from '../../Assets/closeBtn.png';
 import { Link, withRouter } from 'react-router-dom';
 
 const Header = () => {
@@ -8,11 +9,17 @@ const Header = () => {
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+
   return (
     <header className={style.container}>
       {sidebarOpen ? (
-        <div className={style.background} onCli={toggleSidebar}>
+        <div className={style.background}>
           <nav className={style.navbar}>
+            {location.pathname !== '/home' ? (
+              <button className={style.closeBtn} onClick={toggleSidebar}>
+                <img src={closeBtn} alt="cross-img" />
+              </button>
+            ) : null}
             <h2>Menu</h2>
             <ul className={style.rutes}>
               <li>
@@ -57,7 +64,7 @@ const Header = () => {
             <img className={style.styleIcon} src={burguerMenu} alt="burguer-menu" />
           </button>
         ) : (
-          <span></span>
+          <span className={style.flexItem}> </span>
         )}
         <input type="text" placeholder="Search" />
         {location.pathname === '/home' ? (
