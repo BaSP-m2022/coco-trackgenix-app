@@ -33,11 +33,7 @@ const AdminFormEdit = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.error === false) {
-          alert(`${data.msg}`);
-        } else {
-          alert(`${data.msg}`);
-        }
+        console.log(data.error);
       })
       .catch((error) => console.error(error));
   };
