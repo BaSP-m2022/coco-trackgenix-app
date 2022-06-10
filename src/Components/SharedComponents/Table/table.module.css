@@ -16,8 +16,7 @@
   transition-duration: 0.3s;
 }
 
-.deleteBtn,
-.confirmBtn {
+.stylesModalBtn, .deleteModalBtn {
   width: 110px;
   height: 50px;
   margin: 0 20px;
@@ -35,7 +34,12 @@
   background-color: white;
 }
 
-.editANDdeleteBtn {
+.stylesModalBtn:hover {
+  background-color: white;
+  border: 2px solid #aace9b;
+}
+
+.stylesBtn {
   width: 60px;
   height: 30px;
   margin: 0;
@@ -49,15 +53,23 @@
   cursor: pointer;
   transition-duration: 0.3s;
 }
-.buttonAdd:hover,
-.confirmBtn:hover,
-.deleteBtn:hover,
-.editANDdeleteBtn:hover {
+.deleteBtn:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+.stylesBtn:hover {
   background-color: white;
   border: 2px solid #aace9b;
 }
-.deleteBtn:hover {
+
+.deleteModalBtn {
+  background-color: white;
+}
+
+.deleteModalBtn:hover {
   background-color: rgb(255, 255, 255);
+  background-color: white;
+  border: 2px solid #aace9b;
 }
 
 .container table {
