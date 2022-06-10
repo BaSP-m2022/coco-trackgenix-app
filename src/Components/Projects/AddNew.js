@@ -90,7 +90,7 @@ const AddNew = () => {
   return (
     <div className={styles.container}>
       <Logo />
-      <h2>Add New Project</h2>
+      <h2>New Project</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name</label>
@@ -161,7 +161,7 @@ const AddNew = () => {
           <label htmlFor="employees">Employees</label>
           <select name="employees" onChange={handleChange}>
             <option disabled selected>
-              Pick an employee
+              Choose an employee
             </option>
             {employeesData.map((item) => (
               <option key={item.id} value={item._id}>
@@ -183,9 +183,11 @@ const AddNew = () => {
           <span>Must have less than 50 characters. Only admin names.</span>
         </div>
         <div>
-          <input type="submit" name="project-submit" value="ADD NEW PROJECT"></input>
+          <input type="submit" name="project-submit" value="New Project"></input>
+          <Button type={styles.backBtn} onClick={() => (window.location = '/projects')}>
+            BACK
+          </Button>
         </div>
-        <Button onClick={() => (window.location = '/projects')}>BACK</Button>
       </form>
     </div>
   );
