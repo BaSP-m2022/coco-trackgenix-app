@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './admins.module.css';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-// import List from './List';
 import Logo from '../SharedComponents/Logo/Logo';
 import Table from '../SharedComponents/Table';
 
@@ -48,7 +47,6 @@ const Admins = (props) => {
           deleteItem={deleteItem}
           setList={setList}
         />
-        {/* <List list={list} setList={setList} deleteItem={deleteItem} /> */}
       </div>
     </section>
   );

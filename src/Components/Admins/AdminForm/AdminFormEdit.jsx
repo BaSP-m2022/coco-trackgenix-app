@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './admin.form.edit.module.css';
 import Button from '../../SharedComponents/Button/Button';
 import Modal from '../../SharedComponents/Modal/Modal';
+import Logo from '../../SharedComponents/Logo/Logo';
 
 const AdminFormEdit = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,6 +56,9 @@ const AdminFormEdit = (props) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.logo}>
+        <Logo />
+      </div>
       <div className={styles.editModal}>
         <h2 className={styles.title}>Edit Admin</h2>
         <form onSubmit={handleSubmit} className={styles.formContainer}>

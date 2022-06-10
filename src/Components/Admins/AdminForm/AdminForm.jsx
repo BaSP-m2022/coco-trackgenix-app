@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../admins.module.css';
 import Button from '../../SharedComponents/Button/Button';
 import Modal from '../../SharedComponents/Modal/Modal';
+import Logo from '../../SharedComponents/Logo/Logo';
 
 const AdminForm = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,6 +61,9 @@ const AdminForm = (props) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.logo}>
+        <Logo />
+      </div>
       <h2 className={styles.titleTwo}>Add New Admin</h2>
       <form onSubmit={onSubmit} className={styles.formContainer}>
         <div>

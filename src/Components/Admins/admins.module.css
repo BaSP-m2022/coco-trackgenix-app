@@ -174,3 +174,8 @@
   display: flex;
   flex-direction: row !important;
 }
+
+.logo {
+  margin-bottom: 120px;
+  margin-top: -150px;
+}
