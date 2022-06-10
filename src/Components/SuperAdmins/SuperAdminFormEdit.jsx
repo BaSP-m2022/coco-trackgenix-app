@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './super-admins.module.css';
 import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
+import Logo from '../SharedComponents/Logo/Logo';
 
 const EditSuperAdmin = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,6 +57,7 @@ const EditSuperAdmin = (props) => {
 
   return (
     <div className={styles.container}>
+      <Logo />
       <h2>Form Edit</h2>
       <form onSubmit={onSubmit}>
         <div>

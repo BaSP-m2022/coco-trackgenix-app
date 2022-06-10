@@ -53,13 +53,6 @@
   cursor: pointer;
   transition-duration: 0.3s;
 }
-.buttonAdd:hover,
-.confirmBtn:hover,
-.deleteBtn:hover,
-.editANDdeleteBtn:hover {
-  background-color: white;
-  border: 2px solid #aace9b;
-}
 .deleteBtn:hover {
   background-color: rgb(255, 255, 255);
 }
