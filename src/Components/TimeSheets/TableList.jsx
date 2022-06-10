@@ -1,5 +1,4 @@
 import React from 'react';
-// import styles from './time-sheets.module.css';
 import ListItem from './ListItem';
 
 const TableList = ({ list, deleteItem }) => {
