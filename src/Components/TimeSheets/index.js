@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './time-sheets.module.css';
 import Button from '../SharedComponents/Button/Button';
+// import Table from '../SharedComponents/Table';
 import TableList from './TableList';
 
 function TimeSheets(props) {
@@ -30,6 +31,15 @@ function TimeSheets(props) {
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>TimeSheets</h2>
+      {/* <Table
+        data={list}
+        headers={['employeeId.firstName', 'projectId.name', 'startDate', 'endDate', 'tasks']}
+        deleteItem={deleteItem}
+      >
+        <Button type={styles.addBtn} handleClick={() => props.history.push('/time-sheets/add')}>
+          Add Time Sheet
+        </Button>
+      </Table> */}
       <Button type={styles.addBtn} handleClick={() => props.history.push('/time-sheets/add')}>
         Add Time Sheet
       </Button>

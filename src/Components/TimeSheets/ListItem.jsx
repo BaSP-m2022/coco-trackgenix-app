@@ -11,11 +11,6 @@ const ListItem = ({ listItem, deleteItem }) => {
     window.location = `/time-sheets/edit?=${_id}`;
   };
 
-  // const handleUpdate = (_id) => {
-  //   updateItem(_id);
-  //   editMode();
-  //   props.history.push('/time-sheets/edit');
-  // };
   const amountOfTasks = (tasks) => {
     if (tasks.length === 1) {
       return tasks[0].description;

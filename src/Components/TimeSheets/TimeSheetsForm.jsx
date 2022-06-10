@@ -38,6 +38,7 @@ const TimeSheetsForm = (props) => {
       alert('This task has already been selected');
     }
   };
+
   const create = (e) => {
     e.preventDefault();
     try {
@@ -79,12 +80,11 @@ const TimeSheetsForm = (props) => {
   return (
     <div>
       <div>
-        <h2>Add New Time-sheet</h2>
+        <h2>Add New TimeSheet</h2>
       </div>
       <form onSubmit={create}>
         <div>
-          <h2>TimeSheets</h2>
-          <button onClick={() => props.history.push('/time-sheets')}>back</button>
+          <button onClick={() => props.history.push('/time-sheets')}>Back</button>
           <label>Employee</label>
           <select onChange={onChange} name="employeeId">
             {
