@@ -159,7 +159,7 @@ const FormEmployeeEdit = (props) => {
           <p>{checkEmployee(modalText)}</p>
         </div>
         <div>
-          <Button type={styles.addEmployeeBtn} handleClick={() => detour(status)}>
+          <Button type={styles.modalEmployeeBtn} handleClick={() => detour(status)}>
             ok
           </Button>
         </div>

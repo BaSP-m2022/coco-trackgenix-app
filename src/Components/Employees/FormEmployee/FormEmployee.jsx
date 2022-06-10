@@ -6,6 +6,7 @@ import Button from '../../SharedComponents/Button/Button';
 
 const FormEmployee = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [status, setStatus] = useState();
   const [modalText, setModalText] = useState();
   const [employeeInput, setEmployeeInput] = useState({
     firstName: '',
@@ -30,6 +31,7 @@ const FormEmployee = (props) => {
         },
         body: JSON.stringify(e)
       });
+      setStatus(response.status);
       setModalText(createMsg(response.status));
       setIsOpen(true);
     } catch (error) {
@@ -48,6 +50,17 @@ const FormEmployee = (props) => {
       password: '',
       active: ''
     });
+  };
+
+  const detour = (s) => {
+    let result;
+    if (s == '201') {
+      props.history.push('/employees');
+    } else {
+      setIsOpen(false);
+    }
+
+    return result;
   };
 
   const createMsg = (s) => {
@@ -113,7 +126,7 @@ const FormEmployee = (props) => {
           </form>
         </div>
         <Button type={styles.addEmployeeBtn} handleClick={() => props.history.push('/employees')}>
-          Return
+          return
         </Button>
       </div>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
@@ -121,8 +134,8 @@ const FormEmployee = (props) => {
           <p>{modalText}</p>
         </div>
         <div>
-          <Button type={styles.addEmployeeBtn} handleClick={() => props.history.push('/employees')}>
-            OK
+          <Button type={styles.modalEmployeeBtn} handleClick={() => detour(status)}>
+            ok
           </Button>
         </div>
       </Modal>

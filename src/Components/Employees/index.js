@@ -62,7 +62,7 @@ const Employees = (props) => {
           <p>Employee deleted Succesffully</p>
         </div>
         <div>
-          <Button type={styles.addEmployeeBtn} handleClick={() => setIsOpen(false)}>
+          <Button type={styles.modalEmployeeBtn} handleClick={() => setIsOpen(false)}>
             OK
           </Button>
         </div>
