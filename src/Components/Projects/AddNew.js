@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styles from './addNew.module.css';
+// import Logo from '../SharedComponents/Logo/Logo';
+// import Modal from '../SharedComponents/Modal/Modal';
+// import Button from '../SharedComponents/Button/Button';
 
 const AddNew = () => {
+  // const [isOpen, setIsOpen] = useState(false);
+  // const [status, setStatus] = useState();
+  // const [modalText, setModalText] = useState();
+  // const emptyArray = [];
+  // const [projectLst, setProjectList] = useState(emptyArray);
   const initialValues = {
     name: '',
     description: '',
@@ -12,8 +20,16 @@ const AddNew = () => {
     employees: [],
     admins: ''
   };
-
   const [project, setProject] = useState(initialValues);
+  const [employeesData, setEmployeesData] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://coco-trackgenix-server.vercel.app/employees`)
+      .then((res) => res.json())
+      .then((json) => {
+        setEmployeesData(...employeesData, json.data);
+      });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,41 +64,49 @@ const AddNew = () => {
     return membersData;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: project.name,
-        description: project.description,
-        startDate: project.startDate,
-        endDate: project.endDate,
-        clientName: project.clientName,
-        active: project.active,
-        employees: addMembers(project.employees),
-        admins: project.admins
-      })
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        alert(response.error ? `Error! ${response.msg}` : `Success! ${response.msg}`);
-        window.location = '/projects';
-      })
-      .catch(() => console.error);
+  const createProject = async (e) => {
+    try {
+      await fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(e)
+      });
+      // setStatus(response.status);
+      // setModalText(response.message);
+      // setIsOpen(true);
+    } catch (error) {
+      console.error;
+    }
   };
 
-  const [employeesData, setEmployeesData] = useState([]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createProject(project);
+    setProject({
+      name: project.name,
+      description: project.description,
+      startDate: project.startDate,
+      endDate: project.endDate,
+      clientName: project.clientName,
+      active: project.active,
+      employees: addMembers(project.employees),
+      admins: project.admins
+    });
+  };
 
-  useEffect(() => {
-    fetch(`https://coco-trackgenix-server.vercel.app/employees`)
-      .then((res) => res.json())
-      .then((json) => {
-        setEmployeesData(...employeesData, json.data);
-      });
-  }, []);
+  // const check = (s) => {
+  //   let result;
+  //   if (s == '201') {
+  //     props.history.push('/projects');
+  //   } else {
+  //     setIsOpen(false);
+  //   }
+  //
+  //   return result;
+  // };
 
   return (
     <div className={styles.container}>
