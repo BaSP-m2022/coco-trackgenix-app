@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './projects.module.css';
+import { useHistory } from 'react-router-dom';
 import List from './List.jsx';
 import Logo from '../SharedComponents/Logo/Logo';
 
@@ -28,12 +29,17 @@ const Projects = (props) => {
     setList(list.filter((listItem) => listItem._id !== _id));
   };
 
+  let history = useHistory();
+  const handleEdit = (item) => {
+    history.push(`/projects/edit?=${item}`);
+  };
+
   return (
     <section className={styles.container}>
       <Logo />
       <div>
         <h2>Projects</h2>
-        <List list={list} deleteItem={deleteItem} setList={setList} />
+        <List list={list} deleteItem={deleteItem} handleEdit={handleEdit} />
         <button onClick={() => props.history.push('/projects/add')}>ADD NEW</button>
       </div>
     </section>

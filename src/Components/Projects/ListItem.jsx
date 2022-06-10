@@ -1,12 +1,14 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-const ListItem = ({ listItem, deleteItem, props }) => {
+const ListItem = ({ listItem, deleteItem }) => {
   const handleDelete = (_id) => {
     deleteItem(_id);
   };
 
+  let history = useHistory();
   const handleEdit = (_id) => {
-    props.history.push(`/projects/edit?=${_id}`);
+    history.push(`/projects/edit?=${_id}`);
   };
 
   const changeDate = (date) => {
