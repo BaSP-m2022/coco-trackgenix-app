@@ -8,22 +8,39 @@
 }
 
 .title {
-  font-size: 25px;
+  font-size: 35px;
+  line-height: 80px;
+  color: green;
+}
+
+.titleTwo {
+  font-size: 35px;
+  line-height: 80px;
+  color: green;
+  margin-bottom: 30px;
+  margin-left: 34px;
 }
 
 .addBtn {
   display: flex;
   flex-direction: row;
+  width: 155px;
+  height: 37px;
   align-items: center;
-  margin: 15px 0;
-  padding: 10px 12px;
-  width: 140px;
-  height: 40px;
+  justify-content: center;
+  margin-left: 40%;
+  margin-bottom: -25px;
+  padding: 10px;
   background: #aace9b;
+  border: 1px solid #505168;
   border-radius: 5px;
-  text-decoration: none;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
   color: #505168;
   cursor: pointer;
+  transition-duration: 0.3s;
 }
 
 .backBtn {
@@ -90,10 +107,9 @@
 .formContainer {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 180px;
-  height: 150px;
-  color: #505168;
+  justify-content: space-around;
+  align-items: center;
+  height: 35%;
 }
 
 .formContainer div {
@@ -126,7 +142,7 @@
   margin: 50px;
 }
 
-.confirmANDdeleteBtn {
+.confirmAndDeleteBtn {
   width: 110px;
   height: 50px;
   margin: 0 20px;
@@ -140,7 +156,7 @@
   cursor: pointer;
 }
 
-.editANDdeleteBtn {
+.editAndDeleteBtn {
   width: 60px;
   height: 30px;
   margin: 30px;
@@ -155,7 +171,6 @@
 }
 
 .buttonsContainer {
-  width: 100%;
   display: flex;
   flex-direction: row !important;
 }

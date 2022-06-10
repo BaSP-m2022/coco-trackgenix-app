@@ -60,7 +60,7 @@ const AdminForm = (props) => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Add New Admin</h2>
+      <h2 className={styles.titleTwo}>Add New Admin</h2>
       <form onSubmit={onSubmit} className={styles.formContainer}>
         <div>
           <div>
@@ -90,7 +90,7 @@ const AdminForm = (props) => {
         </div>
         <div className={styles.buttonsContainer}>
           <Button
-            type={styles.editANDdeleteBtn}
+            type={styles.editAndDeleteBtn}
             handleClick={(e) => {
               setIsOpen(true);
               e.stopPropagation();
@@ -98,8 +98,8 @@ const AdminForm = (props) => {
           >
             Accept
           </Button>
-          <Button type={styles.editANDdeleteBtn} handleClick={() => backAdmin()}>
-            Back
+          <Button type={styles.editAndDeleteBtn} handleClick={() => backAdmin()}>
+            Cancel
           </Button>
         </div>
       </form>
@@ -109,11 +109,11 @@ const AdminForm = (props) => {
           <p>Are you sure to create a new admin?</p>
         </div>
         <div>
-          <Button type={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
+          <Button type={styles.confirmAndDeleteBtn} handleClick={() => setIsOpen(false)}>
             Cancel
           </Button>
           <Button
-            type={('submit', styles.confirmANDdeleteBtn)}
+            type={('submit', styles.confirmAndDeleteBtn)}
             handleClick={() => {
               setIsOpen(false);
               props.history.push('/admins');

@@ -110,15 +110,15 @@ const AdminFormEdit = (props) => {
             </div>
             <div className={styles.buttonsContainer}>
               <Button
-                type={styles.editANDdeleteBtn}
+                type={styles.editAndDeleteBtn}
                 handleClick={() => {
                   setIsOpen(true);
                 }}
               >
                 Accept
               </Button>
-              <Button type={styles.editANDdeleteBtn} handleClick={() => backAdmin()}>
-                Back
+              <Button type={styles.editAndDeleteBtn} handleClick={() => backAdmin()}>
+                Cancel
               </Button>
             </div>
           </div>
@@ -131,11 +131,11 @@ const AdminFormEdit = (props) => {
           <p>Are you sure to confirm this edit?</p>
         </div>
         <div>
-          <Button type={styles.confirmANDdeleteBtn} handleClick={() => setIsOpen(false)}>
+          <Button type={styles.confirmAndDeleteBtn} handleClick={() => setIsOpen(false)}>
             Cancel
           </Button>
           <Button
-            type={('submit', styles.confirmANDdeleteBtn)}
+            type={('submit', styles.confirmAndDeleteBtn)}
             handleClick={() => {
               setIsOpen(false);
               props.history.push('/admins');
