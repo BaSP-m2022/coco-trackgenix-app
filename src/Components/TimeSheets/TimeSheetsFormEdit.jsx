@@ -8,27 +8,13 @@ const TimeSheetsForm = (props) => {
   const [timeSheetToEdit, setTimeSheetToEdit] = useState({});
   const emptyList = [];
   const [taskList, setTaskList] = useState(emptyList);
-  // const [employeeNameExist, setEmployeeNameExist] = useState(false);
-  // const [projectNameExist, setProjectNameExist] = useState(false);
 
   const [itemToUpdate, setItemToUpdate] = useState({});
-  // const [employeeUpdate, setEmployeeUpdate] = useState({});
-  // const [projectUpdate, setProjectUpdate] = useState({});
-  // const [taskUpdate, setTaskUpdate ] = useState({});
-  // const [startDateUpdate, setStartDateUpdate] = useState({});
-  // const [endDateUpdate, setEndDateUpdate] = useState({});
 
   const params = window.location.search;
   let idParam = params.substring(2);
 
   useEffect(() => {
-    // if (itemToUpdate !== null) {
-    //   setEmployeeNameExist(true);
-    // }
-    // if (itemToUpdate !== null) {
-    //   setProjectNameExist(true);
-    // }
-    console.log('item to update, employeeid', itemToUpdate.employeeId);
     setTimeSheetToEdit({
       tasks: itemToUpdate.tasks,
       employeeId: itemToUpdate.employeeId !== null ? itemToUpdate.employeeId : 'no employee',
@@ -55,7 +41,6 @@ const TimeSheetsForm = (props) => {
       ...addItem,
       [e.target.name]: e.target.value
     });
-    // console.log('item employee id', itemToUpdate.employeeId[0].firstName);
   };
 
   useEffect(() => {
@@ -132,13 +117,16 @@ const TimeSheetsForm = (props) => {
       .then((response) => response.json())
       .then((response) => {
         setItemToUpdate(response.data);
-        // setEmployeeUpdate(response.data.employeeId);
-        // setProjectUpdate(response.data.projectId);
-        // setTaskUpdate(response.data.task);
-        // setStartDateUpdate(response.data.startDate);
-        // setEndDateUpdate(response.data.endDate);
       });
   }, []);
+
+  const employeeList = employeesItem.map((item) => {
+    return (
+      <option key={item.id} value={item._id}>
+        {item.firstName}
+      </option>
+    );
+  });
 
   return (
     <div>
@@ -150,25 +138,12 @@ const TimeSheetsForm = (props) => {
           <button onClick={() => props.history.push('/time-sheets')}>Back</button>
           <label>Employee</label>
           <select onChange={onChange} name="employeeId">
-            {/* {
+            {
               <option disabled selected>
-                {itemToUpdate.employeeId}
+                Select an employe
               </option>
-            } */}
-            {employeesItem.map((item) => (
-              <option
-                key={item.id}
-                value={item._id}
-                // selected={
-                //   itemToUpdate.employeeId !== undefined &&
-                //   itemToUpdate.employeeId[0].firstName === item.firstName
-                //     ? true
-                //     : false
-                // }
-              >
-                {item.firstName}
-              </option>
-            ))}
+            }
+            {employeeList}
           </select>
         </div>
         <div>
@@ -180,15 +155,7 @@ const TimeSheetsForm = (props) => {
               </option>
             }
             {projectsItem.map((item) => (
-              <option
-                key={item.id}
-                value={item._id}
-                // selected={
-                //   itemToUpdate.projectId !== null && item.name === itemToUpdate.projectId.name
-                //     ? true
-                //     : false
-                // }
-              >
+              <option key={item.id} value={item._id}>
                 {item.name}
               </option>
             ))}
@@ -203,15 +170,7 @@ const TimeSheetsForm = (props) => {
               </option>
             }
             {tasksItem.map((item) => (
-              <option
-                key={item.id}
-                value={item._id}
-                // selected={
-                //   itemToUpdate.tasks && item.description === itemToUpdate.tasks[0].description
-                //     ? true
-                //     : false
-                // }
-              >
+              <option key={item.id} value={item._id}>
                 {item.description}
               </option>
             ))}
@@ -235,12 +194,7 @@ const TimeSheetsForm = (props) => {
         </div>
         <div>
           <label>Start Date</label>
-          <input
-            type="date"
-            name="startDate"
-            // value={`${itemToUpdate.startDate.substring(0, 10)}`}
-            onChange={onChange}
-          />
+          <input type="date" name="startDate" onChange={onChange} />
         </div>
         <div>
           <label>End Date</label>
