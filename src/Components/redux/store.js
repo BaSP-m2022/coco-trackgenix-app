@@ -1,9 +1,8 @@
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { applyMiddleware, combineReducers } from 'redux';
+import { applyMiddleware } from 'redux';
 import { legacy_createStore as createStore } from 'redux';
 import thunk from 'redux-thunk';
-
-const rootReducer = combineReducers({});
+import rootReducer from './rootReducer';
 
 const configureStore = () => {
   const enhancer = composeWithDevTools(applyMiddleware(thunk));
