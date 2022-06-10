@@ -4,9 +4,14 @@ import Logo from '../SharedComponents/Logo/Logo';
 import Table from '../SharedComponents/Table/index';
 import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTasksFullfilled } from '../redux/modules/tasks/actions';
 
 const Tasks = (props) => {
-  const [list, setList] = useState([]);
+  const dispatch = useDispatch();
+
+  const list = useSelector((state) => state.tasks.list);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const dateFormatter = (inputDate) => {
@@ -24,7 +29,7 @@ const Tasks = (props) => {
       data.data.forEach((task) => {
         task.date = dateFormatter(task.date).substring(0, 10);
       });
-      setList(data.data);
+      dispatch(getTasksFullfilled(data.data));
     } catch (error) {
       console.error(error);
     }
@@ -39,7 +44,7 @@ const Tasks = (props) => {
     } catch (error) {
       console.error(error);
     }
-    setList(list.filter((listItem) => listItem._id !== _id));
+    // setList(list.filter((listItem) => listItem._id !== _id));
   };
   const handleEdit = (_id) => {
     window.location = `/tasks/edit?=${_id}`;
