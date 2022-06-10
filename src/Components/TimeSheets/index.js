@@ -3,11 +3,10 @@ import styles from './time-sheets.module.css';
 import { useHistory } from 'react-router-dom';
 import Button from '../SharedComponents/Button/Button';
 import Table from '../SharedComponents/Table';
-import TableList from './TableList';
+import Logo from '../SharedComponents/Logo/Logo';
 
 function TimeSheets(props) {
   const [list, setList] = useState([]);
-  // const [isOpen, setIsOpen] = useState(false);
 
   const amountOfTasks = (tasks) => {
     if (tasks.length === 1) {
@@ -21,11 +20,9 @@ function TimeSheets(props) {
 
   const dateFormatter = (inputDate) => {
     const date = new Date(inputDate);
-
     const day = date.getDate();
     const month = date.getMonth();
     const year = date.getFullYear();
-
     return `${month}/${day}/${year}`;
   };
 
@@ -47,11 +44,9 @@ function TimeSheets(props) {
   const deleteItem = (id) => {
     setList([...list.filter((listItem) => listItem._id !== id)]);
     try {
-      const response = fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${id}`, {
+      fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${id}`, {
         method: 'DELETE'
       });
-      console.log(response);
-      alert('The time-sheet has been deleted successfully');
     } catch (error) {
       console.error(error);
     }
@@ -64,6 +59,7 @@ function TimeSheets(props) {
 
   return (
     <section className={styles.container}>
+      <Logo />
       <h2 className={styles.title}>TimeSheets</h2>
       <Table
         data={list}
@@ -71,14 +67,10 @@ function TimeSheets(props) {
         handleEdit={handleEdit}
         deleteItem={deleteItem}
       >
-        <Button type={styles.addBtn} handleClick={() => props.history.push('/time-sheets/add')}>
+        <Button type={styles.buttonAdd} handleClick={() => props.history.push('/time-sheets/add')}>
           Add Time Sheet
         </Button>
       </Table>
-      <Button type={styles.addBtn} handleClick={() => props.history.push('/time-sheets/add')}>
-        Add Time Sheet
-      </Button>
-      <TableList list={list} setList={setList} deleteItem={deleteItem} />
     </section>
   );
 }

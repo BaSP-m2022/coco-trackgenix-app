@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import styles from './time-sheets-form.module.css';
+import Button from '../SharedComponents/Button/Button';
+import Modal from '../SharedComponents/Modal/Modal';
+import Logo from '../SharedComponents/Logo/Logo';
 
-const TimeSheetsForm = (props) => {
+const TimeSheetsFormAdd = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [addItem, setItem] = useState({});
   const [employeesItem, setEmployeesItem] = useState([]);
   const [projectsItem, setProjectsItem] = useState([]);
   const [tasksItem, setTasksItem] = useState([]);
-
   const emptyList = [];
   const [taskList, setTaskList] = useState(emptyList);
 
@@ -49,9 +53,9 @@ const TimeSheetsForm = (props) => {
       })
         .then((response) => response.json())
         .then((response) => {
-          alert(response.error ? `Error! ${response.msg}` : `Success! ${response.message}`);
-          if (!response.error) {
-            props.history.push('/time-sheets');
+          if (response.error) {
+            const errorMsg = `Error! ${response.msg}`;
+            alert(errorMsg);
           }
         });
     } catch (error) {
@@ -77,14 +81,18 @@ const TimeSheetsForm = (props) => {
       });
   }, []);
 
+  const backTimeSheet = () => {
+    props.history.push('/time-sheets');
+  };
+
   return (
-    <div>
+    <div className={styles.container}>
+      <Logo />
       <div>
-        <h2>Add New TimeSheet</h2>
+        <h2 className={styles.title}>Add New TimeSheet</h2>
       </div>
-      <form onSubmit={create}>
+      <form onSubmit={create} className={styles.formContainer}>
         <div>
-          <button onClick={() => props.history.push('/time-sheets')}>Back</button>
           <label>Employee</label>
           <select onChange={onChange} name="employeeId">
             {
@@ -153,9 +161,43 @@ const TimeSheetsForm = (props) => {
           <label>End Date</label>
           <input type="date" name="endDate" value={addItem.endDate} onChange={onChange} />
         </div>
-        <input type="submit" value="submit" />
+        <div className={styles.buttonsContainer}>
+          <Button
+            type={styles.stylesBtn}
+            handleClick={(e) => {
+              setIsOpen(true);
+              e.stopPropagation();
+            }}
+          >
+            Accept
+          </Button>
+          <Button type={styles.stylesBtn} handleClick={() => backTimeSheet()}>
+            Cancel
+          </Button>
+        </div>
       </form>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <h2>Warning</h2>
+        <div>
+          <p>Are you sure to create a new timesheet?</p>
+        </div>
+        <div>
+          <Button type={styles.cancelBtn} handleClick={() => setIsOpen(false)}>
+            Cancel
+          </Button>
+          <Button
+            type={('submit', styles.confirmBtn)}
+            handleClick={() => {
+              setIsOpen(false);
+              props.history.push('/time-sheets');
+            }}
+          >
+            Confirm
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };
-export default TimeSheetsForm;
+
+export default TimeSheetsFormAdd;

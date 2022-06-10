@@ -11,7 +11,7 @@ import Employees from '../Employees/index';
 import Projects from '../Projects';
 import AddNew from '../Projects/AddNew';
 import TimeSheets from '../TimeSheets';
-import TimeSheetsForm from '../TimeSheets/TimeSheetsForm';
+import TimeSheetsFormAdd from '../TimeSheets/TimeSheetsFormAdd';
 import TimeSheetsFormEdit from '../TimeSheets/TimeSheetsFormEdit';
 import Tasks from '../Tasks/index';
 import TaskForm from '../Tasks/TaskForm/TaskForm';
@@ -44,7 +44,7 @@ function Layout() {
           <Route path="/projects/add" component={AddNew} />
           <Route path="/projects/edit" component={EditProject} />
           <Route exact path="/time-sheets" component={TimeSheets} />
-          <Route path="/time-sheets/add" component={TimeSheetsForm} />
+          <Route path="/time-sheets/add" component={TimeSheetsFormAdd} />
           <Route path="/time-sheets/edit" component={TimeSheetsFormEdit} />
           <Route exact path="/tasks" component={Tasks} />
           <Route path="/tasks/add" component={TaskForm} />
