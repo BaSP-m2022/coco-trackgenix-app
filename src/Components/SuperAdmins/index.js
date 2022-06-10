@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import SuperAdminForm from './SuperAdminForm';
 import Table from '../SharedComponents/Table';
 import Button from '../SharedComponents/Button/Button';
+import Logo from '../SharedComponents/Logo/Logo';
 
 const SuperAdmin = (props) => {
   let [change, setSwitch] = useState(false);
@@ -38,7 +39,7 @@ const SuperAdmin = (props) => {
   };
 
   const handleEdit = (_id) => {
-    window.location = `/super-admins/Form?=${_id}`;
+    props.history.push(`/super-admins/Form?=${_id}`);
   };
 
   if (change) {
@@ -52,6 +53,7 @@ const SuperAdmin = (props) => {
   } else {
     return (
       <section className={styles.container}>
+        <Logo />
         <h2>Super Admin</h2>
         <Table
           data={list}
