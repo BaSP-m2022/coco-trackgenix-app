@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../employees.module.css';
+import Logo from '../../SharedComponents/Logo/Logo';
+import Modal from '../../SharedComponents/Modal/Modal';
+import Button from '../../SharedComponents/Button/Button';
 
 const FormEmployeeEdit = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState();
+  const [status, setStatus] = useState();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
@@ -44,12 +50,9 @@ const FormEmployeeEdit = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.error === false) {
-          alert('Employee modified');
-          props.history.push('/employees');
-        } else {
-          alert('There is an empty field or you have not done edits');
-        }
+        setStatus(data.msg);
+        setModalText(data.msg);
+        setIsOpen(true);
       })
       .catch((error) => console.error(error));
   };
@@ -59,8 +62,31 @@ const FormEmployeeEdit = (props) => {
     formEmployee();
   };
 
+  const detour = (status) => {
+    let result;
+    if (status == 'Status 200') {
+      props.history.push('/employees');
+    } else {
+      setIsOpen(false);
+    }
+
+    return result;
+  };
+
+  const checkEmployee = () => {
+    let result;
+    if (!modalText) {
+      result = 'Fields filled incorrectly, please check the data';
+    } else {
+      result = 'Employee updated succesfully';
+    }
+
+    return result;
+  };
+
   return (
     <div className={styles.formAdd}>
+      <Logo />
       <div>
         <h2>Edit Employee</h2>
       </div>
@@ -121,11 +147,23 @@ const FormEmployeeEdit = (props) => {
             />
           </div>
           <div>
-            <input type="submit" value="submit" />
+            <input className={styles.addEmployeeBtn} type="submit" value="submit" />
           </div>
         </form>
+        <Button type={styles.addEmployeeBtn} handleClick={() => props.history.push('/employees')}>
+          return
+        </Button>
       </div>
-      <button onClick={() => props.history.push('/employees')}>Return</button>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <div>
+          <p>{checkEmployee(modalText)}</p>
+        </div>
+        <div>
+          <Button type={styles.modalEmployeeBtn} handleClick={() => detour(status)}>
+            ok
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };
