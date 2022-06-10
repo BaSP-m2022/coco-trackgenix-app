@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './editProject.module.css';
+import Logo from '../SharedComponents/Logo/Logo';
+import Button from '../SharedComponents/Button/Button';
+//*import Modal from '../SharedComponents/Modal/Modal';
 
 const EditProject = () => {
   const checkEmployees = (employees) => {
@@ -104,12 +107,14 @@ const EditProject = () => {
         setClientName(response.data.clientName);
         setActive(response.data.active);
         setEmployees(response.data.employees);
+        console.log(response.data.employees);
         setAdmins(response.data.admins);
       });
   }, []);
 
   return (
     <div className={styles.container}>
+      <Logo />
       <h2>Edit Project</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -217,8 +222,10 @@ const EditProject = () => {
         </div>
         <div>
           <input type="submit" name="project-submit" value="EDIT PROJECT"></input>
+          <Button type={styles.backBtn} onClick={() => (window.location = '/projects')}>
+            BACK
+          </Button>
         </div>
-        <button onClick={() => (window.location = '/projects')}>BACK</button>
       </form>
     </div>
   );
