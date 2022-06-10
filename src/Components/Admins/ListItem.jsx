@@ -1,20 +1,9 @@
-import React, { useState } from 'react';
-import EditAdmin from './Modal/AdminFormEdit';
+import React from 'react';
 import styles from './admins.module.css';
-
 const ListItem = ({ listItem, deleteItem }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [selectedItem, setSelectedItem] = useState({});
-
-  const handleEdit = (item) => {
-    setSelectedItem(item);
-    setShowModal(true);
+  const handleEdit = (_id) => {
+    window.location = `/admins/edit?=${_id}`;
   };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
   const adminListRows = listItem.map((item) => {
     return (
       <tbody key={item._id}>
@@ -25,7 +14,7 @@ const ListItem = ({ listItem, deleteItem }) => {
           <td>{item.password}</td>
           <td>{JSON.stringify(item.active)}</td>
           <td>
-            <button onClick={() => handleEdit(item)} className={styles.editBtn}>
+            <button onClick={() => handleEdit(item._id)} className={styles.editBtn}>
               Edit
             </button>
           </td>
@@ -46,12 +35,6 @@ const ListItem = ({ listItem, deleteItem }) => {
       </tbody>
     );
   });
-
-  return (
-    <>
-      {adminListRows}
-      {showModal && <EditAdmin item={selectedItem} showModal={showModal} closeModal={closeModal} />}
-    </>
-  );
+  return <>{adminListRows}</>;
 };
 export default ListItem;
