@@ -1,0 +1,45 @@
+.container{
+    display: flex;
+    justify-content: center;
+    margin: 30px auto;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container > h2{
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: rgb(55, 56, 103);
+  font-size: 50px;
+  font-weight: 1000;
+}
+
+form > div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+form > div > label {
+  color: rgb(55, 56, 103);
+  font-weight: 600;
+}
+
+form > div > select{
+    width: 70%;
+    padding: 10px 0px 10px 10px;
+    border-width: 1px;
+    border-radius: 4px;
+}
+
+form > div > input{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 10px 0px 10px 10px;
+    border-width: 1px;
+    border-radius: 4px;
+    width: 70%;
+}

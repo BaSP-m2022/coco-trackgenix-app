@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './addNew.module.css';
+import Logo from '../SharedComponents/Logo/Logo';
+import Button from '../SharedComponents/Button/Button';
+//*import Modal from '../SharedComponents/Modal/Modal';
 
 const AddNew = () => {
   const initialValues = {
@@ -86,6 +89,7 @@ const AddNew = () => {
 
   return (
     <div className={styles.container}>
+      <Logo />
       <h2>Add New Project</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -157,7 +161,7 @@ const AddNew = () => {
           <label htmlFor="employees">Employees</label>
           <select name="employees" onChange={handleChange}>
             <option disabled selected>
-              Select an employee
+              Pick an employee
             </option>
             {employeesData.map((item) => (
               <option key={item.id} value={item._id}>
@@ -181,7 +185,7 @@ const AddNew = () => {
         <div>
           <input type="submit" name="project-submit" value="ADD NEW PROJECT"></input>
         </div>
-        <button onClick={() => (window.location = '/projects')}>BACK</button>
+        <Button onClick={() => (window.location = '/projects')}>BACK</Button>
       </form>
     </div>
   );
