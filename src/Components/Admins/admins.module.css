@@ -8,15 +8,17 @@
 }
 
 .title {
-  font-size: 35px;
+  font-size: 45px;
   line-height: 80px;
-  color: green;
+  font-weight: 700;
+  color: #373867;
 }
 
 .titleTwo {
   font-size: 35px;
+  font-weight: 700;
   line-height: 80px;
-  color: green;
+  color: #373867;
   margin-bottom: 30px;
   margin-left: 34px;
 }

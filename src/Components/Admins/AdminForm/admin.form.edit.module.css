@@ -9,8 +9,9 @@
 
 .title {
   font-size: 35px;
+  font-weight: 700;
   line-height: 80px;
-  color: green;
+  color: #373867;
   margin-bottom: -35px;
   margin-left: 34px;
 }
