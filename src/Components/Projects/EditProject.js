@@ -238,31 +238,31 @@ const EditProject = () => {
             Modify Project
           </Button>
         </div>
+        <Button type={styles.backBtn} handleClick={() => history.goBack()}>
+          Cancel
+        </Button>
+        <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+          <h2>Warning</h2>
+          <div>
+            <p>Are you sure you want to modify this item?</p>
+          </div>
+          <div>
+            <Button type={styles.backBtn} handleClick={() => setIsOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              type={('submit', styles.modalProjectBtn)}
+              handleClick={(e) => {
+                handleSubmit(e);
+                setIsOpen(false);
+                history.push('/projects');
+              }}
+            >
+              Confirm
+            </Button>
+          </div>
+        </Modal>
       </form>
-      <Button type={styles.backBtn} handleClick={() => history.goBack()}>
-        Cancel
-      </Button>
-      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
-        <h2>Warning</h2>
-        <div>
-          <p>Are you sure you want to modify this item?</p>
-        </div>
-        <div>
-          <Button type={styles.backBtn} handleClick={() => setIsOpen(false)}>
-            Cancel
-          </Button>
-          <Button
-            type={('submit', styles.modalProjectBtn)}
-            handleClick={(e) => {
-              handleSubmit(e);
-              setIsOpen(false);
-              history.push('/projects');
-            }}
-          >
-            Confirm
-          </Button>
-        </div>
-      </Modal>
     </div>
   );
 };
