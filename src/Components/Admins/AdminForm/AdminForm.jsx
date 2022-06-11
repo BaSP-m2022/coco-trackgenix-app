@@ -30,7 +30,6 @@ const AdminForm = (props) => {
         },
         body: JSON.stringify(e)
       });
-      props.history.push('/admins');
     } catch (error) {
       console.error(error);
     }
@@ -83,7 +82,12 @@ const AdminForm = (props) => {
           </div>
           <div>
             <label>Password</label>
-            <input type="text" name="password" value={adminInput.password} onChange={onChange} />
+            <input
+              type="password"
+              name="password"
+              value={adminInput.password}
+              onChange={onChange}
+            />
           </div>
         </div>
         <div>
@@ -96,8 +100,8 @@ const AdminForm = (props) => {
           <Button
             type={styles.editAndDeleteBtn}
             handleClick={(e) => {
-              setIsOpen(true);
               e.stopPropagation();
+              setIsOpen(true);
             }}
           >
             Accept
@@ -120,7 +124,7 @@ const AdminForm = (props) => {
             type={('submit', styles.confirmAndDeleteBtn)}
             handleClick={() => {
               setIsOpen(false);
-              props.history.push('/admins');
+              backAdmin();
             }}
           >
             Confirm

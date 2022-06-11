@@ -11,6 +11,9 @@ const Admins = (props) => {
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins`);
       const data = await response.json();
+      data.data.map((admin) => {
+        admin.active = admin.active ? 'true' : 'false';
+      });
       setList(data.data);
     } catch (error) {
       console.error(error);
@@ -22,7 +25,6 @@ const Admins = (props) => {
       await fetch(`https://coco-trackgenix-server.vercel.app/admins/${_id}`, {
         method: 'DELETE'
       });
-      alert('Admin deleted');
     } catch (error) {
       console.error(error);
     }
