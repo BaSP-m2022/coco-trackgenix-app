@@ -50,14 +50,7 @@ const TimeSheetsFormAdd = (props) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(addItem)
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.error) {
-            const errorMsg = `Error! ${response.msg}`;
-            alert(errorMsg);
-          }
-        });
+      }).then((response) => response.json());
     } catch (error) {
       console.error(error);
     }
@@ -177,14 +170,10 @@ const TimeSheetsFormAdd = (props) => {
         </div>
       </form>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
-        <h2>Warning</h2>
         <div>
-          <p>Are you sure to create a new timesheet?</p>
+          <p> New timesheet created successfully!</p>
         </div>
         <div>
-          <Button type={styles.cancelBtn} handleClick={() => setIsOpen(false)}>
-            Cancel
-          </Button>
           <Button
             type={('submit', styles.confirmBtn)}
             handleClick={() => {
@@ -192,7 +181,7 @@ const TimeSheetsFormAdd = (props) => {
               props.history.push('/time-sheets');
             }}
           >
-            Confirm
+            Done
           </Button>
         </div>
       </Modal>
