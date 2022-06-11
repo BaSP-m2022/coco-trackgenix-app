@@ -15,33 +15,14 @@ const Header = () => {
       {sidebarOpen ? (
         <div className={style.background}>
           <nav className={style.navbar}>
-            {location.pathname !== '/home' ? (
-              <button className={style.closeBtn} onClick={toggleSidebar}>
-                <img src={closeBtn} alt="cross-img" />
-              </button>
-            ) : null}
+            <button className={style.closeBtn} onClick={toggleSidebar}>
+              <img src={closeBtn} alt="cross-img" />
+            </button>
             <h2>Menu</h2>
             <ul className={style.rutes}>
-              <li>
-                <Link className={style.links} to="/timesheets">
-                  TimeSheets
-                </Link>
-              </li>
-              <li>
-                <Link className={style.links} to="/">
-                  Reports
-                </Link>
-              </li>
-              <li>
-                <Link className={style.links} to="/">
-                  Trackgenix
-                </Link>
-              </li>
-              <li>
-                <Link className={style.links} to="/">
-                  Resources
-                </Link>
-              </li>
+              <li className={style.links}>Reports</li>
+              <li className={style.links}>Trackgenix</li>
+              <li className={style.links}>Resources</li>
             </ul>
             <div className={style.contact}>
               <h3>Contact Us</h3>
@@ -68,7 +49,7 @@ const Header = () => {
         )}
         <input type="text" placeholder="Search" />
         {location.pathname === '/home' ? (
-          <Link to="/nav" className={style.navigation}>
+          <Link to="/nav" className={style.navigation} disable={!sidebarOpen}>
             Navigation
           </Link>
         ) : (

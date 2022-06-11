@@ -73,22 +73,36 @@ button{
 .background{
   position: fixed;
   left: 0;
-  top: 4rem;
-  width: 100vw;
+  top: 0;
+  width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
+  animation-name: backGround;
+  animation-duration: 0.5s;
 }
 
 .navbar{
   display: flex;
   flex-direction: column;
-  position: absolute; 
+  position: fixed; 
   align-items: center; 
-  left: 0; 
+  left: 0px; 
   width: 250px;
+  z-index: 100;
   height: 100vh;
   background-color: #50A780;
   color: #000;
+  animation-name: mymove;
+  animation-duration: 0.5s;
+}
+
+@keyframes mymove {
+  from {width: 0;}
+  to {width: 250px;}
+}
+@keyframes backGround {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 
 .navbar a{
@@ -99,7 +113,7 @@ button{
 .navbar h2{
   font-size: 2rem;
   margin-top: 40px;
-  text-decoration: underline 0.8px #ED2626;
+  text-decoration: underline #ED2626;
 }
 
 .navbar li{
@@ -113,9 +127,9 @@ button{
 .contact h3{
   font-size: 2rem;
   margin-top: 40px;
-  text-decoration: underline 0.8px #ED2626;
   text-align: center;
-  padding-bottom: 10px;
+  padding-bottom: 4px;
+  text-decoration: underline #ED2626;
 }
 
 .contact p{
