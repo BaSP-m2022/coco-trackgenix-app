@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styles from './super-admins.module.css';
+import Button from '../SharedComponents/Button/Button';
+import Modal from '../SharedComponents/Modal/Modal';
+import Logo from '../SharedComponents/Logo/Logo';
 
 const EditSuperAdmin = (props) => {
-  const backSuperAdmin = () => {
-    props.history.push('/super-admins');
-  };
+  const [isOpen, setIsOpen] = useState(false);
 
-  const alertSuccessfully = () => {
-    alert('The Super Admin have been edit successfully');
+  const backSuperAdmin = () => {
     props.history.push('/super-admins');
   };
 
@@ -57,6 +57,7 @@ const EditSuperAdmin = (props) => {
 
   return (
     <div className={styles.container}>
+      <Logo />
       <h2>Form Edit</h2>
       <form onSubmit={onSubmit}>
         <div>
@@ -105,11 +106,36 @@ const EditSuperAdmin = (props) => {
             onChange={(event) => setActive(event.target.value)}
           ></input>
         </div>
-        <button type="submit" onClick={() => alertSuccessfully()}>
+        <Button
+          type={styles.stylesBtn}
+          handleClick={() => {
+            setIsOpen(true);
+          }}
+        >
           Accept
-        </button>
-        <button onClick={() => backSuperAdmin()}>Back</button>
+        </Button>
+        <Button type={styles.stylesBtn} handleClick={() => backSuperAdmin()}>
+          Back
+        </Button>
       </form>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <h2>Warning</h2>
+        <div>
+          <p>Success!</p>
+          <p>The Super Admin was successfully edited</p>
+        </div>
+        <div>
+          <Button
+            type={('submit', styles.stylesModalBtn)}
+            handleClick={() => {
+              setIsOpen(false);
+              props.history.push('/super-admins');
+            }}
+          >
+            Ok
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };

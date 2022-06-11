@@ -78,25 +78,14 @@ const AdminFormEdit = (props) => {
               ></input>
             </div>
           </div>
-          <div>
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={emailInput}
-                onChange={(e) => setEmailInput(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                value={passwordInput}
-                onChange={(e) => setPasswordInput(e.target.value)}
-              ></input>
-            </div>
+          <div className={styles.inputs}>
+            <label htmlFor="active">Active</label>
+            <input
+              type="text"
+              name="active"
+              value={activeInput}
+              onChange={(e) => setActiveInput(e.target.value)}
+            ></input>
           </div>
           <div>
             <div className={styles.active}>
