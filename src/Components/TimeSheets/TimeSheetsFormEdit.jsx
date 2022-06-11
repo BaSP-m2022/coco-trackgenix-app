@@ -85,7 +85,6 @@ const TimeSheetsFormEdit = (props) => {
         })
           .then((res) => res.json())
           .then((res) => {
-            alert(res.msg);
             if (!res.error) {
               props.history.push('/time-sheets');
             }
