@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
+import Logo from '../../SharedComponents/Logo/Logo';
+import styles from './taskForm.module.css';
+import Button from '../../SharedComponents/Button/Button';
+import Modal from '../../SharedComponents/Modal/Modal';
 
 const TaskForm = (props) => {
   const [newItem, setNewItem] = useState({
     description: props.description,
     workedHours: props.workedHours
   });
+  const [isOpen, setIsOpen] = useState(false);
+  const [responseMsg, setResponseMsg] = useState('');
+  const [resStatus, setResStatus] = useState(false);
 
   const handleChange = (event) => {
     setNewItem({
@@ -28,42 +35,70 @@ const TaskForm = (props) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.error === false) {
-          alert(`${data.msg}`);
-          props.history.push('/tasks');
+          setResStatus(true);
+          setResponseMsg(data.msg.substring(9));
         } else {
-          alert(`${data.msg}`);
+          setResStatus(false);
+          if (data.msg.includes('fails to match the required pattern')) {
+            setResponseMsg('the data entered is not correct');
+          } else {
+            setResponseMsg('all fields should be completed.');
+          }
         }
       })
       .catch((error) => console.error(error));
   };
+  const handleOkBtn = () => {
+    if (resStatus) {
+      props.history.push('/tasks');
+    } else {
+      setIsOpen(false);
+    }
+  };
 
   return (
-    <div>
-      <h2>New Task</h2>
-      <button onClick={() => props.history.push('/tasks')}>BACK</button>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Task description</label>
-          <input
-            type="text"
-            name="description"
-            value={newItem.description}
-            onChange={handleChange}
-          ></input>
-        </div>
-        <div>
-          <label>Worked Hours</label>
-          <input
-            type="number"
-            name="workedHours"
-            value={newItem.workedHours}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <button type="submit">Create</button>
-        </div>
-      </form>
+    <div className={styles.container}>
+      <Logo />
+      <h2 className={styles.title}>New Task</h2>
+      <div className={styles.formContainer}>
+        <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
+          BACK
+        </Button>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div>
+            <div className={styles.inputDescription}>
+              <label>Task description</label>
+              <input
+                type="text"
+                name="description"
+                value={newItem.description}
+                onChange={handleChange}
+              ></input>
+            </div>
+            <div className={styles.inputWorkedHours}>
+              <label>Worked Hours</label>
+              <input
+                type="number"
+                name="workedHours"
+                value={newItem.workedHours}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <Button type={('submit', styles.buttonForm)} handleClick={() => setIsOpen(true)}>
+            Create
+          </Button>
+        </form>
+      </div>
+      <Modal showModal={isOpen} closeModal={handleOkBtn}>
+        <h2>{resStatus ? 'Success!' : 'Warning!'}</h2>
+        <h3 className={styles.modalMsg}>
+          {resStatus ? responseMsg : `The task could not be created because ${responseMsg}`}
+        </h3>
+        <Button type={styles.buttonForm} handleClick={handleOkBtn}>
+          Ok
+        </Button>
+      </Modal>
     </div>
   );
 };

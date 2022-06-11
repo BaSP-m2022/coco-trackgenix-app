@@ -1,0 +1,178 @@
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.title {
+  font-size: 35px;
+  font-weight: 700;
+  line-height: 80px;
+  color: #373867;
+  margin-bottom: -35px;
+  margin-left: 34px;
+}
+
+.addBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 15px 0;
+  padding: 10px 12px;
+  width: 140px;
+  height: 40px;
+  background: #aace9b;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #505168;
+  cursor: pointer;
+}
+
+.backBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 15px 0;
+  padding: 10px 12px;
+  width: 80px;
+  height: 20px;
+  background: #aace9b;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #505168;
+  cursor: pointer;
+}
+
+.listContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(55, 56, 103, 0.2);
+  border-radius: 5px;
+}
+
+.tableHead {
+  width: 600px;
+  background: rgba(55, 56, 103, 0.1);
+  box-shadow: inset 0px -1.2301px 0px #e0e0e0;
+}
+
+.tableRow {
+  width: 600px;
+  background: #ffffff;
+  box-shadow: inset 0px -1.2301px 0px #e0e0e0;
+}
+
+.tableRow td {
+  text-align: center;
+}
+
+.editBtn {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #aace9b;
+  border-radius: 5px;
+  border: 1px solid #aace9b;
+  color: #ffffff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.deleteBtn {
+  display: inline-block;
+  padding: 5px 10px;
+  background: none;
+  border: 0;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 40%;
+  margin-top: 90px;
+}
+
+.formContainer div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.active {
+  align-self: center;
+}
+
+.confirmBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-end;
+  margin: 15px 0;
+  padding: 10px 12px;
+  width: 140px;
+  height: 30px;
+  background: #aace9b;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #505168;
+  cursor: pointer;
+}
+
+.confirmAndDeleteBtn {
+  width: 110px;
+  height: 50px;
+  margin: 0 20px;
+  padding: 10px 24px;
+  background: #aace9b;
+  border: 1px solid #505168;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #505168;
+  cursor: pointer;
+}
+
+.confirmAndDeleteBtn {
+  width: 60px;
+  height: 30px;
+  margin: 30px;
+  padding: 0;
+  background: #aace9b;
+  border: 1px solid #505168;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #505168;
+  cursor: pointer;
+}
+.editAndDeleteBtn {
+  width: 60px;
+  height: 30px;
+  margin: 30px;
+  padding: 0;
+  background: #aace9b;
+  border: 1px solid #505168;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #505168;
+  cursor: pointer;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: row !important;
+}
+.logo {
+  margin-bottom: 50px;
+  margin-top: -10px;
+}
