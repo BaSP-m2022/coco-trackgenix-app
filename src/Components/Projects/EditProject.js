@@ -81,16 +81,9 @@ const EditProject = () => {
         employees: addMembers(employees),
         admins: admins
       })
-    })
-      .then((response) => response.json())
-      .then(() => {
-        alert('Project updated succesfully!');
-        window.location = '/projects';
-      })
-      .catch(() => {
-        console.error;
-        alert('There was a problem!');
-      });
+    }).catch(() => {
+      console.error;
+    });
   };
 
   useEffect(() => {
@@ -126,6 +119,7 @@ const EditProject = () => {
           <input
             type="text"
             name="name"
+            required="required"
             onChange={(e) => {
               setName(e.target.value);
             }}
@@ -137,6 +131,7 @@ const EditProject = () => {
           <input
             type="text"
             name="description"
+            required="required"
             placeholder="Set a description"
             onChange={(e) => {
               setDescription(e.target.value);
@@ -149,6 +144,7 @@ const EditProject = () => {
           <input
             type="date"
             name="startDate"
+            required="required"
             placeholder="DD/MM/YYYY"
             onChange={(e) => {
               setStartDate(e.target.value);
@@ -161,6 +157,7 @@ const EditProject = () => {
           <input
             type="date"
             name="endDate"
+            required="required"
             placeholder="DD/MM/YYYY"
             onChange={(e) => {
               setEndDate(e.target.value);
@@ -173,6 +170,7 @@ const EditProject = () => {
           <input
             type="text"
             name="clientName"
+            required="required"
             placeholder="For what client?"
             onChange={(e) => {
               setClientName(e.target.value);
@@ -209,6 +207,7 @@ const EditProject = () => {
           <input
             type="text"
             name="admins"
+            required="required"
             placeholder="Assign the admins"
             onChange={(e) => {
               setAdmins(e.target.value);
@@ -217,13 +216,53 @@ const EditProject = () => {
           ></input>
         </div>
         <div>
-          <input type="submit" name="project-submit" value="EDIT PROJECT"></input>
+          <Button
+            type={styles.modalProjectBtn}
+            name="project-submit"
+            handleClick={() => {
+              if (
+                name === '' ||
+                description === '' ||
+                startDate === '' ||
+                endDate === '' ||
+                clientName === '' ||
+                active === '' ||
+                admins === ''
+              ) {
+                alert('Fill every field');
+              } else {
+                setIsOpen(true);
+              }
+            }}
+          >
+            Modify Project
+          </Button>
         </div>
       </form>
-      <Button type={('button', styles.backBtn)} handleClick={() => history.goBack()}>
-        BACK
+      <Button type={styles.backBtn} handleClick={() => history.goBack()}>
+        Cancel
       </Button>
-      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}></Modal>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <h2>Warning</h2>
+        <div>
+          <p>Are you sure you want to modify this item?</p>
+        </div>
+        <div>
+          <Button type={styles.backBtn} handleClick={() => setIsOpen(false)}>
+            Cancel
+          </Button>
+          <Button
+            type={('submit', styles.modalProjectBtn)}
+            handleClick={(e) => {
+              handleSubmit(e);
+              setIsOpen(false);
+              history.push('/projects');
+            }}
+          >
+            Confirm
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };

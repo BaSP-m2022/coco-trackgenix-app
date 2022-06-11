@@ -85,6 +85,9 @@ const AddNew = () => {
       });
   }, []);
 
+  // const checkEmptyFields = () => {
+  // };
+
   return (
     <div className={styles.container}>
       <Logo />
@@ -172,16 +175,30 @@ const AddNew = () => {
             onChange={handleChange}
           ></input>
         </div>
-        <div>
-          <Button
-            type={styles.modalProjectBtn}
-            name="project-submit"
-            handleClick={() => setIsOpen(true)}
-          >
-            New Project
-          </Button>
-        </div>
       </form>
+      <div>
+        <Button
+          type={styles.modalProjectBtn}
+          name="project-submit"
+          handleClick={() => {
+            if (
+              project.name === '' ||
+              project.description === '' ||
+              project.startDate === '' ||
+              project.endDate === '' ||
+              project.clientName === '' ||
+              project.active === '' ||
+              project.admins === ''
+            ) {
+              alert('Fill every field');
+            } else {
+              setIsOpen(true);
+            }
+          }}
+        >
+          New Project
+        </Button>
+      </div>
       <Button type={styles.backBtn} handleClick={() => history.goBack()}>
         Cancel
       </Button>
@@ -197,8 +214,8 @@ const AddNew = () => {
           <Button
             type={('submit', styles.modalProjectBtn)}
             handleClick={(e) => {
-              handleSubmit(e);
               setIsOpen(false);
+              handleSubmit(e);
               history.push('/projects');
             }}
           >
