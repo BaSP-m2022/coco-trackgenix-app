@@ -82,13 +82,7 @@ const TimeSheetsFormEdit = (props) => {
             startDate: addItem.startDate,
             endDate: addItem.endDate
           })
-        })
-          .then((res) => res.json())
-          .then((res) => {
-            if (!res.error) {
-              props.history.push('/time-sheets');
-            }
-          });
+        }).then((res) => res.json());
       } catch (error) {
         console.log(error);
       }
