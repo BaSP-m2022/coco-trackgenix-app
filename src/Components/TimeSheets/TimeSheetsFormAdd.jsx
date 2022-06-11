@@ -12,6 +12,7 @@ const TimeSheetsFormAdd = (props) => {
   const [tasksItem, setTasksItem] = useState([]);
   const emptyList = [];
   const [taskList, setTaskList] = useState(emptyList);
+  const [modalText, setModalText] = useState('');
 
   const handleDeleteTask = (id) => {
     setTaskList([...taskList.filter((task) => task._id !== id)]);
@@ -50,7 +51,17 @@ const TimeSheetsFormAdd = (props) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(addItem)
-      }).then((response) => response.json());
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          setModalText(() => {
+            if (!response.error) {
+              return 'Time sheet created successfully!';
+            } else {
+              return response.msg;
+            }
+          });
+        });
     } catch (error) {
       console.error(error);
     }
@@ -171,7 +182,7 @@ const TimeSheetsFormAdd = (props) => {
       </form>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <div>
-          <p> New timesheet created successfully!</p>
+          <p>{modalText}</p>
         </div>
         <div>
           <Button
