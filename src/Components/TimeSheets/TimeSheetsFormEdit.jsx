@@ -16,6 +16,7 @@ const TimeSheetsFormEdit = (props) => {
   const [itemToUpdate, setItemToUpdate] = useState({});
   const params = window.location.search;
   let idParam = params.substring(2);
+  const [modalText, setModalText] = useState('');
 
   useEffect(() => {
     setTimeSheetToEdit({
@@ -56,6 +57,7 @@ const TimeSheetsFormEdit = (props) => {
       });
     }
   }, [taskList]);
+
   const onChangeTasks = (e) => {
     if (taskList.find((task) => task._id === e.target.value) === undefined) {
       setTaskList([...taskList, tasksItem.find((task) => task._id === e.target.value)]);
@@ -67,7 +69,7 @@ const TimeSheetsFormEdit = (props) => {
   const create = async (e) => {
     e.preventDefault();
     if (JSON.stringify(addItem) === JSON.stringify(timeSheetToEdit)) {
-      alert('The data for this time sheet has not been modified');
+      setModalText('Please change at least 1 field');
     } else {
       try {
         await fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${idParam}`, {
@@ -82,9 +84,19 @@ const TimeSheetsFormEdit = (props) => {
             startDate: addItem.startDate,
             endDate: addItem.endDate
           })
-        }).then((res) => res.json());
+        })
+          .then((res) => res.json())
+          .then((response) => {
+            setModalText(() => {
+              if (!response.error) {
+                return 'Time sheet updated successfully!';
+              } else {
+                return response.msg;
+              }
+            });
+          });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
@@ -214,14 +226,10 @@ const TimeSheetsFormEdit = (props) => {
         </div>
       </form>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
-        <h2>Warning</h2>
         <div>
-          <p>Are you sure to edit this timesheet?</p>
+          <p>{modalText}</p>
         </div>
         <div>
-          <Button type={styles.cancelBtn} handleClick={() => setIsOpen(false)}>
-            Cancel
-          </Button>
           <Button
             type={('submit', styles.confirmBtn)}
             handleClick={() => {
@@ -229,7 +237,7 @@ const TimeSheetsFormEdit = (props) => {
               props.history.push('/time-sheets');
             }}
           >
-            Confirm
+            Done
           </Button>
         </div>
       </Modal>
