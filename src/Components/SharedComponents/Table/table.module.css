@@ -102,7 +102,7 @@ table {
 .tableNames {
   border: 2px solid #373867;
   font-family: 'Arial';
-  background-color: #373867;
+  background-color: rgb(255, 255, 255);
   border-radius: 5px solid #373867;
 }
 

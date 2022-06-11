@@ -72,11 +72,7 @@ const AddNew = () => {
         employees: addMembers(project.employees),
         admins: project.admins
       })
-    })
-      .then(() => {
-        setIsOpen(true);
-      })
-      .catch(() => console.error);
+    }).catch(() => console.error);
   };
 
   const [employeesData, setEmployeesData] = useState([]);
@@ -177,11 +173,17 @@ const AddNew = () => {
           ></input>
         </div>
         <div>
-          <input type="submit" name="project-submit" value="New Project"></input>
+          <Button
+            type={styles.modalProjectBtn}
+            name="project-submit"
+            handleClick={() => setIsOpen(true)}
+          >
+            New Project
+          </Button>
         </div>
       </form>
       <Button type={styles.backBtn} handleClick={() => history.goBack()}>
-        BACK
+        Cancel
       </Button>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>Warning</h2>
@@ -195,8 +197,9 @@ const AddNew = () => {
           <Button
             type={('submit', styles.modalProjectBtn)}
             handleClick={(e) => {
-              setIsOpen(false);
               handleSubmit(e);
+              setIsOpen(false);
+              history.push('/projects');
             }}
           >
             Confirm
