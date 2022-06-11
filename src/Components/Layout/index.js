@@ -3,7 +3,7 @@ import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 import Admins from '../Admins/index';
 import AdminForm from '../Admins/AdminForm/AdminForm';
-import EditAdmin from '../Admins/Modal/AdminFormEdit';
+import AdminFormEdit from '../Admins/AdminForm/AdminFormEdit';
 import SuperAdmins from '../SuperAdmins/index';
 import Home from '../Home/Homepage';
 import styles from './layout.module.css';
@@ -11,7 +11,7 @@ import Employees from '../Employees/index';
 import Projects from '../Projects';
 import AddNew from '../Projects/AddNew';
 import TimeSheets from '../TimeSheets';
-import TimeSheetsForm from '../TimeSheets/TimeSheetsForm';
+import TimeSheetsFormAdd from '../TimeSheets/TimeSheetsFormAdd';
 import TimeSheetsFormEdit from '../TimeSheets/TimeSheetsFormEdit';
 import Tasks from '../Tasks/index';
 import TaskForm from '../Tasks/TaskForm/TaskForm';
@@ -33,7 +33,7 @@ function Layout() {
           <Route exact path="/home" component={Home} />
           <Route exact path="/admins" component={Admins} />
           <Route path="/admins/add" component={AdminForm} />
-          <Route path="/admins/edit" component={EditAdmin} />
+          <Route path="/admins/edit" component={AdminFormEdit} />
           <Route exact path="/super-admins" component={SuperAdmins} />
           <Route path="/super-admins/Form" component={SuperAdminFormEdit} />
           <Route path="/super-admins/formAdd" component={SuperAdminForm} />
@@ -44,7 +44,7 @@ function Layout() {
           <Route path="/projects/add" component={AddNew} />
           <Route path="/projects/edit" component={EditProject} />
           <Route exact path="/time-sheets" component={TimeSheets} />
-          <Route path="/time-sheets/add" component={TimeSheetsForm} />
+          <Route path="/time-sheets/add" component={TimeSheetsFormAdd} />
           <Route path="/time-sheets/edit" component={TimeSheetsFormEdit} />
           <Route exact path="/tasks" component={Tasks} />
           <Route path="/tasks/add" component={TaskForm} />
