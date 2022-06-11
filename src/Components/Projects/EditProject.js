@@ -46,22 +46,22 @@ const EditProject = () => {
         month = `0${month}`;
       }
 
-      changedDate = `${month}-${day}-${year}`;
+      changedDate = `${year}-${month}-${day}`;
     }
 
     return changedDate;
   };
 
   const addMembers = (item) => {
-    let splitted = item.split(',');
+    let splitted = Object.keys(item).split(',');
     let membersData = [];
     if (splitted.length === 0) {
       membersData = '';
     } else if (splitted.length === 1) {
-      membersData.push({ name: `${splitted}` });
+      membersData.push({ id: `${item._id}` });
     } else {
       for (let i = 0; i < splitted.length; i++) {
-        membersData.push({ name: `${splitted[i]}` });
+        membersData.push({ id: `${item[i]._id}` });
       }
     }
     return membersData;
@@ -102,12 +102,11 @@ const EditProject = () => {
       .then((response) => {
         setName(response.data.name);
         setDescription(response.data.description);
-        setStartDate(response.data.startDate);
-        setEndDate(response.data.endDate);
+        setStartDate(changeDate(response.data.startDate));
+        setEndDate(changeDate(response.data.endDate));
         setClientName(response.data.clientName);
         setActive(response.data.active);
         setEmployees(response.data.employees);
-        console.log(response.data.employees);
         setAdmins(response.data.admins);
       });
   }, []);
@@ -203,7 +202,7 @@ const EditProject = () => {
             onChange={(e) => {
               setEmployees(e.target.value);
             }}
-            value={employees}
+            value={Object.keys(employees).map((key) => key._id)}
           ></input>
           <span>Must be the ID of an existing employee. Separate IDs with a comma.</span>
         </div>
