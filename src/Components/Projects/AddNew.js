@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './addNew.module.css';
 import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
+import { useHistory } from 'react-router-dom';
 //*import Modal from '../SharedComponents/Modal/Modal';
 
 const AddNew = () => {
@@ -15,6 +16,8 @@ const AddNew = () => {
     employees: [],
     admins: ''
   };
+
+  let history = useHistory();
 
   const [project, setProject] = useState(initialValues);
 
@@ -161,7 +164,7 @@ const AddNew = () => {
           <label htmlFor="employees">Employees</label>
           <select name="employees" onChange={handleChange}>
             <option disabled selected>
-              Choose an employee
+              Pick an employee
             </option>
             {employeesData.map((item) => (
               <option key={item.id} value={item._id}>
@@ -184,11 +187,11 @@ const AddNew = () => {
         </div>
         <div>
           <input type="submit" name="project-submit" value="New Project"></input>
-          <Button type={styles.backBtn} onClick={() => (window.location = '/projects')}>
-            BACK
-          </Button>
         </div>
       </form>
+      <Button type={styles.backBtn} handleClick={() => history.goBack()}>
+        BACK
+      </Button>
     </div>
   );
 };

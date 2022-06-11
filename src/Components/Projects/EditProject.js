@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './editProject.module.css';
 import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
+import { useHistory } from 'react-router-dom';
 //*import Modal from '../SharedComponents/Modal/Modal';
 
 const EditProject = () => {
@@ -17,6 +18,8 @@ const EditProject = () => {
 
     return response;
   };
+
+  let history = useHistory();
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -52,19 +55,12 @@ const EditProject = () => {
     return changedDate;
   };
 
-  const addMembers = (item) => {
-    let splitted = Object.keys(item).split(',');
-    let membersData = [];
-    if (splitted.length === 0) {
-      membersData = '';
-    } else if (splitted.length === 1) {
-      membersData.push({ id: `${item._id}` });
-    } else {
-      for (let i = 0; i < splitted.length; i++) {
-        membersData.push({ id: `${item[i]._id}` });
-      }
+  const addMembers = (employees) => {
+    let allIds = employees[0]._id + ',';
+    for (let i = 1; i < employees.length; i++) {
+      allIds += employees[i]._id + ',';
     }
-    return membersData;
+    return allIds;
   };
 
   const handleSubmit = (e) => {
@@ -110,6 +106,14 @@ const EditProject = () => {
         setAdmins(response.data.admins);
       });
   }, []);
+
+  const showEmployees = (employees) => {
+    let allIds = employees[0]._id + ',';
+    for (let i = 1; i < employees.length; i++) {
+      allIds += employees[i]._id + ',';
+    }
+    return allIds;
+  };
 
   return (
     <div className={styles.container}>
@@ -202,7 +206,7 @@ const EditProject = () => {
             onChange={(e) => {
               setEmployees(e.target.value);
             }}
-            value={Object.keys(employees).map((key) => key._id)}
+            value={showEmployees(employees)}
           ></input>
           <span>Must be the ID of an existing employee. Separate IDs with a comma.</span>
         </div>
@@ -221,11 +225,11 @@ const EditProject = () => {
         </div>
         <div>
           <input type="submit" name="project-submit" value="EDIT PROJECT"></input>
-          <Button type={styles.backBtn} onClick={() => (window.location = '/projects')}>
-            BACK
-          </Button>
         </div>
       </form>
+      <Button type={('button', styles.backBtn)} handleClick={() => history.goBack()}>
+        BACK
+      </Button>
     </div>
   );
 };
