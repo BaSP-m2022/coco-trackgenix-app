@@ -3,9 +3,10 @@ import styles from './editProject.module.css';
 import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
 import { useHistory } from 'react-router-dom';
-//*import Modal from '../SharedComponents/Modal/Modal';
+import Modal from '../SharedComponents/Modal/Modal';
 
 const EditProject = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const checkEmployees = (employees) => {
     let response;
     if (employees.length === 0) {
@@ -130,7 +131,6 @@ const EditProject = () => {
             }}
             value={name}
           ></input>
-          <span>Must have less than 50 characters. Only text. Whitout spaces between words.</span>
         </div>
         <div>
           <label htmlFor="description">Description</label>
@@ -143,7 +143,6 @@ const EditProject = () => {
             }}
             value={description}
           ></input>
-          <span>Must have less than 130 characters.</span>
         </div>
         <div>
           <label htmlFor="startDate">Start Date</label>
@@ -156,7 +155,6 @@ const EditProject = () => {
             }}
             value={startDate}
           ></input>
-          <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
         </div>
         <div>
           <label htmlFor="endDate">End Date</label>
@@ -169,7 +167,6 @@ const EditProject = () => {
             }}
             value={endDate}
           ></input>
-          <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
         </div>
         <div>
           <label htmlFor="clientName">Client Name</label>
@@ -182,7 +179,6 @@ const EditProject = () => {
             }}
             value={clientName}
           ></input>
-          <span>Must have less than 50 characters. Only text. Whitout spaces between words.</span>
         </div>
         <div>
           <label htmlFor="active">Active</label>
@@ -195,7 +191,6 @@ const EditProject = () => {
             }}
             value={active}
           ></input>
-          <span>Set if the project is active or not.</span>
         </div>
         <div>
           <label htmlFor="employees">Employees</label>
@@ -208,7 +203,6 @@ const EditProject = () => {
             }}
             value={showEmployees(employees)}
           ></input>
-          <span>Must be the ID of an existing employee. Separate IDs with a comma.</span>
         </div>
         <div>
           <label htmlFor="admins">Admins</label>
@@ -221,7 +215,6 @@ const EditProject = () => {
             }}
             value={admins}
           ></input>
-          <span>Must have less than 50 characters. Only admin names.</span>
         </div>
         <div>
           <input type="submit" name="project-submit" value="EDIT PROJECT"></input>
@@ -230,6 +223,7 @@ const EditProject = () => {
       <Button type={('button', styles.backBtn)} handleClick={() => history.goBack()}>
         BACK
       </Button>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}></Modal>
     </div>
   );
 };

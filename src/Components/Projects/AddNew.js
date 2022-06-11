@@ -3,9 +3,10 @@ import styles from './addNew.module.css';
 import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
 import { useHistory } from 'react-router-dom';
-//*import Modal from '../SharedComponents/Modal/Modal';
+import Modal from '../SharedComponents/Modal/Modal';
 
 const AddNew = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const initialValues = {
     name: '',
     description: '',
@@ -72,10 +73,8 @@ const AddNew = () => {
         admins: project.admins
       })
     })
-      .then((response) => response.json())
-      .then((response) => {
-        alert(response.error ? `Error! ${response.msg}` : `Success! ${response.msg}`);
-        window.location = '/projects';
+      .then(() => {
+        setIsOpen(true);
       })
       .catch(() => console.error);
   };
@@ -105,7 +104,6 @@ const AddNew = () => {
             value={project.name}
             onChange={handleChange}
           ></input>
-          <span>Must have less than 50 characters. Only text. Whitout spaces between words.</span>
         </div>
         <div>
           <label htmlFor="description">Description</label>
@@ -117,7 +115,6 @@ const AddNew = () => {
             value={project.description}
             onChange={handleChange}
           ></input>
-          <span>Must have less than 130 characters.</span>
         </div>
         <div>
           <label htmlFor="startDate">Start Date</label>
@@ -129,7 +126,6 @@ const AddNew = () => {
             value={project.startDate}
             onChange={handleChange}
           ></input>
-          <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
         </div>
         <div>
           <label htmlFor="endDate">End Date</label>
@@ -141,7 +137,6 @@ const AddNew = () => {
             value={project.endDate}
             onChange={handleChange}
           ></input>
-          <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
         </div>
         <div>
           <label htmlFor="clientName">Client Name</label>
@@ -153,12 +148,10 @@ const AddNew = () => {
             value={project.clientName}
             onChange={handleChange}
           ></input>
-          <span>Must have less than 50 characters. Only text. Whitout spaces between words.</span>
         </div>
         <div>
           <label htmlFor="active">Active</label>
           <input type="text" name="active" value={project.active} onChange={handleChange}></input>
-          <span>Set if the project is active or not.</span>
         </div>
         <div>
           <label htmlFor="employees">Employees</label>
@@ -172,7 +165,6 @@ const AddNew = () => {
               </option>
             ))}
           </select>
-          <span>Must be the ID of an existing employee. Separate IDs with a comma.</span>
         </div>
         <div>
           <label htmlFor="admins">Admins</label>
@@ -183,7 +175,6 @@ const AddNew = () => {
             value={project.admins}
             onChange={handleChange}
           ></input>
-          <span>Must have less than 50 characters. Only admin names.</span>
         </div>
         <div>
           <input type="submit" name="project-submit" value="New Project"></input>
@@ -192,6 +183,26 @@ const AddNew = () => {
       <Button type={styles.backBtn} handleClick={() => history.goBack()}>
         BACK
       </Button>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <h2>Warning</h2>
+        <div>
+          <p>Are you sure you want to create this item?</p>
+        </div>
+        <div>
+          <Button type={styles.backBtn} handleClick={() => setIsOpen(false)}>
+            Cancel
+          </Button>
+          <Button
+            type={('submit', styles.modalProjectBtn)}
+            handleClick={(e) => {
+              setIsOpen(false);
+              handleSubmit(e);
+            }}
+          >
+            Confirm
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };
