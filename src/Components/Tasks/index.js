@@ -5,7 +5,7 @@ import Table from '../SharedComponents/Table/index';
 import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { DeleteTasksFulfilled, getTasksFulfilled } from '../redux/modules/tasks/actions';
+import { deleteTasksSuccess, getTasksSuccess } from '../redux/modules/tasks/actions';
 
 const Tasks = (props) => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const Tasks = (props) => {
       data.data.forEach((task) => {
         task.date = dateFormatter(task.date).substring(0, 10);
       });
-      dispatch(getTasksFulfilled(data.data));
+      dispatch(getTasksSuccess(data.data));
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +44,7 @@ const Tasks = (props) => {
     } catch (error) {
       console.error(error);
     }
-    dispatch(DeleteTasksFulfilled(_id));
+    dispatch(deleteTasksSuccess(_id));
   };
 
   const handleEdit = (_id) => {
