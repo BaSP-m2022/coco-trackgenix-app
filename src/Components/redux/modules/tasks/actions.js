@@ -19,10 +19,10 @@ export const getTasksPending = () => {
   };
 };
 
-export const getTasksSuccess = (data) => {
+export const getTasksSuccess = (tasks) => {
   return {
     type: GET_TASKS_SUCCESS,
-    payload: data
+    payload: tasks
   };
 };
 
@@ -41,10 +41,10 @@ export const addTasksPending = () => {
   };
 };
 
-export const addTasksSuccess = (data) => {
+export const addTasksSuccess = (task) => {
   return {
     type: ADD_TASKS_SUCCESS,
-    payload: data
+    payload: task
   };
 };
 
@@ -63,10 +63,10 @@ export const deleteTasksPending = () => {
   };
 };
 
-export const deleteTasksSuccess = (dataId) => {
+export const deleteTasksSuccess = (taskId) => {
   return {
     type: DELETE_TASKS_SUCCESS,
-    payload: dataId
+    payload: taskId
   };
 };
 
@@ -85,10 +85,10 @@ export const editTasksPending = () => {
   };
 };
 
-export const editTasksSuccess = (dataId) => {
+export const editTasksSuccess = (taskId) => {
   return {
     type: EDIT_TASKS_SUCCESS,
-    payload: dataId
+    payload: taskId
   };
 };
 
