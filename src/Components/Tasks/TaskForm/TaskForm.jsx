@@ -54,7 +54,7 @@ const TaskForm = (props) => {
   const handleInput1 = (e) => {
     setNewItem({
       ...newItem,
-      [event.target.name]: event.target.value
+      [e.target.name]: e.target.value
     });
     if (e.target.value === '') {
       setShowWarning1(true);
@@ -65,7 +65,7 @@ const TaskForm = (props) => {
   const handleInput2 = (e) => {
     setNewItem({
       ...newItem,
-      [event.target.name]: event.target.value
+      [e.target.name]: e.target.value
     });
     if (e.target.value === '') {
       setShowWarning2(true);
@@ -74,12 +74,23 @@ const TaskForm = (props) => {
     }
   };
 
+  const handleBlurInput1 = (e) => {
+    if (e.target.value === '') {
+      setShowWarning1(true);
+    }
+  };
+  const handleBlurInput2 = (e) => {
+    if (e.target.value === '') {
+      setShowWarning2(true);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Logo />
       <h2 className={styles.title}>New Task</h2>
       <div className={styles.formContainer}>
-        <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
+        <Button type={styles.buttonForm} handleBlur={() => props.history.push('/tasks')}>
           BACK
         </Button>
         <form className={styles.form} onSubmit={handleSubmit}>
@@ -92,6 +103,7 @@ const TaskForm = (props) => {
                 inputValue={newItem.description}
                 warningMsg="*This field must be completed!"
                 handleInput={handleInput1}
+                handleBlur={handleBlurInput1}
                 showWarning={showWarning1}
               ></Input>
             </div>
@@ -103,6 +115,7 @@ const TaskForm = (props) => {
                 inputValue={newItem.workedHours}
                 warningMsg="*This field must be completed!"
                 handleInput={handleInput2}
+                handleBlur={handleBlurInput2}
                 showWarning={showWarning2}
               ></Input>
             </div>
