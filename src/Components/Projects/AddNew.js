@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import Modal from '../SharedComponents/Modal/Modal';
 
 const AddNew = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const initialValues = {
     name: '',
@@ -180,7 +181,7 @@ const AddNew = () => {
         <Button
           type={('submit', styles.modalProjectBtn)}
           name="project-submit"
-          handleClick={(e) => {
+          handleClick={() => {
             if (
               project.name === '' ||
               project.description === '' ||
@@ -192,13 +193,29 @@ const AddNew = () => {
             ) {
               setIsOpen2(true);
             } else {
-              handleSubmit(e);
-              history.push('/projects');
+              setIsOpen(true);
             }
           }}
         >
           New Project
         </Button>
+        <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+          <h2>Success!</h2>
+          <div>
+            <p>Project created successfully</p>
+          </div>
+          <div>
+            <Button
+              type={styles.modalProjectBtn}
+              handleClick={(e) => {
+                handleSubmit(e);
+                history.push('/projects');
+              }}
+            >
+              Ok
+            </Button>
+          </div>
+        </Modal>
         <Modal showModal={isOpen2} closeModal={() => setIsOpen2(false)}>
           <h2>Fill every field to continue</h2>
           <Button type={styles.modalProjectBtn} handleClick={() => setIsOpen2(false)}>
