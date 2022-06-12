@@ -5,7 +5,8 @@ import Table from '../SharedComponents/Table/index';
 import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTasksSuccess, getTasksSuccess } from '../redux/modules/tasks/actions';
+import { deleteTasksSuccess } from '../redux/modules/tasks/actions';
+import { getTasks } from '../redux/modules/tasks/thunks';
 
 const Tasks = (props) => {
   const dispatch = useDispatch();
@@ -14,25 +15,8 @@ const Tasks = (props) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const dateFormatter = (inputDate) => {
-    const date = new Date(inputDate);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${month}/${day}/${year}`;
-  };
-
-  useEffect(async () => {
-    try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/tasks`);
-      const data = await response.json();
-      data.data.forEach((task) => {
-        task.date = dateFormatter(task.date).substring(0, 10);
-      });
-      dispatch(getTasksSuccess(data.data));
-    } catch (error) {
-      console.error(error);
-    }
+  useEffect(() => {
+    dispatch(getTasks());
   }, []);
 
   const deleteItem = (_id) => {
