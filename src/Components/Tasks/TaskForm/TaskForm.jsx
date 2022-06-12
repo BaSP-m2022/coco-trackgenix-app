@@ -3,7 +3,7 @@ import Logo from '../../SharedComponents/Logo/Logo';
 import styles from './taskForm.module.css';
 import Button from '../../SharedComponents/Button/Button';
 import Modal from '../../SharedComponents/Modal/Modal';
-import { addTasksFullfilled } from '../../redux/modules/tasks/actions';
+import { addTasksFulfilled } from '../../redux/modules/tasks/actions';
 import { useDispatch } from 'react-redux';
 
 const TaskForm = (props) => {
@@ -49,7 +49,7 @@ const TaskForm = (props) => {
             setResponseMsg('all fields should be completed.');
           }
         }
-        dispatch(addTasksFullfilled(data));
+        dispatch(addTasksFulfilled(data));
       })
       .catch((error) => console.error(error));
   };
