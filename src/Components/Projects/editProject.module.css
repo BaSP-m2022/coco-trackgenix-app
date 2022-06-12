@@ -33,6 +33,12 @@ form > div:nth-child(9){
     font-weight: 1000;
 }
 
+.buttonsDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 200px;
+}
 
 .backBtn{
     padding: 10px 15px;

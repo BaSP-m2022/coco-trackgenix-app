@@ -253,7 +253,7 @@ const EditProject = () => {
           <div>
             <p>Are you sure you want to modify this item?</p>
           </div>
-          <div>
+          <div className={styles.buttonsDiv}>
             <Button type={styles.backBtn} handleClick={() => setIsOpen(false)}>
               Cancel
             </Button>
