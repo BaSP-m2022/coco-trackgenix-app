@@ -3,6 +3,8 @@ import Logo from '../../SharedComponents/Logo/Logo';
 import styles from './taskForm.module.css';
 import Button from '../../SharedComponents/Button/Button';
 import Modal from '../../SharedComponents/Modal/Modal';
+import { addTasksFullfilled } from '../../redux/modules/tasks/actions';
+import { useDispatch } from 'react-redux';
 
 const TaskForm = (props) => {
   const [newItem, setNewItem] = useState({
@@ -12,6 +14,8 @@ const TaskForm = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [responseMsg, setResponseMsg] = useState('');
   const [resStatus, setResStatus] = useState(false);
+
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     setNewItem({
@@ -45,6 +49,7 @@ const TaskForm = (props) => {
             setResponseMsg('all fields should be completed.');
           }
         }
+        dispatch(addTasksFullfilled(data));
       })
       .catch((error) => console.error(error));
   };

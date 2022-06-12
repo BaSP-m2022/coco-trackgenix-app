@@ -1,4 +1,4 @@
-import { GET_TASKS_FULFILLED } from './constants';
+import { ADD_TASKS_FULFILLED, GET_TASKS_FULFILLED } from './constants';
 
 const initialState = {
   list: []
@@ -10,6 +10,11 @@ export const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         list: action.payload
+      };
+    case ADD_TASKS_FULFILLED:
+      return {
+        ...state,
+        list: [state.list, action.payload]
       };
     default:
       return state;
