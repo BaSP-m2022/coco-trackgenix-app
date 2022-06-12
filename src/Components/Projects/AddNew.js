@@ -7,6 +7,7 @@ import Modal from '../SharedComponents/Modal/Modal';
 
 const AddNew = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
   const initialValues = {
     name: '',
     description: '',
@@ -190,7 +191,7 @@ const AddNew = () => {
               project.active === '' ||
               project.admins === ''
             ) {
-              alert('Fill every field');
+              setIsOpen2(true);
             } else {
               setIsOpen(true);
             }
@@ -198,16 +199,22 @@ const AddNew = () => {
         >
           New Project
         </Button>
+        <Modal showModal={isOpen2} closeModal={() => setIsOpen2(false)}>
+          <h2>Fill every field to continue</h2>
+          <Button type={styles.modalProjectBtn} handleClick={() => setIsOpen2(false)}>
+            Ok
+          </Button>
+        </Modal>
+        <Button type={styles.backBtn} handleClick={() => history.goBack()}>
+          Cancel
+        </Button>
       </div>
-      <Button type={styles.backBtn} handleClick={() => history.goBack()}>
-        Cancel
-      </Button>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>Warning</h2>
         <div>
           <p>Are you sure you want to create this item?</p>
         </div>
-        <div>
+        <div className={styles.divButtons}>
           <Button type={styles.backBtn} handleClick={() => setIsOpen(false)}>
             Cancel
           </Button>

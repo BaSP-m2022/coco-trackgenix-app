@@ -9,6 +9,13 @@ form > div:nth-child(9) > input{
     color: rgb(55, 56, 103);
 }
 
+form > div:nth-child(9){
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100px;
+}
+
 .container{
     display: flex;
     justify-content: center;
