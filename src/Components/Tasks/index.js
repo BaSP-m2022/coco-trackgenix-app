@@ -5,13 +5,14 @@ import Table from '../SharedComponents/Table/index';
 import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTasksSuccess } from '../redux/modules/tasks/actions';
-import { getTasks } from '../redux/modules/tasks/thunks';
+import { deleteTasks, getTasks } from '../redux/modules/tasks/thunks';
 
 const Tasks = (props) => {
   const dispatch = useDispatch();
 
   const list = useSelector((state) => state.tasks.list);
+  const isFetching = useSelector((state) => state.tasks.isFetching);
+  const error = useSelector((state) => state.tasks.error);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -19,21 +20,21 @@ const Tasks = (props) => {
     dispatch(getTasks());
   }, []);
 
-  const deleteItem = (_id) => {
-    try {
-      fetch(`https://coco-trackgenix-server.vercel.app/tasks/${_id}`, {
-        method: 'DELETE'
-      });
-      setIsOpen(true);
-    } catch (error) {
-      console.error(error);
-    }
-    dispatch(deleteTasksSuccess(_id));
+  const deleteItem = (id) => {
+    dispatch(deleteTasks(id)).then(setIsOpen(true));
   };
 
   const handleEdit = (_id) => {
     window.location = `/tasks/edit?=${_id}`;
   };
+
+  if (isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>ERROR!!!</div>;
+  }
 
   return (
     <section className={styles.container}>

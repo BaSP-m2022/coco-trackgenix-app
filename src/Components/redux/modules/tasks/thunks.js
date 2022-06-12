@@ -1,4 +1,11 @@
-import { getTasksError, getTasksPending, getTasksSuccess } from './actions';
+import {
+  deleteTasksError,
+  deleteTasksPending,
+  deleteTasksSuccess,
+  getTasksError,
+  getTasksPending,
+  getTasksSuccess
+} from './actions';
 
 export const getTasks = () => {
   const dateFormatter = (inputDate) => {
@@ -22,6 +29,24 @@ export const getTasks = () => {
       })
       .catch((error) => {
         dispatch(getTasksError(error.toString()));
+      });
+  };
+};
+
+export const deleteTasks = (id) => {
+  return (dispatch) => {
+    dispatch(deleteTasksPending());
+    return fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`, {
+      method: 'DELETE'
+    })
+      .then(() => {
+        dispatch(deleteTasksSuccess(id));
+      })
+      .then(() => {
+        dispatch(getTasks());
+      })
+      .catch((error) => {
+        dispatch(deleteTasksError(error.toString()));
       });
   };
 };
