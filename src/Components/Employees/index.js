@@ -5,34 +5,50 @@ import Table from '../SharedComponents/Table';
 import Modal from '../SharedComponents/Modal/Modal';
 import Button from '../SharedComponents/Button/Button';
 import Logo from '../SharedComponents/Logo/Logo';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  deleteEMPLOYEESuccess,
+  deleteEMPLOYEEPending,
+  deleteEMPLOYEEerror,
+  getEMPLOYEESuccess,
+  getEMPLOYEEPending,
+  getEMPLOYEEerror
+} from '../redux/modules/employees/actions';
 
 const Employees = (props) => {
+  const dispatch = useDispatch();
+  const responseData = useSelector((state) => state.employee.list);
   const [isOpen, setIsOpen] = useState(false);
-  const [list, setList] = useState([]);
+
   useEffect(async () => {
+    dispatch(getEMPLOYEEPending());
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/Employees`);
       const data = await response.json();
       data.data.map((item) => {
         item.active = item.active ? 'true' : 'false';
       });
-      setList(data.data);
+      dispatch(getEMPLOYEESuccess(data.data));
     } catch (error) {
       console.error(error);
+      dispatch(getEMPLOYEEerror(error));
     }
   }, []);
 
   const deleteItem = async (_id) => {
+    dispatch(deleteEMPLOYEEPending());
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/Employees/${_id}`, {
         method: 'DELETE'
       });
       console.log(response);
       setIsOpen(true);
+      dispatch(deleteEMPLOYEESuccess(response.data));
     } catch (error) {
       console.error(error);
+      dispatch(deleteEMPLOYEEerror(error));
     }
-    setList(list.filter((listItem) => listItem._id !== _id));
+    // setList(list.filter((listItem) => listItem._id !== _id));
   };
 
   let history = useHistory();
@@ -51,7 +67,7 @@ const Employees = (props) => {
         Add Employee
       </Button>
       <Table
-        data={list}
+        data={responseData}
         headers={['firstName', 'lastName', 'phone', 'email', 'password', 'active']}
         handleEdit={handleEdit}
         deleteItem={deleteItem}
