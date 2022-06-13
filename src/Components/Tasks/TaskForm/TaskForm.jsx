@@ -3,6 +3,7 @@ import Logo from '../../SharedComponents/Logo/Logo';
 import styles from './taskForm.module.css';
 import Button from '../../SharedComponents/Button/Button';
 import Modal from '../../SharedComponents/Modal/Modal';
+import Input from '../../SharedComponents/Input/Input';
 
 const TaskForm = (props) => {
   const [newItem, setNewItem] = useState({
@@ -12,13 +13,8 @@ const TaskForm = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [responseMsg, setResponseMsg] = useState('');
   const [resStatus, setResStatus] = useState(false);
-
-  const handleChange = (event) => {
-    setNewItem({
-      ...newItem,
-      [event.target.name]: event.target.value
-    });
-  };
+  const [showWarning1, setShowWarning1] = useState(false);
+  const [showWarning2, setShowWarning2] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,6 +51,39 @@ const TaskForm = (props) => {
       setIsOpen(false);
     }
   };
+  const handleInput1 = (e) => {
+    setNewItem({
+      ...newItem,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarning1(true);
+    } else {
+      setShowWarning1(false);
+    }
+  };
+  const handleInput2 = (e) => {
+    setNewItem({
+      ...newItem,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarning2(true);
+    } else {
+      setShowWarning2(false);
+    }
+  };
+
+  const handleBlurInput1 = (e) => {
+    if (e.target.value === '') {
+      setShowWarning1(true);
+    }
+  };
+  const handleBlurInput2 = (e) => {
+    if (e.target.value === '') {
+      setShowWarning2(true);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -67,22 +96,28 @@ const TaskForm = (props) => {
         <form className={styles.form} onSubmit={handleSubmit}>
           <div>
             <div className={styles.inputDescription}>
-              <label>Task description</label>
-              <input
-                type="text"
+              <Input
                 name="description"
-                value={newItem.description}
-                onChange={handleChange}
-              ></input>
+                labelText="Task Description"
+                placeholder="Task Description"
+                inputValue={newItem.description}
+                warningMsg="*This field must be completed!"
+                handleInput={handleInput1}
+                handleBlur={handleBlurInput1}
+                showWarning={showWarning1}
+              ></Input>
             </div>
             <div className={styles.inputWorkedHours}>
-              <label>Worked Hours</label>
-              <input
-                type="number"
+              <Input
                 name="workedHours"
-                value={newItem.workedHours}
-                onChange={handleChange}
-              />
+                labelText="Worked Hours"
+                placeholder="Worked Hours"
+                inputValue={newItem.workedHours}
+                warningMsg="*This field must be completed!"
+                handleInput={handleInput2}
+                handleBlur={handleBlurInput2}
+                showWarning={showWarning2}
+              ></Input>
             </div>
           </div>
           <Button type={('submit', styles.buttonForm)} handleClick={() => setIsOpen(true)}>
