@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './addNew.module.css';
+import Dropdown from '../SharedComponents/Dropdown/Dropdown';
 
 const AddNew = () => {
   const initialValues = {
@@ -154,18 +155,7 @@ const AddNew = () => {
           <span>Set if the project is active or not.</span>
         </div>
         <div>
-          <label htmlFor="employees">Employees</label>
-          <select name="employees" onChange={handleChange}>
-            <option disabled selected>
-              Select an employee
-            </option>
-            {employeesData.map((item) => (
-              <option key={item.id} value={item._id}>
-                {item.firstName + ' ' + item.lastName}
-              </option>
-            ))}
-          </select>
-          <span>Must be the ID of an existing employee. Separate IDs with a comma.</span>
+          <Dropdown data={employeesData} path={'firstName'}></Dropdown>
         </div>
         <div>
           <label htmlFor="admins">Admins</label>

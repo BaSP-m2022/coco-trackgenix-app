@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Dropdown from '../SharedComponents/Dropdown/Dropdown';
 
 const TimeSheetsForm = (props) => {
   const [addItem, setItem] = useState({});
@@ -6,12 +7,12 @@ const TimeSheetsForm = (props) => {
   const [projectsItem, setProjectsItem] = useState([]);
   const [tasksItem, setTasksItem] = useState([]);
 
-  const emptyList = [];
-  const [taskList, setTaskList] = useState(emptyList);
+  // const emptyList = [];
+  // const [taskList, setTaskList] = useState(emptyList);
 
-  const handleDeleteTask = (id) => {
-    setTaskList([...taskList.filter((task) => task._id !== id)]);
-  };
+  // const handleDeleteTask = (id) => {
+  //   setTaskList([...taskList.filter((task) => task._id !== id)]);
+  // };
 
   const onChange = (e) => {
     setItem({
@@ -20,24 +21,24 @@ const TimeSheetsForm = (props) => {
     });
   };
 
-  useEffect(() => {
-    if (taskList.length) {
-      setItem({
-        ...addItem,
-        tasks: taskList.map((task) => {
-          return task._id;
-        })
-      });
-    }
-  }, [taskList]);
+  // useEffect(() => {
+  //   if (taskList.length) {
+  //     setItem({
+  //       ...addItem,
+  //       tasks: taskList.map((task) => {
+  //         return task._id;
+  //       })
+  //     });
+  //   }
+  // }, [taskList]);
 
-  const onChangeTasks = (e) => {
-    if (taskList.find((task) => task._id === e.target.value) === undefined) {
-      setTaskList([...taskList, tasksItem.find((task) => task._id === e.target.value)]);
-    } else {
-      alert('This task has already been selected');
-    }
-  };
+  // const onChangeTasks = (e) => {
+  //   if (taskList.find((task) => task._id === e.target.value) === undefined) {
+  //     setTaskList([...taskList, tasksItem.find((task) => task._id === e.target.value)]);
+  //   } else {
+  //     alert('This task has already been selected');
+  //   }
+  // };
 
   const create = (e) => {
     e.preventDefault();
@@ -114,7 +115,7 @@ const TimeSheetsForm = (props) => {
             ))}
           </select>
         </div>
-        <div>
+        {/* <div>
           <label>Tasks</label>
           <select onChange={onChangeTasks} name="tasks">
             {
@@ -144,6 +145,11 @@ const TimeSheetsForm = (props) => {
               })}
             </tbody>
           </table>
+        </div> */}
+        <div>
+          <Dropdown data={tasksItem} path="description">
+            Task
+          </Dropdown>
         </div>
         <div>
           <label>Start Date</label>
