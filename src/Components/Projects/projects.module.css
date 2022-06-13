@@ -7,7 +7,50 @@
   padding: 50px;
 }
 
-.container h2{
+.title{
   text-align: center;
   margin-bottom: 30px;
+  color: rgb(55, 56, 103);
+  font-size: 50px;
+  font-weight: 1000;
+}
+
+.addProject{
+  padding: 10px 15px;
+  border: 0px;
+  background-color: rgb(170, 206, 155);
+  border-radius: 5px;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: rgb(55, 56, 103);
+}
+
+.editButtonProject{
+  padding: 10px 15px;
+  border: 0px;
+  background-color: rgb(170, 206, 155);
+  border-radius: 5px;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: rgb(56, 57, 102);
+}
+
+.modalProjectBtn{
+  padding: 10px 15px;
+  border: 0px;
+  background-color: rgb(170, 206, 155);
+  border-radius: 5px;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: rgb(55, 56, 103);
+}
+
+.deleteButtonProject{
+  padding: 10px 15px;
+  border: 0px;
+  background-color: rgb(170, 206, 155);
+  border-radius: 5px;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: rgb(55, 56, 103);
 }

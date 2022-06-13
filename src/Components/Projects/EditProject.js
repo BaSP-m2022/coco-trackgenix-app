@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styles from './editProject.module.css';
+import Logo from '../SharedComponents/Logo/Logo';
+import Button from '../SharedComponents/Button/Button';
+import { useHistory } from 'react-router-dom';
+import Modal from '../SharedComponents/Modal/Modal';
 
 const EditProject = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
   const checkEmployees = (employees) => {
     let response;
     if (employees.length === 0) {
@@ -14,6 +20,8 @@ const EditProject = () => {
 
     return response;
   };
+
+  let history = useHistory();
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -43,25 +51,18 @@ const EditProject = () => {
         month = `0${month}`;
       }
 
-      changedDate = `${month}-${day}-${year}`;
+      changedDate = `${year}-${month}-${day}`;
     }
 
     return changedDate;
   };
 
-  const addMembers = (item) => {
-    let splitted = item.split(',');
-    let membersData = [];
-    if (splitted.length === 0) {
-      membersData = '';
-    } else if (splitted.length === 1) {
-      membersData.push({ name: `${splitted}` });
-    } else {
-      for (let i = 0; i < splitted.length; i++) {
-        membersData.push({ name: `${splitted[i]}` });
-      }
+  const addMembers = (employees) => {
+    let allIds = employees[0]._id + ',';
+    for (let i = 1; i < employees.length; i++) {
+      allIds += employees[i]._id + ',';
     }
-    return membersData;
+    return allIds;
   };
 
   const handleSubmit = (e) => {
@@ -81,16 +82,9 @@ const EditProject = () => {
         employees: addMembers(employees),
         admins: admins
       })
-    })
-      .then((response) => response.json())
-      .then(() => {
-        alert('Project updated succesfully!');
-        window.location = '/projects';
-      })
-      .catch(() => {
-        console.error;
-        alert('There was a problem!');
-      });
+    }).catch(() => {
+      console.error;
+    });
   };
 
   useEffect(() => {
@@ -99,8 +93,8 @@ const EditProject = () => {
       .then((response) => {
         setName(response.data.name);
         setDescription(response.data.description);
-        setStartDate(response.data.startDate);
-        setEndDate(response.data.endDate);
+        setStartDate(changeDate(response.data.startDate));
+        setEndDate(changeDate(response.data.endDate));
         setClientName(response.data.clientName);
         setActive(response.data.active);
         setEmployees(response.data.employees);
@@ -108,8 +102,17 @@ const EditProject = () => {
       });
   }, []);
 
+  const showEmployees = (employees) => {
+    let allIds = employees[0]._id + ',';
+    for (let i = 1; i < employees.length; i++) {
+      allIds += employees[i]._id + ',';
+    }
+    return allIds;
+  };
+
   return (
     <div className={styles.container}>
+      <Logo />
       <h2>Edit Project</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -117,64 +120,64 @@ const EditProject = () => {
           <input
             type="text"
             name="name"
+            required="required"
             onChange={(e) => {
               setName(e.target.value);
             }}
             value={name}
           ></input>
-          <span>Must have less than 50 characters. Only text. Whitout spaces between words.</span>
         </div>
         <div>
           <label htmlFor="description">Description</label>
           <input
             type="text"
             name="description"
+            required="required"
             placeholder="Set a description"
             onChange={(e) => {
               setDescription(e.target.value);
             }}
             value={description}
           ></input>
-          <span>Must have less than 130 characters.</span>
         </div>
         <div>
           <label htmlFor="startDate">Start Date</label>
           <input
             type="date"
             name="startDate"
+            required="required"
             placeholder="DD/MM/YYYY"
             onChange={(e) => {
               setStartDate(e.target.value);
             }}
             value={startDate}
           ></input>
-          <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
         </div>
         <div>
           <label htmlFor="endDate">End Date</label>
           <input
             type="date"
             name="endDate"
+            required="required"
             placeholder="DD/MM/YYYY"
             onChange={(e) => {
               setEndDate(e.target.value);
             }}
             value={endDate}
           ></input>
-          <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
         </div>
         <div>
           <label htmlFor="clientName">Client Name</label>
           <input
             type="text"
             name="clientName"
+            required="required"
             placeholder="For what client?"
             onChange={(e) => {
               setClientName(e.target.value);
             }}
             value={clientName}
           ></input>
-          <span>Must have less than 50 characters. Only text. Whitout spaces between words.</span>
         </div>
         <div>
           <label htmlFor="active">Active</label>
@@ -187,7 +190,6 @@ const EditProject = () => {
             }}
             value={active}
           ></input>
-          <span>Set if the project is active or not.</span>
         </div>
         <div>
           <label htmlFor="employees">Employees</label>
@@ -198,27 +200,75 @@ const EditProject = () => {
             onChange={(e) => {
               setEmployees(e.target.value);
             }}
-            value={employees}
+            value={showEmployees(employees)}
           ></input>
-          <span>Must be the ID of an existing employee. Separate IDs with a comma.</span>
         </div>
         <div>
           <label htmlFor="admins">Admins</label>
           <input
             type="text"
             name="admins"
+            required="required"
             placeholder="Assign the admins"
             onChange={(e) => {
               setAdmins(e.target.value);
             }}
             value={admins}
           ></input>
-          <span>Must have less than 50 characters. Only admin names.</span>
         </div>
         <div>
-          <input type="submit" name="project-submit" value="EDIT PROJECT"></input>
+          <Button
+            type={styles.modalProjectBtn}
+            name="project-submit"
+            handleClick={() => {
+              if (
+                name === '' ||
+                description === '' ||
+                startDate === '' ||
+                endDate === '' ||
+                clientName === '' ||
+                active === '' ||
+                admins === ''
+              ) {
+                setIsOpen2(true);
+              } else {
+                setIsOpen(true);
+              }
+            }}
+          >
+            Modify Project
+          </Button>
+          <Modal showModal={isOpen2} closeModal={() => setIsOpen2(false)}>
+            <h2>Fill every field to continue</h2>
+            <Button type={styles.modalProjectBtn} handleClick={() => setIsOpen2(false)}>
+              Ok
+            </Button>
+          </Modal>
+          <Button type={styles.backBtn} handleClick={() => history.goBack()}>
+            Cancel
+          </Button>
         </div>
-        <button onClick={() => (window.location = '/projects')}>BACK</button>
+        <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+          <h2>Warning</h2>
+          <div>
+            <p>Are you sure you want to modify this item?</p>
+          </div>
+          <div className={styles.buttonsDiv}>
+            <Button type={styles.backBtn} handleClick={() => setIsOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              type={('submit', styles.modalProjectBtn)}
+              handleClick={(e) => {
+                handleSubmit(e);
+                setIsOpen(false);
+                history.push('/projects');
+              }}
+            >
+              Confirm
+            </Button>
+          </div>
+        </Modal>
       </form>
     </div>
   );
