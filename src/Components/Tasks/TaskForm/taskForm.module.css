@@ -21,6 +21,7 @@
   align-items: center;
   justify-content: center;
   margin-left: 10px;
+  margin-bottom: 15px;
   padding: 14px 36px;
   gap: 10px;
   background: #aace9b;
@@ -33,20 +34,21 @@
   cursor: pointer;
   transition-duration: 0.3s;
 }
+
 .buttonForm {
   margin-left: 0px;
 }
+
 .buttonAdd:hover,
 .buttonForm:hover {
   background-color: white;
   border: 2px solid #aace9b;
 }
+
 .formContainer {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
-  height: 50%;
 }
 
 .inputsContainer {

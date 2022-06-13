@@ -18,12 +18,16 @@ const TaskForm = (props) => {
 
   const dispatch = useDispatch();
 
-  const handleChange = (event) => {
-    setNewItem({
-      ...newItem,
-      [event.target.name]: event.target.value
-    });
-  };
+  // const isFetching = useSelector((state) => state.tasks.isFetching);
+  // const error = useSelector((state) => state.tasks.error);
+
+  // const handleChange = (event) => {
+  //   setNewItem({
+  //     ...newItem,
+  //     [event.target.name]: event.target.value
+  //   });
+  // };
+
   const [showWarning1, setShowWarning1] = useState(false);
   const [showWarning2, setShowWarning2] = useState(false);
 

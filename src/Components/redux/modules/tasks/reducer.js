@@ -25,7 +25,8 @@ export const tasksReducer = (state = initialState, action) => {
     case GET_TASKS_PENDING:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
+        error: initialState.error
       };
 
     case GET_TASKS_SUCCESS:
@@ -46,7 +47,8 @@ export const tasksReducer = (state = initialState, action) => {
     case ADD_TASKS_PENDING:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
+        error: initialState.error
       };
 
     case ADD_TASKS_SUCCESS:
@@ -67,13 +69,14 @@ export const tasksReducer = (state = initialState, action) => {
     case DELETE_TASKS_PENDING:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
+        error: initialState.error
       };
 
     case DELETE_TASKS_SUCCESS:
       return {
         ...state,
-        list: [state.list.filter((task) => task.id !== action.payload)],
+        list: [state.list.filter((task) => task._id !== action.payload)],
         isFetching: false
       };
 
@@ -88,14 +91,20 @@ export const tasksReducer = (state = initialState, action) => {
     case EDIT_TASKS_PENDING:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
+        error: initialState.error
       };
 
     case EDIT_TASKS_SUCCESS:
       return {
         ...state,
-        // list: [state.list.filter((task) => task.id !== action.payload)],
-        isFetching: false
+        isFetching: false,
+        list: state.list.map((item) => {
+          if (item._id === action.payload._id) {
+            return action.payload;
+          }
+          return item;
+        })
       };
 
     case EDIT_TASKS_ERROR:
