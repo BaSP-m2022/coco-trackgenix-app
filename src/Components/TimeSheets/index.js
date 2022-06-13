@@ -1,99 +1,77 @@
-import styles from './time-sheets.module.css';
-import TableList from './TableList';
 import React, { useState, useEffect } from 'react';
-import Form from './Form';
+import styles from './time-sheets.module.css';
+import { useHistory } from 'react-router-dom';
+import Button from '../SharedComponents/Button/Button';
+import Table from '../SharedComponents/Table';
+import Logo from '../SharedComponents/Logo/Logo';
 
-function TimeSheets() {
-  let [change, setSwitch] = useState(false);
-  let [edit, setEdit] = useState(false);
+function TimeSheets(props) {
   const [list, setList] = useState([]);
-  const [itemToUpdate, setItemToUpdate] = useState();
-  const [editStartDate, setEditStartDate] = useState(true);
-  const [editEndDate, setEditEndDate] = useState(true);
+
+  const amountOfTasks = (tasks) => {
+    if (tasks.length === 1) {
+      return tasks[0].description;
+    } else if (tasks.length === 0) {
+      return 'Not assigned';
+    } else {
+      return 'Various Tasks';
+    }
+  };
+
+  const dateFormatter = (inputDate) => {
+    const date = new Date(inputDate);
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
+  };
 
   useEffect(() => {
     fetch(`https://coco-trackgenix-server.vercel.app/timesheets`)
       .then((res) => res.json())
       .then((json) => {
+        json.data.map((item) => {
+          item.employeeId = item.employeeId ? item.employeeId.firstName : 'No Employee';
+          item.projectId = item.projectId ? item.projectId.name : 'No project';
+          item.startDate = dateFormatter(item.startDate.substring(0, 10));
+          item.endDate = dateFormatter(item.endDate.substring(0, 10));
+          item.tasks = amountOfTasks(item.tasks);
+        });
         setList(json.data);
       });
-  }, [change]);
-
-  useEffect(() => {
-    setEditStartDate(true);
-    setEditEndDate(true);
-  }, [change]);
+  }, []);
 
   const deleteItem = (id) => {
     setList([...list.filter((listItem) => listItem._id !== id)]);
     try {
-      const response = fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${id}`, {
+      fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${id}`, {
         method: 'DELETE'
       });
-      console.log(response);
-      alert('The time-sheet has been deleted successfully');
     } catch (error) {
       console.error(error);
     }
   };
 
-  const updateItem = (id) => {
-    setItemToUpdate(list.filter((timeSheet) => timeSheet._id === id));
+  let history = useHistory();
+  const handleEdit = (item) => {
+    history.push(`/time-sheets/edit?=${item}`);
   };
 
-  const switcher = () => {
-    setSwitch(change ? (change = false) : (change = true));
-    if (edit) {
-      setEdit(edit ? (edit = false) : (edit = true));
-      handleEditStartDate;
-    }
-  };
-
-  const handleEditStartDate = (state) => {
-    setEditStartDate(state);
-  };
-
-  const handleEditEndDate = (state) => {
-    setEditEndDate(state);
-  };
-
-  const editMode = () => {
-    setEdit(edit ? (edit = false) : (edit = true));
-    setSwitch(change ? (change = false) : (change = true));
-  };
-
-  if (change) {
-    return (
-      <section className={styles.container}>
-        <h2>TimeSheets</h2>
-        <button onClick={switcher}>back</button>
-        <Form
-          edit={edit}
-          itemToUpdate={itemToUpdate}
-          editStartDate={editStartDate}
-          editEndDate={editEndDate}
-          handleEditStartDate={handleEditStartDate}
-          handleEditEndDate={handleEditEndDate}
-          switcher={switcher}
-        />
-      </section>
-    );
-  } else {
-    return (
-      <section className={styles.container}>
-        <h2>TimeSheets</h2>
-        <button className={styles.addButton} onClick={switcher}>
-          Add new
-        </button>
-        <TableList
-          list={list}
-          setList={setList}
-          deleteItem={deleteItem}
-          editMode={editMode}
-          updateItem={updateItem}
-        />
-      </section>
-    );
-  }
+  return (
+    <section className={styles.container}>
+      <Logo />
+      <h2 className={styles.title}>TimeSheets</h2>
+      <Table
+        data={list}
+        headers={['employeeId', 'projectId', 'startDate', 'endDate', 'tasks']}
+        handleEdit={handleEdit}
+        deleteItem={deleteItem}
+      >
+        <Button type={styles.buttonAdd} handleClick={() => props.history.push('/time-sheets/add')}>
+          Add Time Sheet
+        </Button>
+      </Table>
+    </section>
+  );
 }
 export default TimeSheets;
