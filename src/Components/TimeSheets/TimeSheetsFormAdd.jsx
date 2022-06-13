@@ -3,6 +3,7 @@ import styles from './time-sheets-form.module.css';
 import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
 import Logo from '../SharedComponents/Logo/Logo';
+import Dropdown from '../SharedComponents/Dropdown/Dropdown';
 
 const TimeSheetsFormAdd = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,8 +11,8 @@ const TimeSheetsFormAdd = (props) => {
   const [employeesItem, setEmployeesItem] = useState([]);
   const [projectsItem, setProjectsItem] = useState([]);
   const [tasksItem, setTasksItem] = useState([]);
-  const emptyList = [];
-  const [taskList, setTaskList] = useState(emptyList);
+  // const emptyList = [];
+  // const [taskList, setTaskList] = useState(emptyList);
   const [modalText, setModalText] = useState('');
 
   // const handleDeleteTask = (id) => {
