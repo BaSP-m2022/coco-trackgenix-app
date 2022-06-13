@@ -72,6 +72,9 @@ const Projects = (props) => {
       <Logo />
       <div className={styles.container}>
         <h2 className={styles.title}>Projects</h2>
+        <Button type={styles.addProject} handleClick={() => props.history.push('/projects/add')}>
+          + Add New Project
+        </Button>
         <Table
           data={list}
           headers={[
@@ -88,9 +91,6 @@ const Projects = (props) => {
           handleEdit={handleEdit}
           deleteItem={deleteItem}
         ></Table>
-        <Button type={styles.addProject} handleClick={() => props.history.push('/projects/add')}>
-          + Add New Project
-        </Button>
         <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
           <h2>Success!</h2>
           <div>
