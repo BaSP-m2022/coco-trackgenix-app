@@ -39,14 +39,12 @@ export const getTasks = () => {
   };
 };
 
-export const getTaskById = (id, setDescription, setWorkedHours) => {
+export const getTaskById = (id) => {
   return (dispatch) => {
     dispatch(getTasksByIdPending());
     return fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`)
       .then((response) => response.json())
       .then((response) => {
-        setDescription(response.data.description);
-        setWorkedHours(response.data.workedHours);
         dispatch(getTasksByIdSuccess(response.data));
       })
       .catch((error) => {

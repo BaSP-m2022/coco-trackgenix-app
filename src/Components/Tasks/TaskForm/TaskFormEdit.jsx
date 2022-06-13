@@ -4,7 +4,7 @@ import Button from '../../SharedComponents/Button/Button';
 import styles from './taskForm.module.css';
 import { useState, useEffect } from 'react';
 import Modal from '../../SharedComponents/Modal/Modal';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getTaskById } from '../../redux/modules/tasks/thunks';
 
 const TaskFormEdit = (props) => {
@@ -17,10 +17,18 @@ const TaskFormEdit = (props) => {
   let id = params.substring(2);
 
   const dispatch = useDispatch();
+  const selectedItem = useSelector((state) => state.tasks.selectedItem);
 
   useEffect(() => {
-    dispatch(getTaskById(id, setDescription, setWorkedHours));
+    dispatch(getTaskById(id));
   }, []);
+
+  useEffect(() => {
+    if (Object.keys(selectedItem).length) {
+      setDescription(selectedItem.description);
+      setWorkedHours(selectedItem.workedHours);
+    }
+  }, [selectedItem]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
