@@ -40,7 +40,7 @@ export const employeeReducer = (state = initialState, action) => {
     case EDIT_EMPLOYEE_SUCCESS:
       updatedEmployee = state.list.map((item) => {
         if (item._id === action.payload._id) {
-          return;
+          return action.payload;
         } else {
           return item;
         }

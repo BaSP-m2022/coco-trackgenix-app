@@ -3,6 +3,12 @@ import styles from '../employees.module.css';
 import Logo from '../../SharedComponents/Logo/Logo';
 import Modal from '../../SharedComponents/Modal/Modal';
 import Button from '../../SharedComponents/Button/Button';
+import { useDispatch } from 'react-redux';
+import {
+  addEMPLOYEESuccess,
+  addEMPLOYEEPending,
+  addEMPLOYEEerror
+} from '../../redux/modules/employees/actions';
 
 const FormEmployee = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,11 +23,14 @@ const FormEmployee = (props) => {
     active: ''
   });
 
+  const dispatch = useDispatch();
+
   const onChange = (e) => {
     setEmployeeInput({ ...employeeInput, [e.target.name]: e.target.value });
   };
 
   const formEmployee = async (e) => {
+    dispatch(addEMPLOYEEPending());
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/employees`, {
         method: 'POST',
@@ -31,11 +40,15 @@ const FormEmployee = (props) => {
         },
         body: JSON.stringify(e)
       });
+      // console.log(response.data.firstName);
+      console.log(e);
       setStatus(response.status);
       setModalText(createMsg(response.status));
       setIsOpen(true);
+      dispatch(addEMPLOYEESuccess(e));
     } catch (error) {
       console.error(error);
+      dispatch(addEMPLOYEEerror(error));
     }
   };
 

@@ -3,11 +3,20 @@ import styles from '../employees.module.css';
 import Logo from '../../SharedComponents/Logo/Logo';
 import Modal from '../../SharedComponents/Modal/Modal';
 import Button from '../../SharedComponents/Button/Button';
+import { useDispatch } from 'react-redux';
+import {
+  editEMPLOYEESuccess,
+  editEMPLOYEEPending,
+  editEMPLOYEEerror
+} from '../../redux/modules/employees/actions';
 
 const FormEmployeeEdit = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState();
   const [status, setStatus] = useState();
+
+  const dispatch = useDispatch();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
@@ -33,7 +42,8 @@ const FormEmployeeEdit = (props) => {
       });
   }, []);
 
-  const formEmployee = async () => {
+  const formEmployee = async (_id) => {
+    dispatch(editEMPLOYEEPending());
     await fetch(url, {
       method: 'PUT',
       headers: {
@@ -53,8 +63,10 @@ const FormEmployeeEdit = (props) => {
         setStatus(data.msg);
         setModalText(data.msg);
         setIsOpen(true);
+        dispatch(editEMPLOYEESuccess(_id));
       })
       .catch((error) => console.error(error));
+    dispatch(editEMPLOYEEerror());
   };
 
   const onSubmit = (e) => {
