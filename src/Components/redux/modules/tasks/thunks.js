@@ -5,6 +5,9 @@ import {
   deleteTasksError,
   deleteTasksPending,
   deleteTasksSuccess,
+  getTasksByIdError,
+  getTasksByIdPending,
+  getTasksByIdSuccess,
   getTasksError,
   getTasksPending,
   getTasksSuccess
@@ -32,6 +35,22 @@ export const getTasks = () => {
       })
       .catch((error) => {
         dispatch(getTasksError(error.toString()));
+      });
+  };
+};
+
+export const getTaskById = (id, setDescription, setWorkedHours) => {
+  return (dispatch) => {
+    dispatch(getTasksByIdPending());
+    return fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`)
+      .then((response) => response.json())
+      .then((response) => {
+        setDescription(response.data.description);
+        setWorkedHours(response.data.workedHours);
+        dispatch(getTasksByIdSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(getTasksByIdError(error.toString()));
       });
   };
 };

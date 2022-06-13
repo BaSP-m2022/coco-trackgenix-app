@@ -4,6 +4,8 @@ import Button from '../../SharedComponents/Button/Button';
 import styles from './taskForm.module.css';
 import { useState, useEffect } from 'react';
 import Modal from '../../SharedComponents/Modal/Modal';
+import { useDispatch } from 'react-redux';
+import { getTaskById } from '../../redux/modules/tasks/thunks';
 
 const TaskFormEdit = (props) => {
   const [description, setDescription] = useState('');
@@ -14,13 +16,10 @@ const TaskFormEdit = (props) => {
   const params = window.location.search;
   let id = params.substring(2);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`)
-      .then((response) => response.json())
-      .then((response) => {
-        setDescription(response.data.description);
-        setWorkedHours(response.data.workedHours);
-      });
+    dispatch(getTaskById(id, setDescription, setWorkedHours));
   }, []);
 
   const handleSubmit = async (e) => {
