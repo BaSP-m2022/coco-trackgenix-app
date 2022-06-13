@@ -3,9 +3,9 @@ import Logo from '../../SharedComponents/Logo/Logo';
 import styles from './taskForm.module.css';
 import Button from '../../SharedComponents/Button/Button';
 import Modal from '../../SharedComponents/Modal/Modal';
-import { addTasksSuccess } from '../../redux/modules/tasks/actions';
-import { useDispatch } from 'react-redux';
 import Input from '../../SharedComponents/Input/Input';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTasks } from '../../redux/modules/tasks/thunks';
 
 const TaskForm = (props) => {
   const [newItem, setNewItem] = useState({
@@ -17,48 +17,24 @@ const TaskForm = (props) => {
   const [resStatus, setResStatus] = useState(false);
 
   const dispatch = useDispatch();
-
-  // const isFetching = useSelector((state) => state.tasks.isFetching);
-  // const error = useSelector((state) => state.tasks.error);
-
-  // const handleChange = (event) => {
-  //   setNewItem({
-  //     ...newItem,
-  //     [event.target.name]: event.target.value
-  //   });
-  // };
+  const isFetching = useSelector((state) => state.tasks.isFetching);
+  const error = useSelector((state) => state.tasks.error);
 
   const [showWarning1, setShowWarning1] = useState(false);
   const [showWarning2, setShowWarning2] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`https://coco-trackgenix-server.vercel.app/tasks`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        description: newItem.description,
-        workedHours: newItem.workedHours
-      })
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error === false) {
-          setResStatus(true);
-          setResponseMsg(data.msg.substring(9));
-        } else {
-          setResStatus(false);
-          if (data.msg.includes('fails to match the required pattern')) {
-            setResponseMsg('the data entered is not correct');
-          } else {
-            setResponseMsg('all fields should be completed.');
-          }
-        }
-        dispatch(addTasksSuccess(data));
-      })
-      .catch((error) => console.error(error));
+    dispatch(
+      addTasks(
+        {
+          description: newItem.description,
+          workedHours: newItem.workedHours
+        },
+        setResStatus,
+        setResponseMsg
+      )
+    );
   };
   const handleOkBtn = () => {
     if (resStatus) {
@@ -67,6 +43,7 @@ const TaskForm = (props) => {
       setIsOpen(false);
     }
   };
+
   const handleInput1 = (e) => {
     setNewItem({
       ...newItem,
@@ -78,6 +55,7 @@ const TaskForm = (props) => {
       setShowWarning1(false);
     }
   };
+
   const handleInput2 = (e) => {
     setNewItem({
       ...newItem,
@@ -95,11 +73,20 @@ const TaskForm = (props) => {
       setShowWarning1(true);
     }
   };
+
   const handleBlurInput2 = (e) => {
     if (e.target.value === '') {
       setShowWarning2(true);
     }
   };
+
+  if (isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>ERROR!!!</div>;
+  }
 
   return (
     <div className={styles.container}>

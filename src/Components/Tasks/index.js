@@ -9,7 +9,6 @@ import { deleteTasks, getTasks } from '../redux/modules/tasks/thunks';
 
 const Tasks = (props) => {
   const dispatch = useDispatch();
-
   const list = useSelector((state) => state.tasks.list);
   const isFetching = useSelector((state) => state.tasks.isFetching);
   const error = useSelector((state) => state.tasks.error);
