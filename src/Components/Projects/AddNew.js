@@ -15,10 +15,20 @@ const AddNew = () => {
   };
 
   const [project, setProject] = useState(initialValues);
+  const [employeesData, setEmployeesData] = useState([]);
+  const emptyList = [];
+  const [employeeList, setEmployeeList] = useState(emptyList);
+
+  const handleDeleteEmployee = (id) => {
+    setEmployeeList([...employeeList.filter((task) => task._id !== id)]);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // console.log(e.target);
+    // console.log(`Name: ${name} Value: ${value}`);
     if (name === 'employees') {
+      // setProject({ employees: [`${value}`] });
       setProject({
         ...project,
         [name]: [value]
@@ -30,24 +40,45 @@ const AddNew = () => {
     });
   };
 
-  const addMembers = (item) => {
-    let membersData = [];
-    if (!item) {
-      membersData = null;
-    } else {
-      let splitted = item.split(',');
-      if (splitted.length === 0) {
-        membersData = '';
-      } else if (splitted.length === 1) {
-        membersData.push({ name: `${splitted}` });
-      } else {
-        for (let i = 0; i < splitted.length; i++) {
-          membersData.push({ name: `${splitted[i]}` });
-        }
-      }
+  useEffect(() => {
+    if (employeeList.length) {
+      setProject({
+        ...project,
+        employees: employeeList.map((item) => {
+          return item._id;
+        })
+      });
     }
-    return membersData;
+  }, [employeeList]);
+
+  const onChangeEmployees = (e) => {
+    if (employeeList.find((item) => item._id === e.target.value) === undefined) {
+      setEmployeeList([...employeeList, employeesData.find((item) => item._id === e.target.value)]);
+    } else {
+      alert('This employee has already been selected');
+    }
   };
+
+  // const addMembers = (item) => {
+  //   let membersData = [];
+  //   if (!item) {
+  //     membersData = null;
+  //   } else {
+  //     membersData.push({ name: `${item}` });
+  //     // let splitted = item.split(',');
+  //     // if (splitted.length === 0) {
+  //     //   membersData = '';
+  //     // } else if (splitted.length === 1) {
+  //     //   membersData.push({ name: `${splitted}` });
+  //     // } else {
+  //     //   for (let i = 0; i < splitted.length; i++) {
+  //     //     membersData.push({ name: `${splitted[i]}` });
+  //     //   }
+  //     // }
+  //   }
+
+  //   return membersData;
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,7 +94,8 @@ const AddNew = () => {
         endDate: project.endDate,
         clientName: project.clientName,
         active: project.active,
-        employees: addMembers(project.employees),
+        // employees: addMembers(project.employees),
+        employees: project.employees,
         admins: project.admins
       })
     })
@@ -74,8 +106,6 @@ const AddNew = () => {
       })
       .catch(() => console.error);
   };
-
-  const [employeesData, setEmployeesData] = useState([]);
 
   useEffect(() => {
     fetch(`https://coco-trackgenix-server.vercel.app/employees`)
@@ -155,7 +185,29 @@ const AddNew = () => {
           <span>Set if the project is active or not.</span>
         </div>
         <div>
-          <Dropdown data={employeesData} path={'firstName'}></Dropdown>
+          <Dropdown
+            data={employeesData}
+            labelText="Select an Employee"
+            path={'firstName'}
+            name={'employee'}
+            onChange={onChangeEmployees}
+          ></Dropdown>
+        </div>
+        <div>
+          <table>
+            <tbody>
+              {employeeList.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{item.firstName}</td>
+                    <td>
+                      <button onClick={() => handleDeleteEmployee(item._id)}>X</button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
         <div>
           <label htmlFor="admins">Admins</label>

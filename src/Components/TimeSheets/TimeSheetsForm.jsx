@@ -7,38 +7,45 @@ const TimeSheetsForm = (props) => {
   const [projectsItem, setProjectsItem] = useState([]);
   const [tasksItem, setTasksItem] = useState([]);
 
-  // const emptyList = [];
-  // const [taskList, setTaskList] = useState(emptyList);
+  const emptyList = [];
+  const [taskList, setTaskList] = useState(emptyList);
 
-  // const handleDeleteTask = (id) => {
-  //   setTaskList([...taskList.filter((task) => task._id !== id)]);
-  // };
+  const handleDeleteTask = (id) => {
+    setTaskList([...taskList.filter((task) => task._id !== id)]);
+  };
 
   const onChange = (e) => {
+    // if (name === 'tasks') {
+    //   setItem({
+    //     ...addItem,
+    //     [e.target.value]: [`${e.target.value}`]
+    //   });
+    // } else {
     setItem({
       ...addItem,
       [e.target.name]: e.target.value
     });
+    // }
   };
 
-  // useEffect(() => {
-  //   if (taskList.length) {
-  //     setItem({
-  //       ...addItem,
-  //       tasks: taskList.map((task) => {
-  //         return task._id;
-  //       })
-  //     });
-  //   }
-  // }, [taskList]);
+  useEffect(() => {
+    if (taskList.length) {
+      setItem({
+        ...addItem,
+        tasks: taskList.map((task) => {
+          return task._id;
+        })
+      });
+    }
+  }, [taskList]);
 
-  // const onChangeTasks = (e) => {
-  //   if (taskList.find((task) => task._id === e.target.value) === undefined) {
-  //     setTaskList([...taskList, tasksItem.find((task) => task._id === e.target.value)]);
-  //   } else {
-  //     alert('This task has already been selected');
-  //   }
-  // };
+  const onChangeTasks = (e) => {
+    if (taskList.find((task) => task._id === e.target.value) === undefined) {
+      setTaskList([...taskList, tasksItem.find((task) => task._id === e.target.value)]);
+    } else {
+      alert('This task has already been selected');
+    }
+  };
 
   const create = (e) => {
     e.preventDefault();
@@ -86,7 +93,7 @@ const TimeSheetsForm = (props) => {
       <form onSubmit={create}>
         <div>
           <button onClick={() => props.history.push('/time-sheets')}>Back</button>
-          <label>Employee</label>
+          {/* <label>Employee</label>
           <select onChange={onChange} name="employeeId">
             {
               <option disabled selected>
@@ -98,9 +105,18 @@ const TimeSheetsForm = (props) => {
                 {item.firstName}
               </option>
             ))}
-          </select>
+          </select> */}
         </div>
         <div>
+          <Dropdown
+            data={employeesItem}
+            name="employeeId"
+            labelText="Select a employee"
+            path="firstName"
+            onChange={onChange}
+          ></Dropdown>
+        </div>
+        {/* <div>
           <label>Project</label>
           <select onChange={onChange} name="projectId">
             {
@@ -114,6 +130,15 @@ const TimeSheetsForm = (props) => {
               </option>
             ))}
           </select>
+        </div> */}
+        <div>
+          <Dropdown
+            data={projectsItem}
+            name="projectId"
+            labelText="Select a project"
+            path="name"
+            onChange={onChange}
+          ></Dropdown>
         </div>
         {/* <div>
           <label>Tasks</label>
@@ -129,6 +154,15 @@ const TimeSheetsForm = (props) => {
               </option>
             ))}
           </select>
+        </div> */}
+        <div>
+          <Dropdown
+            data={tasksItem}
+            name="tasks"
+            labelText="Select a task"
+            path="description"
+            onChange={onChangeTasks}
+          ></Dropdown>
         </div>
         <div>
           <table>
@@ -145,11 +179,6 @@ const TimeSheetsForm = (props) => {
               })}
             </tbody>
           </table>
-        </div> */}
-        <div>
-          <Dropdown data={tasksItem} path="description">
-            Task
-          </Dropdown>
         </div>
         <div>
           <label>Start Date</label>
