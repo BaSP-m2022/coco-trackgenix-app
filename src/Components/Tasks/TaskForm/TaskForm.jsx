@@ -90,7 +90,7 @@ const TaskForm = (props) => {
       <Logo />
       <h2 className={styles.title}>New Task</h2>
       <div className={styles.formContainer}>
-        <Button type={styles.buttonForm} handleBlur={() => props.history.push('/tasks')}>
+        <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
           BACK
         </Button>
         <form className={styles.form} onSubmit={handleSubmit}>
