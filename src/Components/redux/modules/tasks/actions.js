@@ -110,10 +110,10 @@ export const editTasksPending = () => {
   };
 };
 
-export const editTasksSuccess = (taskId) => {
+export const editTasksSuccess = (task) => {
   return {
     type: EDIT_TASKS_SUCCESS,
-    payload: taskId
+    payload: task
   };
 };
 

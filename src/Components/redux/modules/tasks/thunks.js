@@ -5,6 +5,9 @@ import {
   deleteTasksError,
   deleteTasksPending,
   deleteTasksSuccess,
+  editTasksError,
+  editTasksPending,
+  editTasksSuccess,
   getTasksByIdError,
   getTasksByIdPending,
   getTasksByIdSuccess,
@@ -99,5 +102,35 @@ export const addTasks = (values, setResStatus, setResponseMsg) => {
       .catch((error) => {
         dispatch(addTasksError(error.toString()));
       });
+  };
+};
+
+export const editTasks = (id, values, setResStatus, setResponseMsg) => {
+  return (dispatch) => {
+    dispatch(editTasksPending());
+    fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error === false) {
+          setResStatus(true);
+          setResponseMsg(data.msg.substring(9));
+        } else {
+          setResStatus(false);
+          if (data.msg.includes('fails to match the required pattern')) {
+            setResponseMsg('the data entered is not correct');
+          } else {
+            setResponseMsg('all fields should be completed.');
+          }
+          dispatch(editTasksSuccess(data));
+          return data;
+        }
+      })
+      .catch((error) => dispatch(editTasksError(error.toString())));
   };
 };

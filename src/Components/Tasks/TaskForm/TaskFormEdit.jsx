@@ -5,7 +5,7 @@ import styles from './taskForm.module.css';
 import { useState, useEffect } from 'react';
 import Modal from '../../SharedComponents/Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTaskById } from '../../redux/modules/tasks/thunks';
+import { editTasks, getTaskById } from '../../redux/modules/tasks/thunks';
 
 const TaskFormEdit = (props) => {
   const [description, setDescription] = useState('');
@@ -14,10 +14,12 @@ const TaskFormEdit = (props) => {
   const [responseMsg, setResponseMsg] = useState('');
   const [resStatus, setResStatus] = useState(false);
   const params = window.location.search;
-  let id = params.substring(2);
+  const id = params.substring(2);
 
   const dispatch = useDispatch();
   const selectedItem = useSelector((state) => state.tasks.selectedItem);
+  const isFetching = useSelector((state) => state.tasks.isFetching);
+  const error = useSelector((state) => state.tasks.error);
 
   useEffect(() => {
     dispatch(getTaskById(id));
@@ -32,32 +34,20 @@ const TaskFormEdit = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        description: description,
-        workedHours: workedHours
-      })
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error === false) {
-          setResStatus(true);
-          setResponseMsg(data.msg.substring(9));
-        } else {
-          setResStatus(false);
-          if (data.msg.includes('fails to match the required pattern')) {
-            setResponseMsg('the data entered is not correct');
-          } else {
-            setResponseMsg('all fields should be completed.');
-          }
-        }
-      })
-      .catch((error) => console.error(error));
+    const id = params.substring(2);
+    dispatch(
+      editTasks(
+        id,
+        {
+          description: description,
+          workedHours: workedHours
+        },
+        setResStatus,
+        setResponseMsg
+      )
+    );
   };
+
   const handleOkBtn = () => {
     if (resStatus) {
       props.history.push('/tasks');
@@ -65,6 +55,14 @@ const TaskFormEdit = (props) => {
       setIsOpen(false);
     }
   };
+
+  if (isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>ERROR!!!</div>;
+  }
 
   return (
     <div className={styles.container}>
