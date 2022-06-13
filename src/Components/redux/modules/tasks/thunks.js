@@ -80,7 +80,7 @@ export const addTasks = (values, setResStatus, setResponseMsg) => {
         dispatch(addTasksSuccess(data));
       })
       .catch((error) => {
-        dispatch(addTasksError(error));
+        dispatch(addTasksError(error.toString()));
       });
   };
 };
