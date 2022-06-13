@@ -39,15 +39,21 @@ const FormEmployeeEdit = (props) => {
   }, []);
 
   const formEmployee = (e) => {
-    dispatch(editEmployee(e, setStatus));
-    setStatus(status);
-    setModalText(status);
+    dispatch(editEmployee(e, id, setStatus, setModalText));
     setIsOpen(true);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    formEmployee();
+    const employeeToEdit = {
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      email: email,
+      password: password,
+      active: active
+    };
+    formEmployee(employeeToEdit);
   };
 
   const detour = (s) => {
