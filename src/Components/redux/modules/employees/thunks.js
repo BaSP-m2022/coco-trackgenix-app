@@ -93,35 +93,3 @@ export const editEmployee = (employee, id, setStatus, setModalText) => {
     }
   };
 };
-
-// export const editEmployee = (employee, setStatus) => {
-//   return async (dispatch) => {
-//     dispatch(editEMPLOYEEPending());
-//     try {
-//       const response = await fetch(
-//         `https://coco-trackgenix-server.vercel.app/employees/${employee._id}`,
-//         {
-//           method: 'PUT',
-//           headers: {
-//             Accept: 'application/json',
-//             'Content-Type': 'application/json'
-//           },
-//           body: JSON.stringify({
-//             firstName: employee.firstName,
-//             lastName: employee.lastName,
-//             phone: employee.phone,
-//             email: employee.email,
-//             password: employee.password,
-//             active: employee.active
-//           })
-//         }
-//       );
-//       const res = await response.json();
-//       console.log(res);
-//       setStatus(res.data);
-//       dispatch(editEMPLOYEESuccess(res.data));
-//     } catch (error) {
-//       dispatch(editEMPLOYEEerror(error));
-//     }
-//   };
-// };
