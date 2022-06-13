@@ -69,62 +69,63 @@ export const addEmployee = (e, setStatus) => {
   };
 };
 
-export const editEmployee = async (employee, setStatus) => {
-  return async (dispatch) => {
-    dispatch(editEMPLOYEEPending());
-    await fetch(`https://coco-trackgenix-server.vercel.app/employees/${employee._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        firstName: employee.firstName,
-        lastName: employee.lastName,
-        phone: employee.phone,
-        email: employee.email,
-        password: employee.password,
-        active: employee.active
-      })
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setStatus(data.msg);
-        dispatch(editEMPLOYEESuccess(employee));
-      })
-      .catch((error) => console.error(error));
-    dispatch(editEMPLOYEEerror());
-  };
-};
-
-// export const editEmployee = (employee, setStatus) => {
+// export const editEmployee = (setStatus, _id) => {
 //   return async (dispatch) => {
+//     const params = window.location.search;
+//     let id = params.substring(2);
+//     console.log(id);
 //     dispatch(editEMPLOYEEPending());
 //     try {
-//       const response = await fetch(
-//         `https://coco-trackgenix-server.vercel.app/employees/${employee._id}`,
-//         {
-//           method: 'PUT',
-//           headers: {
-//             Accept: 'application/json',
-//             'Content-Type': 'application/json'
-//           },
-//           body: JSON.stringify({
-//             firstName: employee.firstName,
-//             lastName: employee.lastName,
-//             phone: employee.phone,
-//             email: employee.email,
-//             password: employee.password,
-//             active: employee.active
-//           })
-//         }
-//       );
+//       const response = await fetch(`https://coco-trackgenix-server.vercel.app/employees/${id}`, {
+//         method: 'PUT',
+//         headers: {
+//           // Accept: 'application/json',
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//           firstName: _id.firstName,
+//           lastName: _id.lastName,
+//           phone: _id.phone,
+//           email: _id.email,
+//           password: _id.password,
+//           active: _id.active
+//         })
+//       });
+//       console.log(response);
 //       const res = await response.json();
 //       console.log(res);
-//       setStatus(res.data);
-//       dispatch(editEMPLOYEESuccess(res.data));
+//       setStatus(res.msg);
+//       dispatch(editEMPLOYEESuccess(_id, setStatus));
 //     } catch (error) {
 //       dispatch(editEMPLOYEEerror(error));
 //     }
 //   };
 // };
+
+export const editEmployee = (employee, setStatus) => {
+  return async (dispatch) => {
+    dispatch(editEMPLOYEEPending());
+    const params = window.location.search;
+    let id = params.substring(2);
+    console.log(id);
+    let url = `https://coco-trackgenix-server.vercel.app/employees/${id}`;
+    const editEmployee = {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ employee })
+    };
+    await fetch(url, editEmployee)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        console.log(employee);
+        setStatus(data.msg);
+        dispatch(editEMPLOYEESuccess(employee, setStatus));
+      })
+      .catch((error) => console.error(error));
+    dispatch(editEMPLOYEEerror());
+  };
+};

@@ -38,9 +38,8 @@ const FormEmployeeEdit = (props) => {
       });
   }, []);
 
-  const formEmployee = (e) => {
-    dispatch(editEmployee(e, setStatus));
-    setStatus(status);
+  const formEmployee = (employee) => {
+    dispatch(editEmployee(employee, setStatus));
     setModalText(status);
     setIsOpen(true);
   };
@@ -50,9 +49,9 @@ const FormEmployeeEdit = (props) => {
     formEmployee();
   };
 
-  const detour = (s) => {
+  const detour = (status) => {
     let result;
-    if (s == 'Status 200') {
+    if (status == 'Status 200') {
       props.history.push('/employees');
     } else {
       setIsOpen(false);
@@ -63,14 +62,24 @@ const FormEmployeeEdit = (props) => {
 
   const checkEmployee = () => {
     let result;
-    if (!modalText) {
-      result = 'Fields filled incorrectly, please check the data';
-    } else {
+    if (status == 'Status 200') {
       result = 'Employee updated succesfully';
+    } else {
+      result = 'Fields filled incorrectly, please check the data';
     }
-
     return result;
   };
+
+  // const createMsg = (s) => {
+  //   let result;
+  //   console.log(s);
+  //   if (s == 'Status 200') {
+  //     result = 'Employee created succesfully';
+  //   } else {
+  //     result = 'Fields filled incorrectly, please check the data';
+  //   }
+  //   return result;
+  // };
 
   return (
     <div className={styles.formAdd}>
