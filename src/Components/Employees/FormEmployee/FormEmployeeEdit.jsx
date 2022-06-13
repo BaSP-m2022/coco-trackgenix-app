@@ -4,11 +4,7 @@ import Logo from '../../SharedComponents/Logo/Logo';
 import Modal from '../../SharedComponents/Modal/Modal';
 import Button from '../../SharedComponents/Button/Button';
 import { useDispatch } from 'react-redux';
-import {
-  editEMPLOYEESuccess,
-  editEMPLOYEEPending,
-  editEMPLOYEEerror
-} from '../../redux/modules/employees/actions';
+import { editEmployee } from '../../redux/modules/employees/thunks';
 
 const FormEmployeeEdit = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,31 +38,11 @@ const FormEmployeeEdit = (props) => {
       });
   }, []);
 
-  const formEmployee = async (_id) => {
-    dispatch(editEMPLOYEEPending());
-    await fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        email: email,
-        password: password,
-        active: active
-      })
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setStatus(data.msg);
-        setModalText(data.msg);
-        setIsOpen(true);
-        dispatch(editEMPLOYEESuccess(_id));
-      })
-      .catch((error) => console.error(error));
-    dispatch(editEMPLOYEEerror());
+  const formEmployee = (e) => {
+    dispatch(editEmployee(e, setStatus));
+    setStatus(status);
+    setModalText(status);
+    setIsOpen(true);
   };
 
   const onSubmit = (e) => {
@@ -74,9 +50,9 @@ const FormEmployeeEdit = (props) => {
     formEmployee();
   };
 
-  const detour = (status) => {
+  const detour = (s) => {
     let result;
-    if (status == 'Status 200') {
+    if (s == 'Status 200') {
       props.history.push('/employees');
     } else {
       setIsOpen(false);

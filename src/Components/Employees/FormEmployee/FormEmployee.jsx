@@ -4,11 +4,7 @@ import Logo from '../../SharedComponents/Logo/Logo';
 import Modal from '../../SharedComponents/Modal/Modal';
 import Button from '../../SharedComponents/Button/Button';
 import { useDispatch } from 'react-redux';
-import {
-  addEMPLOYEESuccess,
-  addEMPLOYEEPending,
-  addEMPLOYEEerror
-} from '../../redux/modules/employees/actions';
+import { addEmployee } from '../../redux/modules/employees/thunks';
 
 const FormEmployee = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,27 +25,10 @@ const FormEmployee = (props) => {
     setEmployeeInput({ ...employeeInput, [e.target.name]: e.target.value });
   };
 
-  const formEmployee = async (e) => {
-    dispatch(addEMPLOYEEPending());
-    try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/employees`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(e)
-      });
-      // console.log(response.data.firstName);
-      console.log(e);
-      setStatus(response.status);
-      setModalText(createMsg(response.status));
-      setIsOpen(true);
-      dispatch(addEMPLOYEESuccess(e));
-    } catch (error) {
-      console.error(error);
-      dispatch(addEMPLOYEEerror(error));
-    }
+  const formEmployee = (e) => {
+    dispatch(addEmployee(e, setStatus));
+    setModalText(createMsg(status));
+    setIsOpen(true);
   };
 
   const onSubmit = (e) => {
@@ -67,7 +46,7 @@ const FormEmployee = (props) => {
 
   const detour = (s) => {
     let result;
-    if (s == '201') {
+    if (s == 'Status 201') {
       props.history.push('/employees');
     } else {
       setIsOpen(false);
@@ -78,7 +57,8 @@ const FormEmployee = (props) => {
 
   const createMsg = (s) => {
     let result;
-    if (s == 201) {
+    console.log(s);
+    if (s == 'Status 201') {
       result = 'Employee created succesfully';
     } else {
       result = 'Fields filled incorrectly, please check the data';
