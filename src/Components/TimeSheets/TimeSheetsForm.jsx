@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Dropdown from '../SharedComponents/Dropdown/Dropdown';
+import Button from '../SharedComponents/Button/Button';
 
 const TimeSheetsForm = (props) => {
   const [addItem, setItem] = useState({});
@@ -15,17 +16,10 @@ const TimeSheetsForm = (props) => {
   };
 
   const onChange = (e) => {
-    // if (name === 'tasks') {
-    //   setItem({
-    //     ...addItem,
-    //     [e.target.value]: [`${e.target.value}`]
-    //   });
-    // } else {
     setItem({
       ...addItem,
       [e.target.name]: e.target.value
     });
-    // }
   };
 
   useEffect(() => {
@@ -93,19 +87,6 @@ const TimeSheetsForm = (props) => {
       <form onSubmit={create}>
         <div>
           <button onClick={() => props.history.push('/time-sheets')}>Back</button>
-          {/* <label>Employee</label>
-          <select onChange={onChange} name="employeeId">
-            {
-              <option disabled selected>
-                Select a employee
-              </option>
-            }
-            {employeesItem.map((item) => (
-              <option key={item.id} value={item._id}>
-                {item.firstName}
-              </option>
-            ))}
-          </select> */}
         </div>
         <div>
           <Dropdown
@@ -116,21 +97,6 @@ const TimeSheetsForm = (props) => {
             onChange={onChange}
           ></Dropdown>
         </div>
-        {/* <div>
-          <label>Project</label>
-          <select onChange={onChange} name="projectId">
-            {
-              <option disabled selected>
-                Select a project
-              </option>
-            }
-            {projectsItem.map((item) => (
-              <option key={item.id} value={item._id}>
-                {item.name}
-              </option>
-            ))}
-          </select>
-        </div> */}
         <div>
           <Dropdown
             data={projectsItem}
@@ -140,21 +106,6 @@ const TimeSheetsForm = (props) => {
             onChange={onChange}
           ></Dropdown>
         </div>
-        {/* <div>
-          <label>Tasks</label>
-          <select onChange={onChangeTasks} name="tasks">
-            {
-              <option disabled selected>
-                Select a task
-              </option>
-            }
-            {tasksItem.map((item) => (
-              <option key={item.id} value={item._id}>
-                {item.description}
-              </option>
-            ))}
-          </select>
-        </div> */}
         <div>
           <Dropdown
             data={tasksItem}
@@ -172,7 +123,7 @@ const TimeSheetsForm = (props) => {
                   <tr key={index}>
                     <td>{task.description}</td>
                     <td>
-                      <button onClick={() => handleDeleteTask(task._id)}>X</button>
+                      <Button handleClick={() => handleDeleteTask(task._id)}>X</Button>
                     </td>
                   </tr>
                 );
