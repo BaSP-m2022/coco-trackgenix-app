@@ -27,7 +27,6 @@ let editTask = [];
 
 export const tasksReducer = (state = initialState, action) => {
   switch (action.type) {
-    //GET
     case GET_TASKS_PENDING:
       return {
         ...state,
@@ -49,7 +48,6 @@ export const tasksReducer = (state = initialState, action) => {
         isFetching: false
       };
 
-    // GET BY ID
     case GET_TASKS_BY_ID_PENDING:
       return {
         ...state,
@@ -72,7 +70,6 @@ export const tasksReducer = (state = initialState, action) => {
         isFetching: false
       };
 
-    // ADD
     case ADD_TASKS_PENDING:
       return {
         ...state,
@@ -94,7 +91,6 @@ export const tasksReducer = (state = initialState, action) => {
         isFetching: false
       };
 
-    // DELETE
     case DELETE_TASKS_PENDING:
       return {
         ...state,
@@ -116,12 +112,11 @@ export const tasksReducer = (state = initialState, action) => {
         isFetching: false
       };
 
-    //EDIT
     case EDIT_TASKS_PENDING:
       return {
         ...state,
-        isFetching: true
-        // error: initialState.error
+        isFetching: true,
+        error: initialState.error
       };
 
     case EDIT_TASKS_SUCCESS:

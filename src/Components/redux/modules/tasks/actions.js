@@ -36,8 +36,6 @@ export const getTasksError = (error) => {
   };
 };
 
-// GET BY ID
-
 export const getTasksByIdPending = () => {
   return {
     type: GET_TASKS_BY_ID_PENDING
@@ -57,8 +55,6 @@ export const getTasksByIdError = (error) => {
     payload: error
   };
 };
-
-// ADD
 
 export const addTasksPending = () => {
   return {
@@ -80,8 +76,6 @@ export const addTasksError = (error) => {
   };
 };
 
-// DELETE
-
 export const deleteTasksPending = () => {
   return {
     type: DELETE_TASKS_PENDING
@@ -101,8 +95,6 @@ export const deleteTasksError = (error) => {
     payload: error
   };
 };
-
-// EDIT
 
 export const editTasksPending = () => {
   return {
