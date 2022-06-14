@@ -4,6 +4,7 @@ import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
 import { useHistory } from 'react-router-dom';
 import Modal from '../SharedComponents/Modal/Modal';
+import Dropdown from '../SharedComponents/Dropdown/Dropdown';
 
 const AddNew = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -149,23 +150,14 @@ const AddNew = () => {
             onChange={handleChange}
           ></input>
         </div>
-        <div>
-          <label htmlFor="active">Active</label>
-          <input type="text" name="active" value={project.active} onChange={handleChange}></input>
-        </div>
-        <div>
-          <label htmlFor="employees">Employees</label>
-          <select name="employees" onChange={handleChange}>
-            <option disabled selected>
-              Pick an employee
-            </option>
-            {employeesData.map((item) => (
-              <option key={item.id} value={item._id}>
-                {item.firstName + ' ' + item.lastName}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Dropdown name="active" labelText="Set if is active" onChange={handleChange}></Dropdown>
+        <Dropdown
+          data={employeesData}
+          name="employees"
+          labelText="Select an employee"
+          path="firstName"
+          onChange={handleChange}
+        ></Dropdown>
         <div>
           <label htmlFor="admins">Admins</label>
           <input
