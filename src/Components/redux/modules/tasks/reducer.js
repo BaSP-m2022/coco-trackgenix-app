@@ -23,6 +23,8 @@ const initialState = {
   selectedItem: {}
 };
 
+let editTask = [];
+
 export const tasksReducer = (state = initialState, action) => {
   switch (action.type) {
     //GET
@@ -118,20 +120,22 @@ export const tasksReducer = (state = initialState, action) => {
     case EDIT_TASKS_PENDING:
       return {
         ...state,
-        isFetching: true,
-        error: initialState.error
+        isFetching: true
+        // error: initialState.error
       };
 
     case EDIT_TASKS_SUCCESS:
+      editTask = state.list.map((item) => {
+        if (item._id === action.payload._id) {
+          return action.payload;
+        } else {
+          return item;
+        }
+      });
       return {
         ...state,
         isFetching: false,
-        list: state.list.map((item) => {
-          if (item._id === action.payload._id) {
-            return action.payload;
-          }
-          return item;
-        })
+        list: editTask
       };
 
     case EDIT_TASKS_ERROR:

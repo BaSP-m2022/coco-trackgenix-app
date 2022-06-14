@@ -4,7 +4,7 @@ import Logo from '../SharedComponents/Logo/Logo';
 import Table from '../SharedComponents/Table/index';
 import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
-import Loading from '../../SharedComponents/Loading/Loading';
+import Loading from '../SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTasks, getTasks } from '../redux/modules/tasks/thunks';
 
