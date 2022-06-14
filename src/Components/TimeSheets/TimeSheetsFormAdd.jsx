@@ -88,33 +88,27 @@ const TimeSheetsForm = (props) => {
         <div>
           <button onClick={() => props.history.push('/time-sheets')}>Back</button>
         </div>
-        <div>
-          <Dropdown
-            data={employeesItem}
-            name="employeeId"
-            labelText="Select a employee"
-            path="firstName"
-            onChange={onChange}
-          ></Dropdown>
-        </div>
-        <div>
-          <Dropdown
-            data={projectsItem}
-            name="projectId"
-            labelText="Select a project"
-            path="name"
-            onChange={onChange}
-          ></Dropdown>
-        </div>
-        <div>
-          <Dropdown
-            data={tasksItem}
-            name="tasks"
-            labelText="Select a task"
-            path="description"
-            onChange={onChangeTasks}
-          ></Dropdown>
-        </div>
+        <Dropdown
+          data={employeesItem}
+          name="employeeId"
+          labelText="Select an employee"
+          path="firstName"
+          onChange={onChange}
+        ></Dropdown>
+        <Dropdown
+          data={projectsItem}
+          name="projectId"
+          labelText="Select a project"
+          path="name"
+          onChange={onChange}
+        ></Dropdown>
+        <Dropdown
+          data={tasksItem}
+          name="tasks"
+          labelText="Select a task"
+          path="description"
+          onChange={onChangeTasks}
+        ></Dropdown>
         <div>
           <table>
             <tbody>
