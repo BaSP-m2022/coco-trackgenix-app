@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styles from './addNew.module.css';
-// import Logo from '../SharedComponents/Logo/Logo';
-// import Modal from '../SharedComponents/Modal/Modal';
-// import Button from '../SharedComponents/Button/Button';
+import Logo from '../SharedComponents/Logo/Logo';
+import Button from '../SharedComponents/Button/Button';
+import { useHistory } from 'react-router-dom';
+import Modal from '../SharedComponents/Modal/Modal';
+import Dropdown from '../SharedComponents/Dropdown/Dropdown';
 
 const AddNew = () => {
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [status, setStatus] = useState();
-  // const [modalText, setModalText] = useState();
-  // const emptyArray = [];
-  // const [projectLst, setProjectList] = useState(emptyArray);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
   const initialValues = {
     name: '',
     description: '',
@@ -20,6 +19,9 @@ const AddNew = () => {
     employees: [],
     admins: ''
   };
+
+  let history = useHistory();
+
   const [project, setProject] = useState(initialValues);
   const [employeesData, setEmployeesData] = useState([]);
 
@@ -64,53 +66,30 @@ const AddNew = () => {
     return membersData;
   };
 
-  const createProject = async (e) => {
-    try {
-      await fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(e)
-      });
-      // setStatus(response.status);
-      // setModalText(response.message);
-      // setIsOpen(true);
-    } catch (error) {
-      console.error;
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    createProject(project);
-    setProject({
-      name: project.name,
-      description: project.description,
-      startDate: project.startDate,
-      endDate: project.endDate,
-      clientName: project.clientName,
-      active: project.active,
-      employees: addMembers(project.employees),
-      admins: project.admins
-    });
+    fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: project.name,
+        description: project.description,
+        startDate: project.startDate,
+        endDate: project.endDate,
+        clientName: project.clientName,
+        active: project.active,
+        employees: addMembers(project.employees),
+        admins: project.admins
+      })
+    }).catch(() => console.error);
   };
-
-  // const check = (s) => {
-  //   let result;
-  //   if (s == '201') {
-  //     props.history.push('/projects');
-  //   } else {
-  //     setIsOpen(false);
-  //   }
-  //
-  //   return result;
-  // };
 
   return (
     <div className={styles.container}>
-      <h2>Add New Project</h2>
+      <Logo />
+      <h2>New Project</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name</label>
@@ -122,7 +101,6 @@ const AddNew = () => {
             value={project.name}
             onChange={handleChange}
           ></input>
-          <span>Must have less than 50 characters. Only text. Whitout spaces between words.</span>
         </div>
         <div>
           <label htmlFor="description">Description</label>
@@ -134,7 +112,6 @@ const AddNew = () => {
             value={project.description}
             onChange={handleChange}
           ></input>
-          <span>Must have less than 130 characters.</span>
         </div>
         <div>
           <label htmlFor="startDate">Start Date</label>
@@ -146,7 +123,6 @@ const AddNew = () => {
             value={project.startDate}
             onChange={handleChange}
           ></input>
-          <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
         </div>
         <div>
           <label htmlFor="endDate">End Date</label>
@@ -158,7 +134,6 @@ const AddNew = () => {
             value={project.endDate}
             onChange={handleChange}
           ></input>
-          <span>Must have DD/MM/YYYYY format. And be a valid Date.</span>
         </div>
         <div>
           <label htmlFor="clientName">Client Name</label>
@@ -170,27 +145,15 @@ const AddNew = () => {
             value={project.clientName}
             onChange={handleChange}
           ></input>
-          <span>Must have less than 50 characters. Only text. Whitout spaces between words.</span>
         </div>
-        <div>
-          <label htmlFor="active">Active</label>
-          <input type="text" name="active" value={project.active} onChange={handleChange}></input>
-          <span>Set if the project is active or not.</span>
-        </div>
-        <div>
-          <label htmlFor="employees">Employees</label>
-          <select name="employees" onChange={handleChange}>
-            <option disabled selected>
-              Select an employee
-            </option>
-            {employeesData.map((item) => (
-              <option key={item.id} value={item._id}>
-                {item.firstName + ' ' + item.lastName}
-              </option>
-            ))}
-          </select>
-          <span>Must be the ID of an existing employee. Separate IDs with a comma.</span>
-        </div>
+        <Dropdown name="active" labelText="Set if is active" onChange={handleChange}></Dropdown>
+        <Dropdown
+          data={employeesData}
+          name="employees"
+          labelText="Select an employee"
+          path="firstName"
+          onChange={handleChange}
+        ></Dropdown>
         <div>
           <label htmlFor="admins">Admins</label>
           <input
@@ -200,13 +163,57 @@ const AddNew = () => {
             value={project.admins}
             onChange={handleChange}
           ></input>
-          <span>Must have less than 50 characters. Only admin names.</span>
         </div>
-        <div>
-          <input type="submit" name="project-submit" value="ADD NEW PROJECT"></input>
-        </div>
-        <button onClick={() => (window.location = '/projects')}>BACK</button>
       </form>
+      <div>
+        <Button
+          type={('submit', styles.modalProjectBtn)}
+          name="project-submit"
+          handleClick={() => {
+            if (
+              project.name === '' ||
+              project.description === '' ||
+              project.startDate === '' ||
+              project.endDate === '' ||
+              project.clientName === '' ||
+              project.active === '' ||
+              project.admins === ''
+            ) {
+              setIsOpen2(true);
+            } else {
+              setIsOpen(true);
+            }
+          }}
+        >
+          New Project
+        </Button>
+        <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+          <h2>Success!</h2>
+          <div>
+            <p>Project created successfully</p>
+          </div>
+          <div>
+            <Button
+              type={styles.modalProjectBtn}
+              handleClick={(e) => {
+                handleSubmit(e);
+                history.push('/projects');
+              }}
+            >
+              Ok
+            </Button>
+          </div>
+        </Modal>
+        <Modal showModal={isOpen2} closeModal={() => setIsOpen2(false)}>
+          <h2>Fill every field to continue</h2>
+          <Button type={styles.modalProjectBtn} handleClick={() => setIsOpen2(false)}>
+            Ok
+          </Button>
+        </Modal>
+        <Button type={styles.backBtn} handleClick={() => history.goBack()}>
+          Cancel
+        </Button>
+      </div>
     </div>
   );
 };

@@ -8,38 +8,49 @@
 }
 
 .title{
-  color: #373867;
-  font-size: xx-large;
-  font-weight: 700;
-  margin-top: 10px;
-  text-transform: capitalize;
+  text-align: center;
+  margin-bottom: 30px;
+  color: rgb(55, 56, 103);
+  font-size: 50px;
+  font-weight: 1000;
 }
 
-.addProject {
-  align-self: flex-start;
-  width: 170px;
-  height: 50px;
-  margin-left: 175px;
-  background: #AACE9B;
-  border: 1px solid #373867;
+.addProject{
+  padding: 10px 15px;
+  border: 0px;
+  background-color: rgb(170, 206, 155);
   border-radius: 5px;
-  text-transform: uppercase;
-  font-size: 15px;
-  font-weight: 700;
-  color: #373867;
-  cursor: pointer;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: rgb(55, 56, 103);
 }
 
-.modalProjectBtn {
-  align-self: center;
-  width: 170px;
-  height: 50px;
-  background: #AACE9B;
-  border: 1px solid #373867;
+.editButtonProject{
+  padding: 10px 15px;
+  border: 0px;
+  background-color: rgb(170, 206, 155);
   border-radius: 5px;
-  text-transform: uppercase;
-  font-size: 15px;
-  font-weight: 700;
-  color: #373867;
-  cursor: pointer;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: rgb(56, 57, 102);
+}
+
+.modalProjectBtn{
+  padding: 10px 15px;
+  border: 0px;
+  background-color: rgb(170, 206, 155);
+  border-radius: 5px;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: rgb(55, 56, 103);
+}
+
+.deleteButtonProject{
+  padding: 10px 15px;
+  border: 0px;
+  background-color: rgb(170, 206, 155);
+  border-radius: 5px;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: rgb(55, 56, 103);
 }

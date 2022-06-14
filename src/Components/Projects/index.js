@@ -71,9 +71,9 @@ const Projects = (props) => {
     <div className={styles.container}>
       <Logo />
       <div className={styles.container}>
-        <h2 className={styles.title}>projects</h2>
+        <h2 className={styles.title}>Projects</h2>
         <Button type={styles.addProject} handleClick={() => props.history.push('/projects/add')}>
-          add new
+          + Add New Project
         </Button>
         <Table
           data={list}
@@ -94,11 +94,11 @@ const Projects = (props) => {
         <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
           <h2>Success!</h2>
           <div>
-            <p>Project deleted succesffully</p>
+            <p>Project deleted successfully</p>
           </div>
           <div>
             <Button type={styles.modalProjectBtn} handleClick={() => setIsOpen(false)}>
-              ok
+              Ok
             </Button>
           </div>
         </Modal>
