@@ -3,9 +3,15 @@ import styles from './super-admins.module.css';
 import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
 import Logo from '../SharedComponents/Logo/Logo';
+import { useDispatch } from 'react-redux/es/exports';
+import { addSuperAdmin } from '../redux/modules/superAdmins/thunks';
 
 const AddSuperAdmin = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const formSuperAdmin = (e) => {
+    dispatch(addSuperAdmin(e));
+  };
 
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -15,26 +21,14 @@ const AddSuperAdmin = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-
-    const addSuperAdmin = {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: name,
-        lastName: lastName,
-        email: email,
-        password: password,
-        active: active
-      })
+    const superAdminAdd = {
+      name: name,
+      lastName: lastName,
+      email: email,
+      password: password,
+      active: active
     };
-    const url = `https://coco-trackgenix-server.vercel.app/Superadmins`;
-
-    fetch(url, addSuperAdmin)
-      .then((response) => response.json())
-      // eslint-disable-next-line no-console
-      .then((data) => console.log('data:', data));
+    formSuperAdmin(superAdminAdd);
   };
   return (
     <div className={styles.container}>

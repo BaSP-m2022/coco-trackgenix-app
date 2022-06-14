@@ -4,34 +4,19 @@ import SuperAdminForm from './SuperAdminForm';
 import Table from '../SharedComponents/Table';
 import Button from '../SharedComponents/Button/Button';
 import Logo from '../SharedComponents/Logo/Logo';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSuperAdmins, deleteSuperAdmins } from '../redux/modules/superAdmins/thunks';
 
 const SuperAdmin = (props) => {
   let [change, setSwitch] = useState(false);
-
-  const [list, setList] = useState([]);
+  const dispatch = useDispatch();
+  const superAdminsData = useSelector((state) => state.superadmin.list);
   useEffect(async () => {
-    try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins`);
-      const resp = await response.json();
-      resp.data.map((superadmin) => {
-        superadmin.active = superadmin.active ? 'true' : 'false';
-      });
-      setList(resp.data);
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(getSuperAdmins());
   }, []);
 
-  const deleteItem = async (_id) => {
-    try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins/${_id}`, {
-        method: 'DELETE'
-      });
-      console.log(response);
-      setList(list.filter((listItem) => listItem._id !== _id));
-    } catch (error) {
-      console.error(error);
-    }
+  const deleteItem = (_id) => {
+    dispatch(deleteSuperAdmins(_id));
   };
 
   const switcher = () => {
@@ -56,7 +41,7 @@ const SuperAdmin = (props) => {
         <Logo />
         <h2>Super Admin</h2>
         <Table
-          data={list}
+          data={superAdminsData}
           headers={['name', 'lastName', 'email', 'password', 'active']}
           handleEdit={handleEdit}
           deleteItem={deleteItem}

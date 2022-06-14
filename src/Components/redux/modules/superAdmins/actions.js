@@ -19,10 +19,10 @@ export const getSuperAdminsPending = () => {
   };
 };
 
-export const getSuperAdminsSuccess = (data) => {
+export const getSuperAdminsSuccess = (superadmin) => {
   return {
     type: GET_SUPERADMINS_SUCCESS,
-    payload: data
+    payload: superadmin
   };
 };
 
@@ -39,10 +39,10 @@ export const addSuperAdminsPending = () => {
   };
 };
 
-export const addSuperAdminsSuccess = (data) => {
+export const addSuperAdminsSuccess = (superadmin) => {
   return {
     type: ADD_SUPERADMINS_SUCCESS,
-    payload: data
+    payload: superadmin
   };
 };
 
@@ -59,10 +59,10 @@ export const deleteSuperAdminsPending = () => {
   };
 };
 
-export const deleteSuperAdminsSuccess = (data) => {
+export const deleteSuperAdminsSuccess = (superadmin) => {
   return {
     type: DELETE_SUPERADMINS_SUCCESS,
-    payload: data
+    payload: superadmin
   };
 };
 
@@ -79,10 +79,10 @@ export const editSuperAdminsPending = () => {
   };
 };
 
-export const editSuperAdminsSuccess = (data) => {
+export const editSuperAdminsSuccess = (superadmin) => {
   return {
     type: EDIT_SUPERADMINS_SUCCESS,
-    payload: data
+    payload: superadmin
   };
 };
 
