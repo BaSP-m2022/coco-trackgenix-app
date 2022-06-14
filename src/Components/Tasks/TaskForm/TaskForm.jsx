@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Logo from '../../SharedComponents/Logo/Logo';
+import Loading from '../../SharedComponents/Loading/Loading';
 import styles from './taskForm.module.css';
 import Button from '../../SharedComponents/Button/Button';
 import Modal from '../../SharedComponents/Modal/Modal';
@@ -81,7 +82,7 @@ const TaskForm = (props) => {
   };
 
   if (isFetching) {
-    return <div>Loading...</div>;
+    return <Loading className={styles.loadText}></Loading>;
   }
 
   if (error) {
