@@ -43,7 +43,7 @@ export const deleteEmployee = (_id) => {
   };
 };
 
-export const addEmployee = (e, setStatus, createMsg) => {
+export const addEmployee = (e, setStatus, createMsg, setModalText) => {
   return async (dispatch) => {
     dispatch(addEMPLOYEEPending());
     try {
@@ -57,7 +57,7 @@ export const addEmployee = (e, setStatus, createMsg) => {
       });
       const res = await response.json();
       setStatus(res.msg);
-      createMsg(res.msg);
+      setModalText(createMsg(res.msg));
       dispatch(addEMPLOYEESuccess(e, setStatus));
     } catch (error) {
       dispatch(addEMPLOYEEerror(error));

@@ -26,8 +26,7 @@ const FormEmployee = (props) => {
   };
 
   const formEmployee = (e) => {
-    dispatch(addEmployee(e, setStatus, createMsg));
-    setModalText(createMsg(status));
+    dispatch(addEmployee(e, setStatus, createMsg, setModalText));
     setIsOpen(true);
   };
 
