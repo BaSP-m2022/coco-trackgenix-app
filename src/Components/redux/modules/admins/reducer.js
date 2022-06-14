@@ -67,6 +67,7 @@ export const adminReducer = (state = initialState, action) => {
       });
       return {
         ...state,
+        isLoading: false,
         list: editAdmin
       };
     case PUT_ADMIN_PENDING:

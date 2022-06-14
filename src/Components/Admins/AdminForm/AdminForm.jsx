@@ -23,28 +23,17 @@ const AdminForm = (props) => {
   };
   const dispatch = useDispatch();
   const formAdmin = (e) => {
-    dispatch(postAdmin(e));
+    dispatch(postAdmin(e, setIsOpen, backAdmin));
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    if (
-      adminInput.name === '' ||
-      adminInput.lastName === '' ||
-      adminInput.email === '' ||
-      adminInput.password === '' ||
-      adminInput.active === ''
-    ) {
-      alert('Please fill all the fields');
-    } else {
-      formAdmin(adminInput);
-      setAdminInput({
-        name: '',
-        lastName: '',
-        email: '',
-        password: '',
-        active: ''
-      });
-    }
+    setAdminInput({
+      name: adminInput.name,
+      lastName: adminInput.lastName,
+      email: adminInput.email,
+      password: adminInput.password,
+      active: adminInput.active
+    });
   };
 
   return (
@@ -112,8 +101,7 @@ const AdminForm = (props) => {
           <Button
             type={('submit', styles.confirmAndDeleteBtn)}
             handleClick={() => {
-              setIsOpen(false);
-              backAdmin();
+              formAdmin(adminInput);
             }}
           >
             Confirm

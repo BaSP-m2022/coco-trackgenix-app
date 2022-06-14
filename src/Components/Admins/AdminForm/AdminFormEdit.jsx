@@ -13,6 +13,7 @@ const AdminFormEdit = (props) => {
   const dispatch = useDispatch();
   const [passwordInput, setPasswordInput] = useState('');
   const [activeInput, setActiveInput] = useState('');
+  const [adminEdit, setAdminEdit] = useState({});
   const params = window.location.search;
   let id = params.substring(2);
   const backAdmin = () => {
@@ -20,18 +21,17 @@ const AdminFormEdit = (props) => {
   };
 
   const formPut = (e) => {
-    dispatch(putAdmin(e, id));
+    dispatch(putAdmin(e, id, setIsOpen, backAdmin));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const adminEdit = {
+    setAdminEdit({
       name: nameInput,
       lastName: lastNameInput,
       email: emailInput,
       password: passwordInput,
       active: activeInput
-    };
-    formPut(adminEdit);
+    });
   };
 
   useEffect(() => {
@@ -131,8 +131,7 @@ const AdminFormEdit = (props) => {
           <Button
             type={('submit', styles.confirmAndDeleteBtn)}
             handleClick={() => {
-              setIsOpen(false);
-              props.history.push('/admins');
+              formPut(adminEdit);
             }}
           >
             Confirm
