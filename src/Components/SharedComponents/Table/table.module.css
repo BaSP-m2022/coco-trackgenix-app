@@ -22,7 +22,7 @@
   margin: 0 20px;
   padding: 10px 24px;
   background: #aace9b;
-  border: 1px solid #505168;
+  border: 1px solid lightgray;
   border-radius: 5px;
   font-size: 15px;
   font-weight: 700;
@@ -36,30 +36,32 @@
 
 .stylesModalBtn:hover {
   background-color: white;
-  border: 2px solid #aace9b;
+  border: 1px solid #B2B3E0;
 }
 
 .stylesBtn {
   width: 60px;
   height: 30px;
-  margin: 0;
+  margin: 5px;
   padding: 0;
   background: #aace9b;
-  border: 1px solid #505168;
+  border: 1px solid lightgray;
   border-radius: 5px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   color: #505168;
   cursor: pointer;
   transition-duration: 0.3s;
 }
+
 .deleteBtn:hover {
-  background-color: rgb(255, 255, 255);
+  background-color: white;
+  border: 1px solid #B2B3E0;
 }
 
 .stylesBtn:hover {
   background-color: white;
-  border: 2px solid #aace9b;
+  border: 1px solid #B2B3E0;
 }
 
 .deleteModalBtn {
@@ -69,43 +71,62 @@
 .deleteModalBtn:hover {
   background-color: rgb(255, 255, 255);
   background-color: white;
-  border: 2px solid #aace9b;
+  border: 1px solid #B2B3E0;
 }
 
 .container table {
   width: 100%;
   flex-direction: column;
-  border-radius: 2px solid #373867;
+  border: 1px solid lightgray;
 }
 
 thead {
-  border: 2px solid #373867;
+  border: 1px solid lightgray;
   width: 100px;
   height: 50px;
   text-transform: capitalize;
 }
 
 table {
-  border-radius: 2px solid #373867;
+  border: 1px solid lightgray;
   text-align: center;
 }
 
 .tableCell {
-  border-radius: 2px solid #373867;
-  background-color: #aace9b;
+  border: 1px solid lightgray;
+  background-color: #B2B3E0;
   color: #373867;
   font-family: 'Arial';
   width: 80px;
   height: 30px;
 }
 
+.tableCellButtons {
+  flex-direction: row;
+  border: 1px solid lightgray;
+  background-color: #B2B3E0;
+  color: #373867;
+  font-family: 'Arial';
+  width: 140px;
+  height: 30px;
+}
+
 .tableNames {
-  border: 2px solid #373867;
+  height: 50px;
+  border: 1px solid lightgray;
   font-family: 'Arial';
   background-color: rgb(255, 255, 255);
-  border-radius: 5px solid #373867;
+  border-radius: 5px;
 }
 
 .container > table {
   border-collapse: collapse;
+}
+
+.data {
+  text-align: left;
+}
+
+.buttonTd {
+  max-width: 140px;
 }

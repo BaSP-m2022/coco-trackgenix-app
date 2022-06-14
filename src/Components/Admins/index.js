@@ -3,6 +3,7 @@ import styles from './admins.module.css';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Logo from '../SharedComponents/Logo/Logo';
 import Table from '../SharedComponents/Table';
+import Button from '../SharedComponents/Button/Button';
 
 const Admins = (props) => {
   const [list, setList] = useState([]);
@@ -39,9 +40,9 @@ const Admins = (props) => {
       <Logo />
       <h2 className={styles.title}>Admins</h2>
       <div>
-        <button onClick={() => props.history.push('admins/add')} className={styles.addBtn}>
-          + Add an admin
-        </button>
+        <Button type={styles.buttonAdd} handleClick={() => props.history.push('tasks/add')}>
+          + Add Task
+        </Button>
         <Table
           data={list}
           headers={['name', 'lastName', 'email', 'password', 'active']}

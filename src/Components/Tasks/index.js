@@ -50,15 +50,16 @@ const Tasks = (props) => {
       <Logo />
       <h2 className={styles.title}>Tasks</h2>
       <div className={styles.tableContainer}>
-        <Button type={styles.buttonAdd} handleClick={() => props.history.push('tasks/add')}>
-          + Add Task
-        </Button>
         <Table
           data={list}
           headers={['description', 'workedHours', 'date']}
           handleEdit={handleEdit}
           deleteItem={deleteItem}
-        />
+        >
+          <Button type={styles.buttonAdd} handleClick={() => props.history.push('tasks/add')}>
+            + Add Task
+          </Button>
+        </Table>
       </div>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>Tasks has been deleted successfully!</h2>

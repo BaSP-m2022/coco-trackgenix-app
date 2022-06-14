@@ -39,17 +39,21 @@
 }
 
 .addSuperAdminBtn {
-  width: 170px;
-  height: 50px;
-  margin: 0;
-  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
   background: #AACE9B;
   border: 1px solid #505168;
   border-radius: 5px;
-  font-size: 15px;
+  font-style: normal;
   font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
   color: #505168;
   cursor: pointer;
+  transition-duration: 0.3s;
 }
 
 .addSuperAdminBtn:hover {
