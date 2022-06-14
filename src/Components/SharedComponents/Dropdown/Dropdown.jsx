@@ -7,7 +7,7 @@ const Dropdown = ({ data, name, labelText, path, onChange }) => {
       <label className={styles.label}>{labelText}</label>
       <select onChange={onChange} className={styles.select} name={name}>
         {data.map((item) => (
-          <option key={item.id} value={item._id}>
+          <option className={styles.options} key={item.id} value={item._id}>
             {`${item[path]} ID: ${item._id}`}
           </option>
         ))}
