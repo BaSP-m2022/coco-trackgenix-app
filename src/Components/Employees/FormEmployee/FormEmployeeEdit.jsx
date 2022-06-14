@@ -57,14 +57,11 @@ const FormEmployeeEdit = (props) => {
   };
 
   const detour = (status) => {
-    let result;
     if (status == 'Status 200') {
       props.history.push('/employees');
     } else {
       setIsOpen(false);
     }
-
-    return result;
   };
 
   const checkEmployee = () => {
@@ -76,17 +73,6 @@ const FormEmployeeEdit = (props) => {
     }
     return result;
   };
-
-  // const createMsg = (s) => {
-  //   let result;
-  //   console.log(s);
-  //   if (s == 'Status 200') {
-  //     result = 'Employee created succesfully';
-  //   } else {
-  //     result = 'Fields filled incorrectly, please check the data';
-  //   }
-  //   return result;
-  // };
 
   return (
     <div className={styles.formAdd}>

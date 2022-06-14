@@ -26,7 +26,7 @@ const FormEmployee = (props) => {
   };
 
   const formEmployee = (e) => {
-    dispatch(addEmployee(e, setStatus));
+    dispatch(addEmployee(e, setStatus, createMsg));
     setModalText(createMsg(status));
     setIsOpen(true);
   };
@@ -45,25 +45,20 @@ const FormEmployee = (props) => {
   };
 
   const detour = (s) => {
-    let result;
     if (s == 'Status 201') {
       props.history.push('/employees');
     } else {
       setIsOpen(false);
     }
-
-    return result;
   };
 
   const createMsg = (s) => {
     let result;
-    console.log(s);
     if (s == 'Status 201') {
       result = 'Employee created succesfully';
     } else {
       result = 'Fields filled incorrectly, please check the data';
     }
-
     return result;
   };
 

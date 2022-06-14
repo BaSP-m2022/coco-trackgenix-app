@@ -13,6 +13,17 @@ import {
   DELETE_EMPLOYEE_SUCCESS
 } from './constants';
 
+export const getEMPLOYEEPending = () => ({
+  type: GET_EMPLOYEE_PENDING
+});
+export const getEMPLOYEESuccess = (employee) => ({
+  type: GET_EMPLOYEE_SUCCESS,
+  payload: employee
+});
+export const editEMPLOYEEerror = (error) => ({
+  type: EDIT_EMPLOYEE_ERROR,
+  payload: error
+});
 export const addEMPLOYEESuccess = (employee) => ({
   type: ADD_EMPLOYEE_SUCCESS,
   payload: employee
@@ -30,17 +41,6 @@ export const editEMPLOYEESuccess = (employee) => ({
 });
 export const editEMPLOYEEPending = () => ({
   type: EDIT_EMPLOYEE_PENDING
-});
-export const editEMPLOYEEerror = (error) => ({
-  type: EDIT_EMPLOYEE_ERROR,
-  payload: error
-});
-export const getEMPLOYEESuccess = (employee) => ({
-  type: GET_EMPLOYEE_SUCCESS,
-  payload: employee
-});
-export const getEMPLOYEEPending = () => ({
-  type: GET_EMPLOYEE_PENDING
 });
 export const getEMPLOYEEerror = (error) => ({
   type: GET_EMPLOYEE_ERROR,

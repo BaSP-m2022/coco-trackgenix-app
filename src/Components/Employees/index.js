@@ -13,7 +13,7 @@ const Employees = (props) => {
   const responseData = useSelector((state) => state.employee.list);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(async () => {
+  useEffect(() => {
     dispatch(getEmployee());
   }, []);
 

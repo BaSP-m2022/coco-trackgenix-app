@@ -23,19 +23,44 @@ let updatedEmployee = [];
 
 export const employeeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_EMPLOYEE_SUCCESS:
+    case GET_EMPLOYEE_PENDING:
       return {
         ...state,
-        list: [...state.list, action.payload]
+        isLoading: true
+      };
+    case GET_EMPLOYEE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        list: action.payload
+      };
+    case GET_EMPLOYEE_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload
       };
     case ADD_EMPLOYEE_PENDING:
       return {
-        ...state
+        ...state,
+        isLoading: true
+      };
+    case ADD_EMPLOYEE_SUCCESS:
+      return {
+        ...state,
+        list: [...state.list, action.payload],
+        isLoading: false
       };
     case ADD_EMPLOYEE_ERROR:
       return {
         ...state,
+        isLoading: false,
         error: action.payload
+      };
+    case EDIT_EMPLOYEE_PENDING:
+      return {
+        ...state,
+        isLoading: true
       };
     case EDIT_EMPLOYEE_SUCCESS:
       updatedEmployee = state.list.map((item) => {
@@ -47,43 +72,30 @@ export const employeeReducer = (state = initialState, action) => {
       });
       return {
         ...state,
+        isLoading: false,
         list: updatedEmployee
-      };
-    case EDIT_EMPLOYEE_PENDING:
-      return {
-        ...state
       };
     case EDIT_EMPLOYEE_ERROR:
       return {
         ...state,
+        isLoading: false,
         error: action.payload
       };
-    case GET_EMPLOYEE_SUCCESS:
+    case DELETE_EMPLOYEE_PENDING:
       return {
         ...state,
-        list: action.payload
-      };
-    case GET_EMPLOYEE_PENDING:
-      return {
-        ...state
-      };
-    case GET_EMPLOYEE_ERROR:
-      return {
-        ...state,
-        error: action.payload
+        isLoading: true
       };
     case DELETE_EMPLOYEE_SUCCESS:
       return {
         ...state,
+        isLoading: false,
         list: state.list.filter((employee) => employee._id !== action.payload)
-      };
-    case DELETE_EMPLOYEE_PENDING:
-      return {
-        ...state
       };
     case DELETE_EMPLOYEE_ERROR:
       return {
         ...state,
+        isLoading: false,
         error: action.payload
       };
     default:
