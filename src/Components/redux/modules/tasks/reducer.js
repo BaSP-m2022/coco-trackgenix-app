@@ -13,7 +13,8 @@ import {
   DELETE_TASKS_ERROR,
   EDIT_TASKS_PENDING,
   EDIT_TASKS_SUCCESS,
-  EDIT_TASKS_ERROR
+  EDIT_TASKS_ERROR,
+  CLEAN_SELECTED_ITEM
 } from './constants';
 
 const initialState = {
@@ -138,6 +139,12 @@ export const tasksReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
         isFetching: false
+      };
+
+    case CLEAN_SELECTED_ITEM:
+      return {
+        ...state,
+        selectedItem: initialState.selectedItem
       };
 
     default:

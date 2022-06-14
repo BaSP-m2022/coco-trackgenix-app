@@ -118,9 +118,11 @@ export const editTasks = (id, values, setResStatus, setResponseMsg) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.error === false) {
+          console.log('error', data.error);
           setResStatus(true);
           setResponseMsg(data.msg.substring(9));
         } else {
+          console.log('error else', data.error);
           setResStatus(false);
           if (data.msg.includes('fails to match the required pattern')) {
             setResponseMsg('the data entered is not correct');

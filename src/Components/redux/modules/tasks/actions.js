@@ -13,7 +13,8 @@ import {
   DELETE_TASKS_ERROR,
   EDIT_TASKS_PENDING,
   EDIT_TASKS_SUCCESS,
-  EDIT_TASKS_ERROR
+  EDIT_TASKS_ERROR,
+  CLEAN_SELECTED_ITEM
 } from './constants';
 
 export const getTasksPending = () => {
@@ -113,5 +114,11 @@ export const editTasksError = (error) => {
   return {
     type: EDIT_TASKS_ERROR,
     payload: error
+  };
+};
+
+export const cleanSelectedItem = () => {
+  return {
+    type: CLEAN_SELECTED_ITEM
   };
 };

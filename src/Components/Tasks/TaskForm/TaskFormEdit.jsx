@@ -8,6 +8,7 @@ import Input from '../../SharedComponents/Input/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { editTasks, getTaskById } from '../../redux/modules/tasks/thunks';
 import Loading from '../../SharedComponents/Loading/Loading';
+import { cleanSelectedItem } from '../../redux/modules/tasks/actions';
 
 const TaskFormEdit = (props) => {
   const [description, setDescription] = useState('');
@@ -36,6 +37,12 @@ const TaskFormEdit = (props) => {
       setWorkedHours(selectedItem.workedHours);
     }
   }, [selectedItem]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(cleanSelectedItem());
+    };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
