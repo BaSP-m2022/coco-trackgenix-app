@@ -4,7 +4,6 @@ import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
 import { useHistory } from 'react-router-dom';
 import Modal from '../SharedComponents/Modal/Modal';
-import Dropdown from '../SharedComponents/Dropdown/Dropdown';
 
 const AddNew = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -155,7 +154,7 @@ const AddNew = () => {
           <input type="text" name="active" value={project.active} onChange={handleChange}></input>
         </div>
         <div>
-          {/* <label htmlFor="employees">Employees</label>
+          <label htmlFor="employees">Employees</label>
           <select name="employees" onChange={handleChange}>
             <option disabled selected>
               Pick an employee
@@ -165,10 +164,7 @@ const AddNew = () => {
                 {item.firstName + ' ' + item.lastName}
               </option>
             ))}
-          </select> */}
-          <Dropdown data={employeesData} onChange={handleChange} path="firstName">
-            Employee
-          </Dropdown>
+          </select>
         </div>
         <div>
           <label htmlFor="admins">Admins</label>
