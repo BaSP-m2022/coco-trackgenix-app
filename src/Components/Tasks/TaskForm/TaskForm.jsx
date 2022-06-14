@@ -19,7 +19,6 @@ const TaskForm = (props) => {
 
   const dispatch = useDispatch();
   const isFetching = useSelector((state) => state.tasks.isFetching);
-  const error = useSelector((state) => state.tasks.error);
 
   const [showWarning1, setShowWarning1] = useState(false);
   const [showWarning2, setShowWarning2] = useState(false);
@@ -91,10 +90,6 @@ const TaskForm = (props) => {
 
   if (isFetching) {
     return <Loading className={styles.loadText}></Loading>;
-  }
-
-  if (error) {
-    return <div>ERROR!!!</div>;
   }
 
   return (

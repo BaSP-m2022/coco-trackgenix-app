@@ -89,6 +89,7 @@ export const addTasks = (values, setResStatus, setResponseMsg) => {
         if (data.error === false) {
           setResStatus(true);
           setResponseMsg(data.msg.substring(9));
+          dispatch(addTasksSuccess(data));
         } else {
           setResStatus(false);
           if (data.msg.includes('fails to match the required pattern')) {
@@ -96,8 +97,8 @@ export const addTasks = (values, setResStatus, setResponseMsg) => {
           } else {
             setResponseMsg('all fields should be completed.');
           }
+          dispatch(addTasksError(data.error.toString()));
         }
-        dispatch(addTasksSuccess(data));
       })
       .catch((error) => {
         dispatch(addTasksError(error.toString()));
@@ -121,6 +122,7 @@ export const editTasks = (id, values, setResStatus, setResponseMsg) => {
           console.log('error', data.error);
           setResStatus(true);
           setResponseMsg(data.msg.substring(9));
+          dispatch(editTasksSuccess(data));
         } else {
           console.log('error else', data.error);
           setResStatus(false);
@@ -129,8 +131,8 @@ export const editTasks = (id, values, setResStatus, setResponseMsg) => {
           } else {
             setResponseMsg('all fields should be completed.');
           }
+          dispatch(editTasksError(data.error.toString()));
         }
-        dispatch(editTasksSuccess(data));
       })
       .catch((error) => dispatch(editTasksError(error.toString())));
   };

@@ -25,7 +25,7 @@ const TaskFormEdit = (props) => {
   const dispatch = useDispatch();
   const selectedItem = useSelector((state) => state.tasks.selectedItem);
   const isFetching = useSelector((state) => state.tasks.isFetching);
-  const error = useSelector((state) => state.tasks.error);
+  // const error = useSelector((state) => state.tasks.error);
 
   useEffect(() => {
     dispatch(getTaskById(id));
@@ -110,9 +110,9 @@ const TaskFormEdit = (props) => {
     return <Loading className={styles.loadText}></Loading>;
   }
 
-  if (error) {
-    return <div>ERROR!!!</div>;
-  }
+  // if (error) {
+  //   return <div>ERROR!!!</div>;
+  // }
 
   return (
     <div className={styles.container}>
