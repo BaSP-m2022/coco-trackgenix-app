@@ -14,8 +14,10 @@ const Employees = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(getEmployee());
-  }, []);
+    if (!isOpen) {
+      dispatch(getEmployee());
+    }
+  }, [isOpen]);
 
   const deleteItem = (_id) => {
     dispatch(deleteEmployee(_id));
