@@ -81,6 +81,14 @@ const TaskForm = (props) => {
     }
   };
 
+  const handleClick1 = () => {
+    setShowWarning1(false);
+  };
+
+  const handleClick2 = () => {
+    setShowWarning2(false);
+  };
+
   if (isFetching) {
     return <Loading className={styles.loadText}></Loading>;
   }
@@ -107,6 +115,7 @@ const TaskForm = (props) => {
                 inputValue={newItem.description}
                 warningMsg="*This field must be completed!"
                 handleInput={handleInput1}
+                handleClick={handleClick1}
                 handleBlur={handleBlurInput1}
                 showWarning={showWarning1}
               ></Input>
@@ -120,6 +129,7 @@ const TaskForm = (props) => {
                 warningMsg="*This field must be completed!"
                 handleInput={handleInput2}
                 handleBlur={handleBlurInput2}
+                handleClick={handleClick2}
                 showWarning={showWarning2}
               ></Input>
             </div>
