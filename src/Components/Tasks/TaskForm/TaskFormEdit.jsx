@@ -4,6 +4,11 @@ import Button from '../../SharedComponents/Button/Button';
 import styles from './taskForm.module.css';
 import { useState, useEffect } from 'react';
 import Modal from '../../SharedComponents/Modal/Modal';
+import Input from '../../SharedComponents/Input/Input';
+import { useDispatch, useSelector } from 'react-redux';
+import { editTasks, getTaskById } from '../../redux/modules/tasks/thunks';
+import Loading from '../../SharedComponents/Loading/Loading';
+import { cleanSelectedItem } from '../../redux/modules/tasks/actions';
 
 const TaskFormEdit = (props) => {
   const [description, setDescription] = useState('');
@@ -12,45 +17,49 @@ const TaskFormEdit = (props) => {
   const [responseMsg, setResponseMsg] = useState('');
   const [resStatus, setResStatus] = useState(false);
   const params = window.location.search;
-  let id = params.substring(2);
+  const id = params.substring(2);
+
+  const [showWarning1, setShowWarning1] = useState(false);
+  const [showWarning2, setShowWarning2] = useState(false);
+
+  const dispatch = useDispatch();
+  const selectedItem = useSelector((state) => state.tasks.selectedItem);
+  const isFetching = useSelector((state) => state.tasks.isFetching);
+  // const error = useSelector((state) => state.tasks.error);
 
   useEffect(() => {
-    fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`)
-      .then((response) => response.json())
-      .then((response) => {
-        setDescription(response.data.description);
-        setWorkedHours(response.data.workedHours);
-      });
+    dispatch(getTaskById(id));
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(selectedItem).length) {
+      setDescription(selectedItem.description);
+      setWorkedHours(selectedItem.workedHours);
+    }
+  }, [selectedItem]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(cleanSelectedItem());
+    };
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        description: description,
-        workedHours: workedHours
-      })
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error === false) {
-          setResStatus(true);
-          setResponseMsg(data.msg.substring(9));
-        } else {
-          setResStatus(false);
-          if (data.msg.includes('fails to match the required pattern')) {
-            setResponseMsg('the data entered is not correct');
-          } else {
-            setResponseMsg('all fields should be completed.');
-          }
-        }
-      })
-      .catch((error) => console.error(error));
+    const id = params.substring(2);
+    dispatch(
+      editTasks(
+        id,
+        {
+          description: description,
+          workedHours: workedHours
+        },
+        setResStatus,
+        setResponseMsg
+      )
+    );
   };
+
   const handleOkBtn = () => {
     if (resStatus) {
       props.history.push('/tasks');
@@ -58,6 +67,52 @@ const TaskFormEdit = (props) => {
       setIsOpen(false);
     }
   };
+
+  const handleInput1 = (e) => {
+    setDescription(e.target.value);
+    if (e.target.value === '') {
+      setShowWarning1(true);
+    } else {
+      setShowWarning1(false);
+    }
+  };
+
+  const handleInput2 = (e) => {
+    setWorkedHours(e.target.value);
+    if (e.target.value === '') {
+      setShowWarning2(true);
+    } else {
+      setShowWarning2(false);
+    }
+  };
+
+  const handleBlurInput1 = (e) => {
+    if (e.target.value === '') {
+      setShowWarning1(true);
+    }
+  };
+
+  const handleBlurInput2 = (e) => {
+    if (e.target.value === '') {
+      setShowWarning2(true);
+    }
+  };
+
+  const handleClick1 = () => {
+    setShowWarning1(false);
+  };
+
+  const handleClick2 = () => {
+    setShowWarning2(false);
+  };
+
+  if (isFetching) {
+    return <Loading className={styles.loadText}></Loading>;
+  }
+
+  // if (error) {
+  //   return <div>ERROR!!!</div>;
+  // }
 
   return (
     <div className={styles.container}>
@@ -70,26 +125,30 @@ const TaskFormEdit = (props) => {
         <form className={styles.form} onSubmit={handleSubmit}>
           <div>
             <div className={styles.inputDescription}>
-              <label>Task description</label>
-              <input
-                type="text"
+              <Input
                 name="description"
-                value={description}
-                onChange={(e) => {
-                  setDescription(e.target.value);
-                }}
-              ></input>
+                labelText="Task Description"
+                placeholder="Task Description"
+                inputValue={description}
+                warningMsg="*This field must be completed!"
+                handleInput={handleInput1}
+                handleClick={handleClick1}
+                handleBlur={handleBlurInput1}
+                showWarning={showWarning1}
+              ></Input>
             </div>
             <div className={styles.inputWorkedHours}>
-              <label>Worked Hours</label>
-              <input
-                type="number"
+              <Input
                 name="workedHours"
-                value={workedHours}
-                onChange={(e) => {
-                  setWorkedHours(e.target.value);
-                }}
-              />
+                labelText="Worked Hours"
+                placeholder="Worked Hours"
+                inputValue={workedHours}
+                warningMsg="*This field must be completed!"
+                handleInput={handleInput2}
+                handleBlur={handleBlurInput2}
+                handleClick={handleClick2}
+                showWarning={showWarning2}
+              ></Input>
             </div>
           </div>
           <Button type={('submit', styles.buttonForm)} handleClick={() => setIsOpen(true)}>
