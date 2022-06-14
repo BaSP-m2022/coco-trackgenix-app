@@ -3,6 +3,8 @@ import styles from '../admins.module.css';
 import Button from '../../SharedComponents/Button/Button';
 import Modal from '../../SharedComponents/Modal/Modal';
 import Logo from '../../SharedComponents/Logo/Logo';
+import { useDispatch } from 'react-redux';
+import { postAdmin } from '../../redux/modules/admins/thunks';
 
 const AdminForm = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,22 +21,10 @@ const AdminForm = (props) => {
   const onChange = (e) => {
     setAdminInput({ ...adminInput, [e.target.name]: e.target.value });
   };
-
-  const addItem = async (e) => {
-    try {
-      await fetch(`https://coco-trackgenix-server.vercel.app/admins`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(e)
-      });
-    } catch (error) {
-      console.error(error);
-    }
+  const dispatch = useDispatch();
+  const formAdmin = (e) => {
+    dispatch(postAdmin(e));
   };
-
   const onSubmit = (e) => {
     e.preventDefault();
     if (
@@ -46,8 +36,7 @@ const AdminForm = (props) => {
     ) {
       alert('Please fill all the fields');
     } else {
-      console.log(adminInput);
-      addItem(adminInput);
+      formAdmin(adminInput);
       setAdminInput({
         name: '',
         lastName: '',

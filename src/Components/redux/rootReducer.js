@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { adminsReducer } from './modules/admins/reducer';
+import { adminReducer } from './modules/admins/reducer';
 
-const rootReducer = combineReducers({ admins: adminsReducer });
+const rootReducer = combineReducers({ admin: adminReducer });
 
 export default rootReducer;

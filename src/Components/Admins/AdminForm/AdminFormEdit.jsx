@@ -3,12 +3,14 @@ import styles from './admin.form.edit.module.css';
 import Button from '../../SharedComponents/Button/Button';
 import Modal from '../../SharedComponents/Modal/Modal';
 import Logo from '../../SharedComponents/Logo/Logo';
-
+import { useDispatch } from 'react-redux';
+import { putAdmin } from '../../redux/modules/admins/thunks';
 const AdminFormEdit = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [lastNameInput, setLastNameInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
+  const dispatch = useDispatch();
   const [passwordInput, setPasswordInput] = useState('');
   const [activeInput, setActiveInput] = useState('');
   const params = window.location.search;
@@ -16,26 +18,20 @@ const AdminFormEdit = (props) => {
   const backAdmin = () => {
     props.history.push('/admins');
   };
-  const handleSubmit = async (e) => {
+
+  const formPut = (e) => {
+    dispatch(putAdmin(e, id));
+  };
+  const handleSubmit = (e) => {
     e.preventDefault();
-    await fetch(`https://coco-trackgenix-server.vercel.app/admins/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: nameInput,
-        lastName: lastNameInput,
-        email: emailInput,
-        password: passwordInput,
-        active: activeInput
-      })
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.error);
-      })
-      .catch((error) => console.error(error));
+    const adminEdit = {
+      name: nameInput,
+      lastName: lastNameInput,
+      email: emailInput,
+      password: passwordInput,
+      active: activeInput
+    };
+    formPut(adminEdit);
   };
 
   useEffect(() => {
@@ -78,14 +74,23 @@ const AdminFormEdit = (props) => {
               ></input>
             </div>
           </div>
-          <div className={styles.inputs}>
-            <label htmlFor="active">Active</label>
+          <div>
+            <label htmlFor="email">Email</label>
             <input
-              type="text"
-              name="active"
-              value={activeInput}
-              onChange={(e) => setActiveInput(e.target.value)}
-            ></input>
+              type="email"
+              name="email"
+              value={emailInput}
+              onChange={(e) => setEmailInput(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={passwordInput}
+              onChange={(e) => setPasswordInput(e.target.value)}
+            />
           </div>
           <div>
             <div className={styles.active}>
@@ -97,19 +102,19 @@ const AdminFormEdit = (props) => {
                 onChange={(e) => setActiveInput(e.target.value)}
               ></input>
             </div>
-            <div className={styles.buttonsContainer}>
-              <Button
-                type={styles.editAndDeleteBtn}
-                handleClick={() => {
-                  setIsOpen(true);
-                }}
-              >
-                Accept
-              </Button>
-              <Button type={styles.editAndDeleteBtn} handleClick={() => backAdmin()}>
-                Cancel
-              </Button>
-            </div>
+          </div>
+          <div className={styles.buttonsContainer}>
+            <Button
+              type={styles.editAndDeleteBtn}
+              handleClick={() => {
+                setIsOpen(true);
+              }}
+            >
+              Accept
+            </Button>
+            <Button type={styles.editAndDeleteBtn} handleClick={() => backAdmin()}>
+              Cancel
+            </Button>
           </div>
         </form>
       </div>
