@@ -91,12 +91,10 @@ export const editEmployee = (employee, id, setStatus, setModalText) => {
       if (res.error) {
         throw res.msg;
       }
-      // setStatus(res.msg);
       setModalText(res.msg);
       dispatch(editEMPLOYEESuccess(employee));
     } catch (error) {
       dispatch(editEMPLOYEEerror());
-      // setStatus(error);
       setModalText(error);
     }
   };

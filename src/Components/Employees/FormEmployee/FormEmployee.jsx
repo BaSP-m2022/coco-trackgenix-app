@@ -35,7 +35,6 @@ const FormEmployee = (props) => {
   const dispatch = useDispatch();
 
   const formEmployee = (e) => {
-    // detour(status);
     status;
     dispatch(addEmployee(e, setStatus, setModalText, setShowButton, setSuccessEmployee));
     setIsOpen(true);
@@ -54,14 +53,6 @@ const FormEmployee = (props) => {
     setModalText('Are you sure you want to create an new employee ?');
     setIsOpen(true);
   };
-
-  // const detour = (s) => {
-  //   if (s == 'Status 201') {
-  //     props.history.push('/employees');
-  //   } else {
-  //     setIsOpen(false);
-  //   }
-  // };
 
   const handleInput = (e) => {
     switch (e.target.name) {
