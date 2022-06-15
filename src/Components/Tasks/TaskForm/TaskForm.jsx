@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import Logo from '../../SharedComponents/Logo/Logo';
+import Loading from '../../SharedComponents/Loading/Loading';
 import styles from './taskForm.module.css';
 import Button from '../../SharedComponents/Button/Button';
 import Modal from '../../SharedComponents/Modal/Modal';
 import Input from '../../SharedComponents/Input/Input';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTasks } from '../../redux/modules/tasks/thunks';
 
 const TaskForm = (props) => {
   const [newItem, setNewItem] = useState({
@@ -13,36 +16,25 @@ const TaskForm = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [responseMsg, setResponseMsg] = useState('');
   const [resStatus, setResStatus] = useState(false);
+
+  const dispatch = useDispatch();
+  const isFetching = useSelector((state) => state.tasks.isFetching);
+
   const [showWarning1, setShowWarning1] = useState(false);
   const [showWarning2, setShowWarning2] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`https://coco-trackgenix-server.vercel.app/tasks`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        description: newItem.description,
-        workedHours: newItem.workedHours
-      })
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error === false) {
-          setResStatus(true);
-          setResponseMsg(data.msg.substring(9));
-        } else {
-          setResStatus(false);
-          if (data.msg.includes('fails to match the required pattern')) {
-            setResponseMsg('the data entered is not correct');
-          } else {
-            setResponseMsg('all fields should be completed.');
-          }
-        }
-      })
-      .catch((error) => console.error(error));
+    dispatch(
+      addTasks(
+        {
+          description: newItem.description,
+          workedHours: newItem.workedHours
+        },
+        setResStatus,
+        setResponseMsg
+      )
+    );
   };
   const handleOkBtn = () => {
     if (resStatus) {
@@ -51,6 +43,7 @@ const TaskForm = (props) => {
       setIsOpen(false);
     }
   };
+
   const handleInput1 = (e) => {
     setNewItem({
       ...newItem,
@@ -62,6 +55,7 @@ const TaskForm = (props) => {
       setShowWarning1(false);
     }
   };
+
   const handleInput2 = (e) => {
     setNewItem({
       ...newItem,
@@ -79,11 +73,24 @@ const TaskForm = (props) => {
       setShowWarning1(true);
     }
   };
+
   const handleBlurInput2 = (e) => {
     if (e.target.value === '') {
       setShowWarning2(true);
     }
   };
+
+  const handleClick1 = () => {
+    setShowWarning1(false);
+  };
+
+  const handleClick2 = () => {
+    setShowWarning2(false);
+  };
+
+  if (isFetching) {
+    return <Loading className={styles.loadText}></Loading>;
+  }
 
   return (
     <div className={styles.container}>
@@ -103,6 +110,7 @@ const TaskForm = (props) => {
                 inputValue={newItem.description}
                 warningMsg="*This field must be completed!"
                 handleInput={handleInput1}
+                handleClick={handleClick1}
                 handleBlur={handleBlurInput1}
                 showWarning={showWarning1}
               ></Input>
@@ -116,6 +124,7 @@ const TaskForm = (props) => {
                 warningMsg="*This field must be completed!"
                 handleInput={handleInput2}
                 handleBlur={handleBlurInput2}
+                handleClick={handleClick2}
                 showWarning={showWarning2}
               ></Input>
             </div>
