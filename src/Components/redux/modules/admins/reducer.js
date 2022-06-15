@@ -36,7 +36,8 @@ export const adminReducer = (state = initialState, action) => {
     case GET_ADMIN_PENDING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        error: initialState.error
       };
     case GET_ADMIN_ERROR:
       return {
@@ -74,7 +75,8 @@ export const adminReducer = (state = initialState, action) => {
     case POST_ADMIN_PENDING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        error: initialState.error
       };
     case POST_ADMIN_ERROR:
       return {
@@ -98,7 +100,8 @@ export const adminReducer = (state = initialState, action) => {
     case PUT_ADMIN_PENDING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        error: initialState.error
       };
     case PUT_ADMIN_ERROR:
       return {
@@ -115,7 +118,8 @@ export const adminReducer = (state = initialState, action) => {
     case DELETE_ADMIN_PENDING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        error: initialState.error
       };
     case DELETE_ADMIN_ERROR:
       return {
