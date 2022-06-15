@@ -10,13 +10,17 @@ import {
   PUT_ADMIN_ERROR,
   DELETE_ADMIN_SUCCESS,
   DELETE_ADMIN_PENDING,
-  DELETE_ADMIN_ERROR
+  DELETE_ADMIN_ERROR,
+  GET_BY_ID_ADMIN_SUCCESS,
+  GET_BY_ID_ADMIN_PENDING,
+  GET_BY_ID_ADMIN_ERROR
 } from './constants';
 
 const initialState = {
   list: [],
   isLoading: false,
-  error: ''
+  error: '',
+  selectedItem: {}
 };
 
 let editAdmin = [];
@@ -39,6 +43,27 @@ export const adminReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: action.payload
+      };
+    case GET_BY_ID_ADMIN_PENDING:
+      return {
+        ...state,
+        isLoading: true,
+        error: initialState.error,
+        selectedItem: initialState.selectedItem
+      };
+
+    case GET_BY_ID_ADMIN_SUCCESS:
+      return {
+        ...state,
+        selectedItem: action.payload,
+        isLoading: false
+      };
+
+    case GET_BY_ID_ADMIN_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false
       };
     case POST_ADMIN_SUCCESS:
       return {

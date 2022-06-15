@@ -10,7 +10,10 @@ import {
   PUT_ADMIN_ERROR,
   DELETE_ADMIN_SUCCESS,
   DELETE_ADMIN_PENDING,
-  DELETE_ADMIN_ERROR
+  DELETE_ADMIN_ERROR,
+  GET_BY_ID_ADMIN_SUCCESS,
+  GET_BY_ID_ADMIN_PENDING,
+  GET_BY_ID_ADMIN_ERROR
 } from './constants';
 
 export const getAdminSuccess = (admin) => {
@@ -89,6 +92,26 @@ export const DeleteAdminPending = () => {
 export const DeleteAdminError = (error) => {
   return {
     type: DELETE_ADMIN_ERROR,
+    payload: error
+  };
+};
+
+export const getAdminByIdPending = () => {
+  return {
+    type: GET_BY_ID_ADMIN_PENDING
+  };
+};
+
+export const getAdminByIdSuccess = (admin) => {
+  return {
+    type: GET_BY_ID_ADMIN_SUCCESS,
+    payload: admin
+  };
+};
+
+export const getAdminByIdError = (error) => {
+  return {
+    type: GET_BY_ID_ADMIN_ERROR,
     payload: error
   };
 };

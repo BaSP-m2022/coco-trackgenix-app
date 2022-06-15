@@ -24,8 +24,9 @@ const AdminForm = (props) => {
   const dispatch = useDispatch();
   const formAdmin = (e) => {
     dispatch(postAdmin(e, setIsOpen, backAdmin));
+    console.log('ACA ESTTOY', e);
   };
-  const onSubmit = (e) => {
+  function onSubmit(e) {
     e.preventDefault();
     setAdminInput({
       name: adminInput.name,
@@ -34,7 +35,7 @@ const AdminForm = (props) => {
       password: adminInput.password,
       active: adminInput.active
     });
-  };
+  }
 
   return (
     <div className={styles.container}>

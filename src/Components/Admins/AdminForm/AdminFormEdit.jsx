@@ -3,14 +3,17 @@ import styles from './admin.form.edit.module.css';
 import Button from '../../SharedComponents/Button/Button';
 import Modal from '../../SharedComponents/Modal/Modal';
 import Logo from '../../SharedComponents/Logo/Logo';
-import { useDispatch } from 'react-redux';
-import { putAdmin } from '../../redux/modules/admins/thunks';
+import Loading from '../../SharedComponents/Loading/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { putAdmin, getAdminById } from '../../redux/modules/admins/thunks';
 const AdminFormEdit = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [lastNameInput, setLastNameInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
   const dispatch = useDispatch();
+  const selectedItem = useSelector((state) => state.admin.selectedItem);
+  const isLoading = useSelector((state) => state.admin.isLoading);
   const [passwordInput, setPasswordInput] = useState('');
   const [activeInput, setActiveInput] = useState('');
   const [adminEdit, setAdminEdit] = useState({});
@@ -35,16 +38,34 @@ const AdminFormEdit = (props) => {
   };
 
   useEffect(() => {
-    fetch(`https://coco-trackgenix-server.vercel.app/admins/${id}`)
-      .then((response) => response.json())
-      .then((response) => {
-        setNameInput(response.data.name);
-        setLastNameInput(response.data.lastName);
-        setEmailInput(response.data.email);
-        setPasswordInput(response.data.password);
-        setActiveInput(response.data.active);
-      });
+    if (Object.keys(selectedItem).length) {
+      setNameInput(selectedItem.name);
+      setLastNameInput(selectedItem.lastName);
+      setEmailInput(selectedItem.email);
+      setPasswordInput(selectedItem.password);
+      setActiveInput(selectedItem.active);
+    }
+  }, [selectedItem]);
+
+  // useEffect(() => {
+  //   fetch(`https://coco-trackgenix-server.vercel.app/admins/${id}`)
+  //     .then((response) => response.json())
+  //     .then((response) => {
+  //       setNameInput(response.data.name);
+  //       setLastNameInput(response.data.lastName);
+  //       setEmailInput(response.data.email);
+  //       setPasswordInput(response.data.password);
+  //       setActiveInput(response.data.active);
+  //     });
+  // }, []);
+
+  useEffect(() => {
+    dispatch(getAdminById(id));
   }, []);
+
+  if (isLoading) {
+    return <Loading className={styles.loading}></Loading>;
+  }
 
   return (
     <div className={styles.container}>

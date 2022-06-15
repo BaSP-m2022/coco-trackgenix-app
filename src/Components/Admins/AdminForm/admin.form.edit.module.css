@@ -12,7 +12,7 @@
   font-weight: 700;
   line-height: 80px;
   color: #373867;
-  margin-bottom: -35px;
+  margin-bottom: -40x;
   margin-left: 34px;
 }
 
@@ -173,6 +173,12 @@
   flex-direction: row !important;
 }
 .logo {
-  margin-bottom: 50px;
-  margin-top: -10px;
+  margin-bottom: 90px;
+  margin-top: 10px;
+}
+
+.loading {
+  font-family: 'Quicksand', serif;
+  font-size: 1rem;
+  font-weight: 500;
 }

@@ -10,7 +10,10 @@ import {
   DeleteAdminError,
   PutAdminsPending,
   PutAdminsSuccess,
-  PutAdminError
+  PutAdminError,
+  getAdminByIdSuccess,
+  getAdminByIdPending,
+  getAdminByIdError
 } from './actions';
 
 export const getAdmin = () => {
@@ -34,13 +37,13 @@ export const deleteAdmin = (_id) => {
   return async (dispatch) => {
     dispatch(DeleteAdminPending());
     try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins/${_id}`, {
+      await fetch(`https://coco-trackgenix-server.vercel.app/admins/${_id}`, {
         method: 'DELETE'
       });
-      dispatch(DeleteAdminSuccess(_id, response));
+      dispatch(DeleteAdminSuccess(_id));
+      dispatch(getAdmin());
     } catch (error) {
-      console.error(error);
-      dispatch(DeleteAdminError(error));
+      dispatch(DeleteAdminError(error.toString()));
     }
   };
 };
@@ -58,10 +61,11 @@ export const postAdmin = (e, setIsOpen, backAdmin) => {
         body: JSON.stringify(e)
       });
       const responseJson = await response.json();
-      if (response.error) {
+      if (responseJson.error) {
         dispatch(PostAdminError(responseJson.message));
+        setIsOpen(false);
       } else {
-        dispatch(PostAdminSuccess(responseJson.data));
+        dispatch(PostAdminSuccess(e));
         setIsOpen(false);
         backAdmin();
       }
@@ -90,6 +94,19 @@ export const putAdmin = (admin, id, setIsOpen, backAdmin) => {
     } catch (error) {
       console.error(error);
       dispatch(PutAdminError());
+    }
+  };
+};
+
+export const getAdminById = (id) => {
+  return async (dispatch) => {
+    dispatch(getAdminByIdPending());
+    try {
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins/${id}`);
+      const response_1 = await response.json();
+      dispatch(getAdminByIdSuccess(response_1.data));
+    } catch (error) {
+      dispatch(getAdminByIdError(error.toString()));
     }
   };
 };
