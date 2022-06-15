@@ -5,6 +5,7 @@ import Table from '../SharedComponents/Table';
 import Modal from '../SharedComponents/Modal/Modal';
 import Button from '../SharedComponents/Button/Button';
 import Logo from '../SharedComponents/Logo/Logo';
+import Loading from '../SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEmployee, deleteEmployee } from '../redux/modules/employees/thunks';
 
@@ -12,6 +13,8 @@ const Employees = (props) => {
   const dispatch = useDispatch();
   const responseData = useSelector((state) => state.employee.list);
   const [isOpen, setIsOpen] = useState(false);
+
+  const isLoadingEmployee = useSelector((state) => state.employee.isLoading);
 
   useEffect(() => {
     if (!isOpen) {
@@ -28,6 +31,10 @@ const Employees = (props) => {
   const handleEdit = (item) => {
     history.push(`/employees/formEdit?=${item}`);
   };
+
+  if (isLoadingEmployee) {
+    return <Loading className={styles.loadText}></Loading>;
+  }
 
   return (
     <section className={styles.container}>
