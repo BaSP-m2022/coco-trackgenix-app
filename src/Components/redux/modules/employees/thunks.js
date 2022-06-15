@@ -56,11 +56,16 @@ export const addEmployee = (e, setStatus, createMsg, setModalText) => {
         body: JSON.stringify(e)
       });
       const res = await response.json();
+      if (res.error) {
+        throw res.msg;
+      }
       setStatus(res.msg);
       setModalText(createMsg(res.msg));
       dispatch(addEMPLOYEESuccess(e, setStatus));
     } catch (error) {
       dispatch(addEMPLOYEEerror(error));
+      setStatus(error);
+      setModalText(createMsg(error));
     }
   };
 };
@@ -77,11 +82,16 @@ export const editEmployee = (employee, id, setStatus, setModalText) => {
         body: JSON.stringify(employee)
       });
       const res = await response.json();
+      if (res.error) {
+        throw res.msg;
+      }
       setStatus(res.msg);
       setModalText(res.msg);
       dispatch(editEMPLOYEESuccess(employee));
     } catch (error) {
       dispatch(editEMPLOYEEerror());
+      setStatus(error);
+      setModalText(error);
     }
   };
 };
