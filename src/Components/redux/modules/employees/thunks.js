@@ -43,7 +43,7 @@ export const deleteEmployee = (_id) => {
   };
 };
 
-export const addEmployee = (e, setStatus, createMsg, setModalText) => {
+export const addEmployee = (e, setStatus, setModalText, setShowButton, setSuccessEmployee) => {
   return async (dispatch) => {
     dispatch(addEMPLOYEEPending());
     try {
@@ -56,16 +56,22 @@ export const addEmployee = (e, setStatus, createMsg, setModalText) => {
         body: JSON.stringify(e)
       });
       const res = await response.json();
-      if (res.error) {
-        throw res.msg;
+      if (res.msg == 'Status 201') {
+        setShowButton(false);
+        setSuccessEmployee(true);
+        setModalText('Employee has been created!');
+        dispatch(addEMPLOYEESuccess(e, setStatus));
+      } else {
+        setShowButton(false);
+        setSuccessEmployee(false);
+        setModalText('Fields filled incorrectly, please check the data');
+        dispatch(addEMPLOYEEerror(res));
       }
-      setStatus(res.msg);
-      setModalText(createMsg(res.msg));
-      dispatch(addEMPLOYEESuccess(e, setStatus));
     } catch (error) {
+      setShowButton(false);
+      setSuccessEmployee(false);
       dispatch(addEMPLOYEEerror(error));
-      setStatus(error);
-      setModalText(createMsg(error));
+      setModalText('An error has ocurred!');
     }
   };
 };
@@ -85,12 +91,12 @@ export const editEmployee = (employee, id, setStatus, setModalText) => {
       if (res.error) {
         throw res.msg;
       }
-      setStatus(res.msg);
+      // setStatus(res.msg);
       setModalText(res.msg);
       dispatch(editEMPLOYEESuccess(employee));
     } catch (error) {
       dispatch(editEMPLOYEEerror());
-      setStatus(error);
+      // setStatus(error);
       setModalText(error);
     }
   };
