@@ -128,6 +128,13 @@ const FormEmployee = (props) => {
     }
   };
 
+  const handleInput6 = (e) => {
+    setEmployeeInput({
+      ...employeeInput,
+      [e.target.name]: e.target.value
+    });
+  };
+
   const handleClick1 = () => {
     setShowWarning1(false);
   };
@@ -255,7 +262,11 @@ const FormEmployee = (props) => {
               />
             </div>
             <div>
-              <Dropdown name={'active'} labelText={'Active'} />
+              <Dropdown
+                name={'active'}
+                labelText={'Active'}
+                onChange={(event) => handleInput6(event)}
+              />
             </div>
             <div>
               <input className={styles.addEmployeeBtn} type="submit" value="submit" />

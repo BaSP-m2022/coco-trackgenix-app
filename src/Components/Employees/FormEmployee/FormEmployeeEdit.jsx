@@ -258,7 +258,11 @@ const FormEmployeeEdit = (props) => {
             />
           </div>
           <div>
-            <Dropdown name={'active'} labelText={'Active'} />
+            <Dropdown
+              name={'active'}
+              labelText={'Active'}
+              onChange={(event) => setActive(event.target.value)}
+            />
           </div>
           <div>
             <input className={styles.addEmployeeBtn} type="submit" value="submit" />
