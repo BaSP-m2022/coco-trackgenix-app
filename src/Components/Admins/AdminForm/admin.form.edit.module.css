@@ -12,7 +12,8 @@
   font-weight: 700;
   line-height: 80px;
   color: #373867;
-  margin-bottom: -40x;
+  margin-bottom: 135px;
+  margin-top: -25px;
   margin-left: 34px;
 }
 
@@ -173,7 +174,7 @@
   flex-direction: row !important;
 }
 .logo {
-  margin-bottom: 90px;
+  margin-bottom: 50px;
   margin-top: 10px;
 }
 
