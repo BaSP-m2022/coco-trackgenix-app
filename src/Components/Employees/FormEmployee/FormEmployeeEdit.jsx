@@ -5,6 +5,7 @@ import Modal from '../../SharedComponents/Modal/Modal';
 import Button from '../../SharedComponents/Button/Button';
 import Input from '../../SharedComponents/Input/Input';
 import Loading from '../../SharedComponents/Loading/Loading';
+import Dropdown from '../../SharedComponents/Dropdown/Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { editEmployee } from '../../redux/modules/employees/thunks';
 
@@ -27,7 +28,6 @@ const FormEmployeeEdit = (props) => {
   const [showWarning3, setShowWarning3] = useState(false);
   const [showWarning4, setShowWarning4] = useState(false);
   const [showWarning5, setShowWarning5] = useState(false);
-  const [showWarning6, setShowWarning6] = useState(false);
 
   const isLoadingEmployee = useSelector((state) => state.employee.isLoading);
 
@@ -130,15 +130,6 @@ const FormEmployeeEdit = (props) => {
     }
   };
 
-  const handleInput6 = (e) => {
-    setActive(e.target.value);
-    if (e.target.value === '') {
-      setShowWarning6(true);
-    } else {
-      setShowWarning6(false);
-    }
-  };
-
   const handleClick1 = () => {
     setShowWarning1(false);
   };
@@ -157,10 +148,6 @@ const FormEmployeeEdit = (props) => {
 
   const handleClick5 = () => {
     setShowWarning5(false);
-  };
-
-  const handleClick6 = () => {
-    setShowWarning6(false);
   };
 
   const handleBlurInput1 = (e) => {
@@ -190,12 +177,6 @@ const FormEmployeeEdit = (props) => {
   const handleBlurInput5 = (e) => {
     if (e.target.value === '') {
       setShowWarning5(true);
-    }
-  };
-
-  const handleBlurInput6 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning6(true);
     }
   };
 
@@ -277,17 +258,7 @@ const FormEmployeeEdit = (props) => {
             />
           </div>
           <div>
-            <Input
-              labelText="Active"
-              name="active"
-              inputValue={active}
-              placeholder="Active"
-              warningMsg="Please check the information"
-              handleInput={handleInput6}
-              handleClick={handleClick6}
-              handleBlur={handleBlurInput6}
-              showWarning={showWarning6}
-            />
+            <Dropdown name={'active'} labelText={'Active'} />
           </div>
           <div>
             <input className={styles.addEmployeeBtn} type="submit" value="submit" />
