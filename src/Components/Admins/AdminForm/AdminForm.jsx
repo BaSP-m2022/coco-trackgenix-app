@@ -14,7 +14,7 @@ const AdminForm = (props) => {
     lastName: '',
     email: '',
     password: '',
-    active: props.active
+    active: ''
   });
   const backAdmin = () => {
     props.history.push('/admins');
@@ -58,7 +58,7 @@ const AdminForm = (props) => {
         <div>
           <div>
             <label>Email</label>
-            <input type="email" name="email" value={adminInput.email} onChange={onChange} />
+            <input type="text" name="email" value={adminInput.email} onChange={onChange} />
           </div>
           <div>
             <label>Password</label>
@@ -71,7 +71,12 @@ const AdminForm = (props) => {
           </div>
         </div>
         <div>
-          <Dropdown name={'active'} labelText={'Active'} />
+          <Dropdown
+            value={adminInput.active}
+            onChange={onChange}
+            name={'active'}
+            labelText={'Active'}
+          />
         </div>
         <div className={styles.buttonsContainer}>
           <Button

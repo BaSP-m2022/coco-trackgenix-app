@@ -87,7 +87,7 @@ const AdminFormEdit = (props) => {
           <div>
             <label htmlFor="email">Email</label>
             <input
-              type="email"
+              type="text"
               name="email"
               value={emailInput}
               onChange={(e) => setEmailInput(e.target.value)}
@@ -103,7 +103,11 @@ const AdminFormEdit = (props) => {
             />
           </div>
           <div>
-            <Dropdown name={'active'} labelText={'Active'} />
+            <Dropdown
+              onChange={(e) => setActiveInput(e.target.value)}
+              name={'active'}
+              labelText={'Active'}
+            />
           </div>
           <div className={styles.buttonsContainer}>
             <Button
