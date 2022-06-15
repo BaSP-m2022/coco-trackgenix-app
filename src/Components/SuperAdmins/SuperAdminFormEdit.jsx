@@ -3,10 +3,14 @@ import styles from './super-admins.module.css';
 import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
 import Logo from '../SharedComponents/Logo/Logo';
+// import Loading from '../SharedComponents/Loading/Loading';
+import { useDispatch } from 'react-redux/es/exports';
+import { editSuperAdmin } from '../redux/modules/superAdmins/thunks';
 
 const EditSuperAdmin = (props) => {
+  const [superAdminEdit, setSuperAdminEdit] = useState({});
   const [isOpen, setIsOpen] = useState(false);
-
+  const dispatch = useDispatch();
   const backSuperAdmin = () => {
     props.history.push('/super-admins');
   };
@@ -20,27 +24,20 @@ const EditSuperAdmin = (props) => {
   const params = window.location.search;
   let id = params.substring(2);
 
+  const formSuperAdmin = (e) => {
+    dispatch(editSuperAdmin(e));
+  };
   const onSubmit = (event) => {
     event.preventDefault();
-
-    const url = `https://coco-trackgenix-server.vercel.app/superAdmins/${id}`;
-    const EditSAdmin = {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: name,
-        lastName: lastName,
-        email: email,
-        password: password,
-        active: active
-      })
-    };
-    fetch(url, EditSAdmin)
-      .then((response) => response.json())
-      // eslint-disable-next-line no-console
-      .then((data) => console.log('data:', data));
+    setSuperAdminEdit({
+      name: name,
+      lastName: lastName,
+      email: email,
+      password: password,
+      active: active
+    });
+    console.log(superAdminEdit);
+    formSuperAdmin(superAdminEdit);
   };
 
   useEffect(() => {

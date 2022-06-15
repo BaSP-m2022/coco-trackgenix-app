@@ -7,10 +7,10 @@ import {
   addSuperAdminsError,
   deleteSuperAdminsPending,
   deleteSuperAdminsSuccess,
-  deleteSuperAdminsError
-  //editSuperAdminsPending,
-  //editSuperAdminsSuccess,
-  //editSuperAdminsError
+  deleteSuperAdminsError,
+  editSuperAdminsPending,
+  editSuperAdminsSuccess,
+  editSuperAdminsError
 } from './actions';
 
 export const getSuperAdmins = () => {
@@ -65,6 +65,35 @@ export const addSuperAdmin = (superAdmin) => {
       dispatch(addSuperAdminsSuccess(resp.data));
     } catch (error) {
       dispatch(addSuperAdminsError(error.toString()));
+    }
+  };
+};
+
+export const editSuperAdmin = (superAdmin) => {
+  return async (dispatch) => {
+    dispatch(editSuperAdminsPending());
+    console.log(superAdmin);
+    try {
+      const response = await fetch(
+        `https://coco-trackgenix-server.vercel.app/SuperAdmins/${superAdmin._id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: superAdmin.name,
+            lastName: superAdmin.lastName,
+            email: superAdmin.email,
+            password: superAdmin.password,
+            active: superAdmin.active
+          })
+        }
+      );
+      // const resp = await response.json();
+      dispatch(editSuperAdminsSuccess(superAdmin, response));
+    } catch (error) {
+      dispatch(editSuperAdminsError(error.toString()));
     }
   };
 };
