@@ -3,12 +3,13 @@ import styles from './super-admins.module.css';
 import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
 import Logo from '../SharedComponents/Logo/Logo';
-// import Loading from '../SharedComponents/Loading/Loading';
-import { useDispatch } from 'react-redux/es/exports';
+import Loading from '../SharedComponents/Loading/Loading';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { editSuperAdmin } from '../redux/modules/superAdmins/thunks';
 
 const EditSuperAdmin = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const isLoading = useSelector((state) => state.superadmins.isLoading);
   const dispatch = useDispatch();
   const backSuperAdmin = () => {
     props.history.push('/super-admins');
@@ -51,6 +52,9 @@ const EditSuperAdmin = (props) => {
       });
   }, []);
 
+  if (isLoading) {
+    return <Loading className={styles.loadText}></Loading>;
+  }
   return (
     <div className={styles.container}>
       <Logo />

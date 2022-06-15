@@ -4,14 +4,14 @@ import SuperAdminForm from './SuperAdminForm';
 import Table from '../SharedComponents/Table';
 import Button from '../SharedComponents/Button/Button';
 import Logo from '../SharedComponents/Logo/Logo';
-// import Loading from '../SharedComponents/Loading/Loading';
+import Loading from '../SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSuperAdmins, deleteSuperAdmins } from '../redux/modules/superAdmins/thunks';
 
 const SuperAdmin = (props) => {
   let [change, setSwitch] = useState(false);
   const dispatch = useDispatch();
-  // const isFetching = useSelector((state) => state.superadmins.isFetching);
+  const isLoading = useSelector((state) => state.superadmins.isLoading);
   const superAdminsData = useSelector((state) => state.superadmins.list);
   useEffect(async () => {
     dispatch(getSuperAdmins());
@@ -28,9 +28,9 @@ const SuperAdmin = (props) => {
   const handleEdit = (_id) => {
     props.history.push(`/super-admins/Form?=${_id}`);
   };
-  // if (isFetching) {
-  //   return <Loading className={styles.loadText}></Loading>;
-  // }
+  if (isLoading) {
+    return <Loading className={styles.loadText}></Loading>;
+  }
   if (change) {
     return (
       <section className={styles.container}>
