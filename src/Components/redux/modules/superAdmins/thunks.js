@@ -33,7 +33,7 @@ export const deleteSuperAdmins = (_id) => {
   return async (dispatch) => {
     dispatch(deleteSuperAdminsPending());
     try {
-      await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins${_id}`, {
+      await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins/${_id}`, {
         method: 'DELETE'
       });
       dispatch(deleteSuperAdminsSuccess(_id));
@@ -75,7 +75,7 @@ export const editSuperAdmin = (superAdmin) => {
     console.log(superAdmin);
     try {
       const response = await fetch(
-        `https://coco-trackgenix-server.vercel.app/SuperAdmins/${superAdmin._id}`,
+        `https://coco-trackgenix-server.vercel.app/superAdmins/${superAdmin._id}`,
         {
           method: 'PUT',
           headers: {
