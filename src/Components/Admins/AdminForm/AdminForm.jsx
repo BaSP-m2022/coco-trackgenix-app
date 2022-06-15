@@ -3,6 +3,7 @@ import styles from '../admins.module.css';
 import Button from '../../SharedComponents/Button/Button';
 import Modal from '../../SharedComponents/Modal/Modal';
 import Logo from '../../SharedComponents/Logo/Logo';
+import Dropdown from '../../SharedComponents/Dropdown/Dropdown';
 import { useDispatch } from 'react-redux';
 import { postAdmin } from '../../redux/modules/admins/thunks';
 
@@ -13,7 +14,7 @@ const AdminForm = (props) => {
     lastName: '',
     email: '',
     password: '',
-    active: ''
+    active: props.active
   });
   const backAdmin = () => {
     props.history.push('/admins');
@@ -70,10 +71,7 @@ const AdminForm = (props) => {
           </div>
         </div>
         <div>
-          <div className={styles.active}>
-            <label>Active</label>
-            <input type="text" name="active" value={adminInput.active} onChange={onChange} />
-          </div>
+          <Dropdown name={'active'} labelText={'Active'} />
         </div>
         <div className={styles.buttonsContainer}>
           <Button

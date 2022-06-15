@@ -4,6 +4,7 @@ import Button from '../../SharedComponents/Button/Button';
 import Modal from '../../SharedComponents/Modal/Modal';
 import Logo from '../../SharedComponents/Logo/Logo';
 import Loading from '../../SharedComponents/Loading/Loading';
+import Dropdown from '../../SharedComponents/Dropdown/Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { putAdmin, getAdminById } from '../../redux/modules/admins/thunks';
 const AdminFormEdit = (props) => {
@@ -46,18 +47,6 @@ const AdminFormEdit = (props) => {
       setActiveInput(selectedItem.active);
     }
   }, [selectedItem]);
-
-  // useEffect(() => {
-  //   fetch(`https://coco-trackgenix-server.vercel.app/admins/${id}`)
-  //     .then((response) => response.json())
-  //     .then((response) => {
-  //       setNameInput(response.data.name);
-  //       setLastNameInput(response.data.lastName);
-  //       setEmailInput(response.data.email);
-  //       setPasswordInput(response.data.password);
-  //       setActiveInput(response.data.active);
-  //     });
-  // }, []);
 
   useEffect(() => {
     dispatch(getAdminById(id));
@@ -114,15 +103,7 @@ const AdminFormEdit = (props) => {
             />
           </div>
           <div>
-            <div className={styles.active}>
-              <label htmlFor="active">Active</label>
-              <input
-                type="text"
-                name="active"
-                value={activeInput}
-                onChange={(e) => setActiveInput(e.target.value)}
-              ></input>
-            </div>
+            <Dropdown name={'active'} labelText={'Active'} />
           </div>
           <div className={styles.buttonsContainer}>
             <Button
