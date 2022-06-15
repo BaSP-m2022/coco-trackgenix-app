@@ -69,27 +69,18 @@ export const addSuperAdmin = (superAdmin) => {
   };
 };
 
-export const editSuperAdmin = (superAdmin) => {
+export const editSuperAdmin = (superAdmin, id) => {
   return async (dispatch) => {
     dispatch(editSuperAdminsPending());
     console.log(superAdmin);
     try {
-      const response = await fetch(
-        `https://coco-trackgenix-server.vercel.app/superAdmins/${superAdmin._id}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-type': 'application/json'
-          },
-          body: JSON.stringify({
-            name: superAdmin.name,
-            lastName: superAdmin.lastName,
-            email: superAdmin.email,
-            password: superAdmin.password,
-            active: superAdmin.active
-          })
-        }
-      );
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/superAdmins/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(superAdmin)
+      });
       // const resp = await response.json();
       dispatch(editSuperAdminsSuccess(superAdmin, response));
     } catch (error) {

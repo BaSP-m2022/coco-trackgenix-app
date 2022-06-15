@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux/es/exports';
 import { editSuperAdmin } from '../redux/modules/superAdmins/thunks';
 
 const EditSuperAdmin = (props) => {
-  const [superAdminEdit, setSuperAdminEdit] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const backSuperAdmin = () => {
@@ -25,19 +24,19 @@ const EditSuperAdmin = (props) => {
   let id = params.substring(2);
 
   const formSuperAdmin = (e) => {
-    dispatch(editSuperAdmin(e));
+    dispatch(editSuperAdmin(e, id));
   };
   const onSubmit = (event) => {
     event.preventDefault();
-    setSuperAdminEdit({
+    const previousSuperAdmin = {
       name: name,
       lastName: lastName,
       email: email,
       password: password,
       active: active
-    });
-    console.log(superAdminEdit);
-    formSuperAdmin(superAdminEdit);
+    };
+    console.log(previousSuperAdmin);
+    formSuperAdmin(previousSuperAdmin);
   };
 
   useEffect(() => {
