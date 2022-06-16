@@ -223,13 +223,16 @@ const FormEmployeeEdit = (props) => {
               }}
             />
           </div>
-          <div>
-            <input className={styles.addEmployeeBtn} type="submit" value="submit" />
+          <div className={styles.containerBtn}>
+            <Button type={('submit', styles.employeeBtnEdit)}>Edit</Button>
+            <Button
+              type={styles.employeeBtnEdit}
+              handleClick={() => props.history.push('/employees')}
+            >
+              Return
+            </Button>
           </div>
         </form>
-        <Button type={styles.addEmployeeBtn} handleClick={() => props.history.push('/employees')}>
-          Return
-        </Button>
       </div>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <div>
