@@ -19,7 +19,8 @@
   font-weight: 700;
   line-height: 80px;
   color: #373867;
-  margin-bottom: 30px;
+  margin-bottom: 150px;
+  margin-top: -20px;
   margin-left: 34px;
 }
 
@@ -178,6 +179,12 @@
 }
 
 .logo {
-  margin-bottom: 80px;
-  margin-top: -50px;
+  margin-bottom: 50px;
+  margin-top: -145px;
+}
+
+.loading {
+  font-family: 'Quicksand', serif;
+  font-size: 1rem;
+  font-weight: 500;
 }
