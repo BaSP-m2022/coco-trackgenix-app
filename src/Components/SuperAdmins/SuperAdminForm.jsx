@@ -3,82 +3,200 @@ import styles from './super-admins.module.css';
 import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
 import Logo from '../SharedComponents/Logo/Logo';
-import { useDispatch } from 'react-redux/es/exports';
+import Loading from '../SharedComponents/Loading/Loading';
+import Dropdown from '../SharedComponents/Dropdown/Dropdown';
+import Input from '../SharedComponents/Input/Input';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { addSuperAdmin } from '../redux/modules/superAdmins/thunks';
 
 const AddSuperAdmin = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const isLoading = useSelector((state) => state.superadmins.isLoading);
   const dispatch = useDispatch();
   const formSuperAdmin = (e) => {
     dispatch(addSuperAdmin(e));
   };
 
-  const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [active, setActive] = useState();
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const superAdminAdd = {
-      name: name,
-      lastName: lastName,
-      email: email,
-      password: password,
-      active: active
-    };
-    formSuperAdmin(superAdminAdd);
+  const [responseMsg, setResponseMsg] = useState('');
+  const [resStatus, setResStatus] = useState(false);
+  const [showWarning1, setShowWarning1] = useState(false);
+  const [showWarning2, setShowWarning2] = useState(false);
+  const [showWarning3, setShowWarning3] = useState(false);
+  const [showWarning4, setShowWarning4] = useState(false);
+  const [newItem, setNewItem] = useState({
+    name: props.name,
+    lastName: props.lastName,
+    email: props.email,
+    password: props.password,
+    active: props.active
+  });
+  const handleInput1 = (e) => {
+    setNewItem({
+      ...newItem,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarning1(true);
+    } else {
+      setShowWarning1(false);
+    }
   };
+  const handleInput2 = (e) => {
+    setNewItem({
+      ...newItem,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarning2(true);
+    } else {
+      setShowWarning2(false);
+    }
+  };
+  const handleInput3 = (e) => {
+    setNewItem({
+      ...newItem,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarning3(true);
+    } else {
+      setShowWarning3(false);
+    }
+  };
+  const handleInput4 = (e) => {
+    setNewItem({
+      ...newItem,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarning4(true);
+    } else {
+      setShowWarning4(false);
+    }
+  };
+  const handleBlurInput1 = (e) => {
+    if (e.target.value === '') {
+      setShowWarning1(true);
+    }
+  };
+  const handleBlurInput2 = (e) => {
+    if (e.target.value === '') {
+      setShowWarning2(true);
+    }
+  };
+  const handleBlurInput3 = (e) => {
+    if (e.target.value === '') {
+      setShowWarning3(true);
+    }
+  };
+  const handleBlurInput4 = (e) => {
+    if (e.target.value === '') {
+      setShowWarning4(true);
+    }
+  };
+
+  const handleClick1 = () => {
+    setShowWarning1(false);
+  };
+
+  const handleClick2 = () => {
+    setShowWarning2(false);
+  };
+
+  const handleClick3 = () => {
+    setShowWarning3(false);
+  };
+
+  const handleClick4 = () => {
+    setShowWarning4(false);
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'superAdmin') {
+      setNewItem({
+        ...newItem,
+        [name]: [value]
+      });
+    }
+    setNewItem({
+      ...newItem,
+      [name]: value
+    });
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    formSuperAdmin({
+      name: newItem.name,
+      lastName: newItem.lastName,
+      email: newItem.email,
+      password: newItem.password,
+      active: newItem.active
+    });
+    setResStatus, setResponseMsg;
+  };
+
+  if (isLoading) {
+    return <Loading className={styles.loadText}></Loading>;
+  }
   return (
     <div className={styles.container}>
       <Logo />
       <h2>Form</h2>
       <form onSubmit={onSubmit}>
         <div>
-          <label>Name</label>
-          <input
-            type="text"
+          <Input
+            labelText="Name"
             name="name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          ></input>
+            inputValue={newItem.name}
+            placeholder="Name"
+            warningMsg="This field must be completed"
+            handleInput={handleInput1}
+            handleClick={handleClick1}
+            handleBlur={handleBlurInput1}
+            showWarning={showWarning1}
+          ></Input>
         </div>
         <div>
-          <label>Last Name</label>
-          <input
-            type="text"
+          <Input
+            labelText="Last Name"
             name="lastName"
-            value={lastName}
-            onChange={(event) => setLastName(event.target.value)}
-          ></input>
+            inputValue={newItem.lastName}
+            placeholder="Last Name"
+            warningMsg="Please check the information"
+            handleInput={handleInput2}
+            handleClick={handleClick2}
+            handleBlur={handleBlurInput2}
+            showWarning={showWarning2}
+          ></Input>
         </div>
         <div>
-          <label>Email</label>
-          <input
-            type="email"
+          <Input
+            labelText="Email"
             name="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          ></input>
+            inputValue={newItem.email}
+            placeholder="Email"
+            warningMsg="Please check the information"
+            handleInput={handleInput3}
+            handleClick={handleClick3}
+            handleBlur={handleBlurInput3}
+            showWarning={showWarning3}
+          />
         </div>
         <div>
-          <label>Password</label>
-          <input
-            type="password"
+          <Input
+            labelText="Password"
             name="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          ></input>
+            inputValue={newItem.password}
+            placeholder="Password"
+            warningMsg="Please check the information"
+            handleInput={handleInput4}
+            handleClick={handleClick4}
+            handleBlur={handleBlurInput4}
+            showWarning={showWarning4}
+          />
         </div>
         <div>
-          <label>Active</label>
-          <input
-            type="text"
-            name="active"
-            value={active}
-            onChange={(event) => setActive(event.target.value)}
-          ></input>
+          <Dropdown name="active" labelText="Set if is active" onChange={handleChange}></Dropdown>
         </div>
         <Button
           type={styles.stylesBtn}
@@ -93,11 +211,10 @@ const AddSuperAdmin = (props) => {
         </Button>
       </form>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
-        <h2>Warning</h2>
-        <div>
-          <p>Success!</p>
-          <p>The Super Admin was successfully created</p>
-        </div>
+        <h2>{resStatus ? 'Success!' : 'Warning!'}</h2>
+        <h3 className={styles.modalMsg}>
+          {resStatus ? responseMsg : `The superAdmin could not be created because ${responseMsg}`}
+        </h3>
         <div>
           <Button
             type={('submit', styles.stylesModalBtn)}

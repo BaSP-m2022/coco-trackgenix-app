@@ -38,6 +38,7 @@ export const superAdminsReducer = (state = previousState, action) => {
         isLoading: false,
         error: action.payload
       };
+
     case ADD_SUPERADMINS_PENDING:
       return {
         ...state,

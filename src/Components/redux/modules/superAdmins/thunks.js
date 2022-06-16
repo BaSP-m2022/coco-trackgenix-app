@@ -73,6 +73,7 @@ export const editSuperAdmin = (superAdmin, id) => {
   return async (dispatch) => {
     dispatch(editSuperAdminsPending());
     console.log(superAdmin);
+    console.log(id);
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/superAdmins/${id}`, {
         method: 'PUT',
@@ -81,7 +82,6 @@ export const editSuperAdmin = (superAdmin, id) => {
         },
         body: JSON.stringify(superAdmin)
       });
-      // const resp = await response.json();
       dispatch(editSuperAdminsSuccess(superAdmin, response));
     } catch (error) {
       dispatch(editSuperAdminsError(error.toString()));
