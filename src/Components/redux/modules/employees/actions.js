@@ -8,6 +8,9 @@ import {
   GET_EMPLOYEE_ERROR,
   GET_EMPLOYEE_PENDING,
   GET_EMPLOYEE_SUCCESS,
+  GET_EMPLOYEE_BY_ID_ERROR,
+  GET_EMPLOYEE_BY_ID_PENDING,
+  GET_EMPLOYEE_BY_ID_SUCCESS,
   DELETE_EMPLOYEE_ERROR,
   DELETE_EMPLOYEE_PENDING,
   DELETE_EMPLOYEE_SUCCESS
@@ -18,6 +21,13 @@ export const getEMPLOYEEPending = () => ({
 });
 export const getEMPLOYEESuccess = (employee) => ({
   type: GET_EMPLOYEE_SUCCESS,
+  payload: employee
+});
+export const getEMPLOYEEbyIdPending = () => ({
+  type: GET_EMPLOYEE_BY_ID_PENDING
+});
+export const getEMPLOYEEbyIdSuccess = (employee) => ({
+  type: GET_EMPLOYEE_BY_ID_SUCCESS,
   payload: employee
 });
 export const editEMPLOYEEerror = (error) => ({
@@ -44,6 +54,10 @@ export const editEMPLOYEEPending = () => ({
 });
 export const getEMPLOYEEerror = (error) => ({
   type: GET_EMPLOYEE_ERROR,
+  payload: error
+});
+export const getEMPLOYEEbyIdError = (error) => ({
+  type: GET_EMPLOYEE_BY_ID_ERROR,
   payload: error
 });
 export const deleteEMPLOYEESuccess = (employee) => ({

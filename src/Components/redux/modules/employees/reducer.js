@@ -5,6 +5,9 @@ import {
   EDIT_EMPLOYEE_SUCCESS,
   EDIT_EMPLOYEE_PENDING,
   EDIT_EMPLOYEE_ERROR,
+  GET_EMPLOYEE_BY_ID_PENDING,
+  GET_EMPLOYEE_BY_ID_SUCCESS,
+  GET_EMPLOYEE_BY_ID_ERROR,
   GET_EMPLOYEE_SUCCESS,
   GET_EMPLOYEE_PENDING,
   GET_EMPLOYEE_ERROR,
@@ -16,7 +19,8 @@ import {
 const initialState = {
   list: [],
   isLoading: false,
-  error: ''
+  error: '',
+  selectedItem: {}
 };
 
 let updatedEmployee = [];
@@ -39,6 +43,25 @@ export const employeeReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: action.payload
+      };
+    case GET_EMPLOYEE_BY_ID_PENDING:
+      return {
+        ...state,
+        error: initialState.error,
+        selectedItem: initialState.selectedItem,
+        isLoading: true
+      };
+    case GET_EMPLOYEE_BY_ID_SUCCESS:
+      return {
+        ...state,
+        selectedItem: action.payload,
+        isLoading: false
+      };
+    case GET_EMPLOYEE_BY_ID_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false
       };
     case ADD_EMPLOYEE_PENDING:
       return {

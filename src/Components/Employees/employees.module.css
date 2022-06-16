@@ -7,7 +7,7 @@
   padding-top: 10px;
 }
 
-.title{
+.title {
   color: #373867;
   font-size: xx-large;
   font-weight: 700;
@@ -28,7 +28,7 @@
   width: 170px;
   height: 50px;
   margin-left: 175px;
-  background: #AACE9B;
+  background: #aace9b;
   border: 1px solid #373867;
   border-radius: 5px;
   text-transform: uppercase;
@@ -37,13 +37,16 @@
   color: #373867;
   cursor: pointer;
 }
+.modalEmployeeBtnNone {
+  display: none;
+}
 
 .modalEmployeeBtn {
   /* justify-content: center; */
   align-self: center;
   width: 170px;
   height: 50px;
-  background: #AACE9B;
+  background: #aace9b;
   border: 1px solid #373867;
   border-radius: 5px;
   text-transform: uppercase;

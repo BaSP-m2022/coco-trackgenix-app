@@ -2,6 +2,9 @@ import {
   getEMPLOYEESuccess,
   getEMPLOYEEPending,
   getEMPLOYEEerror,
+  getEMPLOYEEbyIdSuccess,
+  getEMPLOYEEbyIdPending,
+  getEMPLOYEEbyIdError,
   deleteEMPLOYEESuccess,
   deleteEMPLOYEEPending,
   deleteEMPLOYEEerror,
@@ -43,7 +46,7 @@ export const deleteEmployee = (_id) => {
   };
 };
 
-export const addEmployee = (e, setStatus, createMsg, setModalText) => {
+export const addEmployee = (e, setModalText, setShowButton, setSuccessEmployee) => {
   return async (dispatch) => {
     dispatch(addEMPLOYEEPending());
     try {
@@ -56,21 +59,27 @@ export const addEmployee = (e, setStatus, createMsg, setModalText) => {
         body: JSON.stringify(e)
       });
       const res = await response.json();
-      if (res.error) {
-        throw res.msg;
+      if (res.msg == 'Status 201') {
+        setShowButton(false);
+        setSuccessEmployee(true);
+        setModalText('Employee has been created!');
+        dispatch(addEMPLOYEESuccess(e));
+      } else {
+        setShowButton(false);
+        setSuccessEmployee(false);
+        setModalText('Fields filled incorrectly, please check the data');
+        dispatch(addEMPLOYEEerror(res));
       }
-      setStatus(res.msg);
-      setModalText(createMsg(res.msg));
-      dispatch(addEMPLOYEESuccess(e, setStatus));
     } catch (error) {
+      setShowButton(false);
+      setSuccessEmployee(false);
       dispatch(addEMPLOYEEerror(error));
-      setStatus(error);
-      setModalText(createMsg(error));
+      setModalText('An error has ocurred!');
     }
   };
 };
 
-export const editEmployee = (employee, id, setStatus, setModalText) => {
+export const editEmployee = (employee, id, setModalText, setShowButton, setSuccessEmployee) => {
   return async (dispatch) => {
     dispatch(editEMPLOYEEPending());
     try {
@@ -82,16 +91,35 @@ export const editEmployee = (employee, id, setStatus, setModalText) => {
         body: JSON.stringify(employee)
       });
       const res = await response.json();
-      if (res.error) {
-        throw res.msg;
+      if (res.msg == 'Status 200') {
+        setShowButton(false);
+        setSuccessEmployee(true);
+        setModalText('Employee has been edited!');
+        dispatch(editEMPLOYEESuccess(employee));
+      } else {
+        setShowButton(false);
+        setSuccessEmployee(false);
+        setModalText('Fields filled incorrectly, please check the data');
+        dispatch(editEMPLOYEEerror(res));
       }
-      setStatus(res.msg);
-      setModalText(res.msg);
-      dispatch(editEMPLOYEESuccess(employee));
     } catch (error) {
-      dispatch(editEMPLOYEEerror());
-      setStatus(error);
-      setModalText(error);
+      setShowButton(false);
+      setSuccessEmployee(false);
+      dispatch(editEMPLOYEEerror(error));
+      setModalText('An error has ocurred!');
+    }
+  };
+};
+
+export const getEmployeeById = (id) => {
+  return async (dispatch) => {
+    dispatch(getEMPLOYEEbyIdPending());
+    try {
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/employees/${id}`);
+      const response_1 = await response.json();
+      dispatch(getEMPLOYEEbyIdSuccess(response_1.data));
+    } catch (error) {
+      dispatch(getEMPLOYEEbyIdError(error.toString()));
     }
   };
 };
