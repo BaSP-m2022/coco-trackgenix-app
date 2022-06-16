@@ -41,6 +41,7 @@ const FormEmployeeEdit = (props) => {
       setFirstName(selectedItem.firstName);
       setLastName(selectedItem.lastName);
       setEmail(selectedItem.email);
+      setPhone(selectedItem.phone);
       setPassword(selectedItem.password);
       setActive(selectedItem.active);
     }
@@ -57,7 +58,7 @@ const FormEmployeeEdit = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setModalText('Are you sure you want to create an new employee ?');
+    setModalText('Are you sure you want to edit the employee ?');
     setIsOpen(true);
   };
 
@@ -105,100 +106,6 @@ const FormEmployeeEdit = (props) => {
         break;
     }
   };
-  // const handleInput1 = (e) => {
-  // setFirstName(e.target.value);
-  // if (e.target.value === '') {
-  //   setShowWarning1(true);
-  // } else {
-  //   setShowWarning1(false);
-  // }
-  // };
-
-  // const handleInput2 = (e) => {
-  // setLastName(e.target.value);
-  // if (e.target.value === '') {
-  //   setShowWarning2(true);
-  // } else {
-  //   setShowWarning2(false);
-  // }
-  // };
-
-  // const handleInput3 = (e) => {
-  // setPhone(e.target.value);
-  // if (e.target.value === '') {
-  //   setShowWarning3(true);
-  // } else {
-  //   setShowWarning3(false);
-  // }
-  // };
-
-  // const handleInput4 = (e) => {
-  // setEmail(e.target.value);
-  // if (e.target.value === '') {
-  //   setShowWarning4(true);
-  // } else {
-  //   setShowWarning4(false);
-  // }
-  // };
-
-  // const handleInput5 = (e) => {
-  // setPassword(e.target.value);
-  // if (e.target.value === '') {
-  //   setShowWarning5(true);
-  // } else {
-  //   setShowWarning5(false);
-  // }
-  // };
-
-  // const handleClick1 = () => {
-  //   setShowWarning1(false);
-  // };
-
-  // const handleClick2 = () => {
-  //   setShowWarning2(false);
-  // };
-
-  // const handleClick3 = () => {
-  //   setShowWarning3(false);
-  // };
-
-  // const handleClick4 = () => {
-  //   setShowWarning4(false);
-  // };
-
-  // const handleClick5 = () => {
-  //   setShowWarning5(false);
-  // };
-
-  // const handleBlurInput1 = (e) => {
-  //   if (e.target.value === '') {
-  //     setShowWarning1(true);
-  //   }
-  // };
-
-  // const handleBlurInput2 = (e) => {
-  //   if (e.target.value === '') {
-  //     setShowWarning2(true);
-  //   }
-  // };
-
-  // const handleBlurInput3 = (e) => {
-  //   if (e.target.value === '') {
-  //     setShowWarning3(true);
-  //   }
-  // };
-
-  // const handleBlurInput4 = (e) => {
-  //   if (e.target.value === '') {
-  //     setShowWarning4(true);
-  //   }
-  // };
-
-  // const handleBlurInput5 = (e) => {
-  //   if (e.target.value === '') {
-  //     setShowWarning5(true);
-  //   }
-  // };
 
   if (isLoadingEmployee) {
     return <Loading className={styles.loadText}></Loading>;
@@ -316,13 +223,16 @@ const FormEmployeeEdit = (props) => {
               }}
             />
           </div>
-          <div>
-            <input className={styles.addEmployeeBtn} type="submit" value="submit" />
+          <div className={styles.containerBtn}>
+            <Button type={('submit', styles.employeeBtnEdit)}>Edit</Button>
+            <Button
+              type={styles.employeeBtnEdit}
+              handleClick={() => props.history.push('/employees')}
+            >
+              Return
+            </Button>
           </div>
         </form>
-        <Button type={styles.addEmployeeBtn} handleClick={() => props.history.push('/employees')}>
-          Return
-        </Button>
       </div>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <div>
