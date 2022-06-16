@@ -1,39 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styles from './admins.module.css';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Logo from '../SharedComponents/Logo/Logo';
 import Table from '../SharedComponents/Table';
+import Loading from '../SharedComponents/Loading/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAdmin, deleteAdmin } from '../redux/modules/admins/thunks';
 
 const Admins = (props) => {
-  const [list, setList] = useState([]);
+  const dispatch = useDispatch();
+  const dataResponse = useSelector((state) => state.admin.list);
+  const isLoading = useSelector((state) => state.admin.isLoading);
+  const error = useSelector((state) => state.admin.error);
 
   useEffect(async () => {
-    try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins`);
-      const data = await response.json();
-      data.data.map((admin) => {
-        admin.active = admin.active ? 'true' : 'false';
-      });
-      setList(data.data);
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(getAdmin());
   }, []);
 
-  const deleteItem = async (_id) => {
-    try {
-      await fetch(`https://coco-trackgenix-server.vercel.app/admins/${_id}`, {
-        method: 'DELETE'
-      });
-    } catch (error) {
-      console.error(error);
-    }
-    setList(list.filter((listItem) => listItem._id !== _id));
+  const deleteItem = (_id) => {
+    dispatch(deleteAdmin(_id));
   };
   let history = useHistory();
   const handleEdit = (_id) => {
     history.push(`/admins/edit?=${_id}`);
   };
+
+  if (isLoading) {
+    return <Loading className={styles.loading}></Loading>;
+  }
+
+  if (error) {
+    return <div>There was an error!</div>;
+  }
   return (
     <section className={styles.container}>
       <Logo />
@@ -43,11 +41,10 @@ const Admins = (props) => {
           + Add an admin
         </button>
         <Table
-          data={list}
+          data={dataResponse}
           headers={['name', 'lastName', 'email', 'password', 'active']}
           handleEdit={handleEdit}
           deleteItem={deleteItem}
-          setList={setList}
         />
       </div>
     </section>
