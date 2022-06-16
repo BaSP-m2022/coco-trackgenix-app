@@ -49,8 +49,7 @@ const FormEmployeeEdit = (props) => {
       });
   }, []);
 
-  const formEmployee = (e) => {
-    dispatch(editEmployee(e, id, setStatus, setModalText));
+  const formEmployee = () => {
     setIsOpen(true);
   };
 
@@ -277,7 +276,13 @@ const FormEmployeeEdit = (props) => {
           <p>{checkEmployee(modalText)}</p>
         </div>
         <div>
-          <Button type={styles.modalEmployeeBtn} handleClick={() => detour(status)}>
+          <Button
+            type={styles.modalEmployeeBtn}
+            handleClick={(e) => {
+              detour(status);
+              dispatch(editEmployee(e, id, setStatus, setModalText));
+            }}
+          >
             Confirm
           </Button>
           <Button
