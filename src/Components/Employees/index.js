@@ -5,40 +5,36 @@ import Table from '../SharedComponents/Table';
 import Modal from '../SharedComponents/Modal/Modal';
 import Button from '../SharedComponents/Button/Button';
 import Logo from '../SharedComponents/Logo/Logo';
+import Loading from '../SharedComponents/Loading/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { getEmployee, deleteEmployee } from '../redux/modules/employees/thunks';
 
 const Employees = (props) => {
+  const dispatch = useDispatch();
+  const responseData = useSelector((state) => state.employee.list);
   const [isOpen, setIsOpen] = useState(false);
-  const [list, setList] = useState([]);
-  useEffect(async () => {
-    try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/Employees`);
-      const data = await response.json();
-      data.data.map((item) => {
-        item.active = item.active ? 'true' : 'false';
-      });
-      setList(data.data);
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
 
-  const deleteItem = async (_id) => {
-    try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/Employees/${_id}`, {
-        method: 'DELETE'
-      });
-      console.log(response);
-      setIsOpen(true);
-    } catch (error) {
-      console.error(error);
+  const isLoadingEmployee = useSelector((state) => state.employee.isLoading);
+
+  useEffect(() => {
+    if (!isOpen) {
+      dispatch(getEmployee());
     }
-    setList(list.filter((listItem) => listItem._id !== _id));
+  }, [isOpen]);
+
+  const deleteItem = (_id) => {
+    dispatch(deleteEmployee(_id));
+    setIsOpen(true);
   };
 
   let history = useHistory();
   const handleEdit = (item) => {
     history.push(`/employees/formEdit?=${item}`);
   };
+
+  if (isLoadingEmployee) {
+    return <Loading className={styles.loadText}></Loading>;
+  }
 
   return (
     <section className={styles.container}>
@@ -51,7 +47,7 @@ const Employees = (props) => {
         Add Employee
       </Button>
       <Table
-        data={list}
+        data={responseData}
         headers={['firstName', 'lastName', 'phone', 'email', 'password', 'active']}
         handleEdit={handleEdit}
         deleteItem={deleteItem}
