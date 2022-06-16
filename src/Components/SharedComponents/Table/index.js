@@ -21,6 +21,7 @@ const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
               );
             })}
             <th className={styles.tableCellButtons}>...</th>
+            <th className={styles.tableCellButtons}>...</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +39,8 @@ const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
                   <Button type={styles.stylesBtn} handleClick={() => handleEdit(row._id)}>
                     Edit
                   </Button>
+                </td>
+                <td className={styles.buttonTd}>
                   <Button
                     type={styles.stylesBtn}
                     handleClick={() => {

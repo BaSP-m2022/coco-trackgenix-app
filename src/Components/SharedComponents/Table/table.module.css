@@ -1,5 +1,5 @@
 .container {
-  width: 80%;
+  width: 90%;
   border-collapse: collapse;
   display: flex;
   justify-content: center;
@@ -32,6 +32,7 @@
 }
 .deleteBtn {
   background-color: white;
+  margin: 0px;
 }
 
 .stylesModalBtn:hover {
@@ -74,10 +75,11 @@
   border: 1px solid #B2B3E0;
 }
 
-.container table {
+.container > table {
   width: 100%;
   flex-direction: column;
   border: 1px solid lightgray;
+  text-align: center;
 }
 
 thead {
@@ -87,17 +89,13 @@ thead {
   text-transform: capitalize;
 }
 
-table {
-  border: 1px solid lightgray;
-  text-align: center;
-}
-
 .tableCell {
+  flex: 3 100px;
   border: 1px solid lightgray;
   background-color: #B2B3E0;
   color: #373867;
   font-family: 'Arial';
-  width: 80px;
+  max-width: 120px;
   height: 30px;
 }
 
@@ -107,11 +105,16 @@ table {
   background-color: #B2B3E0;
   color: #373867;
   font-family: 'Arial';
-  width: 140px;
+  max-width: 70px;
+  min-width: 70px;
   height: 30px;
+  flex: 0.5 70px;
+  margin: 0 5px;
 }
 
 .tableNames {
+  flex: 3 100px;
+  max-width: 120px;
   height: 50px;
   border: 1px solid lightgray;
   font-family: 'Arial';
@@ -124,9 +127,13 @@ table {
 }
 
 .data {
+  flex: 1 70px;
   text-align: left;
 }
 
 .buttonTd {
-  max-width: 140px;
+  flex: 1 70px;
+  min-width: 70px;
+  max-width: 70px;
+  margin: 0 5px;
 }
