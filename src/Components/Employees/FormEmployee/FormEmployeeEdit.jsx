@@ -7,12 +7,11 @@ import Input from '../../SharedComponents/Input/Input';
 import Loading from '../../SharedComponents/Loading/Loading';
 import Dropdown from '../../SharedComponents/Dropdown/Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
-import { editEmployee } from '../../redux/modules/employees/thunks';
+import { editEmployee, getEmployeeById } from '../../redux/modules/employees/thunks';
 
 const FormEmployeeEdit = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState();
-  const [status, setStatus] = useState();
 
   const dispatch = useDispatch();
 
@@ -28,157 +27,178 @@ const FormEmployeeEdit = (props) => {
   const [showWarning3, setShowWarning3] = useState(false);
   const [showWarning4, setShowWarning4] = useState(false);
   const [showWarning5, setShowWarning5] = useState(false);
+  const [showButton, setShowButton] = useState(true);
+  const [successEmployee, setSuccessEmployee] = useState(false);
 
   const isLoadingEmployee = useSelector((state) => state.employee.isLoading);
+  const selectedItem = useSelector((state) => state.employee.selectedItem);
 
   const params = window.location.search;
   let id = params.substring(2);
 
-  const url = `https://coco-trackgenix-server.vercel.app/employees/${id}`;
+  useEffect(() => {
+    if (Object.keys(selectedItem).length) {
+      setFirstName(selectedItem.firstName);
+      setLastName(selectedItem.lastName);
+      setEmail(selectedItem.email);
+      setPassword(selectedItem.password);
+      setActive(selectedItem.active);
+    }
+  }, [selectedItem]);
 
   useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((response) => {
-        setFirstName(response.data.firstName);
-        setLastName(response.data.lastName);
-        setPhone(response.data.phone);
-        setEmail(response.data.email);
-        setPassword(response.data.password);
-        setActive(response.data.active);
-      });
+    dispatch(getEmployeeById(id));
   }, []);
 
   const formEmployee = (e) => {
-    dispatch(editEmployee(e, id, setStatus, setModalText));
+    dispatch(editEmployee(e, id, setModalText, setShowButton, setSuccessEmployee));
     setIsOpen(true);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const employeeToEdit = {
-      firstName: firstName,
-      lastName: lastName,
-      phone: phone,
-      email: email,
-      password: password,
-      active: active
-    };
-    formEmployee(employeeToEdit);
+    setModalText('Are you sure you want to create an new employee ?');
+    setIsOpen(true);
   };
 
-  const detour = (status) => {
-    if (status == 'Status 200') {
-      props.history.push('/employees');
-    } else {
-      setIsOpen(false);
+  const handleInput = (e) => {
+    switch (e.target.name) {
+      case 'firstName':
+        setFirstName(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning1(true);
+        } else {
+          setShowWarning1(false);
+        }
+        break;
+      case 'lastName':
+        setLastName(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning2(true);
+        } else {
+          setShowWarning2(false);
+        }
+        break;
+      case 'phone':
+        setPhone(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning3(true);
+        } else {
+          setShowWarning3(false);
+        }
+        break;
+      case 'email':
+        setEmail(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning4(true);
+        } else {
+          setShowWarning4(false);
+        }
+        break;
+      case 'password':
+        setPassword(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning5(true);
+        } else {
+          setShowWarning5(false);
+        }
+        break;
     }
   };
+  // const handleInput1 = (e) => {
+  // setFirstName(e.target.value);
+  // if (e.target.value === '') {
+  //   setShowWarning1(true);
+  // } else {
+  //   setShowWarning1(false);
+  // }
+  // };
 
-  const checkEmployee = () => {
-    let result;
-    if (status == 'Status 200') {
-      result = 'Are you sure you want to edit the employee data?';
-    } else {
-      result = 'Fields filled incorrectly, please check the data';
-    }
-    return result;
-  };
+  // const handleInput2 = (e) => {
+  // setLastName(e.target.value);
+  // if (e.target.value === '') {
+  //   setShowWarning2(true);
+  // } else {
+  //   setShowWarning2(false);
+  // }
+  // };
 
-  const handleInput1 = (e) => {
-    setFirstName(e.target.value);
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    } else {
-      setShowWarning1(false);
-    }
-  };
+  // const handleInput3 = (e) => {
+  // setPhone(e.target.value);
+  // if (e.target.value === '') {
+  //   setShowWarning3(true);
+  // } else {
+  //   setShowWarning3(false);
+  // }
+  // };
 
-  const handleInput2 = (e) => {
-    setLastName(e.target.value);
-    if (e.target.value === '') {
-      setShowWarning2(true);
-    } else {
-      setShowWarning2(false);
-    }
-  };
+  // const handleInput4 = (e) => {
+  // setEmail(e.target.value);
+  // if (e.target.value === '') {
+  //   setShowWarning4(true);
+  // } else {
+  //   setShowWarning4(false);
+  // }
+  // };
 
-  const handleInput3 = (e) => {
-    setPhone(e.target.value);
-    if (e.target.value === '') {
-      setShowWarning3(true);
-    } else {
-      setShowWarning3(false);
-    }
-  };
+  // const handleInput5 = (e) => {
+  // setPassword(e.target.value);
+  // if (e.target.value === '') {
+  //   setShowWarning5(true);
+  // } else {
+  //   setShowWarning5(false);
+  // }
+  // };
 
-  const handleInput4 = (e) => {
-    setEmail(e.target.value);
-    if (e.target.value === '') {
-      setShowWarning4(true);
-    } else {
-      setShowWarning4(false);
-    }
-  };
+  // const handleClick1 = () => {
+  //   setShowWarning1(false);
+  // };
 
-  const handleInput5 = (e) => {
-    setPassword(e.target.value);
-    if (e.target.value === '') {
-      setShowWarning5(true);
-    } else {
-      setShowWarning5(false);
-    }
-  };
+  // const handleClick2 = () => {
+  //   setShowWarning2(false);
+  // };
 
-  const handleClick1 = () => {
-    setShowWarning1(false);
-  };
+  // const handleClick3 = () => {
+  //   setShowWarning3(false);
+  // };
 
-  const handleClick2 = () => {
-    setShowWarning2(false);
-  };
+  // const handleClick4 = () => {
+  //   setShowWarning4(false);
+  // };
 
-  const handleClick3 = () => {
-    setShowWarning3(false);
-  };
+  // const handleClick5 = () => {
+  //   setShowWarning5(false);
+  // };
 
-  const handleClick4 = () => {
-    setShowWarning4(false);
-  };
+  // const handleBlurInput1 = (e) => {
+  //   if (e.target.value === '') {
+  //     setShowWarning1(true);
+  //   }
+  // };
 
-  const handleClick5 = () => {
-    setShowWarning5(false);
-  };
+  // const handleBlurInput2 = (e) => {
+  //   if (e.target.value === '') {
+  //     setShowWarning2(true);
+  //   }
+  // };
 
-  const handleBlurInput1 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    }
-  };
+  // const handleBlurInput3 = (e) => {
+  //   if (e.target.value === '') {
+  //     setShowWarning3(true);
+  //   }
+  // };
 
-  const handleBlurInput2 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning2(true);
-    }
-  };
+  // const handleBlurInput4 = (e) => {
+  //   if (e.target.value === '') {
+  //     setShowWarning4(true);
+  //   }
+  // };
 
-  const handleBlurInput3 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning3(true);
-    }
-  };
-
-  const handleBlurInput4 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning4(true);
-    }
-  };
-
-  const handleBlurInput5 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning5(true);
-    }
-  };
+  // const handleBlurInput5 = (e) => {
+  //   if (e.target.value === '') {
+  //     setShowWarning5(true);
+  //   }
+  // };
 
   if (isLoadingEmployee) {
     return <Loading className={styles.loadText}></Loading>;
@@ -199,9 +219,15 @@ const FormEmployeeEdit = (props) => {
               inputValue={firstName}
               placeholder="First Name"
               warningMsg="Please check the information"
-              handleInput={handleInput1}
-              handleClick={handleClick1}
-              handleBlur={handleBlurInput1}
+              handleInput={handleInput}
+              handleClick={() => {
+                setShowWarning1(false);
+              }}
+              handleBlur={(e) => {
+                if (e.target.value === '') {
+                  setShowWarning1(true);
+                }
+              }}
               showWarning={showWarning1}
             />
           </div>
@@ -212,9 +238,15 @@ const FormEmployeeEdit = (props) => {
               inputValue={lastName}
               placeholder="Last Name"
               warningMsg="Please check the information"
-              handleInput={handleInput2}
-              handleClick={handleClick2}
-              handleBlur={handleBlurInput2}
+              handleInput={handleInput}
+              handleClick={() => {
+                setShowWarning2(false);
+              }}
+              handleBlur={(e) => {
+                if (e.target.value === '') {
+                  setShowWarning2(true);
+                }
+              }}
               showWarning={showWarning2}
             />
           </div>
@@ -225,9 +257,15 @@ const FormEmployeeEdit = (props) => {
               inputValue={phone}
               placeholder="Phone"
               warningMsg="Please check the information"
-              handleInput={handleInput3}
-              handleClick={handleClick3}
-              handleBlur={handleBlurInput3}
+              handleInput={handleInput}
+              handleClick={() => {
+                setShowWarning3(false);
+              }}
+              handleBlur={(e) => {
+                if (e.target.value === '') {
+                  setShowWarning3(true);
+                }
+              }}
               showWarning={showWarning3}
             />
           </div>
@@ -238,9 +276,15 @@ const FormEmployeeEdit = (props) => {
               inputValue={email}
               placeholder="Email"
               warningMsg="Please check the information"
-              handleInput={handleInput4}
-              handleClick={handleClick4}
-              handleBlur={handleBlurInput4}
+              handleInput={handleInput}
+              handleClick={() => {
+                setShowWarning4(false);
+              }}
+              handleBlur={(e) => {
+                if (e.target.value === '') {
+                  setShowWarning4(true);
+                }
+              }}
               showWarning={showWarning4}
             />
           </div>
@@ -251,9 +295,15 @@ const FormEmployeeEdit = (props) => {
               inputValue={password}
               placeholder="Password"
               warningMsg="Please check the information"
-              handleInput={handleInput5}
-              handleClick={handleClick5}
-              handleBlur={handleBlurInput5}
+              handleInput={handleInput}
+              handleClick={() => {
+                setShowWarning5(false);
+              }}
+              handleBlur={(e) => {
+                if (e.target.value === '') {
+                  setShowWarning5(true);
+                }
+              }}
               showWarning={showWarning5}
             />
           </div>
@@ -276,17 +326,42 @@ const FormEmployeeEdit = (props) => {
       </div>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <div>
-          <p>{checkEmployee(modalText)}</p>
+          <p>{modalText}</p>
         </div>
         <div>
-          <Button type={styles.modalEmployeeBtn} handleClick={() => detour(status)}>
-            Confirm
-          </Button>
           <Button
             type={styles.modalEmployeeBtn}
-            handleClick={() => props.history.push('/employees')}
+            handleClick={() => {
+              if (!showButton && successEmployee) {
+                setShowButton(true);
+                setSuccessEmployee(false);
+                props.history.push('/employees');
+              } else {
+                setShowButton(true);
+                setSuccessEmployee(false);
+                setIsOpen(false);
+              }
+            }}
           >
-            Cancel
+            {showButton && !successEmployee ? 'Cancel' : 'Ok'}
+          </Button>
+          <Button
+            type={
+              showButton && !successEmployee ? styles.modalEmployeeBtn : styles.modalEmployeeBtnNone
+            }
+            handleClick={() => {
+              const employeeToEdit = {
+                firstName: firstName,
+                lastName: lastName,
+                phone: phone,
+                email: email,
+                password: password,
+                active: active
+              };
+              formEmployee(employeeToEdit);
+            }}
+          >
+            Confirm
           </Button>
         </div>
       </Modal>

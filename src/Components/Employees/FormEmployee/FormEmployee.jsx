@@ -11,7 +11,6 @@ import { addEmployee } from '../../redux/modules/employees/thunks';
 
 const FormEmployee = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [status, setStatus] = useState();
   const [modalText, setModalText] = useState();
   const [employeeInput, setEmployeeInput] = useState({
     firstName: props.firstName,
@@ -35,8 +34,7 @@ const FormEmployee = (props) => {
   const dispatch = useDispatch();
 
   const formEmployee = (e) => {
-    status;
-    dispatch(addEmployee(e, setStatus, setModalText, setShowButton, setSuccessEmployee));
+    dispatch(addEmployee(e, setModalText, setShowButton, setSuccessEmployee));
     setIsOpen(true);
     setEmployeeInput({
       firstName: '',
