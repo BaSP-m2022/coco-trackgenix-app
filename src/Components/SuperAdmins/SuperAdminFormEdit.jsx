@@ -12,10 +12,10 @@ import { editSuperAdmin, getSuperAdminById } from '../redux/modules/superAdmins/
 const EditSuperAdmin = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const isLoading = useSelector((state) => state.superadmins.isLoading);
+  const [modalText, setModalText] = useState();
+  const [showButton, setShowButton] = useState(true);
+  const [superAdminEdited, setSuperAdminEdited] = useState(false);
   const dispatch = useDispatch();
-  const backSuperAdmin = () => {
-    props.history.push('/super-admins');
-  };
 
   const [previousSuperAdmin, setPreviousSuperAdmin] = useState({});
 
@@ -34,7 +34,7 @@ const EditSuperAdmin = (props) => {
   let id = params.substring(2);
 
   const formSuperAdmin = (e) => {
-    dispatch(editSuperAdmin(e, id, setIsOpen, backSuperAdmin));
+    dispatch(editSuperAdmin(e, id, setModalText, setShowButton, setSuperAdminEdited));
   };
 
   const onSubmit = (event) => {
@@ -46,7 +46,8 @@ const EditSuperAdmin = (props) => {
       password: password,
       active: active
     });
-    // formSuperAdmin(previousSuperAdmin);
+    setModalText('Are you sure you want to edit this SuperAdmin?');
+    setIsOpen(true);
   };
 
   useEffect(() => {
@@ -67,84 +68,52 @@ const EditSuperAdmin = (props) => {
     return <Loading className={styles.loadText}></Loading>;
   }
 
-  const handleInput1 = (e) => {
-    setName(e.target.value);
-    if (e.target.value === '') {
-      setShowWarning1(true);
+  const handleInput = (e) => {
+    switch (e.target.name) {
+      case 'name':
+        setName(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning1(true);
+        } else {
+          setShowWarning1(false);
+        }
+        break;
+      case 'lastName':
+        setLastName(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning2(true);
+        } else {
+          setShowWarning2(false);
+        }
+        break;
+      case 'email':
+        setEmail(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning3(true);
+        } else {
+          setShowWarning3(false);
+        }
+        break;
+      case 'password':
+        setPassword(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning4(true);
+        } else {
+          setShowWarning4(false);
+        }
+        break;
+    }
+  };
+
+  const handleButton = () => {
+    if (!showButton && superAdminEdited) {
+      setShowButton(true);
+      setSuperAdminEdited(false);
+      props.history.push('/super-admins');
     } else {
-      setShowWarning1(false);
-    }
-  };
-
-  const handleInput2 = (e) => {
-    setLastName(e.target.value);
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    } else {
-      setShowWarning1(false);
-    }
-  };
-
-  const handleInput3 = (e) => {
-    setEmail(e.target.value);
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    } else {
-      setShowWarning1(false);
-    }
-  };
-
-  const handleInput4 = (e) => {
-    setPassword(e.target.value);
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    } else {
-      setShowWarning1(false);
-    }
-  };
-
-  const handleBlurInput1 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    }
-  };
-  const handleBlurInput2 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning2(true);
-    }
-  };
-  const handleBlurInput3 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning3(true);
-    }
-  };
-  const handleBlurInput4 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning4(true);
-    }
-  };
-  const handleClick1 = () => {
-    setShowWarning1(false);
-  };
-
-  const handleClick2 = () => {
-    setShowWarning2(false);
-  };
-
-  const handleClick3 = () => {
-    setShowWarning3(false);
-  };
-
-  const handleClick4 = () => {
-    setShowWarning4(false);
-  };
-
-  const handleChange = (e) => {
-    setActive(e.target.value);
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    } else {
-      setShowWarning1(false);
+      setShowButton(true);
+      setSuperAdminEdited(false);
+      setIsOpen(false);
     }
   };
 
@@ -160,9 +129,15 @@ const EditSuperAdmin = (props) => {
             inputValue={name}
             placeholder="Name"
             warningMsg="Please check the information"
-            handleInput={handleInput1}
-            handleClick={handleClick1}
-            handleBlur={handleBlurInput1}
+            handleInput={handleInput}
+            handleClick={() => {
+              setShowWarning1(false);
+            }}
+            handleBlur={(e) => {
+              if (e.target.value === '') {
+                setShowWarning1(true);
+              }
+            }}
             showWarning={showWarning1}
           ></Input>
         </div>
@@ -173,9 +148,15 @@ const EditSuperAdmin = (props) => {
             inputValue={lastName}
             placeholder="Last Name"
             warningMsg="Please check the information"
-            handleInput={handleInput2}
-            handleClick={handleClick2}
-            handleBlur={handleBlurInput2}
+            handleInput={handleInput}
+            handleClick={() => {
+              setShowWarning2(false);
+            }}
+            handleBlur={(e) => {
+              if (e.target.value === '') {
+                setShowWarning2(true);
+              }
+            }}
             showWarning={showWarning2}
           ></Input>
         </div>
@@ -186,9 +167,15 @@ const EditSuperAdmin = (props) => {
             inputValue={email}
             placeholder="Email"
             warningMsg="Please check the information"
-            handleInput={handleInput3}
-            handleClick={handleClick3}
-            handleBlur={handleBlurInput3}
+            handleInput={handleInput}
+            handleClick={() => {
+              setShowWarning3(false);
+            }}
+            handleBlur={(e) => {
+              if (e.target.value === '') {
+                setShowWarning3(true);
+              }
+            }}
             showWarning={showWarning3}
           />
         </div>
@@ -199,43 +186,52 @@ const EditSuperAdmin = (props) => {
             inputValue={password}
             placeholder="Password"
             warningMsg="Please check the information"
-            handleInput={handleInput4}
-            handleClick={handleClick4}
-            handleBlur={handleBlurInput4}
+            handleInput={handleInput}
+            handleClick={() => {
+              setShowWarning4(false);
+            }}
+            handleBlur={(e) => {
+              if (e.target.value === '') {
+                setShowWarning4(true);
+              }
+            }}
             showWarning={showWarning4}
           />
         </div>
         <div>
-          <Dropdown name="active" labelText="Set if is active" onChange={handleChange}></Dropdown>
+          <Dropdown
+            name="active"
+            labelText="Active"
+            onChange={(e) => {
+              setActive(e.target.value);
+            }}
+          ></Dropdown>
         </div>
-        <Button
-          type={styles.stylesBtn}
-          handleClick={() => {
-            setIsOpen(true);
-          }}
-        >
-          Accept
-        </Button>
-        <Button type={styles.stylesBtn} handleClick={() => backSuperAdmin()}>
-          Back
-        </Button>
+        <div className={styles.formButtonsContainer}>
+          <Button type={styles.stylesBtn} handleClick={() => props.history.push('/super-admins')}>
+            Back
+          </Button>
+          <Button type={('submit', styles.stylesBtn)}>Edit</Button>
+        </div>
       </form>
-      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+      <Modal
+        showModal={isOpen}
+        closeModal={() =>
+          superAdminEdited ? props.history.push('/super-admins') : setIsOpen(false)
+        }
+      >
+        <h2>{superAdminEdited ? 'Success!' : 'Warning!'}</h2>
+        <h3 className={styles.modalMsg}>{modalText}</h3>
         <div>
-          <h2>Warning</h2>
-          <p></p>
-          <p>Are you sure you want to confirm this edit?</p>
-        </div>
-        <div>
-          <Button type={styles.stylesModalBtn} handleClick={() => setIsOpen(false)}>
-            Cancel
+          <Button type={styles.stylesModalBtn} handleClick={handleButton}>
+            {showButton && !superAdminEdited ? 'Cancel' : 'Ok'}
           </Button>
           <Button
-            type={('submit', styles.stylesModalBtn)}
+            type={
+              showButton && !superAdminEdited ? styles.stylesModalBtn : styles.stylesModalBtnNone
+            }
             handleClick={() => {
               formSuperAdmin(previousSuperAdmin);
-              setIsOpen(false);
-              props.history.push('/super-admins');
             }}
           >
             Confirm

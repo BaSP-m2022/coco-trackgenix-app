@@ -60,8 +60,6 @@ export const addSuperAdmin = (superAdmin, setModalText, setShowButton, setSuperA
         body: JSON.stringify(superAdmin)
       });
       const resp = await response.json();
-      console.log('resp', resp);
-      console.log(superAdmin);
       if (resp.error === false) {
         setShowButton(false);
         setSuperAdminCreated(true);
@@ -82,7 +80,13 @@ export const addSuperAdmin = (superAdmin, setModalText, setShowButton, setSuperA
   };
 };
 
-export const editSuperAdmin = (superAdmin, id, setIsOpen, backSuperAdmin) => {
+export const editSuperAdmin = (
+  superAdmin,
+  id,
+  setModalText,
+  setShowButton,
+  setSuperAdminEdited
+) => {
   return async (dispatch) => {
     dispatch(editSuperAdminsPending());
     try {
@@ -93,11 +97,24 @@ export const editSuperAdmin = (superAdmin, id, setIsOpen, backSuperAdmin) => {
         },
         body: JSON.stringify(superAdmin)
       });
-      dispatch(editSuperAdminsSuccess(superAdmin, response));
-      setIsOpen(false);
-      backSuperAdmin();
+      const resp = await response.json();
+      console.log('resp', resp);
+      if (resp.error === false) {
+        setShowButton(false);
+        setSuperAdminEdited(true);
+        setModalText('Super-admin has been edited!');
+        dispatch(editSuperAdminsSuccess(superAdmin));
+      } else {
+        setShowButton(false);
+        setSuperAdminEdited(false);
+        setModalText('Fields filled incorrectly, please check the data');
+        dispatch(editSuperAdminsError(resp));
+      }
     } catch (error) {
+      setShowButton(false);
+      setSuperAdminEdited(false);
       dispatch(editSuperAdminsError(error.toString()));
+      setModalText('An error has ocurred!');
     }
   };
 };

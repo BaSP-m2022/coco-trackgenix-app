@@ -101,6 +101,18 @@ const AddSuperAdmin = (props) => {
     setIsOpen(true);
   };
 
+  const handleButton = () => {
+    if (!showButton && superAdminCreated) {
+      setShowButton(true);
+      setSuperAdminCreated(false);
+      props.history.push('/super-admins');
+    } else {
+      setShowButton(true);
+      setSuperAdminCreated(false);
+      setIsOpen(false);
+    }
+  };
+
   if (isLoading) {
     return <Loading className={styles.loadText}></Loading>;
   }
@@ -196,20 +208,7 @@ const AddSuperAdmin = (props) => {
         <h2>{superAdminCreated ? 'Success!' : 'Warning!'}</h2>
         <h3 className={styles.modalMsg}>{modalText}</h3>
         <div>
-          <Button
-            type={styles.stylesModalBtn}
-            handleClick={() => {
-              if (!showButton && superAdminCreated) {
-                setShowButton(true);
-                setSuperAdminCreated(false);
-                props.history.push('/super-admins');
-              } else {
-                setShowButton(true);
-                setSuperAdminCreated(false);
-                setIsOpen(false);
-              }
-            }}
-          >
+          <Button type={styles.stylesModalBtn} handleClick={handleButton}>
             {showButton && !superAdminCreated ? 'Cancel' : 'Ok'}
           </Button>
           <Button
