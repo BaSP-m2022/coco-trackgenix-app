@@ -65,13 +65,8 @@ export const addSuperAdmin = (superAdmin) => {
           active: superAdmin.active
         })
       });
-      const responseJson = await response.json();
-      if (responseJson.error) {
-        dispatch(addSuperAdminsError(responseJson.message));
-      } else {
-        dispatch(addSuperAdminsSuccess());
-      }
-      return responseJson.data;
+      const resp = await response.json();
+      dispatch(addSuperAdminsSuccess(resp.data));
     } catch (error) {
       dispatch(addSuperAdminsError(error.toString()));
     }

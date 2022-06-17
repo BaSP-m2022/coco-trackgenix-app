@@ -213,7 +213,9 @@ const AddSuperAdmin = (props) => {
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>{resStatus ? 'Success!' : 'Warning!'}</h2>
         <h3 className={styles.modalMsg}>
-          {resStatus ? responseMsg : `Do you want to create this SuperAdmin?${responseMsg}`}
+          {resStatus
+            ? responseMsg
+            : `Are you sure you want to create this SuperAdmin?${responseMsg}`}
         </h3>
         <div>
           <Button type={styles.stylesModalBtn} handleClick={() => setIsOpen(false)}>
