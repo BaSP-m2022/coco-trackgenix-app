@@ -7,7 +7,7 @@
   padding-top: 10px;
 }
 
-.title{
+.title {
   color: #373867;
   font-size: xx-large;
   font-weight: 700;
@@ -23,12 +23,18 @@
   padding-top: 10px;
 }
 
-.addEmployeeBtn {
+.containerBtn {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.employeeBtnEdit {
   align-self: flex-start;
-  width: 170px;
+  width: 130px;
   height: 50px;
-  margin-left: 175px;
-  background: #AACE9B;
+  margin-left: 20px;
+  background: #aace9b;
   border: 1px solid #373867;
   border-radius: 5px;
   text-transform: uppercase;
@@ -38,12 +44,48 @@
   cursor: pointer;
 }
 
+.addEmployeeBtn {
+  align-self: flex-start;
+  width: 130px;
+  height: 50px;
+  margin-left: 170px;
+  margin-top: 20px;
+  background: #aace9b;
+  border: 1px solid #373867;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 700;
+  color: #373867;
+  cursor: pointer;
+}
+
+.returnEmployeeBtn {
+  position: absolute;
+  align-self: flex-start;
+  width: 170px;
+  height: 50px;
+  margin-left: 175px;
+  background: #aace9b;
+  border: 1px solid #373867;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 700;
+  color: #373867;
+  cursor: pointer;
+}
+
+.modalEmployeeBtnNone {
+  display: none;
+}
+
 .modalEmployeeBtn {
   /* justify-content: center; */
   align-self: center;
   width: 170px;
   height: 50px;
-  background: #AACE9B;
+  background: #aace9b;
   border: 1px solid #373867;
   border-radius: 5px;
   text-transform: uppercase;
