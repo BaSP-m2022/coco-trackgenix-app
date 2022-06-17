@@ -10,21 +10,27 @@ import {
   DELETE_SUPERADMINS_ERROR,
   EDIT_SUPERADMINS_PENDING,
   EDIT_SUPERADMINS_SUCCESS,
-  EDIT_SUPERADMINS_ERROR
+  EDIT_SUPERADMINS_ERROR,
+  GET_SUPERADMIN_BY_ID_PENDING,
+  GET_SUPERADMIN_BY_ID_SUCCESS,
+  GET_SUPERADMIN_BY_ID_ERROR
 } from './constants';
 
 const previousState = {
   list: [],
   isLoading: false,
-  error: ''
+  error: '',
+  selectedItem: {}
 };
+// let editSuperAdmin = [];
 
 export const superAdminsReducer = (state = previousState, action) => {
   switch (action.type) {
     case GET_SUPERADMINS_PENDING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        error: previousState.error
       };
     case GET_SUPERADMINS_SUCCESS:
       return {
@@ -39,10 +45,33 @@ export const superAdminsReducer = (state = previousState, action) => {
         error: action.payload
       };
 
+    case GET_SUPERADMIN_BY_ID_PENDING:
+      return {
+        ...state,
+        isLoading: true,
+        error: previousState.error,
+        selectedItem: previousState.selectedItem
+      };
+
+    case GET_SUPERADMIN_BY_ID_SUCCESS:
+      return {
+        ...state,
+        selectedItem: action.payload,
+        isLoading: false
+      };
+
+    case GET_SUPERADMIN_BY_ID_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false
+      };
+
     case ADD_SUPERADMINS_PENDING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        error: previousState.error
       };
     case ADD_SUPERADMINS_SUCCESS:
       return {
@@ -59,7 +88,8 @@ export const superAdminsReducer = (state = previousState, action) => {
     case DELETE_SUPERADMINS_PENDING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        error: previousState.error
       };
     case DELETE_SUPERADMINS_SUCCESS:
       return {
@@ -76,7 +106,8 @@ export const superAdminsReducer = (state = previousState, action) => {
     case EDIT_SUPERADMINS_PENDING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        error: previousState.error
       };
     case EDIT_SUPERADMINS_SUCCESS:
       return {

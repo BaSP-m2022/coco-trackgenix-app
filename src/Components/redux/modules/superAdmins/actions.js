@@ -10,7 +10,10 @@ import {
   DELETE_SUPERADMINS_ERROR,
   EDIT_SUPERADMINS_PENDING,
   EDIT_SUPERADMINS_SUCCESS,
-  EDIT_SUPERADMINS_ERROR
+  EDIT_SUPERADMINS_ERROR,
+  GET_SUPERADMIN_BY_ID_PENDING,
+  GET_SUPERADMIN_BY_ID_SUCCESS,
+  GET_SUPERADMIN_BY_ID_ERROR
 } from './constants';
 
 export const getSuperAdminsPending = () => {
@@ -89,6 +92,26 @@ export const editSuperAdminsSuccess = (superadmin) => {
 export const editSuperAdminsError = (error) => {
   return {
     type: EDIT_SUPERADMINS_ERROR,
+    payload: error
+  };
+};
+
+export const getSuperAdminByIdPending = () => {
+  return {
+    type: GET_SUPERADMIN_BY_ID_PENDING
+  };
+};
+
+export const getSuperAdminByIdSuccess = (superadmin) => {
+  return {
+    type: GET_SUPERADMIN_BY_ID_SUCCESS,
+    payload: superadmin
+  };
+};
+
+export const getSuperAdminByIdError = (error) => {
+  return {
+    type: GET_SUPERADMIN_BY_ID_ERROR,
     payload: error
   };
 };

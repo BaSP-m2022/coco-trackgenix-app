@@ -7,7 +7,7 @@ import Loading from '../SharedComponents/Loading/Loading';
 import Dropdown from '../SharedComponents/Dropdown/Dropdown';
 import Input from '../SharedComponents/Input/Input';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { editSuperAdmin } from '../redux/modules/superAdmins/thunks';
+import { editSuperAdmin, getSuperAdminById } from '../redux/modules/superAdmins/thunks';
 
 const EditSuperAdmin = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +16,8 @@ const EditSuperAdmin = (props) => {
   const backSuperAdmin = () => {
     props.history.push('/super-admins');
   };
+
+  const [previousSuperAdmin, setPreviousSuperAdmin] = useState({});
 
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -26,6 +28,44 @@ const EditSuperAdmin = (props) => {
   const [showWarning2, setShowWarning2] = useState(false);
   const [showWarning3, setShowWarning3] = useState(false);
   const [showWarning4, setShowWarning4] = useState(false);
+  const selectedItem = useSelector((state) => state.superadmins.selectedItem);
+
+  const params = window.location.search;
+  let id = params.substring(2);
+
+  const formSuperAdmin = (e) => {
+    dispatch(editSuperAdmin(e, id, setIsOpen, backSuperAdmin));
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setPreviousSuperAdmin({
+      name: name,
+      lastName: lastName,
+      email: email,
+      password: password,
+      active: active
+    });
+    // formSuperAdmin(previousSuperAdmin);
+  };
+
+  useEffect(() => {
+    if (Object.keys(selectedItem).length) {
+      setName(selectedItem.name);
+      setLastName(selectedItem.lastName);
+      setEmail(selectedItem.email);
+      setPassword(selectedItem.password);
+      setActive(selectedItem.active);
+    }
+  }, [selectedItem]);
+
+  useEffect(() => {
+    dispatch(getSuperAdminById(id));
+  }, []);
+
+  if (isLoading) {
+    return <Loading className={styles.loadText}></Loading>;
+  }
 
   const handleInput1 = (e) => {
     setName(e.target.value);
@@ -107,41 +147,7 @@ const EditSuperAdmin = (props) => {
       setShowWarning1(false);
     }
   };
-  const params = window.location.search;
-  let id = params.substring(2);
 
-  const formSuperAdmin = (e) => {
-    dispatch(editSuperAdmin(e, id));
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const previousSuperAdmin = {
-      name: name,
-      lastName: lastName,
-      email: email,
-      password: password,
-      active: active
-    };
-    console.log(previousSuperAdmin);
-    formSuperAdmin(previousSuperAdmin);
-  };
-
-  useEffect(() => {
-    fetch(`https://coco-trackgenix-server.vercel.app/superAdmins/${id}`)
-      .then((response) => response.json())
-      .then((response) => {
-        setName(response.data.name);
-        setLastName(response.data.lastName);
-        setEmail(response.data.email);
-        setPassword(response.data.password);
-        setActive(response.data.active);
-      });
-  }, []);
-
-  if (isLoading) {
-    return <Loading className={styles.loadText}></Loading>;
-  }
   return (
     <div className={styles.container}>
       <Logo />
@@ -153,7 +159,7 @@ const EditSuperAdmin = (props) => {
             name="name"
             inputValue={name}
             placeholder="Name"
-            warningMsg="This field must be completed"
+            warningMsg="Please check the information"
             handleInput={handleInput1}
             handleClick={handleClick1}
             handleBlur={handleBlurInput1}
@@ -215,20 +221,24 @@ const EditSuperAdmin = (props) => {
         </Button>
       </form>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
-        <h2>Warning</h2>
         <div>
-          <p>Success!</p>
-          <p>The Super Admin was successfully edited</p>
+          <h2>Warning</h2>
+          <p></p>
+          <p>Are you sure you want to confirm this edit?</p>
         </div>
         <div>
+          <Button type={styles.stylesModalBtn} handleClick={() => setIsOpen(false)}>
+            Cancel
+          </Button>
           <Button
             type={('submit', styles.stylesModalBtn)}
             handleClick={() => {
+              formSuperAdmin(previousSuperAdmin);
               setIsOpen(false);
               props.history.push('/super-admins');
             }}
           >
-            Ok
+            Confirm
           </Button>
         </div>
       </Modal>

@@ -10,7 +10,10 @@ import {
   deleteSuperAdminsError,
   editSuperAdminsPending,
   editSuperAdminsSuccess,
-  editSuperAdminsError
+  editSuperAdminsError,
+  getSuperAdminByIdPending,
+  getSuperAdminByIdSuccess,
+  getSuperAdminByIdError
 } from './actions';
 
 export const getSuperAdmins = () => {
@@ -37,6 +40,7 @@ export const deleteSuperAdmins = (_id) => {
         method: 'DELETE'
       });
       dispatch(deleteSuperAdminsSuccess(_id));
+      dispatch(getSuperAdmins());
     } catch (error) {
       dispatch(deleteSuperAdminsError(error.toString()));
       console.error(error);
@@ -61,19 +65,22 @@ export const addSuperAdmin = (superAdmin) => {
           active: superAdmin.active
         })
       });
-      const resp = await response.json();
-      dispatch(addSuperAdminsSuccess(resp.data));
+      const responseJson = await response.json();
+      if (responseJson.error) {
+        dispatch(addSuperAdminsError(responseJson.message));
+      } else {
+        dispatch(addSuperAdminsSuccess());
+      }
+      return responseJson.data;
     } catch (error) {
       dispatch(addSuperAdminsError(error.toString()));
     }
   };
 };
 
-export const editSuperAdmin = (superAdmin, id) => {
+export const editSuperAdmin = (superAdmin, id, setIsOpen, backSuperAdmin) => {
   return async (dispatch) => {
     dispatch(editSuperAdminsPending());
-    console.log(superAdmin);
-    console.log(id);
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/superAdmins/${id}`, {
         method: 'PUT',
@@ -83,8 +90,23 @@ export const editSuperAdmin = (superAdmin, id) => {
         body: JSON.stringify(superAdmin)
       });
       dispatch(editSuperAdminsSuccess(superAdmin, response));
+      setIsOpen(false);
+      backSuperAdmin();
     } catch (error) {
       dispatch(editSuperAdminsError(error.toString()));
+    }
+  };
+};
+
+export const getSuperAdminById = (id) => {
+  return async (dispatch) => {
+    dispatch(getSuperAdminByIdPending());
+    try {
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/superAdmins/${id}`);
+      const resp = await response.json();
+      dispatch(getSuperAdminByIdSuccess(resp.data));
+    } catch (error) {
+      dispatch(getSuperAdminByIdError(error.toString()));
     }
   };
 };
