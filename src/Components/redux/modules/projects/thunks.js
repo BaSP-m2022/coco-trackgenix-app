@@ -4,7 +4,10 @@ import {
   getProjectError,
   DeleteProjectError,
   DeleteProjectSuccess,
-  DeleteProjectPending
+  DeleteProjectPending,
+  PostProjectError,
+  PostProjectPending,
+  PostProjectSuccess
 } from './actions';
 
 const changeDate = (date) => {
@@ -26,7 +29,6 @@ const changeDate = (date) => {
   }
   return changedDate;
 };
-
 export const getProject = () => {
   return async (dispatch) => {
     dispatch(getProjectPending());
@@ -47,7 +49,6 @@ export const getProject = () => {
     }
   };
 };
-
 export const deleteProject = (_id) => {
   return async (dispatch) => {
     dispatch(DeleteProjectPending());
@@ -59,6 +60,31 @@ export const deleteProject = (_id) => {
       dispatch(getProject());
     } catch (error) {
       dispatch(DeleteProjectError(error));
+    }
+  };
+};
+export const postProject = (projectInput) => {
+  return async (dispatch) => {
+    dispatch(PostProjectPending());
+    try {
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(projectInput)
+      });
+      const responseJson = await response.json();
+      if (responseJson.error) {
+        dispatch(PostProjectError(responseJson.message));
+      } else {
+        dispatch(PostProjectSuccess(responseJson.message));
+      }
+      return responseJson.data;
+    } catch (error) {
+      console.error(error);
+      dispatch(PostProjectError(error.toString));
     }
   };
 };

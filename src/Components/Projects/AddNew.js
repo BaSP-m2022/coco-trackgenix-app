@@ -6,19 +6,22 @@ import Input from '../SharedComponents/Input/Input';
 import { useHistory } from 'react-router-dom';
 import Modal from '../SharedComponents/Modal/Modal';
 import Dropdown from '../SharedComponents/Dropdown/Dropdown';
+import Loading from '../SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEmployee } from '../redux/modules/employees/thunks';
+import { postProject } from '../redux/modules/projects/thunks';
 
 const AddNew = () => {
   const [showWarningName, setShowWarningName] = useState(false);
   const [showWarningDesc, setShowWarningDesc] = useState(false);
   const [showWarningCName, setShowWarningCName] = useState(false);
   const [showWarningAdmin, setShowWarningAdmin] = useState(false);
+  const isLoading = useSelector((state) => state.project.isLoading);
   const dispatch = useDispatch();
   const responseData = useSelector((state) => state.employee.list);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
-  const initialValues = {
+  const [isOpen, setIsOpenConfirm] = useState(false);
+  const [isOpen2, setIsOpenFail] = useState(false);
+  const [projectInput, setProjectInput] = useState({
     name: '',
     description: '',
     startDate: '',
@@ -27,11 +30,20 @@ const AddNew = () => {
     active: false,
     employees: [],
     admins: ''
-  };
+  });
 
   let history = useHistory();
 
-  const [project, setProject] = useState(initialValues);
+  const [project, setProject] = useState({
+    name: '',
+    description: '',
+    startDate: '',
+    endDate: '',
+    clientName: '',
+    active: false,
+    employees: [],
+    admins: ''
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,6 +59,30 @@ const AddNew = () => {
     });
   };
 
+  // const backProject = () => {
+  //   history.push('/projects');
+  // };
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setProjectInput({
+      name: project.name,
+      description: project.description,
+      startDate: project.startDate,
+      endDate: project.endDate,
+      clientName: project.clientName,
+      active: project.active,
+      employees: addMembers(project.employees),
+      admins: project.admins
+    });
+  }
+  // const formProject = (projectInput) => {
+  //   dispatch(postProject(projectInput));
+  // };
+  const confirmModal = (e) => {
+    setIsOpenConfirm(true);
+    handleSubmit(e);
+  };
   const addMembers = (item) => {
     let membersData = [];
     if (!item) {
@@ -150,38 +186,13 @@ const AddNew = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: project.name,
-        description: project.description,
-        startDate: project.startDate,
-        endDate: project.endDate,
-        clientName: project.clientName,
-        active: project.active,
-        employees: addMembers(project.employees),
-        admins: project.admins
-      })
-    }).catch(() => console.error);
-  };
-
   useEffect(() => {
     dispatch(getEmployee());
   }, []);
 
-  // useEffect(() => {
-  //   fetch(`https://coco-trackgenix-server.vercel.app/employees`)
-  //     .then((res) => res.json())
-  //     .then((json) => {
-  //       setEmployeesData(...employeesData, json.data);
-  //     });
-  // }, []);
-
+  if (isLoading) {
+    return <Loading className={styles.loading}></Loading>;
+  }
   return (
     <div className={styles.container}>
       <Logo />
@@ -274,7 +285,7 @@ const AddNew = () => {
         <Button
           type={('submit', styles.modalProjectBtn)}
           name="project-submit"
-          handleClick={() => {
+          handleClick={(e) => {
             if (
               project.name === '' ||
               project.description === '' ||
@@ -284,38 +295,46 @@ const AddNew = () => {
               project.active === '' ||
               project.admins === ''
             ) {
-              setIsOpen2(true);
+              setIsOpenFail(true);
             } else {
-              setIsOpen(true);
+              confirmModal(e);
             }
           }}
         >
           New Project
         </Button>
-        <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
-          <h2>Success!</h2>
+        <Modal showModal={isOpen} closeModal={() => setIsOpenConfirm(false)}>
+          <h2>Project Creation</h2>
           <div>
-            <p>Project created successfully</p>
+            <p>Do you really want to create this project?</p>
           </div>
           <div>
             <Button
               type={styles.modalProjectBtn}
-              handleClick={(e) => {
-                handleSubmit(e);
-                history.push('/projects');
+              handleClick={() => {
+                setIsOpenConfirm(false);
               }}
             >
-              Ok
+              Cancel
+            </Button>
+            <Button
+              type={styles.modalProjectBtn}
+              handleClick={() => {
+                dispatch(postProject(projectInput));
+                setIsOpenConfirm(false);
+              }}
+            >
+              Create
             </Button>
           </div>
         </Modal>
-        <Modal showModal={isOpen2} closeModal={() => setIsOpen2(false)}>
+        <Modal showModal={isOpen2} closeModal={() => setIsOpenFail(false)}>
           <h2>Fill every field to continue</h2>
-          <Button type={styles.modalProjectBtn} handleClick={() => setIsOpen2(false)}>
+          <Button type={styles.modalProjectBtn} handleClick={() => setIsOpenFail(false)}>
             Ok
           </Button>
         </Modal>
-        <Button type={styles.backBtn} handleClick={() => history.goBack()}>
+        <Button type={styles.backBtn} handleClick={() => history.push('/projects')}>
           Cancel
         </Button>
       </div>

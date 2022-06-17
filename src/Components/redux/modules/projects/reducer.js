@@ -70,7 +70,8 @@ export const projectReducer = (state = initialState, action) => {
       return {
         ...state,
         list: [...state.list, action.payload],
-        isLoading: false
+        isLoading: false,
+        isAdded: true
       };
     case POST_PROJECT_PENDING:
       return {
