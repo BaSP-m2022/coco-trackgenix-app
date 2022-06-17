@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import styles from './addNew.module.css';
 import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
+import Input from '../SharedComponents/Input/Input';
 import { useHistory } from 'react-router-dom';
 import Modal from '../SharedComponents/Modal/Modal';
 import Dropdown from '../SharedComponents/Dropdown/Dropdown';
 
 const AddNew = () => {
+  const [showWarningName, setShowWarningName] = useState(false);
+  const [showWarningDesc, setShowWarningDesc] = useState(false);
+  const [showWarningCName, setShowWarningCName] = useState(false);
+  const [showWarningAdmin, setShowWarningAdmin] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const initialValues = {
@@ -57,6 +62,90 @@ const AddNew = () => {
     return membersData;
   };
 
+  /* Input NAME */
+  const handleInputName = (e) => {
+    setProject({
+      ...project,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarningName(true);
+    } else {
+      setShowWarningName(false);
+    }
+  };
+  const handleClickName = () => {
+    setShowWarningName(false);
+  };
+  const handleBlurName = (e) => {
+    if (e.target.value === '') {
+      setShowWarningName(true);
+    }
+  };
+
+  /* Input DESCRIPTION */
+  const handleInputDesc = (e) => {
+    setProject({
+      ...project,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarningDesc(true);
+    } else {
+      setShowWarningDesc(false);
+    }
+  };
+  const handleClickDesc = () => {
+    setShowWarningDesc(false);
+  };
+  const handleBlurDesc = (e) => {
+    if (e.target.value === '') {
+      setShowWarningDesc(true);
+    }
+  };
+
+  /* Input CLIENT NAME */
+  const handleInputCName = (e) => {
+    setProject({
+      ...project,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarningCName(true);
+    } else {
+      setShowWarningCName(false);
+    }
+  };
+  const handleClickCName = () => {
+    setShowWarningCName(false);
+  };
+  const handleBlurCName = (e) => {
+    if (e.target.value === '') {
+      setShowWarningCName(true);
+    }
+  };
+
+  /* Input ADMIN */
+  const handleInputAdmin = (e) => {
+    setProject({
+      ...project,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarningAdmin(true);
+    } else {
+      setShowWarningAdmin(false);
+    }
+  };
+  const handleClickAdmin = () => {
+    setShowWarningAdmin(false);
+  };
+  const handleBlurAdmin = (e) => {
+    if (e.target.value === '') {
+      setShowWarningAdmin(true);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
@@ -87,35 +176,36 @@ const AddNew = () => {
       });
   }, []);
 
-  // const checkEmptyFields = () => {
-  // };
-
   return (
     <div className={styles.container}>
       <Logo />
       <h2>New Project</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
+          <Input
+            labelText="Name"
             name="name"
-            required="required"
-            placeholder="Give it a name"
-            value={project.name}
-            onChange={handleChange}
-          ></input>
+            inputValue={project.name}
+            placeholder="Name"
+            warningMsg="Please check the information"
+            handleInput={handleInputName}
+            handleClick={handleClickName}
+            handleBlur={handleBlurName}
+            showWarning={showWarningName}
+          ></Input>
         </div>
         <div>
-          <label htmlFor="description">Description</label>
-          <input
-            type="text"
+          <Input
+            labelText="Description"
             name="description"
-            required="required"
-            placeholder="Set a description"
-            value={project.description}
-            onChange={handleChange}
-          ></input>
+            inputValue={project.description}
+            placeholder="write a description here"
+            warningMsg="Please check the information"
+            handleInput={handleInputDesc}
+            handleClick={handleClickDesc}
+            handleBlur={handleBlurDesc}
+            showWarning={showWarningDesc}
+          ></Input>
         </div>
         <div>
           <label htmlFor="startDate">Start Date</label>
@@ -140,15 +230,17 @@ const AddNew = () => {
           ></input>
         </div>
         <div>
-          <label htmlFor="clientName">Client Name</label>
-          <input
-            type="text"
+          <Input
+            labelText="Client Name"
             name="clientName"
-            required="required"
-            placeholder="For what client?"
-            value={project.clientName}
-            onChange={handleChange}
-          ></input>
+            inputValue={project.clientName}
+            placeholder="enter a client here"
+            warningMsg="Please check the information"
+            handleInput={handleInputCName}
+            handleClick={handleClickCName}
+            handleBlur={handleBlurCName}
+            showWarning={showWarningCName}
+          ></Input>
         </div>
         <Dropdown name="active" labelText="Set if is active" onChange={handleChange}></Dropdown>
         <Dropdown
@@ -159,14 +251,17 @@ const AddNew = () => {
           onChange={handleChange}
         ></Dropdown>
         <div>
-          <label htmlFor="admins">Admins</label>
-          <input
+          <Input
+            labelText="Administrator"
             name="admins"
-            required="required"
-            placeholder="Assign the admins"
-            value={project.admins}
-            onChange={handleChange}
-          ></input>
+            inputValue={project.admins}
+            placeholder="enter an admin here"
+            warningMsg="Please check the information"
+            handleInput={handleInputAdmin}
+            handleClick={handleClickAdmin}
+            handleBlur={handleBlurAdmin}
+            showWarning={showWarningAdmin}
+          ></Input>
         </div>
       </form>
       <div>

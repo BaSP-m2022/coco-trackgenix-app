@@ -5,29 +5,19 @@ import Modal from '../SharedComponents/Modal/Modal';
 import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
 import Table from '../SharedComponents/Table/index';
+import Loading from '../SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProject, getProject } from '../redux/modules/projects/thunks';
 
 const Projects = (props) => {
   const dispatch = useDispatch();
   const dataResponse = useSelector((state) => state.project.list);
+  const isLoading = useSelector((state) => state.project.isLoading);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(async () => {
     dispatch(getProject());
   }, []);
-
-  // const deleteItem = async (_id) => {
-  //   try {
-  //     await fetch(`https://coco-trackgenix-server.vercel.app/projects/${_id}`, {
-  //       method: 'DELETE'
-  //     });
-  //     setIsOpen(true);
-  //   } catch (error) {
-  //     console.error;
-  //   }
-  //   setList(list.filter((listItem) => listItem._id !== _id));
-  // };
 
   const deleteItem = (_id) => {
     dispatch(deleteProject(_id));
@@ -38,6 +28,9 @@ const Projects = (props) => {
     history.push(`/projects/edit?=${item}`);
   };
 
+  if (isLoading) {
+    return <Loading className={styles.loading}></Loading>;
+  }
   return (
     <div className={styles.container}>
       <Logo />

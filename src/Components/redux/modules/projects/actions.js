@@ -2,9 +2,9 @@ import {
   GET_PROJECT_SUCCESS,
   GET_PROJECT_PENDING,
   GET_PROJECT_ERROR,
-  // POST_PROJECT_SUCCESS,
-  // POST_PROJECT_PENDING,
-  // POST_PROJECT_ERROR,
+  POST_PROJECT_SUCCESS,
+  POST_PROJECT_PENDING,
+  POST_PROJECT_ERROR,
   // PUT_PROJECT_SUCCESS,
   // PUT_PROJECT_PENDING,
   // PUT_PROJECT_ERROR,
@@ -50,23 +50,23 @@ export const getProjectError = (error) => {
 //     payload: error
 //   };
 // };
-// export const PostProjectSuccess = (project) => {
-//   return {
-//     type: POST_PROJECT_SUCCESS,
-//     payload: project
-//   };
-// };
-// export const PostProjectPending = () => {
-//   return {
-//     type: POST_PROJECT_PENDING
-//   };
-// };
-// export const PostProjectError = (error) => {
-//   return {
-//     type: POST_PROJECT_ERROR,
-//     payload: error
-//   };
-// };
+export const PostProjectSuccess = (project) => {
+  return {
+    type: POST_PROJECT_SUCCESS,
+    payload: project
+  };
+};
+export const PostProjectPending = () => {
+  return {
+    type: POST_PROJECT_PENDING
+  };
+};
+export const PostProjectError = (error) => {
+  return {
+    type: POST_PROJECT_ERROR,
+    payload: error
+  };
+};
 // export const PutProjectsSuccess = (project) => {
 //   return {
 //     type: PUT_PROJECT_SUCCESS,
