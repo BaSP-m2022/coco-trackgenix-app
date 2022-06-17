@@ -6,12 +6,16 @@ import Input from '../SharedComponents/Input/Input';
 import { useHistory } from 'react-router-dom';
 import Modal from '../SharedComponents/Modal/Modal';
 import Dropdown from '../SharedComponents/Dropdown/Dropdown';
+import { useDispatch, useSelector } from 'react-redux';
+import { getEmployee } from '../redux/modules/employees/thunks';
 
 const AddNew = () => {
   const [showWarningName, setShowWarningName] = useState(false);
   const [showWarningDesc, setShowWarningDesc] = useState(false);
   const [showWarningCName, setShowWarningCName] = useState(false);
   const [showWarningAdmin, setShowWarningAdmin] = useState(false);
+  const dispatch = useDispatch();
+  const responseData = useSelector((state) => state.employee.list);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const initialValues = {
@@ -166,15 +170,17 @@ const AddNew = () => {
     }).catch(() => console.error);
   };
 
-  const [employeesData, setEmployeesData] = useState([]);
-
   useEffect(() => {
-    fetch(`https://coco-trackgenix-server.vercel.app/employees`)
-      .then((res) => res.json())
-      .then((json) => {
-        setEmployeesData(...employeesData, json.data);
-      });
+    dispatch(getEmployee());
   }, []);
+
+  // useEffect(() => {
+  //   fetch(`https://coco-trackgenix-server.vercel.app/employees`)
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       setEmployeesData(...employeesData, json.data);
+  //     });
+  // }, []);
 
   return (
     <div className={styles.container}>
@@ -244,7 +250,7 @@ const AddNew = () => {
         </div>
         <Dropdown name="active" labelText="Set if is active" onChange={handleChange}></Dropdown>
         <Dropdown
-          data={employeesData}
+          data={responseData}
           name="employees"
           labelText="Select an employee"
           path="firstName"
