@@ -7,12 +7,21 @@ import Modal from '../../SharedComponents/Modal/Modal';
 import Input from '../../SharedComponents/Input/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTasks } from '../../redux/modules/tasks/thunks';
+import { useForm } from 'react-hook-form';
+// import joi from 'joi';
+import { joiResolver } from '@hookform/resolvers/joi';
+
+// const schema = joi.object({
+//   description: joi
+//     .string()
+//     .min(3)
+//     .max(90)
+//     .required('It is required')
+//     .regex(/^[0-:A-Za-z ",-.]{1,90}$/),
+//   workedHours: joi.number().integer().positive().required()
+// });
 
 const TaskForm = (props) => {
-  const [newItem, setNewItem] = useState({
-    description: props.description,
-    workedHours: props.workedHours
-  });
   const [isOpen, setIsOpen] = useState(false);
   const [responseMsg, setResponseMsg] = useState('');
   const [resStatus, setResStatus] = useState(false);
@@ -20,22 +29,18 @@ const TaskForm = (props) => {
   const dispatch = useDispatch();
   const isFetching = useSelector((state) => state.tasks.isFetching);
 
-  const [showWarning1, setShowWarning1] = useState(false);
-  const [showWarning2, setShowWarning2] = useState(false);
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm({ mode: 'onChange', resolver: joiResolver(schema) });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(
-      addTasks(
-        {
-          description: newItem.description,
-          workedHours: newItem.workedHours
-        },
-        setResStatus,
-        setResponseMsg
-      )
-    );
+  const onSubmit = (data) => {
+    // Event.preventDefault();
+    console.log('Data', data);
+    dispatch(addTasks(data, setResStatus, setResponseMsg));
   };
+
   const handleOkBtn = () => {
     if (resStatus) {
       props.history.push('/tasks');
@@ -44,51 +49,52 @@ const TaskForm = (props) => {
     }
   };
 
-  const handleInput1 = (e) => {
-    setNewItem({
-      ...newItem,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    } else {
-      setShowWarning1(false);
-    }
-  };
+  // const handleInput1 = (e) => {
+  //   setNewItem({
+  //     ...newItem,
+  //     [e.target.name]: e.target.value
+  //   });
+  //   if (e.target.value === '') {
+  //     setShowWarning1(true);
+  //   } else {
+  //     setShowWarning1(false);
+  //   }
+  // };
 
-  const handleInput2 = (e) => {
-    setNewItem({
-      ...newItem,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarning2(true);
-    } else {
-      setShowWarning2(false);
-    }
-  };
+  // const handleInput2 = (e) => {
+  //   setNewItem({
+  //     ...newItem,
+  //     [e.target.name]: e.target.value
+  //   });
+  //   if (e.target.value === '') {
+  //     setShowWarning2(true);
+  //   } else {
+  //     setShowWarning2(false);
+  //   }
+  // };
 
-  const handleBlurInput1 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    }
-  };
+  // const handleBlurInput1 = (e) => {
+  //   if (e.target.value === '') {
+  //     setShowWarning1(true);
+  //   }
+  // };
 
-  const handleBlurInput2 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning2(true);
-    }
-  };
+  // const handleBlurInput2 = (e) => {
+  //   if (e.target.value === '') {
+  //     setShowWarning2(true);
+  //   }
+  // };
 
-  const handleClick1 = () => {
-    setShowWarning1(false);
-  };
+  // const handleClick1 = () => {
+  //   setShowWarning1(false);
+  // };
 
-  const handleClick2 = () => {
-    setShowWarning2(false);
-  };
+  // const handleClick2 = () => {
+  //   setShowWarning2(false);
+  // };
 
   if (isFetching) {
+    console.log(isOpen);
     return <Loading className={styles.loadText}></Loading>;
   }
 
@@ -100,32 +106,36 @@ const TaskForm = (props) => {
         <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
           BACK
         </Button>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div className={styles.inputDescription}>
               <Input
                 name="description"
                 labelText="Task Description"
+                type="text"
                 placeholder="Task Description"
-                inputValue={newItem.description}
-                warningMsg="*This field must be completed!"
-                handleInput={handleInput1}
-                handleClick={handleClick1}
-                handleBlur={handleBlurInput1}
-                showWarning={showWarning1}
+                register={register}
+                error={errors.description?.message}
+                // warningMsg="*This field must be completed!"
+                // handleClick={handleClick1}
+                // handleBlur={handleBlurInput1}
+                // showWarning={showWarning1}
               ></Input>
             </div>
             <div className={styles.inputWorkedHours}>
               <Input
                 name="workedHours"
                 labelText="Worked Hours"
+                type="text"
                 placeholder="Worked Hours"
-                inputValue={newItem.workedHours}
-                warningMsg="*This field must be completed!"
-                handleInput={handleInput2}
-                handleBlur={handleBlurInput2}
-                handleClick={handleClick2}
-                showWarning={showWarning2}
+                register={register}
+                error={errors.workedHours?.message}
+                // inputValue={newItem.workedHours}
+                // warningMsg="*This field must be completed!"
+                // handleInput={handleInput2}
+                // handleBlur={handleBlurInput2}
+                // handleClick={handleClick2}
+                // showWarning={showWarning2}
               ></Input>
             </div>
           </div>
