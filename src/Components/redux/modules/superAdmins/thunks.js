@@ -98,7 +98,6 @@ export const editSuperAdmin = (
         body: JSON.stringify(superAdmin)
       });
       const resp = await response.json();
-      console.log('resp', resp);
       if (resp.error === false) {
         setShowButton(false);
         setSuperAdminEdited(true);
