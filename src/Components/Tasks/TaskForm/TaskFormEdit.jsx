@@ -9,33 +9,37 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editTasks, getTaskById } from 'Components/redux/modules/tasks/thunks';
 import { cleanSelectedItem } from 'Components/redux/modules/tasks/actions';
+import { useForm } from 'react-hook-form';
+import joi from 'joi';
+import { joiResolver } from '@hookform/resolvers/joi';
+
+const schema = joi.object({
+  description: joi
+    .string()
+    .min(1)
+    .max(90)
+    .required('Description is a required field')
+    .regex(/^[0-:A-Za-z ",-.]{1,90}$/),
+  workedHours: joi.number().integer().positive().required('Worked hours is a required field')
+});
 
 const TaskFormEdit = (props) => {
-  const [description, setDescription] = useState('');
-  const [workedHours, setWorkedHours] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [responseMsg, setResponseMsg] = useState('');
   const [resStatus, setResStatus] = useState(false);
   const params = window.location.search;
   const id = params.substring(2);
 
-  const [showWarning1, setShowWarning1] = useState(false);
-  const [showWarning2, setShowWarning2] = useState(false);
-
   const dispatch = useDispatch();
   const selectedItem = useSelector((state) => state.tasks.selectedItem);
   const isFetching = useSelector((state) => state.tasks.isFetching);
-  // const error = useSelector((state) => state.tasks.error);
 
   useEffect(() => {
     dispatch(getTaskById(id));
   }, []);
 
   useEffect(() => {
-    if (Object.keys(selectedItem).length) {
-      setDescription(selectedItem.description);
-      setWorkedHours(selectedItem.workedHours);
-    }
+    reset(selectedItem);
   }, [selectedItem]);
 
   useEffect(() => {
@@ -44,20 +48,16 @@ const TaskFormEdit = (props) => {
     };
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset
+  } = useForm({ mode: 'onChange', resolver: joiResolver(schema) });
+
+  const onSubmit = async (data) => {
     const id = params.substring(2);
-    dispatch(
-      editTasks(
-        id,
-        {
-          description: description,
-          workedHours: workedHours
-        },
-        setResStatus,
-        setResponseMsg
-      )
-    );
+    dispatch(editTasks(id, data, setResStatus, setResponseMsg));
   };
 
   const handleOkBtn = () => {
@@ -68,51 +68,9 @@ const TaskFormEdit = (props) => {
     }
   };
 
-  const handleInput1 = (e) => {
-    setDescription(e.target.value);
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    } else {
-      setShowWarning1(false);
-    }
-  };
-
-  const handleInput2 = (e) => {
-    setWorkedHours(e.target.value);
-    if (e.target.value === '') {
-      setShowWarning2(true);
-    } else {
-      setShowWarning2(false);
-    }
-  };
-
-  const handleBlurInput1 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    }
-  };
-
-  const handleBlurInput2 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning2(true);
-    }
-  };
-
-  const handleClick1 = () => {
-    setShowWarning1(false);
-  };
-
-  const handleClick2 = () => {
-    setShowWarning2(false);
-  };
-
   if (isFetching) {
     return <Loading className={styles.loadText}></Loading>;
   }
-
-  // if (error) {
-  //   return <div>ERROR!!!</div>;
-  // }
 
   return (
     <div className={styles.container}>
@@ -122,32 +80,26 @@ const TaskFormEdit = (props) => {
         <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
           BACK
         </Button>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div className={styles.inputDescription}>
               <Input
                 name="description"
                 labelText="Task Description"
+                type="text"
                 placeholder="Task Description"
-                inputValue={description}
-                warningMsg="*This field must be completed!"
-                handleInput={handleInput1}
-                handleClick={handleClick1}
-                handleBlur={handleBlurInput1}
-                showWarning={showWarning1}
+                register={register}
+                error={errors.description?.message}
               ></Input>
             </div>
             <div className={styles.inputWorkedHours}>
               <Input
                 name="workedHours"
                 labelText="Worked Hours"
+                type="text"
                 placeholder="Worked Hours"
-                inputValue={workedHours}
-                warningMsg="*This field must be completed!"
-                handleInput={handleInput2}
-                handleBlur={handleBlurInput2}
-                handleClick={handleClick2}
-                showWarning={showWarning2}
+                register={register}
+                error={errors.workedHours?.message}
               ></Input>
             </div>
           </div>
@@ -159,7 +111,7 @@ const TaskFormEdit = (props) => {
       <Modal showModal={isOpen} closeModal={handleOkBtn}>
         <h2>{resStatus ? 'Success!' : 'Warning!'}</h2>
         <h3 className={styles.modalMsg}>
-          {resStatus ? responseMsg : `The task could not be updated because ${responseMsg}`}
+          {resStatus ? responseMsg : `The task could not be updated`}
         </h3>
         <Button type={styles.buttonForm} handleClick={handleOkBtn}>
           Ok

@@ -36,7 +36,6 @@ const TaskForm = (props) => {
   } = useForm({ mode: 'onChange', resolver: joiResolver(schema) });
 
   const onSubmit = (data) => {
-    console.log('Data', data);
     dispatch(addTasks(data, setResStatus, setResponseMsg));
   };
 
