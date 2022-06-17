@@ -14,11 +14,11 @@ import { joiResolver } from '@hookform/resolvers/joi';
 const schema = joi.object({
   description: joi
     .string()
-    .min(3)
+    .min(1)
     .max(90)
-    .required('It is required')
+    .required('Description is a required field')
     .regex(/^[0-:A-Za-z ",-.]{1,90}$/),
-  workedHours: joi.number().integer().positive().required()
+  workedHours: joi.number().integer().positive().required('Worked hours is a required field')
 });
 
 const TaskForm = (props) => {
@@ -92,7 +92,7 @@ const TaskForm = (props) => {
       <Modal showModal={isOpen} closeModal={handleOkBtn}>
         <h2>{resStatus ? 'Success!' : 'Warning!'}</h2>
         <h3 className={styles.modalMsg}>
-          {resStatus ? responseMsg : `The task could not be created because ${responseMsg}`}
+          {resStatus ? responseMsg : `The task could not be created`}
         </h3>
         <Button type={styles.buttonForm} handleClick={handleOkBtn}>
           Ok
