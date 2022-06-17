@@ -8,18 +8,18 @@ import Input from '../../SharedComponents/Input/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTasks } from '../../redux/modules/tasks/thunks';
 import { useForm } from 'react-hook-form';
-// import joi from 'joi';
+import joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
 
-// const schema = joi.object({
-//   description: joi
-//     .string()
-//     .min(3)
-//     .max(90)
-//     .required('It is required')
-//     .regex(/^[0-:A-Za-z ",-.]{1,90}$/),
-//   workedHours: joi.number().integer().positive().required()
-// });
+const schema = joi.object({
+  description: joi
+    .string()
+    .min(3)
+    .max(90)
+    .required('It is required')
+    .regex(/^[0-:A-Za-z ",-.]{1,90}$/),
+  workedHours: joi.number().integer().positive().required()
+});
 
 const TaskForm = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +36,6 @@ const TaskForm = (props) => {
   } = useForm({ mode: 'onChange', resolver: joiResolver(schema) });
 
   const onSubmit = (data) => {
-    // Event.preventDefault();
     console.log('Data', data);
     dispatch(addTasks(data, setResStatus, setResponseMsg));
   };
@@ -48,50 +47,6 @@ const TaskForm = (props) => {
       setIsOpen(false);
     }
   };
-
-  // const handleInput1 = (e) => {
-  //   setNewItem({
-  //     ...newItem,
-  //     [e.target.name]: e.target.value
-  //   });
-  //   if (e.target.value === '') {
-  //     setShowWarning1(true);
-  //   } else {
-  //     setShowWarning1(false);
-  //   }
-  // };
-
-  // const handleInput2 = (e) => {
-  //   setNewItem({
-  //     ...newItem,
-  //     [e.target.name]: e.target.value
-  //   });
-  //   if (e.target.value === '') {
-  //     setShowWarning2(true);
-  //   } else {
-  //     setShowWarning2(false);
-  //   }
-  // };
-
-  // const handleBlurInput1 = (e) => {
-  //   if (e.target.value === '') {
-  //     setShowWarning1(true);
-  //   }
-  // };
-
-  // const handleBlurInput2 = (e) => {
-  //   if (e.target.value === '') {
-  //     setShowWarning2(true);
-  //   }
-  // };
-
-  // const handleClick1 = () => {
-  //   setShowWarning1(false);
-  // };
-
-  // const handleClick2 = () => {
-  //   setShowWarning2(false);
-  // };
 
   if (isFetching) {
     console.log(isOpen);
@@ -116,10 +71,6 @@ const TaskForm = (props) => {
                 placeholder="Task Description"
                 register={register}
                 error={errors.description?.message}
-                // warningMsg="*This field must be completed!"
-                // handleClick={handleClick1}
-                // handleBlur={handleBlurInput1}
-                // showWarning={showWarning1}
               ></Input>
             </div>
             <div className={styles.inputWorkedHours}>
@@ -130,12 +81,6 @@ const TaskForm = (props) => {
                 placeholder="Worked Hours"
                 register={register}
                 error={errors.workedHours?.message}
-                // inputValue={newItem.workedHours}
-                // warningMsg="*This field must be completed!"
-                // handleInput={handleInput2}
-                // handleBlur={handleBlurInput2}
-                // handleClick={handleClick2}
-                // showWarning={showWarning2}
               ></Input>
             </div>
           </div>
