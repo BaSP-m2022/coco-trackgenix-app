@@ -48,7 +48,7 @@ export const deleteSuperAdmins = (_id) => {
   };
 };
 
-export const addSuperAdmin = (superAdmin) => {
+export const addSuperAdmin = (superAdmin, setModalText, setShowButton, setSuperAdminCreated) => {
   return async (dispatch) => {
     dispatch(addSuperAdminsPending());
     try {
@@ -57,18 +57,27 @@ export const addSuperAdmin = (superAdmin) => {
         headers: {
           'Content-type': 'application/json'
         },
-        body: JSON.stringify({
-          name: superAdmin.name,
-          lastName: superAdmin.lastName,
-          email: superAdmin.email,
-          password: superAdmin.password,
-          active: superAdmin.active
-        })
+        body: JSON.stringify(superAdmin)
       });
       const resp = await response.json();
-      dispatch(addSuperAdminsSuccess(resp.data));
+      console.log('resp', resp);
+      console.log(superAdmin);
+      if (resp.error === false) {
+        setShowButton(false);
+        setSuperAdminCreated(true);
+        setModalText('Super-admin has been created!');
+        dispatch(addSuperAdminsSuccess(superAdmin));
+      } else {
+        setShowButton(false);
+        setSuperAdminCreated(false);
+        setModalText('Fields filled incorrectly, please check the data');
+        dispatch(addSuperAdminsError(resp));
+      }
     } catch (error) {
+      setShowButton(false);
+      setSuperAdminCreated(false);
       dispatch(addSuperAdminsError(error.toString()));
+      setModalText('An error has ocurred!');
     }
   };
 };
