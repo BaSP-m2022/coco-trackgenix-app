@@ -1,14 +1,14 @@
 import React from 'react';
-import Logo from '../../SharedComponents/Logo/Logo';
-import Button from '../../SharedComponents/Button/Button';
-import styles from './taskForm.module.css';
+import styles from 'Components/Tasks/TaskForm/taskForm.module.css';
+import Logo from 'Components/SharedComponents/Logo/Logo';
+import Loading from 'Components/SharedComponents/Loading/Loading';
+import Button from 'Components/SharedComponents/Button/Button';
+import Modal from 'Components/SharedComponents/Modal/Modal';
+import Input from 'Components/SharedComponents/Input/Input';
 import { useState, useEffect } from 'react';
-import Modal from '../../SharedComponents/Modal/Modal';
-import Input from '../../SharedComponents/Input/Input';
 import { useDispatch, useSelector } from 'react-redux';
-import { editTasks, getTaskById } from '../../redux/modules/tasks/thunks';
-import Loading from '../../SharedComponents/Loading/Loading';
-import { cleanSelectedItem } from '../../redux/modules/tasks/actions';
+import { editTasks, getTaskById } from 'Components/redux/modules/tasks/thunks';
+import { cleanSelectedItem } from 'Components/redux/modules/tasks/actions';
 
 const TaskFormEdit = (props) => {
   const [description, setDescription] = useState('');
