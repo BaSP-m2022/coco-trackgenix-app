@@ -190,9 +190,7 @@
 }
 
 .buttonAdd {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  align-self: center;
   justify-content: center;
   padding: 10px;
   background: #AACE9B;

@@ -6,7 +6,7 @@ import Table from '../SharedComponents/Table';
 import Loading from '../SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAdmin, deleteAdmin } from '../redux/modules/admins/thunks';
-import Button from 'Components/Button/Button';
+import Button from 'Components/SharedComponents/Button/Button';
 
 const Admins = (props) => {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const Admins = (props) => {
       <h2 className={styles.title}>Admins</h2>
       <div>
         <Button type={styles.buttonAdd} handleClick={() => props.history.push('tasks/add')}>
-          + Add Task
+          Add Admin
         </Button>
         <Table
           data={dataResponse}
