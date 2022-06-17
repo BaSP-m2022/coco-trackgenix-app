@@ -120,7 +120,7 @@ const FormEmployee = (props) => {
     <div className={styles.formAdd}>
       <Logo />
       <div>
-        <h2>Add New Employee</h2>
+        <h2 className={styles.title}>Sign Up</h2>
         <div>
           <form onSubmit={onSubmit}>
             <div>

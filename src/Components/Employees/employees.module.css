@@ -9,9 +9,13 @@
 
 .title {
   color: #373867;
-  font-size: xx-large;
+  font-family: 'Arial';
+  width: 280px;
+  margin-top: 20px;
   font-weight: 700;
-  margin-top: 10px;
+  font-size: 45px;
+  line-height: 60px;
+  text-align: center;
 }
 
 .formAdd {
