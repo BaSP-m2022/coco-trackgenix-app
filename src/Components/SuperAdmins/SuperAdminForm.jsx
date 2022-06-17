@@ -178,12 +178,14 @@ const AddSuperAdmin = (props) => {
           />
         </div>
         <div>
-          <Dropdown name="active" labelText="Set if is active" onChange={handleChange}></Dropdown>
+          <Dropdown name="active" labelText="Active" onChange={handleChange}></Dropdown>
         </div>
-        <Button type={('submit', styles.stylesBtn)}>Create</Button>
-        <Button type={styles.stylesBtn} handleClick={() => props.history.push('/super-admins')}>
-          Back
-        </Button>
+        <div className={styles.formButtonsContainer}>
+          <Button type={styles.stylesBtn} handleClick={() => props.history.push('/super-admins')}>
+            Back
+          </Button>
+          <Button type={('submit', styles.stylesBtn)}>Create</Button>
+        </div>
       </form>
       <Modal
         showModal={isOpen}

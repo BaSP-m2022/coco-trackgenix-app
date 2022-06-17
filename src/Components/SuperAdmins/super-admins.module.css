@@ -78,3 +78,8 @@
   background-color: white;
   border: 2px solid #aace9b;
 }
+
+.formButtonsContainer {
+  display: flex;
+  justify-content: space-between;
+}
