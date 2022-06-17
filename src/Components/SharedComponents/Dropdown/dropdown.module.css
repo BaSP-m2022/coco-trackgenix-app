@@ -1,29 +1,33 @@
 .container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 250px;
-  }
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 310px;
+  margin-bottom: 20px;
+}
 
 .label {
-  font-family: 'Roboto';
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 16px;
-  color: #373867;
-  margin-bottom: 10px;
+font-family: 'Roboto';
+font-weight: 700;
+font-size: 14px;
+line-height: 16px;
+color: #373867;
+margin-bottom: 5px;
+align-self: flex-start;
 }
+
 .select {
-  width: 100%;
-  height: 37px;
-  padding: 10px 12px;
-  box-sizing: border-box;
-  border: 1px solid #000000;
-  border-radius: 4px;
-  text-transform: capitalize;
+width: 100%;
+height: 37px;
+padding: 10px 12px;
+box-sizing: border-box;
+border: 1px solid #000000;
+border-radius: 4px;
+text-transform: capitalize;
 }
+
 .options:hover {
-  background-color:lightgray;
+background-color:lightgray;
 }

@@ -3,6 +3,7 @@ import styles from './input.module.css';
 const Input = ({
   labelText,
   name,
+  type,
   inputValue,
   placeholder,
   warningMsg,
@@ -18,7 +19,7 @@ const Input = ({
       </label>
       <input
         className={showWarning ? styles.emptyInput : styles.input}
-        type="text"
+        type={type}
         name={name}
         value={inputValue}
         placeholder={placeholder}
