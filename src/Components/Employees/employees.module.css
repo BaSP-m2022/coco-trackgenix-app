@@ -62,6 +62,11 @@
   cursor: pointer;
 }
 
+.addEmployeeBtn:hover {
+  background-color: #FFFFFF;
+  border: 1px solid #A5DE93;
+}
+
 .returnEmployeeBtn {
   position: absolute;
   align-self: flex-start;

@@ -33,6 +33,11 @@
   transition-duration: 0.3s;
 }
 
+.addProject:hover {
+  background-color: #FFFFFF;
+  border: 1px solid #A5DE93;
+}
+
 .editButtonProject{
   padding: 10px 15px;
   border: 0px;
