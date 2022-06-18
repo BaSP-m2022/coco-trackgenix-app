@@ -17,6 +17,11 @@ const AdminFormEdit = lazy(() => import('Components/Admins/AdminForm/AdminFormEd
 const SuperAdmins = lazy(() => import('Components/SuperAdmins/index'));
 const SuperAdminFormEdit = lazy(() => import('Components/SuperAdmins/SuperAdminFormEdit'));
 const Employees = lazy(() => import('Components/Employees/index'));
+const EmployeesTimesheet = lazy(() => import('Components/TimeSheets/index'));
+const EmployeesTimesheetAdd = lazy(() => import('Components/TimeSheets/TimeSheetsFormAdd'));
+const EmployeesTimesheetEdit = lazy(() => import('Components/TimeSheets/TimeSheetsFormEdit'));
+const EmployeesProfile = lazy(() => import('Components/Employees/index'));
+const EmployeesProject = lazy(() => import('Components/Projects/index'));
 const FormEmployeeEdit = lazy(() => import('Components/Employees/FormEmployee/FormEmployeeEdit'));
 const Projects = lazy(() => import('Components/Projects'));
 const AddNew = lazy(() => import('Components/Projects/AddNew'));
@@ -43,6 +48,11 @@ function Layout() {
             <Route path="/super-admins/Form" component={SuperAdminFormEdit} />
             <Route path="/super-admins/formAdd" component={SuperAdminForm} />
             <Route exact path="/employees" component={Employees} />
+            <Route path="/employees/timesheet" component={EmployeesTimesheet} />
+            <Route path="/employees/timesheetAdd" component={EmployeesTimesheetAdd} />
+            <Route path="/employees/timesheetEdit" component={EmployeesTimesheetEdit} />
+            <Route path="/employees/profile" component={EmployeesProfile} />
+            <Route path="/employees/project" component={EmployeesProject} />
             <Route path="/employees/form" component={FormEmployee} />
             <Route path="/employees/formEdit" component={FormEmployeeEdit} />
             <Route exact path="/projects" component={Projects} />

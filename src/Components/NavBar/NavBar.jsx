@@ -22,7 +22,7 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            <Link className={styles.links} to="/employees">
+            <Link className={styles.links} to="/employees/timesheet">
               employees
             </Link>
           </li>
