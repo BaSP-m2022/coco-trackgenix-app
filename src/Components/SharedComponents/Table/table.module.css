@@ -97,6 +97,7 @@ thead {
   font-family: 'Arial';
   max-width: 120px;
   height: 30px;
+  padding: 10px;
 }
 
 .tableCellButtons {
@@ -105,10 +106,10 @@ thead {
   background-color: #B2B3E0;
   color: #373867;
   font-family: 'Arial';
-  max-width: 70px;
-  min-width: 70px;
+  max-width: 40px;
+  min-width: 40px;
   height: 30px;
-  flex: 0.5 70px;
+  flex: 1 40px;
   margin: 0 5px;
 }
 
@@ -120,6 +121,7 @@ thead {
   font-family: 'Arial';
   background-color: rgb(255, 255, 255);
   border-radius: 5px;
+  padding: 10px;
 }
 
 .container > table {
@@ -129,11 +131,16 @@ thead {
 .data {
   flex: 1 70px;
   text-align: left;
+  padding: 5px;
 }
 
 .buttonTd {
-  flex: 1 70px;
-  min-width: 70px;
-  max-width: 70px;
-  margin: 0 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex: 1 140px;
+  min-width: 140px;
+  max-width: 140px;
 }
