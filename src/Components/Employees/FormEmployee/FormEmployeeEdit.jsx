@@ -3,11 +3,18 @@ import styles from '../employees.module.css';
 import Logo from '../../SharedComponents/Logo/Logo';
 import Modal from '../../SharedComponents/Modal/Modal';
 import Button from '../../SharedComponents/Button/Button';
+import Input from '../../SharedComponents/Input/Input';
+import Loading from '../../SharedComponents/Loading/Loading';
+import Dropdown from '../../SharedComponents/Dropdown/Dropdown';
+import { useDispatch, useSelector } from 'react-redux';
+import { editEmployee, getEmployeeById } from '../../redux/modules/employees/thunks';
 
 const FormEmployeeEdit = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState();
-  const [status, setStatus] = useState();
+
+  const dispatch = useDispatch();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
@@ -15,74 +22,94 @@ const FormEmployeeEdit = (props) => {
   const [password, setPassword] = useState('');
   const [active, setActive] = useState('');
 
+  const [showWarning1, setShowWarning1] = useState(false);
+  const [showWarning2, setShowWarning2] = useState(false);
+  const [showWarning3, setShowWarning3] = useState(false);
+  const [showWarning4, setShowWarning4] = useState(false);
+  const [showWarning5, setShowWarning5] = useState(false);
+  const [showButton, setShowButton] = useState(true);
+  const [successEmployee, setSuccessEmployee] = useState(false);
+
+  const isLoadingEmployee = useSelector((state) => state.employee.isLoading);
+  const selectedItem = useSelector((state) => state.employee.selectedItem);
+
   const params = window.location.search;
   let id = params.substring(2);
 
-  const url = `https://coco-trackgenix-server.vercel.app/employees/${id}`;
+  useEffect(() => {
+    if (Object.keys(selectedItem).length) {
+      setFirstName(selectedItem.firstName);
+      setLastName(selectedItem.lastName);
+      setEmail(selectedItem.email);
+      setPhone(selectedItem.phone);
+      setPassword(selectedItem.password);
+      setActive(selectedItem.active);
+    }
+  }, [selectedItem]);
 
   useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((response) => {
-        setFirstName(response.data.firstName);
-        setLastName(response.data.lastName);
-        setPhone(response.data.phone);
-        setEmail(response.data.email);
-        setPassword(response.data.password);
-        setActive(response.data.active);
-      });
+    dispatch(getEmployeeById(id));
   }, []);
 
-  const formEmployee = async () => {
-    await fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        email: email,
-        password: password,
-        active: active
-      })
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setStatus(data.msg);
-        setModalText(data.msg);
-        setIsOpen(true);
-      })
-      .catch((error) => console.error(error));
+  const formEmployee = (e) => {
+    dispatch(editEmployee(e, id, setModalText, setShowButton, setSuccessEmployee));
+    setIsOpen(true);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    formEmployee();
+    setModalText('Are you sure you want to edit the employee ?');
+    setIsOpen(true);
   };
 
-  const detour = (status) => {
-    let result;
-    if (status == 'Status 200') {
-      props.history.push('/employees');
-    } else {
-      setIsOpen(false);
+  const handleInput = (e) => {
+    switch (e.target.name) {
+      case 'firstName':
+        setFirstName(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning1(true);
+        } else {
+          setShowWarning1(false);
+        }
+        break;
+      case 'lastName':
+        setLastName(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning2(true);
+        } else {
+          setShowWarning2(false);
+        }
+        break;
+      case 'phone':
+        setPhone(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning3(true);
+        } else {
+          setShowWarning3(false);
+        }
+        break;
+      case 'email':
+        setEmail(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning4(true);
+        } else {
+          setShowWarning4(false);
+        }
+        break;
+      case 'password':
+        setPassword(e.target.value);
+        if (e.target.value === '') {
+          setShowWarning5(true);
+        } else {
+          setShowWarning5(false);
+        }
+        break;
     }
-
-    return result;
   };
 
-  const checkEmployee = () => {
-    let result;
-    if (!modalText) {
-      result = 'Fields filled incorrectly, please check the data';
-    } else {
-      result = 'Employee updated succesfully';
-    }
-
-    return result;
-  };
+  if (isLoadingEmployee) {
+    return <Loading className={styles.loadText}></Loading>;
+  }
 
   return (
     <div className={styles.formAdd}>
@@ -93,74 +120,158 @@ const FormEmployeeEdit = (props) => {
       <div>
         <form onSubmit={onSubmit}>
           <div>
-            <label>Name</label>
-            <input
-              type="text"
+            <Input
+              labelText="Name"
               name="firstName"
-              value={firstName}
-              onChange={(event) => setFirstName(event.target.value)}
+              inputValue={firstName}
+              placeholder="First Name"
+              warningMsg="Please check the information"
+              handleInput={handleInput}
+              handleClick={() => {
+                setShowWarning1(false);
+              }}
+              handleBlur={(e) => {
+                if (e.target.value === '') {
+                  setShowWarning1(true);
+                }
+              }}
+              showWarning={showWarning1}
             />
           </div>
           <div>
-            <label>Last Name</label>
-            <input
-              type="text"
+            <Input
+              labelText="Last Name"
               name="lastName"
-              value={lastName}
-              onChange={(event) => setLastName(event.target.value)}
+              inputValue={lastName}
+              placeholder="Last Name"
+              warningMsg="Please check the information"
+              handleInput={handleInput}
+              handleClick={() => {
+                setShowWarning2(false);
+              }}
+              handleBlur={(e) => {
+                if (e.target.value === '') {
+                  setShowWarning2(true);
+                }
+              }}
+              showWarning={showWarning2}
             />
           </div>
           <div>
-            <label>Phone</label>
-            <input
-              type="number"
+            <Input
+              labelText="Phone"
               name="phone"
-              value={phone}
-              onChange={(event) => setPhone(event.target.value)}
+              inputValue={phone}
+              placeholder="Phone"
+              warningMsg="Please check the information"
+              handleInput={handleInput}
+              handleClick={() => {
+                setShowWarning3(false);
+              }}
+              handleBlur={(e) => {
+                if (e.target.value === '') {
+                  setShowWarning3(true);
+                }
+              }}
+              showWarning={showWarning3}
             />
           </div>
           <div>
-            <label>Email</label>
-            <input
-              type="email"
+            <Input
+              labelText="Email"
               name="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              inputValue={email}
+              placeholder="Email"
+              warningMsg="Please check the information"
+              handleInput={handleInput}
+              handleClick={() => {
+                setShowWarning4(false);
+              }}
+              handleBlur={(e) => {
+                if (e.target.value === '') {
+                  setShowWarning4(true);
+                }
+              }}
+              showWarning={showWarning4}
             />
           </div>
           <div>
-            <label>Password</label>
-            <input
-              type="password"
+            <Input
+              labelText="Password"
               name="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              inputValue={password}
+              placeholder="Password"
+              warningMsg="Please check the information"
+              handleInput={handleInput}
+              handleClick={() => {
+                setShowWarning5(false);
+              }}
+              handleBlur={(e) => {
+                if (e.target.value === '') {
+                  setShowWarning5(true);
+                }
+              }}
+              showWarning={showWarning5}
             />
           </div>
           <div>
-            <label>Active</label>
-            <input
-              type="text"
-              name="active"
-              value={active}
-              onChange={(event) => setActive(event.target.value)}
+            <Dropdown
+              name={'active'}
+              labelText={'Active'}
+              onChange={(e) => {
+                setActive(e.target.value);
+              }}
             />
           </div>
-          <div>
-            <input className={styles.addEmployeeBtn} type="submit" value="submit" />
+          <div className={styles.containerBtn}>
+            <Button type={('submit', styles.employeeBtnEdit)}>Edit</Button>
+            <Button
+              type={styles.employeeBtnEdit}
+              handleClick={() => props.history.push('/employees')}
+            >
+              Return
+            </Button>
           </div>
         </form>
-        <Button type={styles.addEmployeeBtn} handleClick={() => props.history.push('/employees')}>
-          return
-        </Button>
       </div>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <div>
-          <p>{checkEmployee(modalText)}</p>
+          <p>{modalText}</p>
         </div>
         <div>
-          <Button type={styles.modalEmployeeBtn} handleClick={() => detour(status)}>
-            ok
+          <Button
+            type={styles.modalEmployeeBtn}
+            handleClick={() => {
+              if (!showButton && successEmployee) {
+                setShowButton(true);
+                setSuccessEmployee(false);
+                props.history.push('/employees');
+              } else {
+                setShowButton(true);
+                setSuccessEmployee(false);
+                setIsOpen(false);
+              }
+            }}
+          >
+            {showButton && !successEmployee ? 'Cancel' : 'Ok'}
+          </Button>
+          <Button
+            type={
+              showButton && !successEmployee ? styles.modalEmployeeBtn : styles.modalEmployeeBtnNone
+            }
+            handleClick={() => {
+              const employeeToEdit = {
+                firstName: firstName,
+                lastName: lastName,
+                phone: phone,
+                email: email,
+                password: password,
+                active: active
+              };
+              formEmployee(employeeToEdit);
+            }}
+          >
+            Confirm
           </Button>
         </div>
       </Modal>

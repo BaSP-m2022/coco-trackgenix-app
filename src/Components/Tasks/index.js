@@ -4,46 +4,37 @@ import Logo from '../SharedComponents/Logo/Logo';
 import Table from '../SharedComponents/Table/index';
 import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
+import Loading from '../SharedComponents/Loading/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteTasks, getTasks } from '../redux/modules/tasks/thunks';
 
 const Tasks = (props) => {
-  const [list, setList] = useState([]);
+  const dispatch = useDispatch();
+  const list = useSelector((state) => state.tasks.list);
+  const isFetching = useSelector((state) => state.tasks.isFetching);
+  const error = useSelector((state) => state.tasks.error);
+
   const [isOpen, setIsOpen] = useState(false);
 
-  const dateFormatter = (inputDate) => {
-    const date = new Date(inputDate);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${month}/${day}/${year}`;
-  };
-
-  useEffect(async () => {
-    try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/tasks`);
-      const data = await response.json();
-      data.data.forEach((task) => {
-        task.date = dateFormatter(task.date).substring(0, 10);
-      });
-      setList(data.data);
-    } catch (error) {
-      console.error(error);
-    }
+  useEffect(() => {
+    dispatch(getTasks());
   }, []);
 
-  const deleteItem = (_id) => {
-    try {
-      fetch(`https://coco-trackgenix-server.vercel.app/tasks/${_id}`, {
-        method: 'DELETE'
-      });
-      setIsOpen(true);
-    } catch (error) {
-      console.error(error);
-    }
-    setList(list.filter((listItem) => listItem._id !== _id));
+  const deleteItem = (id) => {
+    dispatch(deleteTasks(id)).then(setIsOpen(true));
   };
+
   const handleEdit = (_id) => {
     window.location = `/tasks/edit?=${_id}`;
   };
+
+  if (isFetching) {
+    return <Loading className={styles.loadText}></Loading>;
+  }
+
+  if (error) {
+    return <div>ERROR!!!</div>;
+  }
 
   return (
     <section className={styles.container}>

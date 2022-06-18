@@ -24,13 +24,16 @@
   height: 50px;
   margin: 0 20px;
   padding: 10px 24px;
-  background: #AACE9B;
+  background: #aace9b;
   border: 1px solid #505168;
   border-radius: 5px;
   font-size: 15px;
   font-weight: 700;
   color: #505168;
   cursor: pointer;
+}
+.stylesModalBtnNone {
+  display: none;
 }
 
 .stylesModalBtn:hover {
@@ -43,7 +46,7 @@
   height: 50px;
   margin: 0;
   padding: 0;
-  background: #AACE9B;
+  background: #aace9b;
   border: 1px solid #505168;
   border-radius: 5px;
   font-size: 15px;
@@ -62,7 +65,7 @@
   height: 30px;
   margin: 30px;
   padding: 0;
-  background: #AACE9B;
+  background: #aace9b;
   border: 1px solid #505168;
   border-radius: 5px;
   font-size: 15px;
@@ -74,4 +77,9 @@
 .stylesBtn:hover {
   background-color: white;
   border: 2px solid #aace9b;
+}
+
+.formButtonsContainer {
+  display: flex;
+  justify-content: space-between;
 }
