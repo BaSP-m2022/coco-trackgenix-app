@@ -4,7 +4,7 @@ import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
 import Logo from '../SharedComponents/Logo/Logo';
 
-const TimeSheetsFormEdit = (props) => {
+const EditFormTimesheet = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [addItem, setItem] = useState({});
   const [employeesItem, setEmployeesItem] = useState([]);
@@ -135,9 +135,6 @@ const TimeSheetsFormEdit = (props) => {
     );
   });
 
-  const backTimeSheet = () => {
-    props.history.push('/time-sheets');
-  };
   return (
     <div className={styles.container}>
       <Logo />
@@ -220,7 +217,7 @@ const TimeSheetsFormEdit = (props) => {
           >
             Accept
           </Button>
-          <Button type={styles.stylesBtn} handleClick={() => backTimeSheet()}>
+          <Button type={styles.stylesBtn} handleClick={() => console.log('click')}>
             Cancel
           </Button>
         </div>
@@ -245,4 +242,4 @@ const TimeSheetsFormEdit = (props) => {
   );
 };
 
-export default TimeSheetsFormEdit;
+export default EditFormTimesheet;

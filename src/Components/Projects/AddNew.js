@@ -59,10 +59,6 @@ const AddNew = () => {
     });
   };
 
-  // const backProject = () => {
-  //   history.push('/projects');
-  // };
-
   function handleSubmit(e) {
     e.preventDefault();
     setProjectInput({
@@ -76,9 +72,6 @@ const AddNew = () => {
       admins: project.admins
     });
   }
-  // const formProject = (projectInput) => {
-  //   dispatch(postProject(projectInput));
-  // };
   const confirmModal = (e) => {
     setIsOpenConfirm(true);
     handleSubmit(e);
