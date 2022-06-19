@@ -56,8 +56,8 @@ const TaskForm = (props) => {
       <Logo />
       <h2 className={styles.title}>New Task</h2>
       <div className={styles.formContainer}>
-        <form className={styles.formTasks} onSubmit={handleSubmit(onSubmit)}>
-          <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={styles.inputsContainer}>
             <div className={styles.inputDescription}>
               <Input
                 name="description"
@@ -79,12 +79,14 @@ const TaskForm = (props) => {
               ></Input>
             </div>
           </div>
-          <Button type={('submit', styles.buttonForm)} handleClick={() => setIsOpen(true)}>
-            Create
-          </Button>
-          <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
-            Cancel
-          </Button>
+          <div className={styles.buttonsContainer}>
+            <Button type={('submit', styles.buttonForm)} handleClick={() => setIsOpen(true)}>
+              Create
+            </Button>
+            <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
+              Cancel
+            </Button>
+          </div>
         </form>
       </div>
       <Modal showModal={isOpen} closeModal={handleOkBtn}>

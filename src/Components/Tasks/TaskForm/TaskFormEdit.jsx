@@ -87,11 +87,8 @@ const TaskFormEdit = (props) => {
       <Logo />
       <h2 className={styles.title}>Edit Task</h2>
       <div className={styles.formContainer}>
-        <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
-          BACK
-        </Button>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-          <div>
+          <div className={styles.inputsContainer}>
             <div className={styles.inputDescription}>
               <Input
                 name="description"
@@ -113,9 +110,14 @@ const TaskFormEdit = (props) => {
               ></Input>
             </div>
           </div>
-          <Button type={('submit', styles.buttonForm)} handleClick={() => setIsOpen(true)}>
-            Edit
-          </Button>
+          <div className={styles.buttonsContainer}>
+            <Button type={('submit', styles.buttonEdit)} handleClick={() => setIsOpen(true)}>
+              Edit
+            </Button>
+            <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
+              Cancel
+            </Button>
+          </div>
         </form>
       </div>
       <Modal showModal={isOpen} closeModal={handleOkBtn}>
