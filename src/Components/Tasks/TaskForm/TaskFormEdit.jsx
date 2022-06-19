@@ -39,7 +39,12 @@ const TaskFormEdit = (props) => {
   }, []);
 
   useEffect(() => {
-    reset(selectedItem);
+    if (Object.keys(selectedItem).length) {
+      reset({
+        description: selectedItem.description,
+        workedHours: selectedItem.workedHours
+      });
+    }
   }, [selectedItem]);
 
   useEffect(() => {
@@ -57,7 +62,15 @@ const TaskFormEdit = (props) => {
 
   const onSubmit = async (data) => {
     const id = params.substring(2);
-    dispatch(editTasks(id, data, setResStatus, setResponseMsg));
+    if (
+      data.description !== selectedItem.description ||
+      data.workedHours !== selectedItem.workedHours
+    ) {
+      dispatch(editTasks(id, data, setResStatus, setResponseMsg));
+    } else {
+      // setResStatus('a');
+      // setResponseMsg('');
+    }
   };
 
   const handleOkBtn = () => {
