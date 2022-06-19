@@ -67,7 +67,7 @@ const Projects = (props) => {
     history.push(`/projects/edit?=${item}`);
   };
 
-  if (window.location.pathname === '/employees/projects') {
+  if (window.location.pathname === '/employee/projects') {
     return (
       <div className={styles.container}>
         <Logo />

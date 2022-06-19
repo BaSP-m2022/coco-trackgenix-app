@@ -47,12 +47,12 @@ function Layout() {
             <Route exact path="/super-admins" component={SuperAdmins} />
             <Route path="/super-admins/Form" component={SuperAdminFormEdit} />
             <Route path="/super-admins/formAdd" component={SuperAdminForm} />
-            <Route exact path="/employees" component={Employees} />
-            <Route path="/employees/timesheet" component={EmployeesTimesheet} />
-            <Route path="/employees/timesheetAdd" component={EmployeesTimesheetAdd} />
-            <Route path="/employees/timesheetEdit" component={EmployeesTimesheetEdit} />
-            <Route path="/employees/profile" component={EmployeesProfile} />
-            <Route path="/employees/projects" component={EmployeesProject} />
+            <Route exact path="/employee" component={Employees} />
+            <Route path="/employee/timesheet" component={EmployeesTimesheet} />
+            <Route path="/employee/timesheetAdd" component={EmployeesTimesheetAdd} />
+            <Route path="/employee/timesheetEdit" component={EmployeesTimesheetEdit} />
+            <Route path="/employee/profile" component={EmployeesProfile} />
+            <Route path="/employee/projects" component={EmployeesProject} />
             <Route path="/employees/form" component={FormEmployee} />
             <Route path="/employees/formEdit" component={FormEmployeeEdit} />
             <Route exact path="/projects" component={Projects} />

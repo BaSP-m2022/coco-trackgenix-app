@@ -57,11 +57,12 @@ function TimeSheets(props) {
     history.push(`/time-sheets/edit?=${item}`);
   };
 
-  if (window.location.pathname === '/employees/timesheet') {
+  if (window.location.pathname === '/employee/timesheet') {
     return (
       <section className={styles.container}>
         <Logo />
-        <h2 className={styles.title}>Your Timesheet</h2>
+        <h2 className={styles.title}>Employee</h2>
+        <h2 className={styles.title}>Timesheet</h2>
         <Table
           data={list}
           headers={['employeeId', 'projectId', 'startDate', 'endDate', 'tasks']}
@@ -70,7 +71,7 @@ function TimeSheets(props) {
         >
           <Button
             type={styles.buttonAdd}
-            handleClick={() => props.history.push('/employees/timesheetAdd')}
+            handleClick={() => props.history.push('/employee/timesheetAdd')}
           >
             Add Time Sheet
           </Button>

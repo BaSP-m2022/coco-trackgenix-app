@@ -7,12 +7,12 @@ const NavBar = () => {
   if (location.pathname == '/home' || location.pathname == '/nav') {
     return null;
   } else if (
-    location.pathname === '/employees/' ||
-    location.pathname === '/employees/timesheet' ||
-    location.pathname === '/employees/timesheetAdd' ||
-    location.pathname === '/employees/timesheetEdit' ||
-    location.pathname === '/employees/projects' ||
-    location.pathname === '/employees/profile'
+    location.pathname === '/employee/' ||
+    location.pathname === '/employee/timesheet' ||
+    location.pathname === '/employee/timesheetAdd' ||
+    location.pathname === '/employee/timesheetEdit' ||
+    location.pathname === '/employee/projects' ||
+    location.pathname === '/employee/profile'
   ) {
     return (
       <nav className={styles.navbar}>
@@ -24,17 +24,17 @@ const NavBar = () => {
         <div className={styles.menu}>menu</div>
         <ul className={styles.rutes}>
           <li>
-            <Link className={styles.links} to="/employees/timesheet">
-              timesheet
-            </Link>
-          </li>
-          <li>
-            <Link className={styles.links} to="/employees/projects">
+            <Link className={styles.links} to="/employee/projects">
               projects
             </Link>
           </li>
           <li>
-            <Link className={styles.links} to="/employees/profile">
+            <Link className={styles.links} to="/employee/timesheet">
+              timesheet
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.links} to="/employee/profile">
               personal Information
             </Link>
           </li>
@@ -57,7 +57,7 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            <Link className={styles.links} to="/employees/projects">
+            <Link className={styles.links} to="/employee/projects">
               employees
             </Link>
           </li>

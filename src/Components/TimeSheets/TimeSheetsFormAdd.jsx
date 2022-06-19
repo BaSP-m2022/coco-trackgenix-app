@@ -79,7 +79,7 @@ const TimeSheetsForm = (props) => {
       });
   }, []);
 
-  if (window.location.pathname === '/employees/timesheetAdd') {
+  if (window.location.pathname === '/employee/timesheetAdd') {
     return (
       <div>
         <div>
@@ -87,7 +87,7 @@ const TimeSheetsForm = (props) => {
         </div>
         <form onSubmit={create}>
           <div>
-            <button onClick={() => props.history.push('/employees/timesheet')}>Back</button>
+            <button onClick={() => props.history.push('/employee/timesheet')}>Back</button>
           </div>
           <Dropdown
             data={employeesItem}
