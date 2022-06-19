@@ -73,7 +73,7 @@ const Projects = (props) => {
       <div className={styles.container}>
         <h2 className={styles.title}>Projects</h2>
         <Button type={styles.addProject} handleClick={() => props.history.push('/projects/add')}>
-          + Add New Project
+          Add Project
         </Button>
         <Table
           data={list}
