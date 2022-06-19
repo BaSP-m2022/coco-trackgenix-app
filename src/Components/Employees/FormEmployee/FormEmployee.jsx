@@ -118,9 +118,11 @@ const FormEmployee = (props) => {
 
   return (
     <div className={styles.formAdd}>
-      <Logo />
       <div>
-        <h2 className={styles.title}>Sign Up</h2>
+        <div className={styles.head}>
+          <h2 className={styles.title}>Sign Up</h2>
+          <Logo />
+        </div>
         <div>
           <form onSubmit={onSubmit}>
             <div>
