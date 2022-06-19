@@ -13,7 +13,7 @@ function Navigation() {
           <button
             className={styles.navButton}
             onClick={() => {
-              history.push('/employees/timesheet');
+              history.push('/employees/projects');
             }}
           >
             Employee
