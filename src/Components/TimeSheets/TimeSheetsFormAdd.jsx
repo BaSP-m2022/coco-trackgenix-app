@@ -13,7 +13,7 @@ import { getTasks } from '../redux/modules/tasks/thunks';
 
 const TimeSheetsForm = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [modalText, setModalText] = useState();
+  const [modalText, setModalText] = useState('');
   const [timesheetInput, setTimesheetInput] = useState({
     employeeId: props.employeeId,
     projectId: props.projectId,
@@ -76,17 +76,29 @@ const TimeSheetsForm = (props) => {
     }
   }, [taskList]);
 
-  const formTimesheet = (e) => {
-    dispatch(addTimesheet(e, setModalText, setShowButton, setSuccessTimesheet));
+  const formTimesheet = async (e) => {
     setIsOpen(true);
     setTimesheetInput({
-      employeeId: [],
-      projectsId: [],
+      employeeId: '',
+      projectId: '',
       tasks: [],
       startDate: '',
       endDate: ''
     });
+    await dispatch(addTimesheet(e, setModalText, setSuccessTimesheet, setShowButton));
   };
+
+  // if (
+  //   timesheetInput.employeeId == '' ||
+  //   timesheetInput.projectId == '' ||
+  //   timesheetInput.tasks == [] ||
+  //   timesheetInput.startDate == '' ||
+  //   timesheetInput.endDate == ''
+  // ) {
+  //   setShowButton(false);
+  //   setSuccessTimesheet(false);
+  //   setModalText('Fields filled incorrectly, please check the data');
+  // }
 
   const onChangeTasks = (e) => {
     if (taskList.find((task) => task._id === e.target.value) === undefined) {
@@ -95,26 +107,6 @@ const TimeSheetsForm = (props) => {
       alert('This task has already been selected');
     }
   };
-
-  // const create = (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     fetch(`https://coco-trackgenix-server.vercel.app/timesheets`, {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(addItem)
-  //     })
-  //       .then((response) => response.json())
-  //       .then((response) => {
-  //         alert(response.error ? `Error! ${response.msg}` : `Success! ${response.message}`);
-  //         if (!response.error) {
-  //           props.history.push('/time-sheets');
-  //         }
-  //       });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -125,6 +117,9 @@ const TimeSheetsForm = (props) => {
     setModalText('Are you sure you want to create an new timesheet ?');
     setIsOpen(true);
   };
+
+  console.log('successTimesheet', successTimesheet);
+  console.log('showButton', showButton);
 
   return (
     <div>
@@ -192,12 +187,12 @@ const TimeSheetsForm = (props) => {
         </div>
         <div>
           <Button
-            type={styles.modalTimesheetBtn}
+            type={styles.modalEmployeeBtn}
             handleClick={() => {
               if (!showButton && successTimesheet) {
                 setShowButton(true);
                 setSuccessTimesheet(false);
-                props.history.push('/timesheets');
+                props.history.push('/time-sheets');
               } else {
                 setShowButton(true);
                 setSuccessTimesheet(false);
@@ -213,7 +208,10 @@ const TimeSheetsForm = (props) => {
                 ? styles.modalTimesheetBtn
                 : styles.modalTimesheetBtnNone
             }
-            handleClick={() => formTimesheet(timesheetInput)}
+            handleClick={() => {
+              formTimesheet(timesheetInput);
+              // window.location.href = '/time-sheets';
+            }}
           >
             Confirm
           </Button>

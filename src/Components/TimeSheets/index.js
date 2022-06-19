@@ -13,7 +13,6 @@ const Timesheets = (props) => {
   const dispatch = useDispatch();
   const responseData = useSelector((state) => state.timesheet.list);
   const [isOpen, setIsOpen] = useState(false);
-  console.log(responseData);
 
   const isLoadingTimesheet = useSelector((state) => state.timesheet.isLoading);
 
@@ -56,7 +55,7 @@ const Timesheets = (props) => {
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>Success!</h2>
         <div>
-          <p>Timesheet deleted Succesffully</p>
+          <p>Timesheet deleted Succesfully</p>
         </div>
         <div>
           <Button type={styles.modalTimesheetBtn} handleClick={() => setIsOpen(false)}>

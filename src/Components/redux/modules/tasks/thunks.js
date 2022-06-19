@@ -27,7 +27,13 @@ export const getTasks = () => {
 
   return (dispatch) => {
     dispatch(getTasksPending());
-    return fetch(`https://coco-trackgenix-server.vercel.app/tasks`)
+    return fetch(`https://coco-trackgenix-server.vercel.app/tasks`, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    })
       .then((response) => response.json())
       .then((response) => {
         response.data.forEach((task) => {

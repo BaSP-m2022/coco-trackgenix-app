@@ -33,7 +33,13 @@ export const getProject = () => {
   return async (dispatch) => {
     dispatch(getProjectPending());
     try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects`);
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        })
+      });
       const data = await response.json();
       data.data.map((project) => {
         project.active = project.active ? 'true' : 'false';
