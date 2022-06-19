@@ -9,7 +9,6 @@ const Input = ({ name, labelText, type, placeholder, register, error }) => {
       <input
         className={error ? styles.emptyInput : styles.input}
         type={type}
-        name={name}
         placeholder={placeholder}
         {...register(name)}
       ></input>
