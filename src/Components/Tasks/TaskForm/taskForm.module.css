@@ -5,6 +5,7 @@
   justify-content: space-around;
   align-items: center;
 }
+
 .title {
   font-family: 'Roboto';
   font-weight: 700;
@@ -13,14 +14,39 @@
   color: #373867;
 }
 
-.buttonAdd,
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* .formTasks {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+} */
+
+.inputsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.inputDescription,
+.inputWorkedHours {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
 .buttonForm {
   display: flex;
   flex-direction: row;
   height: 37px;
   align-items: center;
   justify-content: center;
-  margin-left: 10px;
+  margin-left: 0px;
   margin-bottom: 15px;
   padding: 14px 36px;
   gap: 10px;
@@ -35,39 +61,9 @@
   transition-duration: 0.3s;
 }
 
-.buttonForm {
-  margin-left: 0px;
-}
-
-.buttonAdd:hover,
 .buttonForm:hover {
   background-color: white;
   border: 2px solid #aace9b;
-}
-
-.formContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.inputsContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.form {
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.inputDescription,
-.inputWorkedHours {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
 }
 
 .modalMsg {

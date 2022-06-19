@@ -67,9 +67,6 @@ const TaskFormEdit = (props) => {
       data.workedHours !== selectedItem.workedHours
     ) {
       dispatch(editTasks(id, data, setResStatus, setResponseMsg));
-    } else {
-      // setResStatus('a');
-      // setResponseMsg('');
     }
   };
 
