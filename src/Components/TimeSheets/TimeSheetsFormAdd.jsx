@@ -79,63 +79,124 @@ const TimeSheetsForm = (props) => {
       });
   }, []);
 
-  return (
-    <div>
+  if (window.location.pathname === '/employee/timesheetAdd') {
+    return (
       <div>
-        <h2>Add New TimeSheet</h2>
+        <div>
+          <h2>Add New TimeSheet</h2>
+        </div>
+        <form onSubmit={create}>
+          <div>
+            <button onClick={() => props.history.push('/employee/timesheet')}>Back</button>
+          </div>
+          <Dropdown
+            data={employeesItem}
+            name="employeeId"
+            labelText="Select an employee"
+            path="firstName"
+            onChange={onChange}
+          ></Dropdown>
+          <Dropdown
+            data={projectsItem}
+            name="projectId"
+            labelText="Select a project"
+            path="name"
+            onChange={onChange}
+          ></Dropdown>
+          <Dropdown
+            data={tasksItem}
+            name="tasks"
+            labelText="Select a task"
+            path="description"
+            onChange={onChangeTasks}
+          ></Dropdown>
+          <div>
+            <table>
+              <tbody>
+                {taskList.map((task, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{task.description}</td>
+                      <td>
+                        <Button handleClick={() => handleDeleteTask(task._id)}>X</Button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <label>Start Date</label>
+            <input type="date" name="startDate" value={addItem.startDate} onChange={onChange} />
+          </div>
+          <div>
+            <label>End Date</label>
+            <input type="date" name="endDate" value={addItem.endDate} onChange={onChange} />
+          </div>
+          <input type="submit" value="submit" />
+        </form>
       </div>
-      <form onSubmit={create}>
+    );
+  } else {
+    return (
+      <div>
         <div>
-          <button onClick={() => props.history.push('/time-sheets')}>Back</button>
+          <h2>Add New TimeSheet</h2>
         </div>
-        <Dropdown
-          data={employeesItem}
-          name="employeeId"
-          labelText="Select an employee"
-          path="firstName"
-          onChange={onChange}
-        ></Dropdown>
-        <Dropdown
-          data={projectsItem}
-          name="projectId"
-          labelText="Select a project"
-          path="name"
-          onChange={onChange}
-        ></Dropdown>
-        <Dropdown
-          data={tasksItem}
-          name="tasks"
-          labelText="Select a task"
-          path="description"
-          onChange={onChangeTasks}
-        ></Dropdown>
-        <div>
-          <table>
-            <tbody>
-              {taskList.map((task, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{task.description}</td>
-                    <td>
-                      <Button handleClick={() => handleDeleteTask(task._id)}>X</Button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <label>Start Date</label>
-          <input type="date" name="startDate" value={addItem.startDate} onChange={onChange} />
-        </div>
-        <div>
-          <label>End Date</label>
-          <input type="date" name="endDate" value={addItem.endDate} onChange={onChange} />
-        </div>
-        <input type="submit" value="submit" />
-      </form>
-    </div>
-  );
+        <form onSubmit={create}>
+          <div>
+            <button onClick={() => props.history.push('/time-sheets')}>Back</button>
+          </div>
+          <Dropdown
+            data={employeesItem}
+            name="employeeId"
+            labelText="Select an employee"
+            path="firstName"
+            onChange={onChange}
+          ></Dropdown>
+          <Dropdown
+            data={projectsItem}
+            name="projectId"
+            labelText="Select a project"
+            path="name"
+            onChange={onChange}
+          ></Dropdown>
+          <Dropdown
+            data={tasksItem}
+            name="tasks"
+            labelText="Select a task"
+            path="description"
+            onChange={onChangeTasks}
+          ></Dropdown>
+          <div>
+            <table>
+              <tbody>
+                {taskList.map((task, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{task.description}</td>
+                      <td>
+                        <Button handleClick={() => handleDeleteTask(task._id)}>X</Button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <label>Start Date</label>
+            <input type="date" name="startDate" value={addItem.startDate} onChange={onChange} />
+          </div>
+          <div>
+            <label>End Date</label>
+            <input type="date" name="endDate" value={addItem.endDate} onChange={onChange} />
+          </div>
+          <input type="submit" value="submit" />
+        </form>
+      </div>
+    );
+  }
 };
 export default TimeSheetsForm;
