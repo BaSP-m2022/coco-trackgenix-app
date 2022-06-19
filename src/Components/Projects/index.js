@@ -9,7 +9,7 @@ import Loading from '../SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProject, getProject } from '../redux/modules/projects/thunks';
 
-const Projects = (props) => {
+const Projects = () => {
   const dispatch = useDispatch();
   const dataResponse = useSelector((state) => state.project.list);
   const isLoading = useSelector((state) => state.project.isLoading);
@@ -36,7 +36,7 @@ const Projects = (props) => {
       <Logo />
       <div className={styles.container}>
         <h2 className={styles.title}>Projects</h2>
-        <Button type={styles.addProject} handleClick={() => props.history.push('/projects/add')}>
+        <Button type={styles.addProject} handleClick={() => history.push('/projects/add')}>
           + Add New Project
         </Button>
         <Table

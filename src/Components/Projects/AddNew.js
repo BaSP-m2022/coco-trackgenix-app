@@ -3,7 +3,6 @@ import styles from './addNew.module.css';
 import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
 import Input from '../SharedComponents/Input/Input';
-import { useHistory } from 'react-router-dom';
 import Modal from '../SharedComponents/Modal/Modal';
 import Dropdown from '../SharedComponents/Dropdown/Dropdown';
 import Loading from '../SharedComponents/Loading/Loading';
@@ -17,8 +16,9 @@ const AddNew = () => {
   const [showWarningCName, setShowWarningCName] = useState(false);
   const [showWarningAdmin, setShowWarningAdmin] = useState(false);
   const isLoading = useSelector((state) => state.project.isLoading);
+  const tabla = useSelector((state) => state.project.list);
   const dispatch = useDispatch();
-  const responseData = useSelector((state) => state.employee.list);
+  const employeeData = useSelector((state) => state.employee.list);
   const [isOpen, setIsOpenConfirm] = useState(false);
   const [isOpen2, setIsOpenFail] = useState(false);
   const [projectInput, setProjectInput] = useState({
@@ -31,8 +31,6 @@ const AddNew = () => {
     employees: [],
     admins: ''
   });
-
-  let history = useHistory();
 
   const [project, setProject] = useState({
     name: '',
@@ -58,31 +56,6 @@ const AddNew = () => {
       [name]: value
     });
   };
-
-  // const backProject = () => {
-  //   history.push('/projects');
-  // };
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    setProjectInput({
-      name: project.name,
-      description: project.description,
-      startDate: project.startDate,
-      endDate: project.endDate,
-      clientName: project.clientName,
-      active: project.active,
-      employees: addMembers(project.employees),
-      admins: project.admins
-    });
-  }
-  // const formProject = (projectInput) => {
-  //   dispatch(postProject(projectInput));
-  // };
-  const confirmModal = (e) => {
-    setIsOpenConfirm(true);
-    handleSubmit(e);
-  };
   const addMembers = (item) => {
     let membersData = [];
     if (!item) {
@@ -100,6 +73,24 @@ const AddNew = () => {
       }
     }
     return membersData;
+  };
+  function handleSubmit(e) {
+    e.preventDefault();
+    setProjectInput({
+      name: project.name,
+      description: project.description,
+      startDate: project.startDate,
+      endDate: project.endDate,
+      clientName: project.clientName,
+      active: project.active,
+      employees: addMembers(project.employees),
+      admins: project.admins
+    });
+  }
+
+  const confirmModal = (e) => {
+    setIsOpenConfirm(true);
+    handleSubmit(e);
   };
 
   /* Input NAME */
@@ -261,7 +252,7 @@ const AddNew = () => {
         </div>
         <Dropdown name="active" labelText="Set if is active" onChange={handleChange}></Dropdown>
         <Dropdown
-          data={responseData}
+          data={employeeData}
           name="employees"
           labelText="Select an employee"
           path="firstName"
@@ -321,6 +312,7 @@ const AddNew = () => {
               type={styles.modalProjectBtn}
               handleClick={() => {
                 dispatch(postProject(projectInput));
+                console.log(tabla);
                 setIsOpenConfirm(false);
               }}
             >
@@ -334,7 +326,7 @@ const AddNew = () => {
             Ok
           </Button>
         </Modal>
-        <Button type={styles.backBtn} handleClick={() => history.push('/projects')}>
+        <Button type={styles.backBtn} handleClick={() => (window.location.href = '/projects')}>
           Cancel
         </Button>
       </div>

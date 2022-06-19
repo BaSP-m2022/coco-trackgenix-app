@@ -2,12 +2,18 @@ import {
   getProjectSuccess,
   getProjectPending,
   getProjectError,
+  getProjectByIdError,
+  getProjectByIdPending,
+  getProjectByIdSuccess,
   DeleteProjectError,
   DeleteProjectSuccess,
   DeleteProjectPending,
   PostProjectError,
   PostProjectPending,
-  PostProjectSuccess
+  PostProjectSuccess,
+  PutProjectError,
+  PutProjectPending,
+  PutProjectsSuccess
 } from './actions';
 
 const changeDate = (date) => {
@@ -79,12 +85,52 @@ export const postProject = (projectInput) => {
       if (responseJson.error) {
         dispatch(PostProjectError(responseJson.message));
       } else {
-        dispatch(PostProjectSuccess(responseJson.message));
+        dispatch(PostProjectSuccess(projectInput));
       }
       return responseJson.data;
     } catch (error) {
       console.error(error);
       dispatch(PostProjectError(error.toString));
+    }
+  };
+};
+export const putProject = (projectInput, id) => {
+  return async (dispatch) => {
+    dispatch(PutProjectPending());
+    try {
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects/${id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(projectInput)
+      });
+      const responseJson = await response.json();
+      console.log(response.json);
+      if (responseJson.error) {
+        dispatch(PutProjectError(responseJson.message));
+        console.log('error error', responseJson);
+      } else {
+        dispatch(PutProjectsSuccess(projectInput));
+      }
+      return responseJson.data;
+    } catch (error) {
+      console.error(error);
+      console.log('error catch');
+      dispatch(PutProjectError(error.toString));
+    }
+  };
+};
+export const getProjectById = (id) => {
+  return async (dispatch) => {
+    dispatch(getProjectByIdPending());
+    try {
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects/${id}`);
+      const response_1 = await response.json();
+      dispatch(getProjectByIdSuccess(response_1.data));
+    } catch (error) {
+      dispatch(getProjectByIdError(error.toString()));
     }
   };
 };

@@ -10,10 +10,10 @@ import {
   // PUT_PROJECT_ERROR,
   DELETE_PROJECT_SUCCESS,
   DELETE_PROJECT_PENDING,
-  DELETE_PROJECT_ERROR
-  // GET_BY_ID_PROJECT_SUCCESS,
-  // GET_BY_ID_PROJECT_PENDING,
-  // GET_BY_ID_PROJECT_ERROR
+  DELETE_PROJECT_ERROR,
+  GET_BY_ID_PROJECT_SUCCESS,
+  GET_BY_ID_PROJECT_PENDING,
+  GET_BY_ID_PROJECT_ERROR
 } from './constants';
 
 const initialState = {
@@ -45,27 +45,27 @@ export const projectReducer = (state = initialState, action) => {
         isLoading: false,
         error: action.payload
       };
-    // case GET_BY_ID_PROJECT_PENDING:
-    //   return {
-    //     ...state,
-    //     isLoading: true,
-    //     error: initialState.error,
-    //     selectedItem: initialState.selectedItem
-    //   };
+    case GET_BY_ID_PROJECT_PENDING:
+      return {
+        ...state,
+        isLoading: true,
+        error: initialState.error,
+        selectedItem: initialState.selectedItem
+      };
 
-    // case GET_BY_ID_PROJECT_SUCCESS:
-    //   return {
-    //     ...state,
-    //     selectedItem: action.payload,
-    //     isLoading: false
-    //   };
+    case GET_BY_ID_PROJECT_SUCCESS:
+      return {
+        ...state,
+        selectedItem: action.payload,
+        isLoading: false
+      };
 
-    // case GET_BY_ID_PROJECT_ERROR:
-    //   return {
-    //     ...state,
-    //     error: action.payload,
-    //     isLoading: false
-    //   };
+    case GET_BY_ID_PROJECT_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false
+      };
     case POST_PROJECT_SUCCESS:
       return {
         ...state,
@@ -83,7 +83,8 @@ export const projectReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload
+        error: action.payload,
+        isAdded: false
       };
     // case PUT_PROJECT_SUCCESS:
     //   editProject = state.list.map((item) => {

@@ -10,10 +10,10 @@ import {
   PUT_PROJECT_ERROR,
   DELETE_PROJECT_SUCCESS,
   DELETE_PROJECT_PENDING,
-  DELETE_PROJECT_ERROR
-  // GET_BY_ID_PROJECT_SUCCESS,
-  // GET_BY_ID_PROJECT_PENDING,
-  // GET_BY_ID_PROJECT_ERROR
+  DELETE_PROJECT_ERROR,
+  GET_BY_ID_PROJECT_SUCCESS,
+  GET_BY_ID_PROJECT_PENDING,
+  GET_BY_ID_PROJECT_ERROR
 } from './constants';
 
 export const getProjectSuccess = (project) => {
@@ -33,23 +33,23 @@ export const getProjectError = (error) => {
     payload: error
   };
 };
-// export const getProjectByIdPending = () => {
-//   return {
-//     type: GET_BY_ID_PROJECT_PENDING
-//   };
-// };
-// export const getProjectByIdSuccess = (project) => {
-//   return {
-//     type: GET_BY_ID_PROJECT_SUCCESS,
-//     payload: project
-//   };
-// };
-// export const getProjectByIdError = (error) => {
-//   return {
-//     type: GET_BY_ID_PROJECT_ERROR,
-//     payload: error
-//   };
-// };
+export const getProjectByIdPending = () => {
+  return {
+    type: GET_BY_ID_PROJECT_PENDING
+  };
+};
+export const getProjectByIdSuccess = (project) => {
+  return {
+    type: GET_BY_ID_PROJECT_SUCCESS,
+    payload: project
+  };
+};
+export const getProjectByIdError = (error) => {
+  return {
+    type: GET_BY_ID_PROJECT_ERROR,
+    payload: error
+  };
+};
 export const PostProjectSuccess = (project) => {
   return {
     type: POST_PROJECT_SUCCESS,
