@@ -226,7 +226,7 @@ const FormEmployee = (props) => {
               <Button type={('submit', styles.employeeBtnEdit)}>Create</Button>
               <Button
                 type={styles.employeeBtnEdit}
-                handleClick={() => props.history.push('/employees')}
+                handleClick={() => props.history.push('/employee/profile')}
               >
                 Return
               </Button>
