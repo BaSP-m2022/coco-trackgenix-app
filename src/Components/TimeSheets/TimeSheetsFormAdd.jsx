@@ -158,7 +158,7 @@ const TimeSheetsFormAdd = (props) => {
         >
           Return
         </Button>
-        <Button type={'submit'}>Create</Button>
+        <Button type={('submit', styles.timesheetButton)}>Create</Button>
       </form>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <div>

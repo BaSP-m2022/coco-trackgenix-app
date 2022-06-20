@@ -41,7 +41,7 @@ const Timesheets = (props) => {
       <Logo />
       <h2 className={styles.title}>Timesheets</h2>
       <Button
-        type={styles.addTimesheetBtn}
+        type={styles.timesheetButton}
         handleClick={() => props.history.push('/time-sheets/add')}
       >
         Add timesheet

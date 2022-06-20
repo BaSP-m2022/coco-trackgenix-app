@@ -15,7 +15,7 @@
   margin: 30px 0;
 }
 
-button{
+.timesheetButton{
   margin: 0 20px;
   align-self: flex-start;
   width: 130px;
@@ -32,6 +32,17 @@ button{
 
 .returnTimesheetBtn {
   background: #eee;
+  margin: 0 20px;
+  align-self: flex-start;
+  width: 130px;
+  height: 50px;
+  border: 1px solid #373867;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 700;
+  color: #373867;
+  cursor: pointer;
 }
 
 .modalTimesheetBtnNone {

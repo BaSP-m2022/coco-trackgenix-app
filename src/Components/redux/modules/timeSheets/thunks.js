@@ -103,6 +103,7 @@ export const addTimesheet = (e, setModalText, setSuccessTimesheet, setShowButton
 export const editTimesheet = (timesheet, id, setModalText, setShowButton, setSuccessTimesheet) => {
   return async (dispatch) => {
     dispatch(editTimesheetPending());
+    console.log('timesheet', timesheet);
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${id}`, {
         method: 'PUT',
@@ -112,16 +113,17 @@ export const editTimesheet = (timesheet, id, setModalText, setShowButton, setSuc
         body: JSON.stringify(timesheet)
       });
       const res = await response.json();
-      if (res.message) {
+      console.log('res', res);
+      if (!res.error) {
         setShowButton(false);
         setSuccessTimesheet(true);
         setModalText('Timesheet has been edited!');
         dispatch(editTimesheetSuccess(timesheet));
-      } else if (res.msg) {
+      } else if (res.error) {
         setShowButton(false);
         setSuccessTimesheet(false);
         setModalText('Fields filled incorrectly, please check the data');
-        dispatch(editTimesheetError(res));
+        dispatch(editTimesheetError(res.error.toString()));
       }
     } catch (error) {
       setShowButton(false);
