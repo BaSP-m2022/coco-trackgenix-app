@@ -118,9 +118,11 @@ const FormEmployee = (props) => {
 
   return (
     <div className={styles.formAdd}>
-      <Logo />
       <div>
-        <h2>Add New Employee</h2>
+        <div className={styles.head}>
+          <h2 className={styles.title}>Sign Up</h2>
+          <Logo />
+        </div>
         <div>
           <form onSubmit={onSubmit}>
             <div>
@@ -224,7 +226,7 @@ const FormEmployee = (props) => {
               <Button type={('submit', styles.employeeBtnEdit)}>Create</Button>
               <Button
                 type={styles.employeeBtnEdit}
-                handleClick={() => props.history.push('/employees')}
+                handleClick={() => props.history.push('/employee/profile')}
               >
                 Return
               </Button>
@@ -238,12 +240,20 @@ const FormEmployee = (props) => {
         </div>
         <div>
           <Button
+            type={
+              showButton && !successEmployee ? styles.modalEmployeeBtn : styles.modalEmployeeBtnNone
+            }
+            handleClick={() => formEmployee(employeeInput)}
+          >
+            Confirm
+          </Button>
+          <Button
             type={styles.modalEmployeeBtn}
             handleClick={() => {
               if (!showButton && successEmployee) {
                 setShowButton(true);
                 setSuccessEmployee(false);
-                props.history.push('/employees');
+                props.history.push('/employee/profile');
               } else {
                 setShowButton(true);
                 setSuccessEmployee(false);
@@ -252,14 +262,6 @@ const FormEmployee = (props) => {
             }}
           >
             {showButton && !successEmployee ? 'Cancel' : 'Ok'}
-          </Button>
-          <Button
-            type={
-              showButton && !successEmployee ? styles.modalEmployeeBtn : styles.modalEmployeeBtnNone
-            }
-            handleClick={() => formEmployee(employeeInput)}
-          >
-            Confirm
           </Button>
         </div>
       </Modal>
