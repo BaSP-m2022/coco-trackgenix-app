@@ -21,9 +21,7 @@ const schema = joi.object({
   workedHours: joi.number().integer().positive().required().messages({
     'number.integer': '{{#label}} must be an integer',
     'number.positive': '{{#label}} must be a positive number',
-    // 'number.empty': '{{#label}} is a required field',
-    // 'any.required': '{{#label}} is required!!',
-    'number.base': '{{#label}} must be a number'
+    'number.base': '{{#label}} is a required field and must be a number'
   })
 });
 
@@ -63,16 +61,8 @@ const TaskForm = (props) => {
       <Logo />
       <h2 className={styles.title}>New Task</h2>
       <div className={styles.formContainer}>
-<<<<<<< HEAD
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.inputsContainer}>
-=======
-        <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
-          BACK
-        </Button>
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-          <div>
->>>>>>> origin/master
             <div className={styles.inputDescription}>
               <Input
                 name="description"

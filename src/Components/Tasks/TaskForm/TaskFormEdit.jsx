@@ -23,7 +23,7 @@ const schema = joi.object({
   workedHours: joi.number().integer().positive().required().messages({
     'number.integer': '{{#label}} must be an integer',
     'number.positive': '{{#label}} must be a positive number',
-    'number.base': '{{#label}} must be a number'
+    'number.base': '{{#label}} is a required field and must be a number'
   })
 });
 
