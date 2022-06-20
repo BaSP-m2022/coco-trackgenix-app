@@ -54,6 +54,7 @@ const TaskForm = (props) => {
   };
 
   if (isFetching) {
+    console.log(isOpen);
     return <Loading className={styles.loadText}></Loading>;
   }
 
@@ -62,8 +63,16 @@ const TaskForm = (props) => {
       <Logo />
       <h2 className={styles.title}>New Task</h2>
       <div className={styles.formContainer}>
+<<<<<<< HEAD
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.inputsContainer}>
+=======
+        <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
+          BACK
+        </Button>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+          <div>
+>>>>>>> origin/master
             <div className={styles.inputDescription}>
               <Input
                 name="description"
