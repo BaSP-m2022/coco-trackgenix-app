@@ -14,13 +14,19 @@ import joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
 
 const schema = joi.object({
-  description: joi
-    .string()
-    .min(1)
-    .max(90)
-    .required('Description is a required field')
-    .regex(/^[0-:A-Za-z ",-.]{1,90}$/),
-  workedHours: joi.number().integer().positive().required('Worked hours is a required field')
+  description: joi.string().min(1).max(90).required().alphanum().messages({
+    'string.min': '{{#label}} must have at least 1 character',
+    'string.max': '{{#label}} must have less than 90 characters',
+    'string.empty': '{{#label}} is a required field',
+    'string.alphanum': '{{#label}} must only contain alpha-numeric characters'
+  }),
+  workedHours: joi.number().integer().positive().required().messages({
+    'number.integer': '{{#label}} must be an integer',
+    'number.positive': '{{#label}} must be a positive number',
+    // 'number.empty': '{{#label}} is a required field',
+    // 'any.required': '{{#label}} is required!!',
+    'number.base': '{{#label}} must be a number'
+  })
 });
 
 const TaskFormEdit = (props) => {
