@@ -197,7 +197,7 @@ const EditProject = () => {
   return (
     <div className={styles.container}>
       <Logo />
-      <h2>New Project</h2>
+      <h2>Edit Project</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <Input
@@ -305,9 +305,9 @@ const EditProject = () => {
           New Project
         </Button>
         <Modal showModal={isOpen} closeModal={() => setIsOpenConfirm(false)}>
-          <h2>Project Creation</h2>
+          <h2>Project Edition</h2>
           <div>
-            <p>Do you really want to create this project?</p>
+            <p>Do you really want to edit this project?</p>
           </div>
           <div>
             <Button
@@ -325,7 +325,7 @@ const EditProject = () => {
                 setIsOpenConfirm(false);
               }}
             >
-              Create
+              Confirm
             </Button>
           </div>
         </Modal>

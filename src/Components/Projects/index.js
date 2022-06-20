@@ -70,5 +70,46 @@ const Projects = () => {
     </div>
   );
 };
+// else {
+//     return (
+//       <div className={styles.container}>
+//         <Logo />
+//         <div className={styles.container}>
+//           <h2 className={styles.title}>Projects</h2>
+//           <Button type={styles.addProject} handleClick={() => props.history.push('/projects/add')}>
+//             Add Project
+//           </Button>
+//           <Table
+//             data={list}
+//             headers={[
+//               'name',
+//               'clientName',
+//               'admins',
+//               'createdAt',
+//               'description',
+//               'startDate',
+//               'endDate',
+//               'employees',
+//               'active'
+//             ]}
+//             handleEdit={handleEdit}
+//             deleteItem={deleteItem}
+//           ></Table>
+//           <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+//             <h2>Success!</h2>
+//             <div>
+//               <p>Project deleted successfully</p>
+//             </div>
+//             <div>
+//               <Button type={styles.modalProjectBtn} handleClick={() => setIsOpen(false)}>
+//                 Ok
+//               </Button>
+//             </div>
+//           </Modal>
+//         </div>
+//       </div>
+//     );
+//   }
+// };
 
 export default Projects;

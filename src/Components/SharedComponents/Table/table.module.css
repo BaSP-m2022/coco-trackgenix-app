@@ -1,5 +1,5 @@
 .container {
-  width: 80%;
+  width: 90%;
   border-collapse: collapse;
   display: flex;
   justify-content: center;
@@ -16,50 +16,58 @@
   transition-duration: 0.3s;
 }
 
+.buttonAdd:hover {
+  background-color: #FFFFFF;
+  border: 1px solid #A5DE93;
+}
+
 .stylesModalBtn, .deleteModalBtn {
   width: 110px;
   height: 50px;
   margin: 0 20px;
   padding: 10px 24px;
   background: #aace9b;
-  border: 1px solid #505168;
+  border: 1px solid lightgray;
   border-radius: 5px;
   font-size: 15px;
   font-weight: 700;
-  color: #505168;
+  color: #000000;
   cursor: pointer;
   transition-duration: 0.3s;
 }
 .deleteBtn {
   background-color: white;
+  margin: 0px;
 }
 
 .stylesModalBtn:hover {
   background-color: white;
-  border: 2px solid #aace9b;
+  border: 1px solid #A5DE93;
 }
 
 .stylesBtn {
   width: 60px;
   height: 30px;
-  margin: 0;
+  margin: 5px;
   padding: 0;
   background: #aace9b;
-  border: 1px solid #505168;
+  border: 1px solid lightgray;
   border-radius: 5px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
-  color: #505168;
+  color: #000000;
   cursor: pointer;
   transition-duration: 0.3s;
 }
+
 .deleteBtn:hover {
-  background-color: rgb(255, 255, 255);
+  background-color: white;
+  border: 1px solid #A5DE93;
 }
 
 .stylesBtn:hover {
   background-color: white;
-  border: 2px solid #aace9b;
+  border: 1px solid #A5DE93;
 }
 
 .deleteModalBtn {
@@ -69,43 +77,75 @@
 .deleteModalBtn:hover {
   background-color: rgb(255, 255, 255);
   background-color: white;
-  border: 2px solid #aace9b;
+  border: 1px solid #A5DE93;
 }
 
-.container table {
+.container > table {
   width: 100%;
   flex-direction: column;
-  border-radius: 2px solid #373867;
+  border: 1px solid lightgray;
+  text-align: center;
 }
 
 thead {
-  border: 2px solid #373867;
-  width: 100px;
+  border: 1px solid lightgray;
+  width: 120px;
   height: 50px;
   text-transform: capitalize;
 }
 
-table {
-  border-radius: 2px solid #373867;
-  text-align: center;
+.tableCell {
+  flex: 4 120px;
+  border: 1px solid lightgray;
+  background-color: #A5DE93;
+  color: #000000;
+  font-family: 'Arial';
+  max-width: 120px;
+  height: 30px;
+  padding: 10px;
 }
 
-.tableCell {
-  border-radius: 2px solid #373867;
-  background-color: #aace9b;
-  color: #373867;
+.tableCellButtons {
+  flex-direction: row;
+  border: 1px solid lightgray;
+  background-color: #A5DE93;
+  color: #000000;
   font-family: 'Arial';
-  width: 80px;
+  max-width: 40px;
+  min-width: 40px;
   height: 30px;
+  flex: 1 40px;
+  margin: 0 5px;
 }
 
 .tableNames {
-  border: 2px solid #373867;
+  flex: 4 120px;
+  max-width: 120px;
+  height: 50px;
+  border: 1px solid lightgray;
   font-family: 'Arial';
   background-color: rgb(255, 255, 255);
-  border-radius: 5px solid #373867;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .container > table {
   border-collapse: collapse;
+}
+
+.data {
+  flex: 1 70px;
+  text-align: left;
+  padding: 5px;
+}
+
+.buttonTd {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex: 1 140px;
+  min-width: 140px;
+  max-width: 140px;
 }
