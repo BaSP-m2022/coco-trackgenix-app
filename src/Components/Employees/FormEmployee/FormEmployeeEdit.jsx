@@ -227,7 +227,7 @@ const FormEmployeeEdit = (props) => {
             <Button type={('submit', styles.employeeBtnEdit)}>Edit</Button>
             <Button
               type={styles.employeeBtnEdit}
-              handleClick={() => props.history.push('/employees')}
+              handleClick={() => props.history.push('/employee/profile')}
             >
               Return
             </Button>
@@ -245,7 +245,7 @@ const FormEmployeeEdit = (props) => {
               if (!showButton && successEmployee) {
                 setShowButton(true);
                 setSuccessEmployee(false);
-                props.history.push('/employees');
+                props.history.push('/employee/profile');
               } else {
                 setShowButton(true);
                 setSuccessEmployee(false);
