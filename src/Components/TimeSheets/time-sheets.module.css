@@ -5,51 +5,21 @@
   justify-content: center;
   align-items: center;
   padding-top: 10px;
+  margin-bottom: 30px;
 }
 
 .title {
   color: #373867;
   font-size: xx-large;
   font-weight: 700;
-  margin-top: 10px;
+  margin: 30px 0;
 }
 
-.formAdd {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  padding-top: 10px;
-}
-
-.containerBtn {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-}
-
-.TimesheetBtnEdit {
+button{
+  margin: 0 20px;
   align-self: flex-start;
   width: 130px;
   height: 50px;
-  margin-left: 20px;
-  background: #aace9b;
-  border: 1px solid #373867;
-  border-radius: 5px;
-  text-transform: uppercase;
-  font-size: 15px;
-  font-weight: 700;
-  color: #373867;
-  cursor: pointer;
-}
-
-.addTimesheetBtn {
-  align-self: flex-start;
-  width: 130px;
-  height: 50px;
-  margin-left: 170px;
-  margin-top: 20px;
   background: #aace9b;
   border: 1px solid #373867;
   border-radius: 5px;
@@ -61,19 +31,7 @@
 }
 
 .returnTimesheetBtn {
-  position: absolute;
-  align-self: flex-start;
-  width: 170px;
-  height: 50px;
-  margin-left: 175px;
-  background: #aace9b;
-  border: 1px solid #373867;
-  border-radius: 5px;
-  text-transform: uppercase;
-  font-size: 15px;
-  font-weight: 700;
-  color: #373867;
-  cursor: pointer;
+  background: #eee;
 }
 
 .modalTimesheetBtnNone {

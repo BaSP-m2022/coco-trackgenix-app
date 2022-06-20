@@ -35,7 +35,6 @@ const AdminForm = (props) => {
 
   const formAdmin = (e) => {
     dispatch(postAdmin(e, setIsOpen, backAdmin));
-    console.log('ACA ESTTOY', e);
   };
   function onSubmit(e) {
     e.preventDefault();

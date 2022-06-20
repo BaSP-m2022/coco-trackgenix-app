@@ -11,7 +11,7 @@ import { getEmployee } from '../redux/modules/employees/thunks';
 import { getProject } from '../redux/modules/projects/thunks';
 import { getTasks } from '../redux/modules/tasks/thunks';
 
-const TimeSheetsForm = (props) => {
+const TimeSheetsFormAdd = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState('');
   const [timesheetInput, setTimesheetInput] = useState({
@@ -43,10 +43,6 @@ const TimeSheetsForm = (props) => {
     dispatch(getTasks());
   }, []);
 
-  if (isLoadingTimesheet) {
-    return <Loading className={styles.loadText}></Loading>;
-  }
-
   const onChange = (e) => {
     setTimesheetInput({
       ...timesheetInput,
@@ -65,18 +61,7 @@ const TimeSheetsForm = (props) => {
     }
   }, [taskList]);
 
-  useEffect(() => {
-    if (taskList.length) {
-      setItem({
-        ...addItem,
-        tasks: taskList.map((task) => {
-          return task._id;
-        })
-      });
-    }
-  }, [taskList]);
-
-  const formTimesheet = async (e) => {
+  const formTimesheet = (e) => {
     setIsOpen(true);
     setTimesheetInput({
       employeeId: '',
@@ -85,20 +70,8 @@ const TimeSheetsForm = (props) => {
       startDate: '',
       endDate: ''
     });
-    await dispatch(addTimesheet(e, setModalText, setSuccessTimesheet, setShowButton));
+    dispatch(addTimesheet(e, setModalText, setSuccessTimesheet, setShowButton));
   };
-
-  // if (
-  //   timesheetInput.employeeId == '' ||
-  //   timesheetInput.projectId == '' ||
-  //   timesheetInput.tasks == [] ||
-  //   timesheetInput.startDate == '' ||
-  //   timesheetInput.endDate == ''
-  // ) {
-  //   setShowButton(false);
-  //   setSuccessTimesheet(false);
-  //   setModalText('Fields filled incorrectly, please check the data');
-  // }
 
   const onChangeTasks = (e) => {
     if (taskList.find((task) => task._id === e.target.value) === undefined) {
@@ -118,14 +91,15 @@ const TimeSheetsForm = (props) => {
     setIsOpen(true);
   };
 
-  console.log('successTimesheet', successTimesheet);
-  console.log('showButton', showButton);
+  if (isLoadingTimesheet) {
+    return <Loading className={styles.loadText}></Loading>;
+  }
 
   return (
-    <div>
+    <div className={styles.container}>
       <Logo />
       <div>
-        <h2>Add New TimeSheet</h2>
+        <h2 className={styles.title}>Add New TimeSheet</h2>
       </div>
       <form onSubmit={onSubmit}>
         <Dropdown
@@ -178,8 +152,13 @@ const TimeSheetsForm = (props) => {
           <label>End Date</label>
           <input type="date" name="endDate" value={timesheetInput.endDate} onChange={onChange} />
         </div>
-        <Button handleClick={() => props.history.goBack()}>Return</Button>
-        <Button type={('submit', styles.timesheetBtn)}>Create</Button>
+        <Button
+          type={('button', styles.returnTimesheetBtn)}
+          handleClick={() => props.history.goBack()}
+        >
+          Return
+        </Button>
+        <Button type={'submit'}>Create</Button>
       </form>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <div>
@@ -187,7 +166,7 @@ const TimeSheetsForm = (props) => {
         </div>
         <div>
           <Button
-            type={styles.modalEmployeeBtn}
+            type={styles.modalTimesheetBtn}
             handleClick={() => {
               if (!showButton && successTimesheet) {
                 setShowButton(true);
@@ -210,7 +189,6 @@ const TimeSheetsForm = (props) => {
             }
             handleClick={() => {
               formTimesheet(timesheetInput);
-              // window.location.href = '/time-sheets';
             }}
           >
             Confirm
@@ -220,4 +198,4 @@ const TimeSheetsForm = (props) => {
     </div>
   );
 };
-export default TimeSheetsForm;
+export default TimeSheetsFormAdd;
