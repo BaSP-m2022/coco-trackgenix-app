@@ -3,7 +3,7 @@ import styles from '../employees.module.css';
 import Logo from '../../SharedComponents/Logo/Logo';
 import Modal from '../../SharedComponents/Modal/Modal';
 import Button from '../../SharedComponents/Button/Button';
-import Input from '../../SharedComponents/Input/Input';
+// import Input from '../../SharedComponents/Input/Input';
 import Loading from '../../SharedComponents/Loading/Loading';
 import Dropdown from '../../SharedComponents/Dropdown/Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,11 +23,11 @@ const FormEmployee = (props) => {
 
   const isLoadingEmployee = useSelector((state) => state.employee.isLoading);
 
-  const [showWarning1, setShowWarning1] = useState(false);
-  const [showWarning2, setShowWarning2] = useState(false);
-  const [showWarning3, setShowWarning3] = useState(false);
-  const [showWarning4, setShowWarning4] = useState(false);
-  const [showWarning5, setShowWarning5] = useState(false);
+  // const [showWarning1, setShowWarning1] = useState(false);
+  // const [showWarning2, setShowWarning2] = useState(false);
+  // const [showWarning3, setShowWarning3] = useState(false);
+  // const [showWarning4, setShowWarning4] = useState(false);
+  // const [showWarning5, setShowWarning5] = useState(false);
   const [showButton, setShowButton] = useState(true);
   const [successEmployee, setSuccessEmployee] = useState(false);
 
@@ -52,65 +52,65 @@ const FormEmployee = (props) => {
     setIsOpen(true);
   };
 
-  const handleInput = (e) => {
-    switch (e.target.name) {
-      case 'firstName':
-        setEmployeeInput({
-          ...employeeInput,
-          [e.target.name]: e.target.value
-        });
-        if (e.target.value === '') {
-          setShowWarning1(true);
-        } else {
-          setShowWarning1(false);
-        }
-        break;
-      case 'lastName':
-        setEmployeeInput({
-          ...employeeInput,
-          [e.target.name]: e.target.value
-        });
-        if (e.target.value === '') {
-          setShowWarning2(true);
-        } else {
-          setShowWarning2(false);
-        }
-        break;
-      case 'phone':
-        setEmployeeInput({
-          ...employeeInput,
-          [e.target.name]: e.target.value
-        });
-        if (e.target.value === '') {
-          setShowWarning3(true);
-        } else {
-          setShowWarning3(false);
-        }
-        break;
-      case 'email':
-        setEmployeeInput({
-          ...employeeInput,
-          [e.target.name]: e.target.value
-        });
-        if (e.target.value === '') {
-          setShowWarning4(true);
-        } else {
-          setShowWarning4(false);
-        }
-        break;
-      case 'password':
-        setEmployeeInput({
-          ...employeeInput,
-          [e.target.name]: e.target.value
-        });
-        if (e.target.value === '') {
-          setShowWarning5(true);
-        } else {
-          setShowWarning5(false);
-        }
-        break;
-    }
-  };
+  // const handleInput = (e) => {
+  //   switch (e.target.name) {
+  //     case 'firstName':
+  //       setEmployeeInput({
+  //         ...employeeInput,
+  //         [e.target.name]: e.target.value
+  //       });
+  //       if (e.target.value === '') {
+  //         setShowWarning1(true);
+  //       } else {
+  //         setShowWarning1(false);
+  //       }
+  //       break;
+  //     case 'lastName':
+  //       setEmployeeInput({
+  //         ...employeeInput,
+  //         [e.target.name]: e.target.value
+  //       });
+  //       if (e.target.value === '') {
+  //         setShowWarning2(true);
+  //       } else {
+  //         setShowWarning2(false);
+  //       }
+  //       break;
+  //     case 'phone':
+  //       setEmployeeInput({
+  //         ...employeeInput,
+  //         [e.target.name]: e.target.value
+  //       });
+  //       if (e.target.value === '') {
+  //         setShowWarning3(true);
+  //       } else {
+  //         setShowWarning3(false);
+  //       }
+  //       break;
+  //     case 'email':
+  //       setEmployeeInput({
+  //         ...employeeInput,
+  //         [e.target.name]: e.target.value
+  //       });
+  //       if (e.target.value === '') {
+  //         setShowWarning4(true);
+  //       } else {
+  //         setShowWarning4(false);
+  //       }
+  //       break;
+  //     case 'password':
+  //       setEmployeeInput({
+  //         ...employeeInput,
+  //         [e.target.name]: e.target.value
+  //       });
+  //       if (e.target.value === '') {
+  //         setShowWarning5(true);
+  //       } else {
+  //         setShowWarning5(false);
+  //       }
+  //       break;
+  //   }
+  // };
 
   if (isLoadingEmployee) {
     return <Loading className={styles.loadText}></Loading>;
@@ -126,7 +126,7 @@ const FormEmployee = (props) => {
         <div>
           <form onSubmit={onSubmit}>
             <div>
-              <Input
+              {/* <Input
                 labelText="Name"
                 name="firstName"
                 inputValue={employeeInput.firstName}
@@ -140,10 +140,10 @@ const FormEmployee = (props) => {
                   if (e.target.value === '') setShowWarning1(true);
                 }}
                 showWarning={showWarning1}
-              />
+              /> */}
             </div>
             <div>
-              <Input
+              {/* <Input
                 labelText="Last Name"
                 name="lastName"
                 inputValue={employeeInput.lastName}
@@ -157,10 +157,10 @@ const FormEmployee = (props) => {
                   if (e.target.value === '') setShowWarning2(true);
                 }}
                 showWarning={showWarning2}
-              />
+              /> */}
             </div>
             <div>
-              <Input
+              {/* <Input
                 labelText="Phone"
                 name="phone"
                 inputValue={employeeInput.phone}
@@ -174,10 +174,10 @@ const FormEmployee = (props) => {
                   if (e.target.value === '') setShowWarning3(true);
                 }}
                 showWarning={showWarning3}
-              />
+              /> */}
             </div>
             <div>
-              <Input
+              {/* <Input
                 labelText="Email"
                 name="email"
                 inputValue={employeeInput.email}
@@ -191,10 +191,10 @@ const FormEmployee = (props) => {
                   if (e.target.value === '') setShowWarning4(true);
                 }}
                 showWarning={showWarning4}
-              />
+              /> */}
             </div>
             <div>
-              <Input
+              {/* <Input
                 labelText="Password"
                 name="password"
                 inputValue={employeeInput.password}
@@ -208,7 +208,7 @@ const FormEmployee = (props) => {
                   if (e.target.value === '') setShowWarning5(true);
                 }}
                 showWarning={showWarning5}
-              />
+              /> */}
             </div>
             <div>
               <Dropdown

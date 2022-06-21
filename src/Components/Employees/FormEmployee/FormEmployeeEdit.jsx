@@ -3,7 +3,7 @@ import styles from '../employees.module.css';
 import Logo from '../../SharedComponents/Logo/Logo';
 import Modal from '../../SharedComponents/Modal/Modal';
 import Button from '../../SharedComponents/Button/Button';
-import Input from '../../SharedComponents/Input/Input';
+// import Input from '../../SharedComponents/Input/Input';
 import Loading from '../../SharedComponents/Loading/Loading';
 import Dropdown from '../../SharedComponents/Dropdown/Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,11 +22,11 @@ const FormEmployeeEdit = (props) => {
   const [password, setPassword] = useState('');
   const [active, setActive] = useState('');
 
-  const [showWarning1, setShowWarning1] = useState(false);
-  const [showWarning2, setShowWarning2] = useState(false);
-  const [showWarning3, setShowWarning3] = useState(false);
-  const [showWarning4, setShowWarning4] = useState(false);
-  const [showWarning5, setShowWarning5] = useState(false);
+  // const [showWarning1, setShowWarning1] = useState(false);
+  // const [showWarning2, setShowWarning2] = useState(false);
+  // const [showWarning3, setShowWarning3] = useState(false);
+  // const [showWarning4, setShowWarning4] = useState(false);
+  // const [showWarning5, setShowWarning5] = useState(false);
   const [showButton, setShowButton] = useState(true);
   const [successEmployee, setSuccessEmployee] = useState(false);
 
@@ -62,50 +62,50 @@ const FormEmployeeEdit = (props) => {
     setIsOpen(true);
   };
 
-  const handleInput = (e) => {
-    switch (e.target.name) {
-      case 'firstName':
-        setFirstName(e.target.value);
-        if (e.target.value === '') {
-          setShowWarning1(true);
-        } else {
-          setShowWarning1(false);
-        }
-        break;
-      case 'lastName':
-        setLastName(e.target.value);
-        if (e.target.value === '') {
-          setShowWarning2(true);
-        } else {
-          setShowWarning2(false);
-        }
-        break;
-      case 'phone':
-        setPhone(e.target.value);
-        if (e.target.value === '') {
-          setShowWarning3(true);
-        } else {
-          setShowWarning3(false);
-        }
-        break;
-      case 'email':
-        setEmail(e.target.value);
-        if (e.target.value === '') {
-          setShowWarning4(true);
-        } else {
-          setShowWarning4(false);
-        }
-        break;
-      case 'password':
-        setPassword(e.target.value);
-        if (e.target.value === '') {
-          setShowWarning5(true);
-        } else {
-          setShowWarning5(false);
-        }
-        break;
-    }
-  };
+  // const handleInput = (e) => {
+  //   switch (e.target.name) {
+  //     case 'firstName':
+  //       setFirstName(e.target.value);
+  //       if (e.target.value === '') {
+  //         setShowWarning1(true);
+  //       } else {
+  //         setShowWarning1(false);
+  //       }
+  //       break;
+  //     case 'lastName':
+  //       setLastName(e.target.value);
+  //       if (e.target.value === '') {
+  //         setShowWarning2(true);
+  //       } else {
+  //         setShowWarning2(false);
+  //       }
+  //       break;
+  //     case 'phone':
+  //       setPhone(e.target.value);
+  //       if (e.target.value === '') {
+  //         setShowWarning3(true);
+  //       } else {
+  //         setShowWarning3(false);
+  //       }
+  //       break;
+  //     case 'email':
+  //       setEmail(e.target.value);
+  //       if (e.target.value === '') {
+  //         setShowWarning4(true);
+  //       } else {
+  //         setShowWarning4(false);
+  //       }
+  //       break;
+  //     case 'password':
+  //       setPassword(e.target.value);
+  //       if (e.target.value === '') {
+  //         setShowWarning5(true);
+  //       } else {
+  //         setShowWarning5(false);
+  //       }
+  //       break;
+  //   }
+  // };
 
   if (isLoadingEmployee) {
     return <Loading className={styles.loadText}></Loading>;
@@ -120,7 +120,7 @@ const FormEmployeeEdit = (props) => {
       <div>
         <form onSubmit={onSubmit}>
           <div>
-            <Input
+            {/* <Input
               labelText="Name"
               name="firstName"
               inputValue={firstName}
@@ -136,10 +136,10 @@ const FormEmployeeEdit = (props) => {
                 }
               }}
               showWarning={showWarning1}
-            />
+            /> */}
           </div>
           <div>
-            <Input
+            {/* <Input
               labelText="Last Name"
               name="lastName"
               inputValue={lastName}
@@ -155,10 +155,10 @@ const FormEmployeeEdit = (props) => {
                 }
               }}
               showWarning={showWarning2}
-            />
+            /> */}
           </div>
           <div>
-            <Input
+            {/* <Input
               labelText="Phone"
               name="phone"
               inputValue={phone}
@@ -174,10 +174,10 @@ const FormEmployeeEdit = (props) => {
                 }
               }}
               showWarning={showWarning3}
-            />
+            /> */}
           </div>
           <div>
-            <Input
+            {/* <Input
               labelText="Email"
               name="email"
               inputValue={email}
@@ -193,10 +193,10 @@ const FormEmployeeEdit = (props) => {
                 }
               }}
               showWarning={showWarning4}
-            />
+            /> */}
           </div>
           <div>
-            <Input
+            {/* <Input
               labelText="Password"
               name="password"
               inputValue={password}
@@ -212,7 +212,7 @@ const FormEmployeeEdit = (props) => {
                 }
               }}
               showWarning={showWarning5}
-            />
+            /> */}
           </div>
           <div>
             <Dropdown
