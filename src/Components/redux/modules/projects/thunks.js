@@ -39,7 +39,13 @@ export const getProject = () => {
   return async (dispatch) => {
     dispatch(getProjectPending());
     try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects`);
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        })
+      });
       const data = await response.json();
       data.data.map((project) => {
         project.active = project.active ? 'true' : 'false';
@@ -84,7 +90,6 @@ export const postProject = (projectInput, setSuccess, setModalText) => {
       const responseJson = await response.json();
       if (responseJson.error) {
         dispatch(PostProjectError(responseJson.message));
-        console.log(responseJson);
         setSuccess(false);
         setModalText('Fields filled incorrectly, please check the data');
       } else {
