@@ -1,18 +1,37 @@
 import React, { useState } from 'react';
-import Logo from '../../SharedComponents/Logo/Logo';
-import Loading from '../../SharedComponents/Loading/Loading';
-import styles from './taskForm.module.css';
-import Button from '../../SharedComponents/Button/Button';
-import Modal from '../../SharedComponents/Modal/Modal';
-import Input from '../../SharedComponents/Input/Input';
+import styles from 'Components/Tasks/TaskForm/taskForm.module.css';
+import Logo from 'Components/SharedComponents/Logo/Logo';
+import Loading from 'Components/SharedComponents/Loading/Loading';
+import Button from 'Components/SharedComponents/Button/Button';
+import Modal from 'Components/SharedComponents/Modal/Modal';
+import Input from 'Components/SharedComponents/Input/Input';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTasks } from '../../redux/modules/tasks/thunks';
+import { addTasks } from 'Components/redux/modules/tasks/thunks';
+import { useForm } from 'react-hook-form';
+import joi from 'joi';
+import { joiResolver } from '@hookform/resolvers/joi';
+
+const schema = joi.object({
+  description: joi
+    .string()
+    .min(1)
+    .max(90)
+    .required()
+    .regex(/^[0-:A-Za-z ",-.]{1,90}$/)
+    .messages({
+      'string.min': '{{#label}} must have at least 1 character',
+      'string.max': '{{#label}} must have less than 90 characters',
+      'string.empty': '{{#label}} is a required field',
+      'string.pattern.base': '{{#label}} must only contain alpha-numeric characters'
+    }),
+  workedHours: joi.number().integer().positive().required().messages({
+    'number.integer': '"worked hours" must be an integer',
+    'number.positive': '"worked hours" must be a positive number',
+    'number.base': '"worked hours" is a required field and must be a number'
+  })
+});
 
 const TaskForm = (props) => {
-  const [newItem, setNewItem] = useState({
-    description: props.description,
-    workedHours: props.workedHours
-  });
   const [isOpen, setIsOpen] = useState(false);
   const [responseMsg, setResponseMsg] = useState('');
   const [resStatus, setResStatus] = useState(false);
@@ -20,22 +39,16 @@ const TaskForm = (props) => {
   const dispatch = useDispatch();
   const isFetching = useSelector((state) => state.tasks.isFetching);
 
-  const [showWarning1, setShowWarning1] = useState(false);
-  const [showWarning2, setShowWarning2] = useState(false);
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm({ mode: 'onChange', resolver: joiResolver(schema) });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(
-      addTasks(
-        {
-          description: newItem.description,
-          workedHours: newItem.workedHours
-        },
-        setResStatus,
-        setResponseMsg
-      )
-    );
+  const onSubmit = (data) => {
+    dispatch(addTasks(data, setResStatus, setResponseMsg));
   };
+
   const handleOkBtn = () => {
     if (resStatus) {
       props.history.push('/tasks');
@@ -44,51 +57,8 @@ const TaskForm = (props) => {
     }
   };
 
-  const handleInput1 = (e) => {
-    setNewItem({
-      ...newItem,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    } else {
-      setShowWarning1(false);
-    }
-  };
-
-  const handleInput2 = (e) => {
-    setNewItem({
-      ...newItem,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarning2(true);
-    } else {
-      setShowWarning2(false);
-    }
-  };
-
-  const handleBlurInput1 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    }
-  };
-
-  const handleBlurInput2 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning2(true);
-    }
-  };
-
-  const handleClick1 = () => {
-    setShowWarning1(false);
-  };
-
-  const handleClick2 = () => {
-    setShowWarning2(false);
-  };
-
   if (isFetching) {
+    console.log(isOpen);
     return <Loading className={styles.loadText}></Loading>;
   }
 
@@ -97,47 +67,43 @@ const TaskForm = (props) => {
       <Logo />
       <h2 className={styles.title}>New Task</h2>
       <div className={styles.formContainer}>
-        <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
-          BACK
-        </Button>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={styles.inputsContainer}>
             <div className={styles.inputDescription}>
               <Input
                 name="description"
                 labelText="Task Description"
+                type="text"
                 placeholder="Task Description"
-                inputValue={newItem.description}
-                warningMsg="*This field must be completed!"
-                handleInput={handleInput1}
-                handleClick={handleClick1}
-                handleBlur={handleBlurInput1}
-                showWarning={showWarning1}
+                register={register}
+                error={errors.description?.message}
               ></Input>
             </div>
             <div className={styles.inputWorkedHours}>
               <Input
                 name="workedHours"
                 labelText="Worked Hours"
+                type="text"
                 placeholder="Worked Hours"
-                inputValue={newItem.workedHours}
-                warningMsg="*This field must be completed!"
-                handleInput={handleInput2}
-                handleBlur={handleBlurInput2}
-                handleClick={handleClick2}
-                showWarning={showWarning2}
+                register={register}
+                error={errors.workedHours?.message}
               ></Input>
             </div>
           </div>
-          <Button type={('submit', styles.buttonForm)} handleClick={() => setIsOpen(true)}>
-            Create
-          </Button>
+          <div className={styles.buttonsContainer}>
+            <Button type={('submit', styles.buttonForm)} handleClick={() => setIsOpen(true)}>
+              Create
+            </Button>
+            <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
+              Cancel
+            </Button>
+          </div>
         </form>
       </div>
       <Modal showModal={isOpen} closeModal={handleOkBtn}>
         <h2>{resStatus ? 'Success!' : 'Warning!'}</h2>
         <h3 className={styles.modalMsg}>
-          {resStatus ? responseMsg : `The task could not be created because ${responseMsg}`}
+          {resStatus ? responseMsg : `The task could not be created`}
         </h3>
         <Button type={styles.buttonForm} handleClick={handleOkBtn}>
           Ok

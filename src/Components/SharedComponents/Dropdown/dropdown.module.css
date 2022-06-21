@@ -1,11 +1,10 @@
 .container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 310px;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 310px;
+}
 
 .label {
   font-family: 'Roboto';
@@ -13,8 +12,7 @@
   font-size: 14px;
   line-height: 16px;
   color: #373867;
-  margin-bottom: 10px;
-  align-self: flex-start;
+  margin-bottom: 5px;
 }
 .select {
   width: 100%;
@@ -26,5 +24,14 @@
   text-transform: capitalize;
 }
 .options:hover {
-  background-color:lightgray;
+  background-color: lightgray;
+}
+.showWarningMsg {
+  margin-top: 5px;
+  font-family: 'Roboto';
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  color: #f13312;
 }
