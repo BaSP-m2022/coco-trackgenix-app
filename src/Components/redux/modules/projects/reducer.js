@@ -17,8 +17,6 @@ const initialState = {
   selectedItem: {}
 };
 
-// let editProject = [];
-
 export const projectReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PROJECT_SUCCESS:
