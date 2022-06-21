@@ -11,7 +11,9 @@
   color: #373867;
   font-size: xx-large;
   font-weight: 700;
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-left: 30%;
+  margin-bottom: 15px;
 }
 
 .formAdd {
@@ -27,6 +29,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  margin-top: 20px;
 }
 
 .employeeBtnEdit {
