@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './dropdown.module.css';
 
-const Dropdown = ({ data, name, labelText, path, onChange, value }) => {
+const Dropdown = ({ data, name, labelText, path, onChange, register, error, value }) => {
   if (name === 'active') {
     return (
       <div className={styles.container}>
         <label className={styles.label}>{labelText}</label>
-        <select onChange={onChange} className={styles.select} name={name}>
+        <select onChange={onChange} className={styles.select} name={name} {...register(name)}>
           <option disabled selected className={styles.options}>
             {labelText}
           </option>
@@ -17,6 +17,7 @@ const Dropdown = ({ data, name, labelText, path, onChange, value }) => {
             false
           </option>
         </select>
+        {error && <p className={styles.showWarningMsg}>{error}</p>}
       </div>
     );
   } else {

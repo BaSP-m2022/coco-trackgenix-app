@@ -116,8 +116,9 @@ export const getEmployeeById = (id) => {
     dispatch(getEMPLOYEEbyIdPending());
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/employees/${id}`);
-      const response_1 = await response.json();
-      dispatch(getEMPLOYEEbyIdSuccess(response_1.data));
+      const employeeData = await response.json();
+      employeeData.data.phone = employeeData.data.phone.toString();
+      dispatch(getEMPLOYEEbyIdSuccess(employeeData.data));
     } catch (error) {
       dispatch(getEMPLOYEEbyIdError(error.toString()));
     }
