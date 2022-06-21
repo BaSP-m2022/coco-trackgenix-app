@@ -10,9 +10,14 @@
 
 .title {
   color: #373867;
-  font-size: xx-large;
+  font-family: 'Arial';
+  width: 280px;
+  margin-top: 20px;
+  margin-bottom: 30px;
   font-weight: 700;
-  margin-top: 10px;
+  font-size: 45px;
+  line-height: 60px;
+  text-align: center;
 }
 
 .formAdd {
@@ -26,6 +31,7 @@
 
 .containerBtn {
   width: 100%;
+  max-width: 310px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -33,7 +39,7 @@
 
 .employeeBtnEdit {
   align-self: flex-start;
-  width: 130px;
+  width: 100px;
   height: 50px;
   margin: 20px;
   background: #aace9b;
@@ -91,6 +97,7 @@
   margin: 5px;
   width: 170px;
   height: 50px;
+  margin: 10px 20px;
   background: #aace9b;
   border: 1px solid #373867;
   border-radius: 5px;
@@ -99,4 +106,8 @@
   font-weight: 700;
   color: #373867;
   cursor: pointer;
+}
+
+.head {
+  margin-bottom: 50px;
 }
