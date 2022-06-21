@@ -101,7 +101,6 @@ const AddSuperAdmin = (props) => {
       ...newItem,
       name: superadmin.name,
       lastName: superadmin.lastName,
-      phone: superadmin.phone,
       email: superadmin.email,
       password: superadmin.password
     });
