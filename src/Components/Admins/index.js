@@ -38,7 +38,7 @@ const Admins = (props) => {
       <Logo />
       <h2 className={styles.title}>Admins</h2>
       <div>
-        <Button type={styles.buttonAdd} handleClick={() => props.history.push('tasks/add')}>
+        <Button type={styles.buttonAdd} handleClick={() => props.history.push('admins/add')}>
           Add Admin
         </Button>
         <Table

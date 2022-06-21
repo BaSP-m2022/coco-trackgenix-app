@@ -1,243 +1,199 @@
 import React, { useState } from 'react';
-import styles from '../admins.module.css';
-import Button from '../../SharedComponents/Button/Button';
-import Modal from '../../SharedComponents/Modal/Modal';
-import Logo from '../../SharedComponents/Logo/Logo';
-import Dropdown from '../../SharedComponents/Dropdown/Dropdown';
-import Input from '../../SharedComponents/Input/Input';
-import { useDispatch } from 'react-redux';
-import { postAdmin } from '../../redux/modules/admins/thunks';
+import styles from 'Components/Admins/admins.module.css';
+import Button from 'Components/SharedComponents/Button/Button';
+import Modal from 'Components/SharedComponents/Modal/Modal';
+import Logo from 'Components/SharedComponents/Logo/Logo';
+import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
+import Input from 'Components/SharedComponents/Input/Input';
+import Loading from 'Components/SharedComponents/Loading/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { postAdmin } from 'Components/redux/modules/admins/thunks';
+import { useForm } from 'react-hook-form';
+import Joi from 'joi';
+import { joiResolver } from '@hookform/resolvers/joi';
+
+const adminSchema = Joi.object({
+  name: Joi.string()
+    .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
+    .min(3)
+    .max(30)
+    .required()
+    .messages({
+      'string.min': 'Must contain at least 3 letters',
+      'string.max': 'Must contain a maximum of 30 letters',
+      'string.required': 'First name is required!',
+      'string.empty': 'First name is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single white space'
+    }),
+  lastName: Joi.string()
+    .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
+    .min(3)
+    .max(30)
+    .required()
+    .messages({
+      'string.min': 'Must contain at least 3 letters',
+      'string.max': 'Must contain a maximum of 30 letters',
+      'string.required': 'Last name is required!',
+      'string.empty': 'Last name is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single white space'
+    }),
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .required()
+    .messages({
+      'string.email': 'Must contain an email format valid',
+      'string.empty': 'Email is not allowed to be empty',
+      'string.required': 'Email is required!'
+    }),
+  password: Joi.string()
+    .regex(/^(?=.*?\d)(?=.*?[a-zA-Z])[a-zA-Z\d]+$/)
+    .min(8)
+    .max(30)
+    .required()
+    .messages({
+      'string.min': 'Must contain at least 8 characters',
+      'string.max': 'Must contain a maximum of 30 characters',
+      'string.empty': 'Password is not allowed to be empty',
+      'string.pattern.base': 'Must contain alphanumeric characters, at least one of each',
+      'string.required': 'Password is required!'
+    }),
+  active: Joi.boolean().required().messages({
+    'boolean.base': 'Must indicate if the employee is active'
+  })
+});
 
 const AdminForm = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [adminInput, setAdminInput] = useState({
-    name: props.name,
-    lastName: props.lastName,
-    email: props.email,
-    password: props.password,
-    active: ''
-  });
+  const [adminInput, setAdminInput] = useState({});
+  const [showButton, setShowButton] = useState(true);
+  const [successAdmin, setSuccessAdmin] = useState(false);
+  const [modalText, setModalText] = useState();
 
-  const [showWarning1, setShowWarning1] = useState(false);
-  const [showWarning2, setShowWarning2] = useState(false);
-  const [showWarning3, setShowWarning3] = useState(false);
-  const [showWarning4, setShowWarning4] = useState(false);
+  const isLoading = useSelector((state) => state.admin.isLoading);
 
-  const backAdmin = () => {
-    props.history.push('/admins');
-  };
-
-  const onChange = (e) => {
-    setAdminInput({ ...adminInput, [e.target.name]: e.target.value });
-  };
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm({ mode: 'onChange', resolver: joiResolver(adminSchema) });
 
   const dispatch = useDispatch();
 
   const formAdmin = (e) => {
-    dispatch(postAdmin(e, setIsOpen, backAdmin));
-    console.log('ACA ESTTOY', e);
+    dispatch(postAdmin(e, setModalText, setShowButton, setSuccessAdmin));
+    setIsOpen(true);
+    if (successAdmin) {
+      setAdminInput({
+        name: '',
+        lastName: '',
+        email: '',
+        password: '',
+        active: ''
+      });
+    }
   };
-  function onSubmit(e) {
-    e.preventDefault();
+  const onSubmit = (admin) => {
     setAdminInput({
-      name: adminInput.name,
-      lastName: adminInput.lastName,
-      email: adminInput.email,
-      password: adminInput.password,
-      active: adminInput.active
+      ...adminInput,
+      name: admin.name,
+      lastName: admin.lastName,
+      email: admin.email,
+      password: admin.password,
+      active: admin.active
     });
+    setModalText('Are you sure you want to create an new admin ?');
+    setIsOpen(true);
+  };
+
+  if (isLoading) {
+    return <Loading className={styles.loading}></Loading>;
   }
-
-  const handleInput1 = (e) => {
-    setAdminInput({
-      ...adminInput,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    } else {
-      setShowWarning1(false);
-    }
-  };
-
-  const handleInput2 = (e) => {
-    setAdminInput({
-      ...adminInput,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarning2(true);
-    } else {
-      setShowWarning2(false);
-    }
-  };
-
-  const handleInput3 = (e) => {
-    setAdminInput({
-      ...adminInput,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarning3(true);
-    } else {
-      setShowWarning3(false);
-    }
-  };
-
-  const handleInput4 = (e) => {
-    setAdminInput({
-      ...adminInput,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarning4(true);
-    } else {
-      setShowWarning4(false);
-    }
-  };
-
-  const handleClick1 = () => {
-    setShowWarning1(false);
-  };
-
-  const handleClick2 = () => {
-    setShowWarning2(false);
-  };
-
-  const handleClick3 = () => {
-    setShowWarning3(false);
-  };
-
-  const handleClick4 = () => {
-    setShowWarning4(false);
-  };
-
-  const handleBlurInput1 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning1(true);
-    }
-  };
-
-  const handleBlurInput2 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning2(true);
-    }
-  };
-
-  const handleBlurInput3 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning3(true);
-    }
-  };
-
-  const handleBlurInput4 = (e) => {
-    if (e.target.value === '') {
-      setShowWarning4(true);
-    }
-  };
 
   return (
     <div className={styles.container}>
-      <div className={styles.logo}>
-        <Logo />
-      </div>
-      <h2 className={styles.titleTwo}>Add New Admin</h2>
-      <form onSubmit={onSubmit} className={styles.formContainer}>
-        <div>
-          <div>
+      <Logo />
+      <div className={styles.formContainer}>
+        <h2 className={styles.titleTwo}>Add New Admin</h2>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={styles.inputsColumns}>
             <Input
               labelText="Name"
               name="name"
-              inputValue={adminInput.name}
               placeholder="Name"
-              warningMsg="Please check the information"
-              handleInput={handleInput1}
-              handleClick={handleClick1}
-              handleBlur={handleBlurInput1}
-              showWarning={showWarning1}
+              register={register}
+              error={errors.name?.message}
             />
-          </div>
-          <div>
             <Input
               labelText="Last Name"
               name="lastName"
-              inputValue={adminInput.lastName}
               placeholder="Last Name"
-              warningMsg="Please check the information"
-              handleInput={handleInput2}
-              handleClick={handleClick2}
-              handleBlur={handleBlurInput2}
-              showWarning={showWarning2}
+              register={register}
+              error={errors.lastName?.message}
             />
-          </div>
-        </div>
-        <div>
-          <div>
             <Input
               labelText="Email"
               name="email"
-              inputValue={adminInput.email}
               placeholder="Email"
-              warningMsg="Please check the information"
-              handleInput={handleInput3}
-              handleClick={handleClick3}
-              handleBlur={handleBlurInput3}
-              showWarning={showWarning3}
+              register={register}
+              error={errors.email?.message}
             />
-          </div>
-          <div>
             <Input
               labelText="Password"
               name="password"
-              inputValue={adminInput.password}
               placeholder="Password"
-              warningMsg="Please check the information"
-              handleInput={handleInput4}
-              handleClick={handleClick4}
-              handleBlur={handleBlurInput4}
-              showWarning={showWarning4}
+              register={register}
+              error={errors.password?.message}
+            />
+            <Dropdown
+              name={'active'}
+              labelText={'Active'}
+              register={register}
+              error={errors.active?.message}
             />
           </div>
-        </div>
-        <div>
-          <Dropdown
-            value={adminInput.active}
-            onChange={onChange}
-            name={'active'}
-            labelText={'Active'}
-          />
-        </div>
-        <div className={styles.buttonsContainer}>
-          <Button
-            type={styles.editAndDeleteBtn}
-            handleClick={(e) => {
-              e.stopPropagation();
-              setIsOpen(true);
-            }}
-          >
-            Accept
-          </Button>
-          <Button type={styles.editAndDeleteBtn} handleClick={() => backAdmin()}>
-            Cancel
-          </Button>
-        </div>
-      </form>
+          <div className={styles.buttonsContainer}>
+            <Button type={('submit', styles.confirmAndDeleteBtn)}>Accept</Button>
+            <Button
+              type={styles.confirmAndDeleteBtn}
+              handleClick={() => props.history.push('/admins')}
+            >
+              Cancel
+            </Button>
+          </div>
+        </form>
+      </div>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
-        <h2>Warning</h2>
         <div>
-          <p>Are you sure to create a new admin?</p>
+          <p>{modalText}</p>
         </div>
         <div>
-          <Button type={styles.confirmAndDeleteBtn} handleClick={() => setIsOpen(false)}>
-            Cancel
-          </Button>
           <Button
-            type={('submit', styles.confirmAndDeleteBtn)}
-            handleClick={() => {
-              formAdmin(adminInput);
-            }}
+            type={
+              showButton && !successAdmin
+                ? styles.confirmAndDeleteBtn
+                : styles.confirmAndDeleteBtnNone && styles.confirmBtnNone
+            }
+            handleClick={() => formAdmin(adminInput)}
           >
             Confirm
+          </Button>
+          <Button
+            type={styles.confirmAndDeleteBtn}
+            handleClick={() => {
+              if (!showButton && successAdmin) {
+                setShowButton(true);
+                setSuccessAdmin(false);
+                props.history.push('/admins');
+              } else {
+                setShowButton(true);
+                setSuccessAdmin(false);
+                setIsOpen(false);
+              }
+            }}
+          >
+            {showButton && !successAdmin ? 'Cancel' : 'Ok'}
           </Button>
         </div>
       </Modal>

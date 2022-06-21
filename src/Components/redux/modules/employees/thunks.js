@@ -67,7 +67,7 @@ export const addEmployee = (e, setModalText, setShowButton, setSuccessEmployee) 
       } else {
         setShowButton(false);
         setSuccessEmployee(false);
-        setModalText('Must indicate if the employee is active');
+        setModalText('Fields filled incorrectly, please check the data');
         dispatch(addEMPLOYEEerror(res));
       }
     } catch (error) {
@@ -99,7 +99,7 @@ export const editEmployee = (employee, id, setModalText, setShowButton, setSucce
       } else {
         setShowButton(false);
         setSuccessEmployee(false);
-        setModalText('Must indicate if the employee is active');
+        setModalText('Fields filled incorrectly, please check the data');
         dispatch(editEMPLOYEEerror(res));
       }
     } catch (error) {

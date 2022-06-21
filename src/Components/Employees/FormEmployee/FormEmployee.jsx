@@ -80,6 +80,8 @@ const FormEmployee = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState();
   const [employeeInput, setEmployeeInput] = useState({});
+  const [showButton, setShowButton] = useState(true);
+  const [successEmployee, setSuccessEmployee] = useState(false);
 
   const isLoadingEmployee = useSelector((state) => state.employee.isLoading);
 
@@ -88,9 +90,6 @@ const FormEmployee = (props) => {
     register,
     formState: { errors }
   } = useForm({ mode: 'onChange', resolver: joiResolver(employeeSchema) });
-
-  const [showButton, setShowButton] = useState(true);
-  const [successEmployee, setSuccessEmployee] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -116,12 +115,12 @@ const FormEmployee = (props) => {
       lastName: employee.lastName,
       phone: employee.phone,
       email: employee.email,
-      password: employee.password
+      password: employee.password,
+      active: employee.active
     });
     setModalText('Are you sure you want to create an new employee ?');
     setIsOpen(true);
   };
-  console.log('employeeInput', employeeInput);
 
   if (isLoadingEmployee) {
     return <Loading className={styles.loadText}></Loading>;
