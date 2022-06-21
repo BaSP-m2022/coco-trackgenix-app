@@ -102,18 +102,11 @@ const AddSuperAdmin = (props) => {
       name: superadmin.name,
       lastName: superadmin.lastName,
       email: superadmin.email,
-      password: superadmin.password
+      password: superadmin.password,
+      active: superadmin.active
     });
     setModalText('Are you sure you want to create an new superadmin ?');
     setIsOpen(true);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewItem({
-      ...newItem,
-      [name]: value
-    });
   };
 
   const handleButton = () => {
@@ -181,7 +174,12 @@ const AddSuperAdmin = (props) => {
           />
         </div>
         <div>
-          <Dropdown name="active" labelText="Active" onChange={handleChange}></Dropdown>
+          <Dropdown
+            name="active"
+            labelText="Active"
+            register={register}
+            error={errors.active?.message}
+          ></Dropdown>
         </div>
         <div className={styles.formButtonsContainer}>
           <Button type={styles.stylesBtn} handleClick={() => props.history.push('/super-admins')}>

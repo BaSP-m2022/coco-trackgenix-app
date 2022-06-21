@@ -28,3 +28,13 @@
 .options:hover {
   background-color:lightgray;
 }
+
+.showWarningMsg {
+  margin-top: 5px;
+  font-family: 'Roboto';
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  color: #f13312;
+}
