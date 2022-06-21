@@ -39,7 +39,7 @@ const Employees = (props) => {
   return (
     <section className={styles.container}>
       <Logo />
-      <h2 className={styles.title}>Employees</h2>
+      <h2 className={styles.titleTwo}>Employees</h2>
       <Button
         type={styles.addEmployeeBtn}
         handleClick={() => props.history.push('/employee/signup')}
