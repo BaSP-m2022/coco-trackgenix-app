@@ -16,9 +16,19 @@ const schema = joi.object({
     .string()
     .min(1)
     .max(90)
-    .required('Description is a required field')
-    .regex(/^[0-:A-Za-z ",-.]{1,90}$/),
-  workedHours: joi.number().integer().positive().required('Worked hours is a required field')
+    .required()
+    .regex(/^[0-:A-Za-z ",-.]{1,90}$/)
+    .messages({
+      'string.min': '{{#label}} must have at least 1 character',
+      'string.max': '{{#label}} must have less than 90 characters',
+      'string.empty': '{{#label}} is a required field',
+      'string.pattern.base': '{{#label}} must only contain alpha-numeric characters'
+    }),
+  workedHours: joi.number().integer().positive().required().messages({
+    'number.integer': '"worked hours" must be an integer',
+    'number.positive': '"worked hours" must be a positive number',
+    'number.base': '"worked hours" is a required field and must be a number'
+  })
 });
 
 const TaskForm = (props) => {
@@ -48,7 +58,7 @@ const TaskForm = (props) => {
   };
 
   if (isFetching) {
-    console.log(isOpen);
+    console.error(isOpen);
     return <Loading className={styles.loadText}></Loading>;
   }
 
@@ -57,11 +67,8 @@ const TaskForm = (props) => {
       <Logo />
       <h2 className={styles.title}>New Task</h2>
       <div className={styles.formContainer}>
-        <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
-          BACK
-        </Button>
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-          <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={styles.inputsContainer}>
             <div className={styles.inputDescription}>
               <Input
                 name="description"
@@ -83,9 +90,14 @@ const TaskForm = (props) => {
               ></Input>
             </div>
           </div>
-          <Button type={('submit', styles.buttonForm)} handleClick={() => setIsOpen(true)}>
-            Create
-          </Button>
+          <div className={styles.buttonsContainer}>
+            <Button type={('submit', styles.buttonForm)} handleClick={() => setIsOpen(true)}>
+              Create
+            </Button>
+            <Button type={styles.buttonForm} handleClick={() => props.history.push('/tasks')}>
+              Cancel
+            </Button>
+          </div>
         </form>
       </div>
       <Modal showModal={isOpen} closeModal={handleOkBtn}>

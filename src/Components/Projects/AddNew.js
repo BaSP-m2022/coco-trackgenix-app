@@ -3,7 +3,6 @@ import styles from './addNew.module.css';
 import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
 import Input from '../SharedComponents/Input/Input';
-import { useHistory } from 'react-router-dom';
 import Modal from '../SharedComponents/Modal/Modal';
 import Dropdown from '../SharedComponents/Dropdown/Dropdown';
 import Loading from '../SharedComponents/Loading/Loading';
@@ -12,15 +11,18 @@ import { getEmployee } from '../redux/modules/employees/thunks';
 import { postProject } from '../redux/modules/projects/thunks';
 
 const AddNew = () => {
+  const [modalText, setModalText] = useState('');
+  const [Success, setSuccess] = useState('');
   const [showWarningName, setShowWarningName] = useState(false);
   const [showWarningDesc, setShowWarningDesc] = useState(false);
   const [showWarningCName, setShowWarningCName] = useState(false);
   const [showWarningAdmin, setShowWarningAdmin] = useState(false);
   const isLoading = useSelector((state) => state.project.isLoading);
   const dispatch = useDispatch();
-  const responseData = useSelector((state) => state.employee.list);
+  const employeeData = useSelector((state) => state.employee.list);
   const [isOpen, setIsOpenConfirm] = useState(false);
-  const [isOpen2, setIsOpenFail] = useState(false);
+  const [isOpenFail, setIsOpenFail] = useState(false);
+  const [isOpenError, setIsOpenError] = useState(false);
   const [projectInput, setProjectInput] = useState({
     name: '',
     description: '',
@@ -31,8 +33,6 @@ const AddNew = () => {
     employees: [],
     admins: ''
   });
-
-  let history = useHistory();
 
   const [project, setProject] = useState({
     name: '',
@@ -58,7 +58,24 @@ const AddNew = () => {
       [name]: value
     });
   };
-
+  const addMembers = (item) => {
+    let membersData = [];
+    if (typeof item !== 'string' || !item) {
+      membersData = null;
+    } else {
+      const splitted = item.split(',');
+      if (splitted.length === 0) {
+        membersData = '';
+      } else if (splitted.length === 1) {
+        membersData.push({ name: `${splitted}` });
+      } else {
+        for (let i = 0; i < splitted.length; i++) {
+          membersData.push({ name: `${splitted[i]}` });
+        }
+      }
+    }
+    return membersData;
+  };
   function handleSubmit(e) {
     e.preventDefault();
     setProjectInput({
@@ -72,27 +89,10 @@ const AddNew = () => {
       admins: project.admins
     });
   }
+
   const confirmModal = (e) => {
     setIsOpenConfirm(true);
     handleSubmit(e);
-  };
-  const addMembers = (item) => {
-    let membersData = [];
-    if (!item) {
-      membersData = null;
-    } else {
-      let splitted = item.split(',');
-      if (splitted.length === 0) {
-        membersData = '';
-      } else if (splitted.length === 1) {
-        membersData.push({ name: `${splitted}` });
-      } else {
-        for (let i = 0; i < splitted.length; i++) {
-          membersData.push({ name: `${splitted[i]}` });
-        }
-      }
-    }
-    return membersData;
   };
 
   /* Input NAME */
@@ -224,7 +224,7 @@ const AddNew = () => {
             name="startDate"
             required="required"
             placeholder="DD/MM/YYYY"
-            value={project.startDate}
+            value={project.startDate.slice(0, 10)}
             onChange={handleChange}
           ></input>
         </div>
@@ -235,7 +235,7 @@ const AddNew = () => {
             name="endDate"
             required="required"
             placeholder="DD/MM/YYYY"
-            value={project.endDate}
+            value={project.endDate.slice(0, 10)}
             onChange={handleChange}
           ></input>
         </div>
@@ -254,7 +254,7 @@ const AddNew = () => {
         </div>
         <Dropdown name="active" labelText="Set if is active" onChange={handleChange}></Dropdown>
         <Dropdown
-          data={responseData}
+          data={employeeData}
           name="employees"
           labelText="Select an employee"
           path="firstName"
@@ -313,7 +313,8 @@ const AddNew = () => {
             <Button
               type={styles.modalProjectBtn}
               handleClick={() => {
-                dispatch(postProject(projectInput));
+                dispatch(postProject(projectInput, setSuccess, setModalText));
+                setIsOpenError(true);
                 setIsOpenConfirm(false);
               }}
             >
@@ -321,13 +322,30 @@ const AddNew = () => {
             </Button>
           </div>
         </Modal>
-        <Modal showModal={isOpen2} closeModal={() => setIsOpenFail(false)}>
+        <Modal showModal={isOpenError} closeModal={() => setIsOpenError(false)}>
+          <p>{modalText}</p>
+          <Button
+            type={styles.backBtn}
+            handleClick={() => {
+              if (Success) {
+                setSuccess(false);
+                window.location.href = '/projects';
+              } else {
+                setSuccess(false);
+                setIsOpenError(false);
+              }
+            }}
+          >
+            Ok
+          </Button>
+        </Modal>
+        <Modal showModal={isOpenFail} closeModal={() => setIsOpenFail(false)}>
           <h2>Fill every field to continue</h2>
           <Button type={styles.modalProjectBtn} handleClick={() => setIsOpenFail(false)}>
             Ok
           </Button>
         </Modal>
-        <Button type={styles.backBtn} handleClick={() => history.push('/projects')}>
+        <Button type={styles.backBtn} handleClick={() => (window.location.href = '/projects')}>
           Cancel
         </Button>
       </div>
