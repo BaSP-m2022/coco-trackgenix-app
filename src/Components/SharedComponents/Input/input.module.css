@@ -11,7 +11,7 @@
   font-size: 14px;
   line-height: 16px;
   color: #373867;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .input {
   width: 100%;
@@ -34,7 +34,7 @@
   border-radius: 4px;
 }
 .showWarningMsg {
-  margin-top: 10px;
+  margin-top: 5px;
   font-family: 'Roboto';
   font-weight: 700;
   font-size: 12px;
