@@ -1,144 +1,230 @@
 import React, { useState, useEffect } from 'react';
-import styles from './editProject.module.css';
+import styles from './addNew.module.css';
 import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
-import { useHistory } from 'react-router-dom';
+import Input from '../SharedComponents/Input/Input';
 import Modal from '../SharedComponents/Modal/Modal';
+import Dropdown from '../SharedComponents/Dropdown/Dropdown';
+import Loading from '../SharedComponents/Loading/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { getEmployee } from '../redux/modules/employees/thunks';
+import { putProject, getProjectById } from '../redux/modules/projects/thunks';
 
 const EditProject = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
-  const checkEmployees = (employees) => {
-    let response;
-    if (employees.length === 0) {
-      response = 'No employees defined yet';
-    } else if (employees.length === 1) {
-      response = employees[0].name;
-    } else {
-      response = 'Various employees';
-    }
-
-    return response;
-  };
-
-  let history = useHistory();
-
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [clientName, setClientName] = useState('');
-  const [active, setActive] = useState('');
-  const [employees, setEmployees] = useState(checkEmployees([]));
-  const [admins, setAdmins] = useState('');
+  const [modalText, setModalText] = useState('');
+  const [Success, setSuccess] = useState('');
+  const [showWarningName, setShowWarningName] = useState(false);
+  const [showWarningDesc, setShowWarningDesc] = useState(false);
+  const [showWarningCName, setShowWarningCName] = useState(false);
+  const [showWarningAdmin, setShowWarningAdmin] = useState(false);
+  const isLoading = useSelector((state) => state.project.isLoading);
+  const dispatch = useDispatch();
+  const employeeData = useSelector((state) => state.employee.list);
+  const projectData = useSelector((state) => state.project.selectedItem);
+  const [isOpen, setIsOpenConfirm] = useState(false);
+  const [isOpenFail, setIsOpenFail] = useState(false);
+  const [isOpenError, setIsOpenError] = useState(false);
+  const [projectInput, setProjectInput] = useState({
+    name: '',
+    description: '',
+    startDate: '',
+    endDate: '',
+    clientName: '',
+    active: false,
+    employees: [],
+    admins: ''
+  });
+  useEffect(() => {
+    dispatch(getEmployee());
+  }, []);
 
   const params = window.location.search;
   let id = params.substring(2);
-  const changeDate = (date) => {
-    let changedDate;
-    if (!date) {
-      changedDate = null;
-    } else {
-      let substrained = date.substring(0, 10);
-      let year = Number(substrained.split('-')[0]);
-      let month = Number(substrained.split('-')[1]);
-      let day = Number(substrained.split('-')[2]);
-
-      if (day < 10) {
-        day = `0${day}`;
-      }
-      if (month < 10) {
-        month = `0${month}`;
-      }
-
-      changedDate = `${year}-${month}-${day}`;
-    }
-
-    return changedDate;
-  };
-
-  const addMembers = (employees) => {
-    let allIds = employees[0]._id + ',';
-    for (let i = 1; i < employees.length; i++) {
-      allIds += employees[i]._id + ',';
-    }
-    return allIds;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetch(`https://coco-trackgenix-server.vercel.app/projects/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: name,
-        description: description,
-        startDate: changeDate(startDate),
-        endDate: changeDate(endDate),
-        clientName: clientName,
-        active: Boolean.valueOf(active),
-        employees: addMembers(employees),
-        admins: admins
-      })
-    }).catch(() => {
-      console.error;
-    });
-  };
 
   useEffect(() => {
-    fetch(`https://coco-trackgenix-server.vercel.app/projects/${id}`)
-      .then((response) => response.json())
-      .then((response) => {
-        setName(response.data.name);
-        setDescription(response.data.description);
-        setStartDate(changeDate(response.data.startDate));
-        setEndDate(changeDate(response.data.endDate));
-        setClientName(response.data.clientName);
-        setActive(response.data.active);
-        setEmployees(response.data.employees);
-        setAdmins(response.data.admins);
-      });
+    dispatch(getProjectById(id));
   }, []);
-
-  const showEmployees = (employees) => {
-    let allIds = employees[0]._id + ',';
-    for (let i = 1; i < employees.length; i++) {
-      allIds += employees[i]._id + ',';
+  const [project, setProject] = useState({
+    name: '',
+    description: '',
+    startDate: '',
+    endDate: '',
+    clientName: '',
+    active: false,
+    employees: [],
+    admins: ''
+  });
+  useEffect(() => {
+    if (Object.keys(projectData).length) {
+      setProject(projectData);
     }
-    return allIds;
+  }, [projectData]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'employees') {
+      setProject({
+        ...project,
+        [name]: [value]
+      });
+    }
+    setProject({
+      ...project,
+      [name]: value
+    });
+  };
+  const addMembers = (item) => {
+    let membersData = [];
+    if (typeof item !== 'string' || !item) {
+      membersData = null;
+    } else {
+      let splitted = item.split(',');
+      if (splitted.length === 0) {
+        membersData = '';
+      } else if (splitted.length === 1) {
+        membersData.push({ name: `${splitted}` });
+      } else {
+        for (let i = 0; i < splitted.length; i++) {
+          membersData.push({ name: `${splitted[i]}` });
+        }
+      }
+    }
+    return membersData;
+  };
+  function handleSubmit(e) {
+    e.preventDefault();
+    setProjectInput({
+      name: project.name,
+      description: project.description,
+      startDate: project.startDate,
+      endDate: project.endDate,
+      clientName: project.clientName,
+      active: project.active,
+      employees: addMembers(project.employees),
+      admins: project.admins
+    });
+  }
+  const confirmModal = (e) => {
+    setIsOpenConfirm(true);
+    handleSubmit(e);
   };
 
+  /* Input NAME */
+  const handleInputName = (e) => {
+    setProject({
+      ...project,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarningName(true);
+    } else {
+      setShowWarningName(false);
+    }
+  };
+  const handleClickName = () => {
+    setShowWarningName(false);
+  };
+  const handleBlurName = (e) => {
+    if (e.target.value === '') {
+      setShowWarningName(true);
+    }
+  };
+
+  /* Input DESCRIPTION */
+  const handleInputDesc = (e) => {
+    setProject({
+      ...project,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarningDesc(true);
+    } else {
+      setShowWarningDesc(false);
+    }
+  };
+  const handleClickDesc = () => {
+    setShowWarningDesc(false);
+  };
+  const handleBlurDesc = (e) => {
+    if (e.target.value === '') {
+      setShowWarningDesc(true);
+    }
+  };
+
+  /* Input CLIENT NAME */
+  const handleInputCName = (e) => {
+    setProject({
+      ...project,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarningCName(true);
+    } else {
+      setShowWarningCName(false);
+    }
+  };
+  const handleClickCName = () => {
+    setShowWarningCName(false);
+  };
+  const handleBlurCName = (e) => {
+    if (e.target.value === '') {
+      setShowWarningCName(true);
+    }
+  };
+
+  /* Input ADMIN */
+  const handleInputAdmin = (e) => {
+    setProject({
+      ...project,
+      [e.target.name]: e.target.value
+    });
+    if (e.target.value === '') {
+      setShowWarningAdmin(true);
+    } else {
+      setShowWarningAdmin(false);
+    }
+  };
+  const handleClickAdmin = () => {
+    setShowWarningAdmin(false);
+  };
+  const handleBlurAdmin = (e) => {
+    if (e.target.value === '') {
+      setShowWarningAdmin(true);
+    }
+  };
+  if (isLoading) {
+    return <Loading className={styles.loading}></Loading>;
+  }
   return (
     <div className={styles.container}>
       <Logo />
       <h2>Edit Project</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
+          <Input
+            labelText="Name"
             name="name"
-            required="required"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            value={name}
-          ></input>
+            inputValue={project.name}
+            placeholder="Name"
+            warningMsg="Please check the information"
+            handleInput={handleInputName}
+            handleClick={handleClickName}
+            handleBlur={handleBlurName}
+            showWarning={showWarningName}
+          ></Input>
         </div>
         <div>
-          <label htmlFor="description">Description</label>
-          <input
-            type="text"
+          <Input
+            labelText="Description"
             name="description"
-            required="required"
-            placeholder="Set a description"
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-            value={description}
-          ></input>
+            inputValue={project.description}
+            placeholder="write a description here"
+            warningMsg="Please check the information"
+            handleInput={handleInputDesc}
+            handleClick={handleClickDesc}
+            handleBlur={handleBlurDesc}
+            showWarning={showWarningDesc}
+          ></Input>
         </div>
         <div>
           <label htmlFor="startDate">Start Date</label>
@@ -147,10 +233,8 @@ const EditProject = () => {
             name="startDate"
             required="required"
             placeholder="DD/MM/YYYY"
-            onChange={(e) => {
-              setStartDate(e.target.value);
-            }}
-            value={startDate}
+            value={project.startDate.slice(0, 10)}
+            onChange={handleChange}
           ></input>
         </div>
         <div>
@@ -160,117 +244,123 @@ const EditProject = () => {
             name="endDate"
             required="required"
             placeholder="DD/MM/YYYY"
-            onChange={(e) => {
-              setEndDate(e.target.value);
-            }}
-            value={endDate}
+            value={project.endDate.slice(0, 10)}
+            onChange={handleChange}
           ></input>
         </div>
         <div>
-          <label htmlFor="clientName">Client Name</label>
-          <input
-            type="text"
+          <Input
+            labelText="Client Name"
             name="clientName"
-            required="required"
-            placeholder="For what client?"
-            onChange={(e) => {
-              setClientName(e.target.value);
-            }}
-            value={clientName}
-          ></input>
+            inputValue={project.clientName}
+            placeholder="enter a client here"
+            warningMsg="Please check the information"
+            handleInput={handleInputCName}
+            handleClick={handleClickCName}
+            handleBlur={handleBlurCName}
+            showWarning={showWarningCName}
+          ></Input>
         </div>
+        <Dropdown name="active" labelText="Set if is active" onChange={handleChange}></Dropdown>
+        <Dropdown
+          data={employeeData}
+          name="employees"
+          labelText="Select an employee"
+          path="firstName"
+          onChange={handleChange}
+        ></Dropdown>
         <div>
-          <label htmlFor="active">Active</label>
-          <input
-            type="text"
-            name="active"
-            placeholder="Set if is 'true' or 'false'"
-            onChange={(e) => {
-              setActive(e.target.value);
-            }}
-            value={active}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="employees">Employees</label>
-          <input
-            type="text"
-            name="employees"
-            placeholder="Assign employees with their IDs"
-            onChange={(e) => {
-              setEmployees(e.target.value);
-            }}
-            value={showEmployees(employees)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="admins">Admins</label>
-          <input
-            type="text"
+          <Input
+            labelText="Administrator"
             name="admins"
-            required="required"
-            placeholder="Assign the admins"
-            onChange={(e) => {
-              setAdmins(e.target.value);
-            }}
-            value={admins}
-          ></input>
+            inputValue={project.admins}
+            placeholder="enter an admin here"
+            warningMsg="Please check the information"
+            handleInput={handleInputAdmin}
+            handleClick={handleClickAdmin}
+            handleBlur={handleBlurAdmin}
+            showWarning={showWarningAdmin}
+          ></Input>
         </div>
-        <div>
-          <Button
-            type={styles.modalProjectBtn}
-            name="project-submit"
-            handleClick={() => {
-              if (
-                name === '' ||
-                description === '' ||
-                startDate === '' ||
-                endDate === '' ||
-                clientName === '' ||
-                active === '' ||
-                admins === ''
-              ) {
-                setIsOpen2(true);
-              } else {
-                setIsOpen(true);
-              }
-            }}
-          >
-            Modify Project
-          </Button>
-          <Modal showModal={isOpen2} closeModal={() => setIsOpen2(false)}>
-            <h2>Fill every field to continue</h2>
-            <Button type={styles.modalProjectBtn} handleClick={() => setIsOpen2(false)}>
-              Ok
-            </Button>
-          </Modal>
-          <Button type={styles.backBtn} handleClick={() => history.goBack()}>
-            Cancel
-          </Button>
-        </div>
-        <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
-          <h2>Warning</h2>
+      </form>
+      <div>
+        <Button
+          type={('submit', styles.modalProjectBtn)}
+          name="project-submit"
+          handleClick={(e) => {
+            if (
+              project.name === '' ||
+              project.description === '' ||
+              project.startDate === '' ||
+              project.endDate === '' ||
+              project.clientName === '' ||
+              project.active === '' ||
+              project.admins === ''
+            ) {
+              setIsOpenFail(true);
+            } else {
+              confirmModal(e);
+            }
+          }}
+        >
+          Edit Project
+        </Button>
+        <Modal showModal={isOpen} closeModal={() => setIsOpenConfirm(false)}>
+          <h2>Project Edition</h2>
           <div>
-            <p>Are you sure you want to modify this item?</p>
+            <p>Do you really want to edit this project?</p>
           </div>
-          <div className={styles.buttonsDiv}>
-            <Button type={styles.backBtn} handleClick={() => setIsOpen(false)}>
+          <div>
+            <Button
+              type={styles.modalProjectBtn}
+              handleClick={() => {
+                setIsOpenConfirm(false);
+              }}
+            >
               Cancel
             </Button>
             <Button
-              type={('submit', styles.modalProjectBtn)}
-              handleClick={(e) => {
-                handleSubmit(e);
-                setIsOpen(false);
-                history.push('/projects');
+              type={styles.modalProjectBtn}
+              handleClick={() => {
+                dispatch(putProject(projectInput, id, setSuccess, setModalText));
+                setIsOpenConfirm(false);
+                setIsOpenError(true);
               }}
             >
               Confirm
             </Button>
           </div>
         </Modal>
-      </form>
+        <Modal showModal={isOpenError} closeModal={() => setIsOpenError(false)}>
+          <p>{modalText}</p>
+          <Button
+            type={styles.backBtn}
+            handleClick={() => {
+              if (Success) {
+                setSuccess(false);
+                window.location.href = '/projects';
+              } else {
+                setSuccess(false);
+                setIsOpenError(false);
+              }
+            }}
+          >
+            Ok
+          </Button>
+        </Modal>
+        <Modal showModal={isOpenFail} closeModal={() => setIsOpenFail(false)}>
+          <h2>Error</h2>
+          <p>Fill every field to continue</p>
+          <Button type={styles.modalProjectBtn} handleClick={() => setIsOpenFail(false)}>
+            Ok
+          </Button>
+        </Modal>
+        <Button type={styles.backBtn} handleClick={() => (window.location.href = '/projects')}>
+          Cancel
+        </Button>
+      </div>
     </div>
   );
 };
+
 export default EditProject;

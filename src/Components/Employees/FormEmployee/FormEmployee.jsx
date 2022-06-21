@@ -197,14 +197,6 @@ const FormEmployee = (props) => {
         </div>
         <div>
           <Button
-            type={
-              showButton && !successEmployee ? styles.modalEmployeeBtn : styles.modalEmployeeBtnNone
-            }
-            handleClick={() => formEmployee(employeeInput)}
-          >
-            Confirm
-          </Button>
-          <Button
             type={styles.modalEmployeeBtn}
             handleClick={() => {
               if (!showButton && successEmployee) {
@@ -219,6 +211,14 @@ const FormEmployee = (props) => {
             }}
           >
             {showButton && !successEmployee ? 'Cancel' : 'Ok'}
+          </Button>
+          <Button
+            type={
+              showButton && !successEmployee ? styles.modalEmployeeBtn : styles.modalEmployeeBtnNone
+            }
+            handleClick={() => formEmployee(employeeInput)}
+          >
+            Confirm
           </Button>
         </div>
       </Modal>

@@ -1,20 +1,33 @@
 import styles from './input.module.css';
 
-const Input = ({ name, labelText, type, placeholder, register, error }) => {
+const Input = ({
+  labelText,
+  name,
+  inputValue,
+  placeholder,
+  warningMsg,
+  handleInput,
+  handleClick,
+  handleBlur,
+  showWarning
+}) => {
   return (
     <div className={styles.inputContainer}>
       <label className={styles.label} htmlFor={name}>
         {labelText}
       </label>
       <input
-        className={error ? styles.emptyInput : styles.input}
-        type={type}
+        className={showWarning ? styles.emptyInput : styles.input}
+        type="text"
+        name={name}
+        value={inputValue}
         placeholder={placeholder}
-        {...register(name)}
+        onInput={handleInput}
+        onClick={handleClick}
+        onBlur={handleBlur}
       ></input>
-      {error && <p className={styles.showWarningMsg}>{error}</p>}
+      <p className={showWarning ? styles.showWarningMsg : styles.hideWarningMsg}>{warningMsg}</p>
     </div>
   );
 };
-
 export default Input;
