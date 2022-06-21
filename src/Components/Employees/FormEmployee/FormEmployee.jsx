@@ -69,14 +69,16 @@ const employeeSchema = Joi.object({
       'string.empty': 'Password is not allowed to be empty',
       'string.pattern.base': 'Must contain alphanumeric characters, at least one of each',
       'string.required': 'Password is required!'
-    })
+    }),
+  active: Joi.boolean().required().messages({
+    'boolean.base': 'Must indicate if the employee is active'
+  })
 });
 
 const FormEmployee = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState();
   const [employeeInput, setEmployeeInput] = useState({});
-  console.log('props', props.firstName);
 
   const isLoadingEmployee = useSelector((state) => state.employee.isLoading);
 
@@ -185,12 +187,8 @@ const FormEmployee = (props) => {
               <Dropdown
                 name={'active'}
                 labelText={'Active'}
-                onChange={(e) => {
-                  setEmployeeInput({
-                    ...employeeInput,
-                    [e.target.name]: e.target.value
-                  });
-                }}
+                register={register}
+                error={errors.active?.message}
               />
             </div>
             <div className={styles.containerBtn}>

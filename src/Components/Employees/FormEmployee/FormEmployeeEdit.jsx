@@ -69,7 +69,10 @@ const employeeSchema = Joi.object({
       'string.empty': 'Password is not allowed to be empty',
       'string.pattern.base': 'Must contain alphanumeric characters, at least one of each',
       'string.required': 'Password is required!'
-    })
+    }),
+  active: Joi.boolean().required().messages({
+    'boolean.required': 'Active is required!'
+  })
 });
 
 const FormEmployeeEdit = (props) => {
@@ -83,8 +86,7 @@ const FormEmployeeEdit = (props) => {
     handleSubmit,
     register,
     formState: { errors },
-    reset,
-    watch
+    reset
   } = useForm({ mode: 'onChange', resolver: joiResolver(employeeSchema) });
 
   const [showButton, setShowButton] = useState(true);
@@ -102,15 +104,6 @@ const FormEmployeeEdit = (props) => {
 
   useEffect(() => {
     if (Object.keys(selectedItem).length) {
-      // setEmployeeToEdit({
-      //   ...employeeToEdit,
-      // firstName: selectedItem.firstName,
-      // lastName: selectedItem.lastName,
-      // email: selectedItem.email,
-      // phone: selectedItem.phone.toString(),
-      // password: selectedItem.password,
-      // active: selectedItem.active
-      // });
       reset({
         firstName: selectedItem.firstName,
         lastName: selectedItem.lastName,
@@ -128,21 +121,18 @@ const FormEmployeeEdit = (props) => {
   };
 
   const onSubmit = (employee) => {
-    console.log('employee', employee);
     setEmployeeToEdit({
       ...employeeToEdit,
       firstName: employee.firstName,
       lastName: employee.lastName,
       phone: employee.phone,
       email: employee.email,
-      password: employee.password
+      password: employee.password,
+      active: employee.active
     });
     setModalText('Are you sure you want to edit the employee ?');
     setIsOpen(true);
   };
-  console.log('employeeToEdit', employeeToEdit);
-  console.log('selectedItem', selectedItem);
-  console.log(watch('firstName'));
 
   if (isLoadingEmployee) {
     return <Loading className={styles.loadText}></Loading>;
@@ -210,12 +200,8 @@ const FormEmployeeEdit = (props) => {
             <Dropdown
               name={'active'}
               labelText={'Active'}
-              onChange={(e) => {
-                setEmployeeToEdit({
-                  ...employeeToEdit,
-                  [e.target.name]: e.target.value
-                });
-              }}
+              register={register}
+              error={errors.active?.message}
             />
           </div>
           <div className={styles.containerBtn}>

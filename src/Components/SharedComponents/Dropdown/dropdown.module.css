@@ -1,11 +1,11 @@
 .container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 250px;
-  }
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 250px;
+}
 
 .label {
   font-family: 'Roboto';
@@ -25,5 +25,14 @@
   text-transform: capitalize;
 }
 .options:hover {
-  background-color:lightgray;
+  background-color: lightgray;
+}
+.showWarningMsg {
+  margin-top: 5px;
+  font-family: 'Roboto';
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  color: #f13312;
 }
