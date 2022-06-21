@@ -67,7 +67,7 @@ export const addEmployee = (e, setModalText, setShowButton, setSuccessEmployee) 
       } else {
         setShowButton(false);
         setSuccessEmployee(false);
-        setModalText('Fields filled incorrectly, please check the data');
+        setModalText('Must indicate if the employee is active');
         dispatch(addEMPLOYEEerror(res));
       }
     } catch (error) {
@@ -99,7 +99,7 @@ export const editEmployee = (employee, id, setModalText, setShowButton, setSucce
       } else {
         setShowButton(false);
         setSuccessEmployee(false);
-        setModalText('Fields filled incorrectly, please check the data');
+        setModalText('Must indicate if the employee is active');
         dispatch(editEMPLOYEEerror(res));
       }
     } catch (error) {
@@ -117,6 +117,7 @@ export const getEmployeeById = (id) => {
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/employees/${id}`);
       const response_1 = await response.json();
+      response_1.data.phone = response_1.data.phone.toString();
       dispatch(getEMPLOYEEbyIdSuccess(response_1.data));
     } catch (error) {
       dispatch(getEMPLOYEEbyIdError(error.toString()));

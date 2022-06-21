@@ -75,14 +75,8 @@ const employeeSchema = Joi.object({
 const FormEmployee = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState();
-  const [employeeInput, setEmployeeInput] = useState({
-    firstName: props.firstName,
-    lastName: props.lastName,
-    phone: props.phone,
-    email: props.email,
-    password: props.password,
-    active: props.active
-  });
+  const [employeeInput, setEmployeeInput] = useState({});
+  console.log('props', props.firstName);
 
   const isLoadingEmployee = useSelector((state) => state.employee.isLoading);
 
@@ -124,6 +118,7 @@ const FormEmployee = (props) => {
     setModalText('Are you sure you want to create an new employee ?');
     setIsOpen(true);
   };
+  console.log('employeeInput', employeeInput);
 
   if (isLoadingEmployee) {
     return <Loading className={styles.loadText}></Loading>;
