@@ -20,7 +20,7 @@ const AddNew = () => {
   const dispatch = useDispatch();
   const responseData = useSelector((state) => state.employee.list);
   const [isOpen, setIsOpenConfirm] = useState(false);
-  const [isOpen2, setIsOpenFail] = useState(false);
+  const [isOpenFail, setIsOpenFail] = useState(false);
   const [projectInput, setProjectInput] = useState({
     name: '',
     description: '',
@@ -321,7 +321,7 @@ const AddNew = () => {
             </Button>
           </div>
         </Modal>
-        <Modal showModal={isOpen2} closeModal={() => setIsOpenFail(false)}>
+        <Modal showModal={isOpenFail} closeModal={() => setIsOpenFail(false)}>
           <h2>Fill every field to continue</h2>
           <Button type={styles.modalProjectBtn} handleClick={() => setIsOpenFail(false)}>
             Ok
