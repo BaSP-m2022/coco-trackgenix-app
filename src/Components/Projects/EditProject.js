@@ -11,12 +11,13 @@ import { getEmployee } from '../redux/modules/employees/thunks';
 import { putProject, getProjectById } from '../redux/modules/projects/thunks';
 
 const EditProject = () => {
+  const [modalText, setModalText] = useState('');
+  const [Success, setSuccess] = useState('');
   const [showWarningName, setShowWarningName] = useState(false);
   const [showWarningDesc, setShowWarningDesc] = useState(false);
   const [showWarningCName, setShowWarningCName] = useState(false);
   const [showWarningAdmin, setShowWarningAdmin] = useState(false);
   const isLoading = useSelector((state) => state.project.isLoading);
-  const isAdded = useSelector((state) => state.project.isAdded);
   const dispatch = useDispatch();
   const employeeData = useSelector((state) => state.employee.list);
   const projectData = useSelector((state) => state.project.selectedItem);
@@ -194,9 +195,6 @@ const EditProject = () => {
   if (isLoading) {
     return <Loading className={styles.loading}></Loading>;
   }
-  if (isAdded) {
-    window.location.href = '/projects';
-  }
   return (
     <div className={styles.container}>
       <Logo />
@@ -324,7 +322,7 @@ const EditProject = () => {
             <Button
               type={styles.modalProjectBtn}
               handleClick={() => {
-                dispatch(putProject(projectInput, id));
+                dispatch(putProject(projectInput, id, setSuccess, setModalText));
                 setIsOpenConfirm(false);
                 setIsOpenError(true);
               }}
@@ -334,9 +332,19 @@ const EditProject = () => {
           </div>
         </Modal>
         <Modal showModal={isOpenError} closeModal={() => setIsOpenError(false)}>
-          <h2>Error</h2>
-          <p>there has been a validation error</p>
-          <Button type={styles.modalProjectBtn} handleClick={() => setIsOpenError(false)}>
+          <p>{modalText}</p>
+          <Button
+            type={styles.backBtn}
+            handleClick={() => {
+              if (Success) {
+                setSuccess(false);
+                window.location.href = '/projects';
+              } else {
+                setSuccess(false);
+                setIsOpenError(false);
+              }
+            }}
+          >
             Ok
           </Button>
         </Modal>

@@ -11,12 +11,13 @@ import { getEmployee } from '../redux/modules/employees/thunks';
 import { postProject } from '../redux/modules/projects/thunks';
 
 const AddNew = () => {
+  const [modalText, setModalText] = useState('');
+  const [Success, setSuccess] = useState('');
   const [showWarningName, setShowWarningName] = useState(false);
   const [showWarningDesc, setShowWarningDesc] = useState(false);
   const [showWarningCName, setShowWarningCName] = useState(false);
   const [showWarningAdmin, setShowWarningAdmin] = useState(false);
   const isLoading = useSelector((state) => state.project.isLoading);
-  const isAdded = useSelector((state) => state.project.isAdded);
   const dispatch = useDispatch();
   const employeeData = useSelector((state) => state.employee.list);
   const [isOpen, setIsOpenConfirm] = useState(false);
@@ -186,9 +187,6 @@ const AddNew = () => {
   if (isLoading) {
     return <Loading className={styles.loading}></Loading>;
   }
-  if (isAdded) {
-    window.location.href = '/projects';
-  }
   return (
     <div className={styles.container}>
       <Logo />
@@ -316,7 +314,7 @@ const AddNew = () => {
             <Button
               type={styles.modalProjectBtn}
               handleClick={() => {
-                dispatch(postProject(projectInput));
+                dispatch(postProject(projectInput, setSuccess, setModalText));
                 setIsOpenError(true);
                 setIsOpenConfirm(false);
               }}
@@ -326,9 +324,19 @@ const AddNew = () => {
           </div>
         </Modal>
         <Modal showModal={isOpenError} closeModal={() => setIsOpenError(false)}>
-          <h2>Error</h2>
-          <p>there has been a validation error</p>
-          <Button type={styles.modalProjectBtn} handleClick={() => setIsOpenError(false)}>
+          <p>{modalText}</p>
+          <Button
+            type={styles.backBtn}
+            handleClick={() => {
+              if (Success) {
+                setSuccess(false);
+                window.location.href = '/projects';
+              } else {
+                setSuccess(false);
+                setIsOpenError(false);
+              }
+            }}
+          >
             Ok
           </Button>
         </Modal>

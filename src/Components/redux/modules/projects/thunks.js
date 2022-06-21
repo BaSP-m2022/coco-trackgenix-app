@@ -69,7 +69,7 @@ export const deleteProject = (_id) => {
     }
   };
 };
-export const postProject = (projectInput) => {
+export const postProject = (projectInput, setSuccess, setModalText) => {
   return async (dispatch) => {
     dispatch(PostProjectPending());
     try {
@@ -85,8 +85,12 @@ export const postProject = (projectInput) => {
       if (responseJson.error) {
         dispatch(PostProjectError(responseJson.message));
         console.log(responseJson);
+        setSuccess(false);
+        setModalText('Fields filled incorrectly, please check the data');
       } else {
         dispatch(PostProjectSuccess(projectInput));
+        setSuccess(true);
+        setModalText('Project Created!');
       }
       return responseJson.data;
     } catch (error) {
@@ -95,7 +99,7 @@ export const postProject = (projectInput) => {
     }
   };
 };
-export const putProject = (projectInput, id) => {
+export const putProject = (projectInput, id, setSuccess, setModalText) => {
   return async (dispatch) => {
     dispatch(PutProjectPending());
     try {
@@ -110,8 +114,12 @@ export const putProject = (projectInput, id) => {
       const responseJson = await response.json();
       if (responseJson.error) {
         dispatch(PutProjectError(responseJson.message));
+        setSuccess(false);
+        setModalText('Fields filled incorrectly, please check the data');
       } else {
         dispatch(PutProjectsSuccess(projectInput));
+        setSuccess(true);
+        setModalText('Project Edited successfully!');
       }
       return responseJson.data;
     } catch (error) {
