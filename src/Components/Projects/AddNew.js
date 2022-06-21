@@ -16,11 +16,12 @@ const AddNew = () => {
   const [showWarningCName, setShowWarningCName] = useState(false);
   const [showWarningAdmin, setShowWarningAdmin] = useState(false);
   const isLoading = useSelector((state) => state.project.isLoading);
-  const tabla = useSelector((state) => state.project.list);
+  const isAdded = useSelector((state) => state.project.isAdded);
   const dispatch = useDispatch();
   const employeeData = useSelector((state) => state.employee.list);
   const [isOpen, setIsOpenConfirm] = useState(false);
-  const [isOpen2, setIsOpenFail] = useState(false);
+  const [isOpenFail, setIsOpenFail] = useState(false);
+  const [isOpenError, setIsOpenError] = useState(false);
   const [projectInput, setProjectInput] = useState({
     name: '',
     description: '',
@@ -58,10 +59,11 @@ const AddNew = () => {
   };
   const addMembers = (item) => {
     let membersData = [];
-    if (!item) {
+    if (typeof item !== 'string' || !item) {
       membersData = null;
     } else {
-      let splitted = item.split(',');
+      console.log(item);
+      const splitted = item.split(',');
       if (splitted.length === 0) {
         membersData = '';
       } else if (splitted.length === 1) {
@@ -184,6 +186,9 @@ const AddNew = () => {
   if (isLoading) {
     return <Loading className={styles.loading}></Loading>;
   }
+  if (isAdded) {
+    window.location.href = '/projects';
+  }
   return (
     <div className={styles.container}>
       <Logo />
@@ -222,7 +227,7 @@ const AddNew = () => {
             name="startDate"
             required="required"
             placeholder="DD/MM/YYYY"
-            value={project.startDate}
+            value={project.startDate.slice(0, 10)}
             onChange={handleChange}
           ></input>
         </div>
@@ -233,7 +238,7 @@ const AddNew = () => {
             name="endDate"
             required="required"
             placeholder="DD/MM/YYYY"
-            value={project.endDate}
+            value={project.endDate.slice(0, 10)}
             onChange={handleChange}
           ></input>
         </div>
@@ -312,7 +317,7 @@ const AddNew = () => {
               type={styles.modalProjectBtn}
               handleClick={() => {
                 dispatch(postProject(projectInput));
-                console.log(tabla);
+                setIsOpenError(true);
                 setIsOpenConfirm(false);
               }}
             >
@@ -320,7 +325,14 @@ const AddNew = () => {
             </Button>
           </div>
         </Modal>
-        <Modal showModal={isOpen2} closeModal={() => setIsOpenFail(false)}>
+        <Modal showModal={isOpenError} closeModal={() => setIsOpenError(false)}>
+          <h2>Error</h2>
+          <p>there has been a validation error</p>
+          <Button type={styles.modalProjectBtn} handleClick={() => setIsOpenError(false)}>
+            Ok
+          </Button>
+        </Modal>
+        <Modal showModal={isOpenFail} closeModal={() => setIsOpenFail(false)}>
           <h2>Fill every field to continue</h2>
           <Button type={styles.modalProjectBtn} handleClick={() => setIsOpenFail(false)}>
             Ok

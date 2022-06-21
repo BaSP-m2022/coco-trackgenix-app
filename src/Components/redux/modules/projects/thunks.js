@@ -84,6 +84,7 @@ export const postProject = (projectInput) => {
       const responseJson = await response.json();
       if (responseJson.error) {
         dispatch(PostProjectError(responseJson.message));
+        console.log(responseJson);
       } else {
         dispatch(PostProjectSuccess(projectInput));
       }
@@ -107,17 +108,14 @@ export const putProject = (projectInput, id) => {
         body: JSON.stringify(projectInput)
       });
       const responseJson = await response.json();
-      console.log(response.json);
       if (responseJson.error) {
         dispatch(PutProjectError(responseJson.message));
-        console.log('error error', responseJson);
       } else {
         dispatch(PutProjectsSuccess(projectInput));
       }
       return responseJson.data;
     } catch (error) {
       console.error(error);
-      console.log('error catch');
       dispatch(PutProjectError(error.toString));
     }
   };

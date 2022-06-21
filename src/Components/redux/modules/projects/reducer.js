@@ -5,9 +5,9 @@ import {
   POST_PROJECT_SUCCESS,
   POST_PROJECT_PENDING,
   POST_PROJECT_ERROR,
-  // PUT_PROJECT_SUCCESS,
-  // PUT_PROJECT_PENDING,
-  // PUT_PROJECT_ERROR,
+  PUT_PROJECT_SUCCESS,
+  PUT_PROJECT_PENDING,
+  PUT_PROJECT_ERROR,
   DELETE_PROJECT_SUCCESS,
   DELETE_PROJECT_PENDING,
   DELETE_PROJECT_ERROR,
@@ -23,7 +23,7 @@ const initialState = {
   selectedItem: {}
 };
 
-// let editProject = [];
+let editProject = [];
 
 export const projectReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -31,40 +31,46 @@ export const projectReducer = (state = initialState, action) => {
       return {
         ...state,
         list: action.payload,
-        isLoading: false
+        isLoading: false,
+        isAdded: false
       };
     case GET_PROJECT_PENDING:
       return {
         ...state,
         isLoading: true,
-        error: initialState.error
+        error: initialState.error,
+        isAdded: false
       };
     case GET_PROJECT_ERROR:
       return {
         ...state,
         isLoading: false,
-        error: action.payload
+        error: action.payload,
+        isAdded: false
       };
     case GET_BY_ID_PROJECT_PENDING:
       return {
         ...state,
         isLoading: true,
         error: initialState.error,
-        selectedItem: initialState.selectedItem
+        selectedItem: initialState.selectedItem,
+        isAdded: false
       };
 
     case GET_BY_ID_PROJECT_SUCCESS:
       return {
         ...state,
         selectedItem: action.payload,
-        isLoading: false
+        isLoading: false,
+        isAdded: false
       };
 
     case GET_BY_ID_PROJECT_ERROR:
       return {
         ...state,
         error: action.payload,
-        isLoading: false
+        isLoading: false,
+        isAdded: false
       };
     case POST_PROJECT_SUCCESS:
       return {
@@ -86,31 +92,33 @@ export const projectReducer = (state = initialState, action) => {
         error: action.payload,
         isAdded: false
       };
-    // case PUT_PROJECT_SUCCESS:
-    //   editProject = state.list.map((item) => {
-    //     if (item._id === action.payload._id) {
-    //       return action.payload;
-    //     } else {
-    //       return item;
-    //     }
-    //   });
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     list: editProject
-    //   };
-    // case PUT_PROJECT_PENDING:
-    //   return {
-    //     ...state,
-    //     isLoading: true,
-    //     error: initialState.error
-    //   };
-    // case PUT_PROJECT_ERROR:
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     error: action.payload
-    //   };
+    case PUT_PROJECT_SUCCESS:
+      editProject = state.list.map((item) => {
+        if (item._id === action.payload._id) {
+          return action.payload;
+        } else {
+          return item;
+        }
+      });
+      return {
+        ...state,
+        isLoading: false,
+        list: editProject,
+        isAdded: true
+      };
+    case PUT_PROJECT_PENDING:
+      return {
+        ...state,
+        isLoading: true,
+        error: initialState.error
+      };
+    case PUT_PROJECT_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+        isAdded: false
+      };
     case DELETE_PROJECT_SUCCESS:
       return {
         ...state,
