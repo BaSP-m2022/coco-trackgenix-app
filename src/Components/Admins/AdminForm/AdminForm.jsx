@@ -142,6 +142,7 @@ const AdminForm = (props) => {
             <Input
               labelText="Password"
               name="password"
+              type="password"
               placeholder="Password"
               register={register}
               error={errors.password?.message}
