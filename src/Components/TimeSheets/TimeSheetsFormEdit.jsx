@@ -104,7 +104,7 @@ const EditFormTimesheet = (props) => {
           name="employeeId"
           path="firstName"
           labelText="Employee"
-          value={employeeId.firstName}
+          value={employeeId && employeeId.firstName}
           onChange={(e) => {
             setEmployeeId(e.target.value);
           }}
@@ -113,7 +113,7 @@ const EditFormTimesheet = (props) => {
           data={projectData}
           name="projectId"
           labelText="Project"
-          value={projectId.name}
+          value={projectId && projectId.name}
           path="name"
           onChange={(e) => {
             setProjectId(e.target.value);
