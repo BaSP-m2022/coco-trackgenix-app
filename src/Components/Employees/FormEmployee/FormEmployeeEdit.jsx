@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../employees.module.css';
-import Logo from '../../SharedComponents/Logo/Logo';
-import Modal from '../../SharedComponents/Modal/Modal';
-import Button from '../../SharedComponents/Button/Button';
-import Input from '../../SharedComponents/Input/Input';
-import Loading from '../../SharedComponents/Loading/Loading';
-import Dropdown from '../../SharedComponents/Dropdown/Dropdown';
+import styles from 'Components/Employees/employees.module.css';
+import formStyles from 'Components/Employees/FormEmployee/formEmployee.module.css';
+import Logo from 'Components/SharedComponents/Logo/Logo';
+import Modal from 'Components/SharedComponents/Modal/Modal';
+import Button from 'Components/SharedComponents/Button/Button';
+import Input from 'Components/SharedComponents/Input/Input';
+import Loading from 'Components/SharedComponents/Loading/Loading';
+import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { editEmployee, getEmployeeById } from '../../redux/modules/employees/thunks';
+import { editEmployee, getEmployeeById } from 'Components/redux/modules/employees/thunks';
 import Joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
 
@@ -141,12 +142,10 @@ const FormEmployeeEdit = (props) => {
   return (
     <div className={styles.formAdd}>
       <Logo />
-      <div>
+      <div className={formStyles.formContainer}>
         <h2>Edit Employee</h2>
-      </div>
-      <div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
+          <div className={formStyles.inputsColumns}>
             <Input
               labelText="Name"
               name="firstName"
@@ -155,8 +154,6 @@ const FormEmployeeEdit = (props) => {
               register={register}
               error={errors.firstName?.message}
             />
-          </div>
-          <div>
             <Input
               labelText="Last Name"
               name="lastName"
@@ -165,8 +162,6 @@ const FormEmployeeEdit = (props) => {
               register={register}
               error={errors.lastName?.message}
             />
-          </div>
-          <div>
             <Input
               labelText="Phone"
               name="phone"
@@ -175,8 +170,6 @@ const FormEmployeeEdit = (props) => {
               register={register}
               error={errors.phone?.message}
             />
-          </div>
-          <div>
             <Input
               labelText="Email"
               name="email"
@@ -185,8 +178,6 @@ const FormEmployeeEdit = (props) => {
               register={register}
               error={errors.email?.message}
             />
-          </div>
-          <div>
             <Input
               labelText="Password"
               name="password"
@@ -195,8 +186,6 @@ const FormEmployeeEdit = (props) => {
               register={register}
               error={errors.password?.message}
             />
-          </div>
-          <div>
             <Dropdown
               name={'active'}
               labelText={'Active'}
@@ -221,6 +210,14 @@ const FormEmployeeEdit = (props) => {
         </div>
         <div>
           <Button
+            type={
+              showButton && !successEmployee ? styles.modalEmployeeBtn : styles.modalEmployeeBtnNone
+            }
+            handleClick={() => formEmployee(employeeToEdit)}
+          >
+            Confirm
+          </Button>
+          <Button
             type={styles.modalEmployeeBtn}
             handleClick={() => {
               if (!showButton && successEmployee) {
@@ -235,14 +232,6 @@ const FormEmployeeEdit = (props) => {
             }}
           >
             {showButton && !successEmployee ? 'Cancel' : 'Ok'}
-          </Button>
-          <Button
-            type={
-              showButton && !successEmployee ? styles.modalEmployeeBtn : styles.modalEmployeeBtnNone
-            }
-            handleClick={() => formEmployee(employeeToEdit)}
-          >
-            Confirm
           </Button>
         </div>
       </Modal>

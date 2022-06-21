@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import styles from '../employees.module.css';
-import Logo from '../../SharedComponents/Logo/Logo';
-import Modal from '../../SharedComponents/Modal/Modal';
-import Button from '../../SharedComponents/Button/Button';
-import Input from '../../SharedComponents/Input/Input';
-import Loading from '../../SharedComponents/Loading/Loading';
-import Dropdown from '../../SharedComponents/Dropdown/Dropdown';
+import styles from 'Components/Employees/employees.module.css';
+import formStyles from 'Components/Employees/FormEmployee/formEmployee.module.css';
+import Logo from 'Components/SharedComponents/Logo/Logo';
+import Modal from 'Components/SharedComponents/Modal/Modal';
+import Button from 'Components/SharedComponents/Button/Button';
+import Input from 'Components/SharedComponents/Input/Input';
+import Loading from 'Components/SharedComponents/Loading/Loading';
+import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { addEmployee } from '../../redux/modules/employees/thunks';
+import { addEmployee } from 'Components/redux/modules/employees/thunks';
 import Joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
 
@@ -129,85 +130,81 @@ const FormEmployee = (props) => {
   return (
     <div className={styles.formAdd}>
       <Logo />
-      <div>
+      <div className={formStyles.formContainer}>
         <h2>Add New Employee</h2>
-        <div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-              <Input
-                labelText="Name"
-                name="firstName"
-                type="text"
-                placeholder="First Name"
-                register={register}
-                error={errors.firstName?.message}
-              />
-            </div>
-            <div>
-              <Input
-                labelText="Last Name"
-                name="lastName"
-                type="text"
-                placeholder="Last Name"
-                register={register}
-                error={errors.lastName?.message}
-              />
-            </div>
-            <div>
-              <Input
-                labelText="Phone"
-                name="phone"
-                type="text"
-                placeholder="Phone"
-                register={register}
-                error={errors.phone?.message}
-              />
-            </div>
-            <div>
-              <Input
-                labelText="Email"
-                name="email"
-                type="text"
-                placeholder="Email"
-                register={register}
-                error={errors.email?.message}
-              />
-            </div>
-            <div>
-              <Input
-                labelText="Password"
-                name="password"
-                type="password"
-                placeholder="Password"
-                register={register}
-                error={errors.password?.message}
-              />
-            </div>
-            <div>
-              <Dropdown
-                name={'active'}
-                labelText={'Active'}
-                register={register}
-                error={errors.active?.message}
-              />
-            </div>
-            <div className={styles.containerBtn}>
-              <Button type={('submit', styles.employeeBtnEdit)}>Create</Button>
-              <Button
-                type={styles.employeeBtnEdit}
-                handleClick={() => props.history.push('/employee')}
-              >
-                Return
-              </Button>
-            </div>
-          </form>
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={formStyles.inputsColumns}>
+            <Input
+              labelText="Name"
+              name="firstName"
+              type="text"
+              placeholder="First Name"
+              register={register}
+              error={errors.firstName?.message}
+            />
+            <Input
+              labelText="Last Name"
+              name="lastName"
+              type="text"
+              placeholder="Last Name"
+              register={register}
+              error={errors.lastName?.message}
+            />
+            <Input
+              labelText="Phone"
+              name="phone"
+              type="text"
+              placeholder="Phone"
+              register={register}
+              error={errors.phone?.message}
+            />
+            <Input
+              labelText="Email"
+              name="email"
+              type="text"
+              placeholder="Email"
+              register={register}
+              error={errors.email?.message}
+            />
+            <Input
+              labelText="Password"
+              name="password"
+              type="password"
+              placeholder="Password"
+              register={register}
+              error={errors.password?.message}
+            />
+            <Dropdown
+              name={'active'}
+              labelText={'Active'}
+              register={register}
+              error={errors.active?.message}
+            />
+          </div>
+          <div className={styles.containerBtn}>
+            <Button type={('submit', styles.employeeBtnEdit)}>Create</Button>
+            <Button
+              type={styles.employeeBtnEdit}
+              handleClick={() => props.history.push('/employee')}
+            >
+              Return
+            </Button>
+          </div>
+        </form>
       </div>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <div>
           <p>{modalText}</p>
         </div>
         <div>
+          <Button
+            type={
+              showButton && !successEmployee ? styles.modalEmployeeBtn : styles.modalEmployeeBtnNone
+            }
+            handleClick={() => formEmployee(employeeInput)}
+          >
+            Confirm
+          </Button>
           <Button
             type={styles.modalEmployeeBtn}
             handleClick={() => {
@@ -223,14 +220,6 @@ const FormEmployee = (props) => {
             }}
           >
             {showButton && !successEmployee ? 'Cancel' : 'Ok'}
-          </Button>
-          <Button
-            type={
-              showButton && !successEmployee ? styles.modalEmployeeBtn : styles.modalEmployeeBtnNone
-            }
-            handleClick={() => formEmployee(employeeInput)}
-          >
-            Confirm
           </Button>
         </div>
       </Modal>
