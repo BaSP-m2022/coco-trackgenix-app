@@ -27,9 +27,9 @@ const schema = joi.object({
       'string.pattern.base': '{{#label}} must only contain alpha-numeric characters'
     }),
   workedHours: joi.number().integer().positive().required().messages({
-    'number.integer': '{{#label}} must be an integer',
-    'number.positive': '{{#label}} must be a positive number',
-    'number.base': '{{#label}} is a required field and must be a number'
+    'number.integer': '"worked hours" must be an integer',
+    'number.positive': '"worked hours" must be a positive number',
+    'number.base': '"worked hours" is a required field and must be a number'
   })
 });
 
