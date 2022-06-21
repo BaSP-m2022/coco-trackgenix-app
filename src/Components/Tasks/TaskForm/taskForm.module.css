@@ -4,7 +4,9 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  height: 500px;
 }
+
 .title {
   font-family: 'Roboto';
   font-weight: 700;
@@ -13,16 +15,37 @@
   color: #373867;
 }
 
-.buttonAdd,
-.buttonForm {
+.formContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputsContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 50px 0;
+}
+
+.inputDescription,
+.inputWorkedHours {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 30px;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.buttonEdit {
   display: flex;
   flex-direction: row;
-  height: 37px;
   align-items: center;
   justify-content: center;
-  margin-left: 10px;
-  margin-bottom: 15px;
-  padding: 14px 36px;
+  height: 37px;
+  margin: 0px 25px 15px 25px;
+  padding: 14px 48px;
   gap: 10px;
   background: #aace9b;
   border: 1px solid #505168;
@@ -36,38 +59,29 @@
 }
 
 .buttonForm {
-  margin-left: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 37px;
+  margin: 0px 20px 15px 20px;
+  padding: 14px 36px;
+  gap: 10px;
+  background: #aace9b;
+  border: 1px solid #505168;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: #505168;
+  cursor: pointer;
+  transition-duration: 0.3s;
 }
 
-.buttonAdd:hover,
+.buttonEdit:hover,
 .buttonForm:hover {
   background-color: white;
   border: 2px solid #aace9b;
-}
-
-.formContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.inputsContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.form {
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.inputDescription,
-.inputWorkedHours {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
 }
 
 .modalMsg {
