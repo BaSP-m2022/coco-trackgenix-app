@@ -42,7 +42,7 @@ const Employees = (props) => {
       <h2 className={styles.title}>Employees</h2>
       <Button
         type={styles.addEmployeeBtn}
-        handleClick={() => props.history.push('/employees/form')}
+        handleClick={() => props.history.push('/employee/signup')}
       >
         Add Employee
       </Button>

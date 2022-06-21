@@ -4,8 +4,47 @@ import userIcon from '../../Assets/user.svg';
 import styles from './navBar.module.css';
 
 const NavBar = () => {
-  if (location.pathname == '/home' || location.pathname == '/nav') {
+  if (
+    location.pathname == '/home' ||
+    location.pathname == '/nav' ||
+    location.pathname == '/employee/signup'
+  ) {
     return null;
+  } else if (
+    location.pathname === '/employee' ||
+    location.pathname === '/employee/timesheet' ||
+    location.pathname === '/employee/timesheetAdd' ||
+    location.pathname === '/employee/timesheetEdit' ||
+    location.pathname === '/employee/projects' ||
+    location.pathname === '/employee/profile'
+  ) {
+    return (
+      <nav className={styles.navbar}>
+        <div className={styles.userInfo}>
+          <img src={userIcon} className={styles.userImg} />
+          <div className={styles.userName}>user name</div>
+          <div className={styles.userRole}>user role</div>
+        </div>
+        <div className={styles.menu}>menu</div>
+        <ul className={styles.rutes}>
+          <li>
+            <Link className={styles.links} to="/employee/projects">
+              projects
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.links} to="/employee/timesheet">
+              timesheet
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.links} to="/employee/profile">
+              personal Information
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    );
   } else {
     return (
       <nav className={styles.navbar}>
@@ -22,7 +61,7 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            <Link className={styles.links} to="/employees">
+            <Link className={styles.links} to="/employee/projects">
               employees
             </Link>
           </li>
