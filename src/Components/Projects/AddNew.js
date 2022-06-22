@@ -22,8 +22,8 @@ const projectSchema = Joi.object({
     .messages({
       'string.min': 'Must contain at least 3 letters',
       'string.max': 'Must contain a maximum of 50 letters',
-      'string.required': 'First name is required!',
-      'string.empty': 'First name is not allowed to be empty',
+      'string.required': 'Name is required!',
+      'string.empty': 'Name is not allowed to be empty',
       'string.pattern.base':
         'Must contain only letters and words can only be separated by a single white space'
     }),
@@ -80,10 +80,6 @@ const AddNew = () => {
   const [isOpenError, setIsOpenError] = useState(false);
   const [modalText, setModalText] = useState('');
   const [Success, setSuccess] = useState('');
-  // const [showWarningName, setShowWarningName] = useState(false);
-  // const [showWarningDesc, setShowWarningDesc] = useState(false);
-  // const [showWarningCName, setShowWarningCName] = useState(false);
-  // const [showWarningAdmin, setShowWarningAdmin] = useState(false);
   const isLoading = useSelector((state) => state.project.isLoading);
   const dispatch = useDispatch();
   const employeeData = useSelector((state) => state.employee.list);
@@ -111,8 +107,18 @@ const AddNew = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors }
+    formState: { errors },
+    watch
   } = useForm({ mode: 'onChange', resolver: joiResolver(projectSchema) });
+
+  console.log(watch('name'));
+  console.log(watch('description'));
+  console.log(watch('startDate'));
+  console.log(watch('endDate'));
+  console.log(watch('ClientName'));
+  console.log(watch('active'));
+  console.log(watch('employees'));
+  console.log(watch('admins'));
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -165,90 +171,6 @@ const AddNew = () => {
     onSubmit(e);
   };
 
-  // /* Input NAME */
-  // const handleInputName = (e) => {
-  //   setProject({
-  //     ...project,
-  //     [e.target.name]: e.target.value
-  //   });
-  //   if (e.target.value === '') {
-  //     setShowWarningName(true);
-  //   } else {
-  //     setShowWarningName(false);
-  //   }
-  // };
-  // const handleClickName = () => {
-  //   setShowWarningName(false);
-  // };
-  // const handleBlurName = (e) => {
-  //   if (e.target.value === '') {
-  //     setShowWarningName(true);
-  //   }
-  // };
-
-  // /* Input DESCRIPTION */
-  // const handleInputDesc = (e) => {
-  //   setProject({
-  //     ...project,
-  //     [e.target.name]: e.target.value
-  //   });
-  //   if (e.target.value === '') {
-  //     setShowWarningDesc(true);
-  //   } else {
-  //     setShowWarningDesc(false);
-  //   }
-  // };
-  // const handleClickDesc = () => {
-  //   setShowWarningDesc(false);
-  // };
-  // const handleBlurDesc = (e) => {
-  //   if (e.target.value === '') {
-  //     setShowWarningDesc(true);
-  //   }
-  // };
-
-  // /* Input CLIENT NAME */
-  // const handleInputCName = (e) => {
-  //   setProject({
-  //     ...project,
-  //     [e.target.name]: e.target.value
-  //   });
-  //   if (e.target.value === '') {
-  //     setShowWarningCName(true);
-  //   } else {
-  //     setShowWarningCName(false);
-  //   }
-  // };
-  // const handleClickCName = () => {
-  //   setShowWarningCName(false);
-  // };
-  // const handleBlurCName = (e) => {
-  //   if (e.target.value === '') {
-  //     setShowWarningCName(true);
-  //   }
-  // };
-
-  // /* Input ADMIN */
-  // const handleInputAdmin = (e) => {
-  //   setProject({
-  //     ...project,
-  //     [e.target.name]: e.target.value
-  //   });
-  //   if (e.target.value === '') {
-  //     setShowWarningAdmin(true);
-  //   } else {
-  //     setShowWarningAdmin(false);
-  //   }
-  // };
-  // const handleClickAdmin = () => {
-  //   setShowWarningAdmin(false);
-  // };
-  // const handleBlurAdmin = (e) => {
-  //   if (e.target.value === '') {
-  //     setShowWarningAdmin(true);
-  //   }
-  // };
-
   useEffect(() => {
     dispatch(getEmployee());
   }, []);
@@ -260,52 +182,49 @@ const AddNew = () => {
     <div className={styles.container}>
       <Logo />
       <h2>New Project</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit()}>
         <div>
           <Input
             labelText="Name"
             name="name"
-            // inputValue={project.name}
+            type="string"
             placeholder="Name"
-            // warningMsg="Please check the information"
             register={register}
-            error={errors.name?.messages}
+            error={errors.name?.message}
+            onChange={handleChange}
           ></Input>
         </div>
         <div>
           <Input
             labelText="Description"
             name="description"
-            // inputValue={project.description}
+            type="string"
             placeholder="write a description here"
-            // warningMsg="Please check the information"
             register={register}
-            error={errors.description?.messages}
+            error={errors.description?.message}
+            onChange={handleChange}
           ></Input>
         </div>
         <div>
-          {/* <label htmlFor="startDate">Start Date</label> */}
           <Input
             labelText="Start Date"
             type="date"
             name="startDate"
             placeholder="DD/MM/YYYY"
-            // value={project.startDate.slice(0, 10)}
+            value={project.startDate.slice(0, 10)}
             register={register}
-            error={errors.startDate?.messages}
+            error={errors.startDate?.message}
             onChange={handleChange}
           ></Input>
         </div>
         <div>
-          {/* <label htmlFor="endDate">End Date</label> */}
           <Input
             labelText="End Date"
             type="date"
             name="endDate"
             placeholder="DD/MM/YYYY"
-            // value={project.endDate.slice(0, 10)}
             register={register}
-            error={errors.endDate?.messages}
+            error={errors.endDate?.message}
             onChange={handleChange}
           ></Input>
         </div>
@@ -313,18 +232,17 @@ const AddNew = () => {
           <Input
             labelText="Client Name"
             name="clientName"
-            // inputValue={project.clientName}
             placeholder="enter a client here"
-            // warningMsg="Please check the information"
             register={register}
-            error={errors.clientName?.messages}
+            error={errors.clientName?.message}
+            onChange={handleChange}
           ></Input>
         </div>
         <Dropdown
           name="active"
           labelText="Set if is active"
           register={register}
-          error={errors.active?.messages}
+          error={errors.active?.message}
         ></Dropdown>
         <Dropdown
           data={employeeData}
@@ -332,16 +250,16 @@ const AddNew = () => {
           labelText="Select an employee"
           path="firstName"
           onChange={handleChange}
+          register={register}
+          error={errors.active?.message}
         ></Dropdown>
         <div>
           <Input
             labelText="Administrator"
             name="admins"
-            // inputValue={project.admins}
             placeholder="enter an admin here"
-            // warningMsg="Please check the information"
             register={register}
-            error={errors.admins?.messages}
+            error={errors.admins?.message}
           ></Input>
         </div>
       </form>
@@ -363,6 +281,7 @@ const AddNew = () => {
             } else {
               confirmModal(e);
             }
+            console.log(project);
           }}
         >
           New Project
