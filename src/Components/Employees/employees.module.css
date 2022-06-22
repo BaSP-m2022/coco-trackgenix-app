@@ -15,6 +15,19 @@
   margin-top: 10px;
 }
 
+.titleTwo {
+  color: #373867;
+  font-size: xx-large;
+  font-weight: 700;
+  text-align: center;
+  margin: 15px;
+}
+
+.logoContainer {
+  margin-bottom: 40px;
+  margin-top: -50px;
+}
+
 .formAdd {
   flex: 1;
   display: flex;

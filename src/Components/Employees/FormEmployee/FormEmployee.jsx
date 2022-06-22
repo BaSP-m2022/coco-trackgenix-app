@@ -130,7 +130,9 @@ const FormEmployee = (props) => {
     <div className={styles.formAdd}>
       <Logo />
       <div className={formStyles.formContainer}>
-        <h2>Add New Employee</h2>
+        <div className={styles.titleTwo}>
+          <h2>Sign Up</h2>
+        </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={formStyles.inputsColumns}>
             <Input
@@ -182,10 +184,7 @@ const FormEmployee = (props) => {
           </div>
           <div className={styles.containerBtn}>
             <Button type={('submit', styles.employeeBtnEdit)}>Create</Button>
-            <Button
-              type={styles.employeeBtnEdit}
-              handleClick={() => props.history.push('/employee')}
-            >
+            <Button type={styles.employeeBtnEdit} handleClick={() => props.history.push('/home')}>
               Return
             </Button>
           </div>
@@ -202,7 +201,7 @@ const FormEmployee = (props) => {
               if (!showButton && successEmployee) {
                 setShowButton(true);
                 setSuccessEmployee(false);
-                props.history.push('/employee');
+                props.history.push('/employee/profile');
               } else {
                 setShowButton(true);
                 setSuccessEmployee(false);
