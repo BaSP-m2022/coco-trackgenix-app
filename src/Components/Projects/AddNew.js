@@ -319,15 +319,7 @@ const AddNew = () => {
           <div>
             <p>Do you really want to create this project?</p>
           </div>
-          <div>
-            <Button
-              type={styles.modalProjectBtn}
-              handleClick={() => {
-                setIsOpenConfirm(false);
-              }}
-            >
-              Cancel
-            </Button>
+          <div className={styles.buttonsModal}>
             <Button
               type={styles.modalProjectBtn}
               handleClick={() => {
@@ -337,6 +329,14 @@ const AddNew = () => {
               }}
             >
               Create
+            </Button>
+            <Button
+              type={styles.modalProjectBtn}
+              handleClick={() => {
+                setIsOpenConfirm(false);
+              }}
+            >
+              Cancel
             </Button>
           </div>
         </Modal>
