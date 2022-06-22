@@ -25,8 +25,8 @@ const Dropdown = ({ data, name, labelText, path, onChange, register, error, valu
       <div className={styles.container}>
         <label className={styles.label}>{labelText}</label>
         <select onChange={onChange} className={styles.select} name={name}>
-          <option selected className={styles.options}>
-            {!value ? labelText : data.find((element) => element._id === value.path)}
+          <option disabled selected className={styles.options}>
+            {value ? value : labelText}
           </option>
           {data.map((item) => (
             <option className={styles.options} key={item.id} value={item._id}>

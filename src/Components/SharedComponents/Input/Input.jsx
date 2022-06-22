@@ -1,6 +1,6 @@
 import styles from './input.module.css';
 
-const Input = ({ labelText, name, type, placeholder, register, error }) => {
+const Input = ({ name, labelText, type, placeholder, register, error }) => {
   return (
     <div className={styles.inputContainer}>
       <label className={styles.label} htmlFor={name}>
@@ -16,4 +16,5 @@ const Input = ({ labelText, name, type, placeholder, register, error }) => {
     </div>
   );
 };
+
 export default Input;
