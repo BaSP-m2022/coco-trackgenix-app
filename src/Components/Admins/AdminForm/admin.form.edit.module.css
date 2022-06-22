@@ -128,6 +128,10 @@
   cursor: pointer;
 }
 
+.confirmBtnNone {
+  display: none;
+}
+
 .confirmAndDeleteBtn {
   width: 110px;
   height: 50px;
@@ -141,19 +145,8 @@
   color: #505168;
   cursor: pointer;
 }
-
-.confirmAndDeleteBtn {
-  width: 60px;
-  height: 30px;
-  margin: 30px;
-  padding: 0;
-  background: #aace9b;
-  border: 1px solid #505168;
-  border-radius: 5px;
-  font-size: 15px;
-  font-weight: 700;
-  color: #505168;
-  cursor: pointer;
+.confirmAndDeleteBtnNone {
+  display: none;
 }
 .editAndDeleteBtn {
   width: 60px;

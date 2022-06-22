@@ -1,116 +1,126 @@
 import React, { useState } from 'react';
-import styles from '../employees.module.css';
-import Logo from '../../SharedComponents/Logo/Logo';
-import Modal from '../../SharedComponents/Modal/Modal';
-import Button from '../../SharedComponents/Button/Button';
-// import Input from '../../SharedComponents/Input/Input';
-import Loading from '../../SharedComponents/Loading/Loading';
-import Dropdown from '../../SharedComponents/Dropdown/Dropdown';
+import styles from 'Components/Employees/employees.module.css';
+import formStyles from 'Components/Employees/FormEmployee/formEmployee.module.css';
+import Logo from 'Components/SharedComponents/Logo/Logo';
+import Modal from 'Components/SharedComponents/Modal/Modal';
+import Button from 'Components/SharedComponents/Button/Button';
+import Input from 'Components/SharedComponents/Input/Input';
+import Loading from 'Components/SharedComponents/Loading/Loading';
+import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
-import { addEmployee } from '../../redux/modules/employees/thunks';
+import { useForm } from 'react-hook-form';
+import { addEmployee } from 'Components/redux/modules/employees/thunks';
+import Joi from 'joi';
+import { joiResolver } from '@hookform/resolvers/joi';
+
+const employeeSchema = Joi.object({
+  firstName: Joi.string()
+    .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
+    .min(3)
+    .max(30)
+    .required()
+    .messages({
+      'string.min': 'Must contain at least 3 letters',
+      'string.max': 'Must contain a maximum of 30 letters',
+      'string.required': 'First name is required!',
+      'string.empty': 'First name is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single white space'
+    }),
+  lastName: Joi.string()
+    .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
+    .min(3)
+    .max(30)
+    .required()
+    .messages({
+      'string.min': 'Must contain at least 3 letters',
+      'string.max': 'Must contain a maximum of 30 letters',
+      'string.required': 'Last name is required!',
+      'string.empty': 'Last name is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single white space'
+    }),
+  phone: Joi.string()
+    .regex(/^[0-9]+$/)
+    .min(10)
+    .max(10)
+    .messages({
+      'string.pattern.base': 'Must contain only numbers',
+      'string.min': 'Must contain 10 numbers',
+      'string.max': 'Must contain 10 numbers',
+      'string.empty': 'Phone is not allowed to be empty',
+      'number.required': 'Phone is required!'
+    }),
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .required()
+    .messages({
+      'string.email': 'Must contain an email format valid',
+      'string.empty': 'Email is not allowed to be empty',
+      'string.required': 'Email is required!'
+    }),
+  password: Joi.string()
+    .regex(/^(?=.*?\d)(?=.*?[a-zA-Z])[a-zA-Z\d]+$/)
+    .min(8)
+    .max(30)
+    .required()
+    .messages({
+      'string.min': 'Must contain at least 8 characters',
+      'string.max': 'Must contain a maximum of 30 characters',
+      'string.empty': 'Password is not allowed to be empty',
+      'string.pattern.base': 'Must contain alphanumeric characters, at least one of each',
+      'string.required': 'Password is required!'
+    }),
+  active: Joi.boolean().required().messages({
+    'boolean.base': 'Must indicate if the employee is active'
+  })
+});
 
 const FormEmployee = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState();
-  const [employeeInput, setEmployeeInput] = useState({
-    firstName: props.firstName,
-    lastName: props.lastName,
-    phone: props.phone,
-    email: props.email,
-    password: props.password,
-    active: props.active
-  });
+  const [employeeInput, setEmployeeInput] = useState({});
+  const [showButton, setShowButton] = useState(true);
+  const [successEmployee, setSuccessEmployee] = useState(false);
 
   const isLoadingEmployee = useSelector((state) => state.employee.isLoading);
 
-  // const [showWarning1, setShowWarning1] = useState(false);
-  // const [showWarning2, setShowWarning2] = useState(false);
-  // const [showWarning3, setShowWarning3] = useState(false);
-  // const [showWarning4, setShowWarning4] = useState(false);
-  // const [showWarning5, setShowWarning5] = useState(false);
-  const [showButton, setShowButton] = useState(true);
-  const [successEmployee, setSuccessEmployee] = useState(false);
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm({ mode: 'onChange', resolver: joiResolver(employeeSchema) });
 
   const dispatch = useDispatch();
 
   const formEmployee = (e) => {
     dispatch(addEmployee(e, setModalText, setShowButton, setSuccessEmployee));
     setIsOpen(true);
-    setEmployeeInput({
-      firstName: '',
-      lastName: '',
-      phone: '',
-      email: '',
-      password: '',
-      active: ''
-    });
+    if (successEmployee) {
+      setEmployeeInput({
+        firstName: '',
+        lastName: '',
+        phone: '',
+        email: '',
+        password: '',
+        active: ''
+      });
+    }
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (employee) => {
+    setEmployeeInput({
+      ...employeeInput,
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      phone: employee.phone,
+      email: employee.email,
+      password: employee.password,
+      active: employee.active
+    });
     setModalText('Are you sure you want to create an new employee ?');
     setIsOpen(true);
   };
-
-  // const handleInput = (e) => {
-  //   switch (e.target.name) {
-  //     case 'firstName':
-  //       setEmployeeInput({
-  //         ...employeeInput,
-  //         [e.target.name]: e.target.value
-  //       });
-  //       if (e.target.value === '') {
-  //         setShowWarning1(true);
-  //       } else {
-  //         setShowWarning1(false);
-  //       }
-  //       break;
-  //     case 'lastName':
-  //       setEmployeeInput({
-  //         ...employeeInput,
-  //         [e.target.name]: e.target.value
-  //       });
-  //       if (e.target.value === '') {
-  //         setShowWarning2(true);
-  //       } else {
-  //         setShowWarning2(false);
-  //       }
-  //       break;
-  //     case 'phone':
-  //       setEmployeeInput({
-  //         ...employeeInput,
-  //         [e.target.name]: e.target.value
-  //       });
-  //       if (e.target.value === '') {
-  //         setShowWarning3(true);
-  //       } else {
-  //         setShowWarning3(false);
-  //       }
-  //       break;
-  //     case 'email':
-  //       setEmployeeInput({
-  //         ...employeeInput,
-  //         [e.target.name]: e.target.value
-  //       });
-  //       if (e.target.value === '') {
-  //         setShowWarning4(true);
-  //       } else {
-  //         setShowWarning4(false);
-  //       }
-  //       break;
-  //     case 'password':
-  //       setEmployeeInput({
-  //         ...employeeInput,
-  //         [e.target.name]: e.target.value
-  //       });
-  //       if (e.target.value === '') {
-  //         setShowWarning5(true);
-  //       } else {
-  //         setShowWarning5(false);
-  //       }
-  //       break;
-  //   }
-  // };
 
   if (isLoadingEmployee) {
     return <Loading className={styles.loadText}></Loading>;
@@ -118,135 +128,73 @@ const FormEmployee = (props) => {
 
   return (
     <div className={styles.formAdd}>
-      <div>
-        <div className={styles.head}>
-          <h2 className={styles.title}>Sign Up</h2>
-          <Logo />
+      <Logo />
+      <div className={formStyles.formContainer}>
+        <div className={styles.titleTwo}>
+          <h2>Sign Up</h2>
         </div>
-        <div>
-          <form onSubmit={onSubmit}>
-            <div>
-              {/* <Input
-                labelText="Name"
-                name="firstName"
-                inputValue={employeeInput.firstName}
-                placeholder="First Name"
-                warningMsg="This field must be completed!"
-                handleInput={handleInput}
-                handleClick={() => {
-                  setShowWarning1(false);
-                }}
-                handleBlur={(e) => {
-                  if (e.target.value === '') setShowWarning1(true);
-                }}
-                showWarning={showWarning1}
-              /> */}
-            </div>
-            <div>
-              {/* <Input
-                labelText="Last Name"
-                name="lastName"
-                inputValue={employeeInput.lastName}
-                placeholder="Last Name"
-                warningMsg="This field must be completed!"
-                handleInput={handleInput}
-                handleClick={() => {
-                  setShowWarning2(false);
-                }}
-                handleBlur={(e) => {
-                  if (e.target.value === '') setShowWarning2(true);
-                }}
-                showWarning={showWarning2}
-              /> */}
-            </div>
-            <div>
-              {/* <Input
-                labelText="Phone"
-                name="phone"
-                inputValue={employeeInput.phone}
-                placeholder="Phone"
-                warningMsg="This field must be completed!"
-                handleInput={handleInput}
-                handleClick={() => {
-                  setShowWarning3(false);
-                }}
-                handleBlur={(e) => {
-                  if (e.target.value === '') setShowWarning3(true);
-                }}
-                showWarning={showWarning3}
-              /> */}
-            </div>
-            <div>
-              {/* <Input
-                labelText="Email"
-                name="email"
-                inputValue={employeeInput.email}
-                placeholder="Email"
-                warningMsg="This field must be completed!"
-                handleInput={handleInput}
-                handleClick={() => {
-                  setShowWarning4(false);
-                }}
-                handleBlur={(e) => {
-                  if (e.target.value === '') setShowWarning4(true);
-                }}
-                showWarning={showWarning4}
-              /> */}
-            </div>
-            <div>
-              {/* <Input
-                labelText="Password"
-                name="password"
-                inputValue={employeeInput.password}
-                placeholder="Password"
-                warningMsg="This field must be completed!"
-                handleInput={handleInput}
-                handleClick={() => {
-                  setShowWarning5(false);
-                }}
-                handleBlur={(e) => {
-                  if (e.target.value === '') setShowWarning5(true);
-                }}
-                showWarning={showWarning5}
-              /> */}
-            </div>
-            <div>
-              <Dropdown
-                name={'active'}
-                labelText={'Active'}
-                onChange={(e) => {
-                  setEmployeeInput({
-                    ...employeeInput,
-                    [e.target.name]: e.target.value
-                  });
-                }}
-              />
-            </div>
-            <div className={styles.containerBtn}>
-              <Button type={('submit', styles.employeeBtnEdit)}>Create</Button>
-              <Button
-                type={styles.employeeBtnEdit}
-                handleClick={() => props.history.push('/employee/profile')}
-              >
-                Return
-              </Button>
-            </div>
-          </form>
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={formStyles.inputsColumns}>
+            <Input
+              labelText="Name"
+              name="firstName"
+              type="text"
+              placeholder="First Name"
+              register={register}
+              error={errors.firstName?.message}
+            />
+            <Input
+              labelText="Last Name"
+              name="lastName"
+              type="text"
+              placeholder="Last Name"
+              register={register}
+              error={errors.lastName?.message}
+            />
+            <Input
+              labelText="Phone"
+              name="phone"
+              type="text"
+              placeholder="Phone"
+              register={register}
+              error={errors.phone?.message}
+            />
+            <Input
+              labelText="Email"
+              name="email"
+              type="text"
+              placeholder="Email"
+              register={register}
+              error={errors.email?.message}
+            />
+            <Input
+              labelText="Password"
+              name="password"
+              type="password"
+              placeholder="Password"
+              register={register}
+              error={errors.password?.message}
+            />
+            <Dropdown
+              name={'active'}
+              labelText={'Active'}
+              register={register}
+              error={errors.active?.message}
+            />
+          </div>
+          <div className={styles.containerBtn}>
+            <Button type={('submit', styles.employeeBtnEdit)}>Create</Button>
+            <Button type={styles.employeeBtnEdit} handleClick={() => props.history.push('/home')}>
+              Return
+            </Button>
+          </div>
+        </form>
       </div>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <div>
           <p>{modalText}</p>
         </div>
         <div>
-          <Button
-            type={
-              showButton && !successEmployee ? styles.modalEmployeeBtn : styles.modalEmployeeBtnNone
-            }
-            handleClick={() => formEmployee(employeeInput)}
-          >
-            Confirm
-          </Button>
           <Button
             type={styles.modalEmployeeBtn}
             handleClick={() => {
@@ -262,6 +210,14 @@ const FormEmployee = (props) => {
             }}
           >
             {showButton && !successEmployee ? 'Cancel' : 'Ok'}
+          </Button>
+          <Button
+            type={
+              showButton && !successEmployee ? styles.modalEmployeeBtn : styles.modalEmployeeBtnNone
+            }
+            handleClick={() => formEmployee(employeeInput)}
+          >
+            Confirm
           </Button>
         </div>
       </Modal>

@@ -48,7 +48,7 @@ export const deleteAdmin = (_id) => {
   };
 };
 
-export const postAdmin = (e, setIsOpen, backAdmin) => {
+export const postAdmin = (e, setModalText, setShowButton, setSuccessAdmin) => {
   return async (dispatch) => {
     dispatch(PostAdminPending());
     try {
@@ -60,24 +60,28 @@ export const postAdmin = (e, setIsOpen, backAdmin) => {
         },
         body: JSON.stringify(e)
       });
-      const responseJson = await response.json();
-      if (responseJson.error) {
-        dispatch(PostAdminError(responseJson.message));
-        setIsOpen(false);
+      const res = await response.json();
+      if (res.error) {
+        setShowButton(false);
+        setSuccessAdmin(false);
+        setModalText('Fields filled incorrectly, please check the data');
+        dispatch(PostAdminError(res.message));
       } else {
+        setShowButton(false);
+        setSuccessAdmin(true);
+        setModalText('Admin has been created!');
         dispatch(PostAdminSuccess(e));
-        setIsOpen(false);
-        backAdmin();
       }
-      return responseJson.data;
     } catch (error) {
-      console.error(error);
+      setShowButton(false);
+      setSuccessAdmin(false);
       dispatch(PostAdminError(error.toString));
+      setModalText('An error has ocurred!');
     }
   };
 };
 
-export const putAdmin = (admin, id, setIsOpen, backAdmin) => {
+export const putAdmin = (admin, id, setModalText, setShowButton, setSuccessAdmin) => {
   return async (dispatch) => {
     dispatch(PutAdminsPending());
     try {
@@ -88,12 +92,23 @@ export const putAdmin = (admin, id, setIsOpen, backAdmin) => {
         },
         body: JSON.stringify(admin)
       });
-      dispatch(PutAdminsSuccess(admin, response));
-      setIsOpen(false);
-      backAdmin();
+      const res = await response.json();
+      if (res.error) {
+        setShowButton(false);
+        setSuccessAdmin(false);
+        setModalText('Fields filled incorrectly, please check the data');
+        dispatch(PutAdminError(res));
+      } else {
+        setShowButton(false);
+        setSuccessAdmin(true);
+        setModalText('Admin has been edited!');
+        dispatch(PutAdminsSuccess(admin));
+      }
     } catch (error) {
-      console.error(error);
-      dispatch(PutAdminError());
+      setShowButton(false);
+      setSuccessAdmin(false);
+      dispatch(PutAdminError(error));
+      setModalText('An error has ocurred!');
     }
   };
 };
@@ -103,8 +118,8 @@ export const getAdminById = (id) => {
     dispatch(getAdminByIdPending());
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins/${id}`);
-      const response_1 = await response.json();
-      dispatch(getAdminByIdSuccess(response_1.data));
+      const adminData = await response.json();
+      dispatch(getAdminByIdSuccess(adminData.data));
     } catch (error) {
       dispatch(getAdminByIdError(error.toString()));
     }
