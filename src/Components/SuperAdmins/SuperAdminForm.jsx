@@ -7,7 +7,7 @@ import Loading from 'Components/SharedComponents/Loading/Loading';
 import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
 import Input from 'Components/SharedComponents/Input/Input';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { addSuperAdmin } from '../redux/modules/superAdmins/thunks';
+import { addSuperAdmin } from 'Components/redux/modules/superAdmins/thunks';
 import joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
@@ -20,7 +20,8 @@ const schema = joi.object({
     .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
     .required()
     .messages({
-      'string.pattern.base': 'Must contain only letters',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single space',
       'string.min': 'Invalid name, it must not contain less than 3 letters',
       'string.max': 'Invalid name, it must not contain more than 30 letters',
       'string.required': 'This field is required'
@@ -32,7 +33,8 @@ const schema = joi.object({
     .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
     .required()
     .messages({
-      'string.pattern.base': 'Must contain only letters',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single space',
       'string.min': 'Invalid name, it must not contain less than 3 letters',
       'string.max': 'Invalid name, it must not contain more than 20 letters',
       'string.required': 'This field is required'
@@ -48,7 +50,7 @@ const schema = joi.object({
     }),
   password: joi
     .string()
-    .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/)
+    .regex(/^(?=.*?\d)(?=.*?[a-zA-Z])[a-zA-Z\d]+$/)
     .min(8)
     .max(30)
     .required()
@@ -56,7 +58,7 @@ const schema = joi.object({
       'string.min': 'Must contain at least 8 characters',
       'string.max': 'Must contain a maximum of 30 characters',
       'string.pattern.base':
-        'Password must be more than 6 characters, at least 1 letter and number. Wihout any symbols',
+        'Password must contain at least 1 letter or number. Wihout any symbols',
       'string.required': 'This field is required'
     }),
   active: joi.boolean().messages({
@@ -168,7 +170,7 @@ const AddSuperAdmin = (props) => {
             name="password"
             inputValue={newItem.password}
             placeholder="Password"
-            type="text"
+            type="password"
             register={register}
             error={errors.password?.message}
           />
@@ -182,10 +184,10 @@ const AddSuperAdmin = (props) => {
           ></Dropdown>
         </div>
         <div className={styles.formButtonsContainer}>
+          <Button type={('submit', styles.stylesBtn)}>Create</Button>
           <Button type={styles.stylesBtn} handleClick={() => props.history.push('/super-admins')}>
             Back
           </Button>
-          <Button type={('submit', styles.stylesBtn)}>Create</Button>
         </div>
       </form>
       <Modal
@@ -197,9 +199,6 @@ const AddSuperAdmin = (props) => {
         <h2>{superAdminCreated ? 'Success!' : 'Warning!'}</h2>
         <h3 className={styles.modalMsg}>{modalText}</h3>
         <div>
-          <Button type={styles.stylesModalBtn} handleClick={handleButton}>
-            {showButton && !superAdminCreated ? 'Cancel' : 'Ok'}
-          </Button>
           <Button
             type={
               showButton && !superAdminCreated ? styles.stylesModalBtn : styles.stylesModalBtnNone
@@ -215,6 +214,9 @@ const AddSuperAdmin = (props) => {
             }}
           >
             Confirm
+          </Button>
+          <Button type={styles.stylesModalBtn} handleClick={handleButton}>
+            {showButton && !superAdminCreated ? 'Cancel' : 'Ok'}
           </Button>
         </div>
       </Modal>

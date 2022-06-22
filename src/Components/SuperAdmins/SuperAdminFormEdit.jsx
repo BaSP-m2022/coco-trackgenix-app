@@ -7,7 +7,7 @@ import Loading from 'Components/SharedComponents/Loading/Loading';
 import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
 import Input from 'Components/SharedComponents/Input/Input';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { editSuperAdmin, getSuperAdminById } from '../redux/modules/superAdmins/thunks';
+import { editSuperAdmin, getSuperAdminById } from 'Components/redux/modules/superAdmins/thunks';
 import joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
@@ -19,7 +19,9 @@ const schema = joi.object({
     .min(3)
     .max(30)
     .messages({
-      'string.pattern.base': 'Must contain only letters',
+      'string.empty': 'First name is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single space',
       'string.min': 'Invalid name, it must not contain less than 3 letters',
       'string.max': 'Invalid name, it must not contain more than 30 letters'
     }),
@@ -29,7 +31,9 @@ const schema = joi.object({
     .min(3)
     .max(30)
     .messages({
-      'string.pattern.base': 'Must contain only letters',
+      'string.empty': 'Last name is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single space',
       'string.min': 'Invalid name, it must not contain less than 3 letters',
       'string.max': 'Invalid name, it must not contain more than 30 letters'
     }),
@@ -38,17 +42,19 @@ const schema = joi.object({
     .email({ tlds: { allow: false } })
     .lowercase()
     .messages({
+      'string.empty': 'Last name is not allowed to be empty',
       'string.email': 'Invalid email format',
       'string.required': 'This field is required'
     }),
   password: joi
     .string()
-    .pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+    .pattern(/^(?=.*?\d)(?=.*?[a-zA-Z])[a-zA-Z\d]+$/)
     .min(8)
     .max(30)
     .messages({
+      'string.empty': 'Last name is not allowed to be empty',
       'string.pattern.base':
-        'Password must be more than 7 characters, at least 1 letter and number. Wihout any symbols',
+        'Password must contain at least 1 letter or number. Wihout any symbols',
       'string.required': 'This field is required'
     }),
   active: joi.boolean().messages({
@@ -169,7 +175,7 @@ const EditSuperAdmin = (props) => {
             labelText="Password"
             name="password"
             placeholder="Password"
-            type="text"
+            type="password"
             register={register}
             error={errors.password?.message}
           />
@@ -183,10 +189,10 @@ const EditSuperAdmin = (props) => {
           ></Dropdown>
         </div>
         <div className={styles.formButtonsContainer}>
+          <Button type={('submit', styles.stylesBtn)}>Edit</Button>
           <Button type={styles.stylesBtn} handleClick={() => props.history.push('/super-admins')}>
             Back
           </Button>
-          <Button type={('submit', styles.stylesBtn)}>Edit</Button>
         </div>
       </form>
       <Modal
@@ -198,9 +204,6 @@ const EditSuperAdmin = (props) => {
         <h2>{superAdminEdited ? 'Success!' : 'Warning!'}</h2>
         <h3 className={styles.modalMsg}>{modalText}</h3>
         <div>
-          <Button type={styles.stylesModalBtn} handleClick={handleButton}>
-            {showButton && !superAdminEdited ? 'Cancel' : 'Ok'}
-          </Button>
           <Button
             type={
               showButton && !superAdminEdited ? styles.stylesModalBtn : styles.stylesModalBtnNone
@@ -210,6 +213,9 @@ const EditSuperAdmin = (props) => {
             }}
           >
             Confirm
+          </Button>
+          <Button type={styles.stylesModalBtn} handleClick={handleButton}>
+            {showButton && !superAdminEdited ? 'Cancel' : 'Ok'}
           </Button>
         </div>
       </Modal>
