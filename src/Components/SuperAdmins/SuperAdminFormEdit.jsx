@@ -175,7 +175,12 @@ const EditSuperAdmin = (props) => {
           />
         </div>
         <div>
-          <Dropdown name="active" labelText="Active"></Dropdown>
+          <Dropdown
+            name="active"
+            labelText="Active"
+            register={register}
+            error={errors.active?.message}
+          ></Dropdown>
         </div>
         <div className={styles.formButtonsContainer}>
           <Button type={styles.stylesBtn} handleClick={() => props.history.push('/super-admins')}>
