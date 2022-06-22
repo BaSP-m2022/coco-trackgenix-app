@@ -13,19 +13,80 @@ import { postProject } from '../redux/modules/projects/thunks';
 import Joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
 
+const projectSchema = Joi.object({
+  name: Joi.string()
+    .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
+    .min(3)
+    .max(50)
+    .required()
+    .messages({
+      'string.min': 'Must contain at least 3 letters',
+      'string.max': 'Must contain a maximum of 50 letters',
+      'string.required': 'First name is required!',
+      'string.empty': 'First name is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single white space'
+    }),
+  description: Joi.string().min(10).max(130).required().messages({
+    'string.min': 'Must contain at least 10 characters',
+    'string.max': 'Must contain a maximum of 130 characters',
+    'string.required': 'Description is required!',
+    'string.empty': 'Description is not allowed to be empty'
+  }),
+  startDate: Joi.date().required().messages({
+    'date.base': 'Date is not valid',
+    'date.empty': 'This field is required'
+  }),
+  endDate: Joi.date().required().greater(Joi.ref('startDate')).messages({
+    'date.base': 'Date is not valid',
+    'date.greater': 'End date must be after the start date',
+    'date.empty': 'This field is required'
+  }),
+  clientName: Joi.string()
+    .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
+    .min(3)
+    .max(50)
+    .required()
+    .messages({
+      'string.min': 'Must contain at least 3 letters',
+      'string.max': 'Must contain a maximum of 50 letters',
+      'string.required': 'Client is required!',
+      'string.empty': 'Client is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single white space'
+    }),
+  active: Joi.boolean().required().messages({
+    'boolean.base': 'Must indicate if the project is active'
+  }),
+  employees: Joi.array().required(),
+  admins: Joi.string()
+    .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
+    .min(3)
+    .max(50)
+    .required()
+    .messages({
+      'string.min': 'Must contain at least 3 letters',
+      'string.max': 'Must contain a maximum of 50 letters',
+      'string.required': 'Admin is required!',
+      'string.empty': 'Admin is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single white space'
+    })
+});
+
 const AddNew = () => {
-  const [modalText, setModalText] = useState('');
-  const [Success, setSuccess] = useState('');
-  const [showWarningName, setShowWarningName] = useState(false);
-  const [showWarningDesc, setShowWarningDesc] = useState(false);
-  const [showWarningCName, setShowWarningCName] = useState(false);
-  const [showWarningAdmin, setShowWarningAdmin] = useState(false);
-  const isLoading = useSelector((state) => state.project.isLoading);
-  const dispatch = useDispatch();
-  const employeeData = useSelector((state) => state.employee.list);
   const [isOpen, setIsOpenConfirm] = useState(false);
   const [isOpenFail, setIsOpenFail] = useState(false);
   const [isOpenError, setIsOpenError] = useState(false);
+  const [modalText, setModalText] = useState('');
+  const [Success, setSuccess] = useState('');
+  // const [showWarningName, setShowWarningName] = useState(false);
+  // const [showWarningDesc, setShowWarningDesc] = useState(false);
+  // const [showWarningCName, setShowWarningCName] = useState(false);
+  // const [showWarningAdmin, setShowWarningAdmin] = useState(false);
+  const isLoading = useSelector((state) => state.project.isLoading);
+  const dispatch = useDispatch();
+  const employeeData = useSelector((state) => state.employee.list);
   const [projectInput, setProjectInput] = useState({
     name: '',
     description: '',
@@ -36,9 +97,6 @@ const AddNew = () => {
     employees: [],
     admins: ''
   });
-
-  const projectSchema = Joi.object({});
-
   const [project, setProject] = useState({
     name: '',
     description: '',
@@ -49,6 +107,12 @@ const AddNew = () => {
     employees: [],
     admins: ''
   });
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm({ mode: 'onChange', resolver: joiResolver(projectSchema) });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,12 +127,6 @@ const AddNew = () => {
       [name]: value
     });
   };
-
-  const {
-    handleSubmit,
-    register,
-    formState: { errors }
-  } = useForm({ mode: 'onChange', resolver: joiResolver(projectSchema) });
 
   const addMembers = (item) => {
     let membersData = [];
@@ -107,89 +165,89 @@ const AddNew = () => {
     onSubmit(e);
   };
 
-  /* Input NAME */
-  const handleInputName = (e) => {
-    setProject({
-      ...project,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarningName(true);
-    } else {
-      setShowWarningName(false);
-    }
-  };
-  const handleClickName = () => {
-    setShowWarningName(false);
-  };
-  const handleBlurName = (e) => {
-    if (e.target.value === '') {
-      setShowWarningName(true);
-    }
-  };
+  // /* Input NAME */
+  // const handleInputName = (e) => {
+  //   setProject({
+  //     ...project,
+  //     [e.target.name]: e.target.value
+  //   });
+  //   if (e.target.value === '') {
+  //     setShowWarningName(true);
+  //   } else {
+  //     setShowWarningName(false);
+  //   }
+  // };
+  // const handleClickName = () => {
+  //   setShowWarningName(false);
+  // };
+  // const handleBlurName = (e) => {
+  //   if (e.target.value === '') {
+  //     setShowWarningName(true);
+  //   }
+  // };
 
-  /* Input DESCRIPTION */
-  const handleInputDesc = (e) => {
-    setProject({
-      ...project,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarningDesc(true);
-    } else {
-      setShowWarningDesc(false);
-    }
-  };
-  const handleClickDesc = () => {
-    setShowWarningDesc(false);
-  };
-  const handleBlurDesc = (e) => {
-    if (e.target.value === '') {
-      setShowWarningDesc(true);
-    }
-  };
+  // /* Input DESCRIPTION */
+  // const handleInputDesc = (e) => {
+  //   setProject({
+  //     ...project,
+  //     [e.target.name]: e.target.value
+  //   });
+  //   if (e.target.value === '') {
+  //     setShowWarningDesc(true);
+  //   } else {
+  //     setShowWarningDesc(false);
+  //   }
+  // };
+  // const handleClickDesc = () => {
+  //   setShowWarningDesc(false);
+  // };
+  // const handleBlurDesc = (e) => {
+  //   if (e.target.value === '') {
+  //     setShowWarningDesc(true);
+  //   }
+  // };
 
-  /* Input CLIENT NAME */
-  const handleInputCName = (e) => {
-    setProject({
-      ...project,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarningCName(true);
-    } else {
-      setShowWarningCName(false);
-    }
-  };
-  const handleClickCName = () => {
-    setShowWarningCName(false);
-  };
-  const handleBlurCName = (e) => {
-    if (e.target.value === '') {
-      setShowWarningCName(true);
-    }
-  };
+  // /* Input CLIENT NAME */
+  // const handleInputCName = (e) => {
+  //   setProject({
+  //     ...project,
+  //     [e.target.name]: e.target.value
+  //   });
+  //   if (e.target.value === '') {
+  //     setShowWarningCName(true);
+  //   } else {
+  //     setShowWarningCName(false);
+  //   }
+  // };
+  // const handleClickCName = () => {
+  //   setShowWarningCName(false);
+  // };
+  // const handleBlurCName = (e) => {
+  //   if (e.target.value === '') {
+  //     setShowWarningCName(true);
+  //   }
+  // };
 
-  /* Input ADMIN */
-  const handleInputAdmin = (e) => {
-    setProject({
-      ...project,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarningAdmin(true);
-    } else {
-      setShowWarningAdmin(false);
-    }
-  };
-  const handleClickAdmin = () => {
-    setShowWarningAdmin(false);
-  };
-  const handleBlurAdmin = (e) => {
-    if (e.target.value === '') {
-      setShowWarningAdmin(true);
-    }
-  };
+  // /* Input ADMIN */
+  // const handleInputAdmin = (e) => {
+  //   setProject({
+  //     ...project,
+  //     [e.target.name]: e.target.value
+  //   });
+  //   if (e.target.value === '') {
+  //     setShowWarningAdmin(true);
+  //   } else {
+  //     setShowWarningAdmin(false);
+  //   }
+  // };
+  // const handleClickAdmin = () => {
+  //   setShowWarningAdmin(false);
+  // };
+  // const handleBlurAdmin = (e) => {
+  //   if (e.target.value === '') {
+  //     setShowWarningAdmin(true);
+  //   }
+  // };
 
   useEffect(() => {
     dispatch(getEmployee());
@@ -202,74 +260,71 @@ const AddNew = () => {
     <div className={styles.container}>
       <Logo />
       <h2>New Project</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Input
             labelText="Name"
             name="name"
-            inputValue={project.name}
+            // inputValue={project.name}
             placeholder="Name"
-            warningMsg="Please check the information"
-            handleInput={handleInputName}
-            handleClick={handleClickName}
-            handleBlur={handleBlurName}
-            showWarning={showWarningName}
+            // warningMsg="Please check the information"
+            register={register}
+            error={errors.name?.messages}
           ></Input>
         </div>
         <div>
           <Input
             labelText="Description"
             name="description"
-            inputValue={project.description}
+            // inputValue={project.description}
             placeholder="write a description here"
-            warningMsg="Please check the information"
-            handleInput={handleInputDesc}
-            handleClick={handleClickDesc}
-            handleBlur={handleBlurDesc}
-            showWarning={showWarningDesc}
+            // warningMsg="Please check the information"
+            register={register}
+            error={errors.description?.messages}
           ></Input>
         </div>
         <div>
-          <label htmlFor="startDate">Start Date</label>
-          <input
+          {/* <label htmlFor="startDate">Start Date</label> */}
+          <Input
+            labelText="Start Date"
             type="date"
             name="startDate"
-            required="required"
             placeholder="DD/MM/YYYY"
-            value={project.startDate.slice(0, 10)}
+            // value={project.startDate.slice(0, 10)}
+            register={register}
+            error={errors.startDate?.messages}
             onChange={handleChange}
-          ></input>
+          ></Input>
         </div>
         <div>
-          <label htmlFor="endDate">End Date</label>
-          <input
+          {/* <label htmlFor="endDate">End Date</label> */}
+          <Input
+            labelText="End Date"
             type="date"
             name="endDate"
-            required="required"
             placeholder="DD/MM/YYYY"
-            value={project.endDate.slice(0, 10)}
+            // value={project.endDate.slice(0, 10)}
+            register={register}
+            error={errors.endDate?.messages}
             onChange={handleChange}
-          ></input>
+          ></Input>
         </div>
         <div>
           <Input
             labelText="Client Name"
             name="clientName"
-            inputValue={project.clientName}
+            // inputValue={project.clientName}
             placeholder="enter a client here"
-            warningMsg="Please check the information"
-            handleInput={handleInputCName}
-            handleClick={handleClickCName}
+            // warningMsg="Please check the information"
             register={register}
-            handleBlur={handleBlurCName}
-            showWarning={showWarningCName}
+            error={errors.clientName?.messages}
           ></Input>
         </div>
         <Dropdown
           name="active"
           labelText="Set if is active"
           register={register}
-          error={errors.active?.message}
+          error={errors.active?.messages}
         ></Dropdown>
         <Dropdown
           data={employeeData}
@@ -282,13 +337,11 @@ const AddNew = () => {
           <Input
             labelText="Administrator"
             name="admins"
-            inputValue={project.admins}
+            // inputValue={project.admins}
             placeholder="enter an admin here"
-            warningMsg="Please check the information"
-            handleInput={handleInputAdmin}
-            handleClick={handleClickAdmin}
-            handleBlur={handleBlurAdmin}
-            showWarning={showWarningAdmin}
+            // warningMsg="Please check the information"
+            register={register}
+            error={errors.admins?.messages}
           ></Input>
         </div>
       </form>
