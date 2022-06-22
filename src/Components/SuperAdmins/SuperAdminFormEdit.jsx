@@ -42,7 +42,7 @@ const schema = joi.object({
     .email({ tlds: { allow: false } })
     .lowercase()
     .messages({
-      'string.empty': 'Last name is not allowed to be empty',
+      'string.empty': 'Email is not allowed to be empty',
       'string.email': 'Invalid email format',
       'string.required': 'This field is required'
     }),
@@ -52,7 +52,7 @@ const schema = joi.object({
     .min(8)
     .max(30)
     .messages({
-      'string.empty': 'Last name is not allowed to be empty',
+      'string.empty': 'Password is not allowed to be empty',
       'string.pattern.base':
         'Password must contain at least 1 letter or number. Wihout any symbols',
       'string.required': 'This field is required'

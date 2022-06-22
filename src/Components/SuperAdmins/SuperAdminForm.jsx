@@ -20,6 +20,7 @@ const schema = joi.object({
     .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
     .required()
     .messages({
+      'string.empty': 'First name is not allowed to be empty',
       'string.pattern.base':
         'Must contain only letters and words can only be separated by a single space',
       'string.min': 'Invalid name, it must not contain less than 3 letters',
@@ -33,6 +34,7 @@ const schema = joi.object({
     .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
     .required()
     .messages({
+      'string.empty': 'Last name is not allowed to be empty',
       'string.pattern.base':
         'Must contain only letters and words can only be separated by a single space',
       'string.min': 'Invalid name, it must not contain less than 3 letters',
@@ -45,6 +47,7 @@ const schema = joi.object({
     .lowercase()
     .required()
     .messages({
+      'string.empty': 'Email is not allowed to be empty',
       'string.email': 'Invalid email format',
       'string.required': 'This field is required'
     }),
@@ -55,6 +58,7 @@ const schema = joi.object({
     .max(30)
     .required()
     .messages({
+      'string.empty': 'Password is not allowed to be empty',
       'string.min': 'Must contain at least 8 characters',
       'string.max': 'Must contain a maximum of 30 characters',
       'string.pattern.base':
