@@ -6,9 +6,12 @@ import Input from '../SharedComponents/Input/Input';
 import Modal from '../SharedComponents/Modal/Modal';
 import Dropdown from '../SharedComponents/Dropdown/Dropdown';
 import Loading from '../SharedComponents/Loading/Loading';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEmployee } from '../redux/modules/employees/thunks';
 import { postProject } from '../redux/modules/projects/thunks';
+import Joi from 'joi';
+import { joiResolver } from '@hookform/resolvers/joi';
 
 const AddNew = () => {
   const [modalText, setModalText] = useState('');
@@ -34,6 +37,8 @@ const AddNew = () => {
     admins: ''
   });
 
+  const projectSchema = Joi.object({});
+
   const [project, setProject] = useState({
     name: '',
     description: '',
@@ -58,6 +63,13 @@ const AddNew = () => {
       [name]: value
     });
   };
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm({ mode: 'onChange', resolver: joiResolver(projectSchema) });
+
   const addMembers = (item) => {
     let membersData = [];
     if (typeof item !== 'string' || !item) {
@@ -76,7 +88,7 @@ const AddNew = () => {
     }
     return membersData;
   };
-  function handleSubmit(e) {
+  function onSubmit(e) {
     e.preventDefault();
     setProjectInput({
       name: project.name,
@@ -92,7 +104,7 @@ const AddNew = () => {
 
   const confirmModal = (e) => {
     setIsOpenConfirm(true);
-    handleSubmit(e);
+    onSubmit(e);
   };
 
   /* Input NAME */
@@ -248,11 +260,17 @@ const AddNew = () => {
             warningMsg="Please check the information"
             handleInput={handleInputCName}
             handleClick={handleClickCName}
+            register={register}
             handleBlur={handleBlurCName}
             showWarning={showWarningCName}
           ></Input>
         </div>
-        <Dropdown name="active" labelText="Set if is active" onChange={handleChange}></Dropdown>
+        <Dropdown
+          name="active"
+          labelText="Set if is active"
+          register={register}
+          error={errors.active?.message}
+        ></Dropdown>
         <Dropdown
           data={employeeData}
           name="employees"
@@ -301,15 +319,7 @@ const AddNew = () => {
           <div>
             <p>Do you really want to create this project?</p>
           </div>
-          <div>
-            <Button
-              type={styles.modalProjectBtn}
-              handleClick={() => {
-                setIsOpenConfirm(false);
-              }}
-            >
-              Cancel
-            </Button>
+          <div className={styles.buttonsModal}>
             <Button
               type={styles.modalProjectBtn}
               handleClick={() => {
@@ -319,6 +329,14 @@ const AddNew = () => {
               }}
             >
               Create
+            </Button>
+            <Button
+              type={styles.modalProjectBtn}
+              handleClick={() => {
+                setIsOpenConfirm(false);
+              }}
+            >
+              Cancel
             </Button>
           </div>
         </Modal>

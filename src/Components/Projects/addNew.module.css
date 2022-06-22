@@ -45,6 +45,10 @@ form > div:nth-child(9) > input{
     color: rgb(55, 56, 103);
 }
 
+Modal > div:nth-child(2) {
+  width: 300px;
+}
+
 .divButtons {
   display: flex;
   justify-content: space-around;
@@ -90,7 +94,14 @@ form > div:nth-child(9) > input{
 
 .container > div:nth-child(4){
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
-  height: 100px;
+  width: 200px;
+}
+
+.buttonsModal{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 200px;
 }
