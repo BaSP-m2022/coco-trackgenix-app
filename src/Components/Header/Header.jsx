@@ -49,14 +49,9 @@ const Header = () => {
         )}
         <input type="text" placeholder="Search" />
         {location.pathname === '/home' ? (
-          <div>
-            <Link to="/employee/signup" className={style.navigation} disable={!sidebarOpen}>
-              Sign Up
-            </Link>
-            <Link to="/nav" className={style.navigation} disable={!sidebarOpen}>
-              Navigation
-            </Link>
-          </div>
+          <Link to="/nav" className={style.navigation} disable={!sidebarOpen}>
+            Navigation
+          </Link>
         ) : (
           <Link to="/home" className={style.navigation}>
             Home

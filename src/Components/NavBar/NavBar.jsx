@@ -4,14 +4,10 @@ import userIcon from '../../Assets/user.svg';
 import styles from './navBar.module.css';
 
 const NavBar = () => {
-  if (
-    location.pathname == '/home' ||
-    location.pathname == '/nav' ||
-    location.pathname == '/employee/signup'
-  ) {
+  if (location.pathname == '/home' || location.pathname == '/nav') {
     return null;
   } else if (
-    location.pathname === '/employee' ||
+    location.pathname === '/employee/' ||
     location.pathname === '/employee/timesheet' ||
     location.pathname === '/employee/timesheetAdd' ||
     location.pathname === '/employee/timesheetEdit' ||

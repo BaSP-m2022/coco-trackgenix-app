@@ -42,6 +42,12 @@ const Employees = (props) => {
         <Logo />
         <h2 className={styles.title}>Employees</h2>
         <h2 className={styles.title}>Personal Information</h2>
+        <Button
+          type={styles.addEmployeeBtn}
+          handleClick={() => props.history.push('/employees/form')}
+        >
+          Add Employee
+        </Button>
         <Table
           data={responseData}
           headers={['firstName', 'lastName', 'phone', 'email', 'password', 'active']}

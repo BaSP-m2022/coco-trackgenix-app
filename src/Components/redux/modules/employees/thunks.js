@@ -20,13 +20,7 @@ export const getEmployee = () => {
   return async (dispatch) => {
     dispatch(getEMPLOYEEPending());
     try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/Employees`, {
-        method: 'GET',
-        headers: new Headers({
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        })
-      });
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/Employees`);
       const data = await response.json();
       data.data.map((item) => {
         item.active = item.active ? 'true' : 'false';

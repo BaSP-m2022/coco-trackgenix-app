@@ -1,63 +1,56 @@
 import React, { useState, useEffect } from 'react';
-import styles from './time-sheets.module.css';
-import Logo from '../SharedComponents/Logo/Logo';
+import styles from './time-sheets-form.module.css';
 import Button from '../SharedComponents/Button/Button';
 import Modal from '../SharedComponents/Modal/Modal';
-import Dropdown from '../SharedComponents/Dropdown/Dropdown';
-import Loading from '../SharedComponents/Loading/Loading';
-import { useDispatch, useSelector } from 'react-redux';
-import { getEmployee } from '../redux/modules/employees/thunks';
-import { getProject } from '../redux/modules/projects/thunks';
-import { getTasks } from '../redux/modules/tasks/thunks';
-import { editTimesheet, getTimesheetById } from '../redux/modules/timeSheets/thunks';
+import Logo from '../SharedComponents/Logo/Logo';
 
-const EditFormTimesheet = (props) => {
+const TimeSheetsFormEdit = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [modalText, setModalText] = useState('');
-  const [employeeId, setEmployeeId] = useState('');
-  const [projectId, setProjectId] = useState('');
-  const [taskValue, setTaskValue] = useState([]);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-
+  const [addItem, setItem] = useState({});
+  const [employeesItem, setEmployeesItem] = useState([]);
+  const [projectsItem, setProjectsItem] = useState([]);
+  const [tasksItem, setTasksItem] = useState([]);
+  const [timeSheetToEdit, setTimeSheetToEdit] = useState({});
+  const emptyList = [];
+  const [taskList, setTaskList] = useState(emptyList);
+  const [itemToUpdate, setItemToUpdate] = useState({});
   const params = window.location.search;
   let idParam = params.substring(2);
-
-  const [editItem, setItem] = useState({});
-  const employeeData = useSelector((state) => state.employee.list);
-  const tasksData = useSelector((state) => state.tasks.list);
-  const projectData = useSelector((state) => state.project.list);
-  const [taskList, setTaskList] = useState([]);
-  const [showButton, setShowButton] = useState(true);
-  const [successTimesheet, setSuccessTimesheet] = useState(false);
-  const isLoadingTimesheet = useSelector((state) => state.timesheet.isLoading);
-  const selectedItem = useSelector((state) => state.timesheet.selectedItem);
-
-  const dispatch = useDispatch();
+  const [modalText, setModalText] = useState('');
 
   useEffect(() => {
-    dispatch(getEmployee());
-    dispatch(getProject());
-    dispatch(getTasks());
-    dispatch(getTimesheetById(idParam));
-  }, []);
+    setTimeSheetToEdit({
+      tasks: itemToUpdate.tasks,
+      employeeId: itemToUpdate.employeeId !== null ? itemToUpdate.employeeId : 'no employee',
+      projectId: itemToUpdate.projectId !== null ? itemToUpdate.projectId : 'no project',
+      startDate: itemToUpdate.startDate,
+      endDate: itemToUpdate.endDate
+    });
+    setItem({
+      ...addItem,
+      tasks: itemToUpdate.tasks,
+      employeeId: itemToUpdate.employeeId !== null ? itemToUpdate.employeeId : 'no employee',
+      projectId: itemToUpdate.projectId !== null ? itemToUpdate.projectId : 'no project',
+      startDate: itemToUpdate.startDate,
+      endDate: itemToUpdate.endDate
+    });
+  }, [itemToUpdate]);
 
-  useEffect(() => {
-    if (Object.keys(selectedItem).length) {
-      setEmployeeId(selectedItem.employeeId);
-      setProjectId(selectedItem.projectId);
-      setTaskValue(selectedItem.tasks);
-      setStartDate(selectedItem.startDate);
-      setEndDate(selectedItem.endDate);
-    }
-  }, [selectedItem]);
+  const handleDeleteTask = (id) => {
+    setTaskList([...taskList.filter((task) => task._id !== id)]);
+  };
 
-  const tasks = tasksData.map((task) => task._id);
+  const onChange = (e) => {
+    setItem({
+      ...addItem,
+      [e.target.name]: e.target.value
+    });
+  };
 
   useEffect(() => {
     if (taskList.length) {
       setItem({
-        ...editItem,
+        ...addItem,
         tasks: taskList.map((task) => {
           return task._id;
         })
@@ -65,71 +58,134 @@ const EditFormTimesheet = (props) => {
     }
   }, [taskList]);
 
-  const formEditTimesheet = async (e) => {
-    setIsOpen(true);
-    await dispatch(editTimesheet(e, idParam, setModalText, setShowButton, setSuccessTimesheet));
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setModalText('Are you sure you want to edit the Timesheet ?');
-    setIsOpen(true);
-  };
-
   const onChangeTasks = (e) => {
     if (taskList.find((task) => task._id === e.target.value) === undefined) {
-      setTaskList([...taskList, tasksData.find((task) => task._id === e.target.value)]);
+      setTaskList([...taskList, tasksItem.find((task) => task._id === e.target.value)]);
     } else {
       alert('This task has already been selected');
     }
   };
 
-  const handleDeleteTask = (id) => {
-    setTaskList([...taskList.filter((task) => task._id !== id)]);
+  const create = async (e) => {
+    e.preventDefault();
+    if (JSON.stringify(addItem) === JSON.stringify(timeSheetToEdit)) {
+      setModalText('Please change at least 1 field');
+    } else {
+      try {
+        await fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${idParam}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tasks: taskList.map((task) => {
+              return task._id;
+            }),
+            employeeId: addItem.employeeId,
+            projectId: addItem.projectId,
+            startDate: addItem.startDate,
+            endDate: addItem.endDate
+          })
+        })
+          .then((res) => res.json())
+          .then((response) => {
+            setModalText(() => {
+              if (!response.error) {
+                return 'Time sheet updated successfully!';
+              } else {
+                return response.msg;
+              }
+            });
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
-  if (isLoadingTimesheet) {
-    return <Loading className={styles.loadText}></Loading>;
-  }
+  useEffect(async () => {
+    await fetch(`https://coco-trackgenix-server.vercel.app/employees`)
+      .then((res) => res.json())
+      .then((json) => {
+        setEmployeesItem(json.data);
+      });
+    await fetch(`https://coco-trackgenix-server.vercel.app/projects`)
+      .then((res) => res.json())
+      .then((json) => {
+        setProjectsItem(json.data);
+      });
+    await fetch(`https://coco-trackgenix-server.vercel.app/tasks`)
+      .then((res) => res.json())
+      .then((json) => {
+        setTasksItem(json.data);
+      });
+  }, []);
 
+  useEffect(async () => {
+    await fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${idParam}`)
+      .then((response) => response.json())
+      .then((response) => {
+        setItemToUpdate(response.data);
+      });
+  }, []);
+
+  const employeeList = employeesItem.map((item) => {
+    return (
+      <option key={item.id} value={item._id}>
+        {item.firstName}
+      </option>
+    );
+  });
+
+  const backTimeSheet = () => {
+    props.history.push('/time-sheets');
+  };
   return (
     <div className={styles.container}>
       <Logo />
       <div>
         <h2 className={styles.title}>Edit TimeSheet</h2>
       </div>
-      <form onSubmit={onSubmit}>
-        <Dropdown
-          data={employeeData}
-          name="employeeId"
-          path="firstName"
-          labelText="Employee"
-          value={employeeId && employeeId.firstName}
-          onChange={(e) => {
-            setEmployeeId(e.target.value);
-          }}
-        ></Dropdown>
-        <Dropdown
-          data={projectData}
-          name="projectId"
-          labelText="Project"
-          value={projectId && projectId.name}
-          path="name"
-          onChange={(e) => {
-            setProjectId(e.target.value);
-          }}
-        ></Dropdown>
-        <Dropdown
-          data={tasksData}
-          name="tasks"
-          labelText="Tasks"
-          value={taskValue.description}
-          path="description"
-          onChange={(e) => {
-            onChangeTasks;
-            setTaskValue(e.target.value);
-          }}
-        ></Dropdown>
+      <form onSubmit={create} className={styles.formContainer}>
+        <div>
+          <label>Employee</label>
+          <select onChange={onChange} name="employeeId">
+            {
+              <option disabled selected>
+                Select an employe
+              </option>
+            }
+            {employeeList}
+          </select>
+        </div>
+        <div>
+          <label>Project</label>
+          <select onChange={onChange} name="projectId">
+            {
+              <option disabled selected>
+                Select a project
+              </option>
+            }
+            {projectsItem.map((item) => (
+              <option key={item.id} value={item._id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Tasks</label>
+          <select onChange={onChangeTasks} name="tasks">
+            {
+              <option disabled selected>
+                Select a task
+              </option>
+            }
+            {tasksItem.map((item) => (
+              <option key={item.id} value={item._id}>
+                {item.description}
+              </option>
+            ))}
+          </select>
+        </div>
         <div>
           <table>
             <tbody>
@@ -138,7 +194,7 @@ const EditFormTimesheet = (props) => {
                   <tr key={index}>
                     <td>{task.description}</td>
                     <td>
-                      <Button handleClick={() => handleDeleteTask(task._id)}>X</Button>
+                      <button onClick={() => handleDeleteTask(task._id)}>X</button>
                     </td>
                   </tr>
                 );
@@ -148,27 +204,25 @@ const EditFormTimesheet = (props) => {
         </div>
         <div>
           <label>Start Date</label>
-          <input type="date" name="startDate" value={startDate.slice(0, 10)} disabled />
+          <input type="date" name="startDate" onChange={onChange} />
         </div>
         <div>
           <label>End Date</label>
-          <input
-            type="date"
-            name="endDate"
-            value={endDate.slice(0, 10)}
-            onChange={(e) => {
-              setEndDate(e.target.value);
-            }}
-          />
+          <input type="date" name="endDate" onChange={onChange} />
         </div>
         <div className={styles.buttonsContainer}>
           <Button
-            type={('button', styles.returnTimesheetBtn)}
-            handleClick={() => props.history.goBack()}
+            type={styles.stylesBtn}
+            handleClick={(e) => {
+              setIsOpen(true);
+              e.stopPropagation();
+            }}
           >
-            Return
+            Accept
           </Button>
-          <Button type={('submit', styles.timesheetButton)}>Edit</Button>
+          <Button type={styles.stylesBtn} handleClick={() => backTimeSheet()}>
+            Cancel
+          </Button>
         </div>
       </form>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
@@ -177,39 +231,13 @@ const EditFormTimesheet = (props) => {
         </div>
         <div>
           <Button
-            type={styles.modalTimesheetBtn}
+            type={('submit', styles.confirmBtn)}
             handleClick={() => {
-              if (!showButton && successTimesheet) {
-                setShowButton(true);
-                setSuccessTimesheet(false);
-                props.history.push('/time-sheets');
-              } else {
-                setShowButton(true);
-                setSuccessTimesheet(false);
-                setIsOpen(false);
-              }
+              setIsOpen(false);
+              props.history.push('/time-sheets');
             }}
           >
-            {showButton && !successTimesheet ? 'Cancel' : 'Ok'}
-          </Button>
-          <Button
-            type={
-              showButton && !successTimesheet
-                ? styles.modalTimesheetBtn
-                : styles.modalTimesheetBtnNone
-            }
-            handleClick={() => {
-              const timesheetToEdit = {
-                employeeId,
-                projectId,
-                tasks,
-                startDate,
-                endDate
-              };
-              formEditTimesheet(timesheetToEdit);
-            }}
-          >
-            Confirm
+            Done
           </Button>
         </div>
       </Modal>
@@ -217,4 +245,4 @@ const EditFormTimesheet = (props) => {
   );
 };
 
-export default EditFormTimesheet;
+export default TimeSheetsFormEdit;

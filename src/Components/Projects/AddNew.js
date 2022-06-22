@@ -2,28 +2,14 @@ import React, { useState, useEffect } from 'react';
 import styles from './addNew.module.css';
 import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
-import Input from '../SharedComponents/Input/Input';
+import { useHistory } from 'react-router-dom';
 import Modal from '../SharedComponents/Modal/Modal';
 import Dropdown from '../SharedComponents/Dropdown/Dropdown';
-import Loading from '../SharedComponents/Loading/Loading';
-import { useDispatch, useSelector } from 'react-redux';
-import { getEmployee } from '../redux/modules/employees/thunks';
-import { postProject } from '../redux/modules/projects/thunks';
 
 const AddNew = () => {
-  const [modalText, setModalText] = useState('');
-  const [Success, setSuccess] = useState('');
-  const [showWarningName, setShowWarningName] = useState(false);
-  const [showWarningDesc, setShowWarningDesc] = useState(false);
-  const [showWarningCName, setShowWarningCName] = useState(false);
-  const [showWarningAdmin, setShowWarningAdmin] = useState(false);
-  const isLoading = useSelector((state) => state.project.isLoading);
-  const dispatch = useDispatch();
-  const employeeData = useSelector((state) => state.employee.list);
-  const [isOpen, setIsOpenConfirm] = useState(false);
-  const [isOpenFail, setIsOpenFail] = useState(false);
-  const [isOpenError, setIsOpenError] = useState(false);
-  const [projectInput, setProjectInput] = useState({
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
+  const initialValues = {
     name: '',
     description: '',
     startDate: '',
@@ -32,18 +18,11 @@ const AddNew = () => {
     active: false,
     employees: [],
     admins: ''
-  });
+  };
 
-  const [project, setProject] = useState({
-    name: '',
-    description: '',
-    startDate: '',
-    endDate: '',
-    clientName: '',
-    active: false,
-    employees: [],
-    admins: ''
-  });
+  let history = useHistory();
+
+  const [project, setProject] = useState(initialValues);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,12 +37,13 @@ const AddNew = () => {
       [name]: value
     });
   };
+
   const addMembers = (item) => {
     let membersData = [];
-    if (typeof item !== 'string' || !item) {
+    if (!item) {
       membersData = null;
     } else {
-      const splitted = item.split(',');
+      let splitted = item.split(',');
       if (splitted.length === 0) {
         membersData = '';
       } else if (splitted.length === 1) {
@@ -76,146 +56,66 @@ const AddNew = () => {
     }
     return membersData;
   };
-  function handleSubmit(e) {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setProjectInput({
-      name: project.name,
-      description: project.description,
-      startDate: project.startDate,
-      endDate: project.endDate,
-      clientName: project.clientName,
-      active: project.active,
-      employees: addMembers(project.employees),
-      admins: project.admins
-    });
-  }
-
-  const confirmModal = (e) => {
-    setIsOpenConfirm(true);
-    handleSubmit(e);
+    fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: project.name,
+        description: project.description,
+        startDate: project.startDate,
+        endDate: project.endDate,
+        clientName: project.clientName,
+        active: project.active,
+        employees: addMembers(project.employees),
+        admins: project.admins
+      })
+    }).catch(() => console.error);
   };
 
-  /* Input NAME */
-  const handleInputName = (e) => {
-    setProject({
-      ...project,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarningName(true);
-    } else {
-      setShowWarningName(false);
-    }
-  };
-  const handleClickName = () => {
-    setShowWarningName(false);
-  };
-  const handleBlurName = (e) => {
-    if (e.target.value === '') {
-      setShowWarningName(true);
-    }
-  };
-
-  /* Input DESCRIPTION */
-  const handleInputDesc = (e) => {
-    setProject({
-      ...project,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarningDesc(true);
-    } else {
-      setShowWarningDesc(false);
-    }
-  };
-  const handleClickDesc = () => {
-    setShowWarningDesc(false);
-  };
-  const handleBlurDesc = (e) => {
-    if (e.target.value === '') {
-      setShowWarningDesc(true);
-    }
-  };
-
-  /* Input CLIENT NAME */
-  const handleInputCName = (e) => {
-    setProject({
-      ...project,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarningCName(true);
-    } else {
-      setShowWarningCName(false);
-    }
-  };
-  const handleClickCName = () => {
-    setShowWarningCName(false);
-  };
-  const handleBlurCName = (e) => {
-    if (e.target.value === '') {
-      setShowWarningCName(true);
-    }
-  };
-
-  /* Input ADMIN */
-  const handleInputAdmin = (e) => {
-    setProject({
-      ...project,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarningAdmin(true);
-    } else {
-      setShowWarningAdmin(false);
-    }
-  };
-  const handleClickAdmin = () => {
-    setShowWarningAdmin(false);
-  };
-  const handleBlurAdmin = (e) => {
-    if (e.target.value === '') {
-      setShowWarningAdmin(true);
-    }
-  };
+  const [employeesData, setEmployeesData] = useState([]);
 
   useEffect(() => {
-    dispatch(getEmployee());
+    fetch(`https://coco-trackgenix-server.vercel.app/employees`)
+      .then((res) => res.json())
+      .then((json) => {
+        setEmployeesData(...employeesData, json.data);
+      });
   }, []);
 
-  if (isLoading) {
-    return <Loading className={styles.loading}></Loading>;
-  }
+  // const checkEmptyFields = () => {
+  // };
+
   return (
     <div className={styles.container}>
       <Logo />
       <h2>New Project</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <Input
-            labelText="Name"
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
             name="name"
-            inputValue={project.name}
-            placeholder="Name"
-            warningMsg="Please check the information"
-            handleInput={handleInputName}
-            handleClick={handleClickName}
-            handleBlur={handleBlurName}
-            showWarning={showWarningName}
-          ></Input>
+            required="required"
+            placeholder="Give it a name"
+            value={project.name}
+            onChange={handleChange}
+          ></input>
         </div>
         <div>
-          <Input
-            labelText="Description"
+          <label htmlFor="description">Description</label>
+          <input
+            type="text"
             name="description"
-            inputValue={project.description}
-            placeholder="write a description here"
-            warningMsg="Please check the information"
-            handleInput={handleInputDesc}
-            handleClick={handleClickDesc}
-            handleBlur={handleBlurDesc}
-            showWarning={showWarningDesc}
-          ></Input>
+            required="required"
+            placeholder="Set a description"
+            value={project.description}
+            onChange={handleChange}
+          ></input>
         </div>
         <div>
           <label htmlFor="startDate">Start Date</label>
@@ -224,7 +124,7 @@ const AddNew = () => {
             name="startDate"
             required="required"
             placeholder="DD/MM/YYYY"
-            value={project.startDate.slice(0, 10)}
+            value={project.startDate}
             onChange={handleChange}
           ></input>
         </div>
@@ -235,50 +135,45 @@ const AddNew = () => {
             name="endDate"
             required="required"
             placeholder="DD/MM/YYYY"
-            value={project.endDate.slice(0, 10)}
+            value={project.endDate}
             onChange={handleChange}
           ></input>
         </div>
         <div>
-          <Input
-            labelText="Client Name"
+          <label htmlFor="clientName">Client Name</label>
+          <input
+            type="text"
             name="clientName"
-            inputValue={project.clientName}
-            placeholder="enter a client here"
-            warningMsg="Please check the information"
-            handleInput={handleInputCName}
-            handleClick={handleClickCName}
-            handleBlur={handleBlurCName}
-            showWarning={showWarningCName}
-          ></Input>
+            required="required"
+            placeholder="For what client?"
+            value={project.clientName}
+            onChange={handleChange}
+          ></input>
         </div>
         <Dropdown name="active" labelText="Set if is active" onChange={handleChange}></Dropdown>
         <Dropdown
-          data={employeeData}
+          data={employeesData}
           name="employees"
           labelText="Select an employee"
           path="firstName"
           onChange={handleChange}
         ></Dropdown>
         <div>
-          <Input
-            labelText="Administrator"
+          <label htmlFor="admins">Admins</label>
+          <input
             name="admins"
-            inputValue={project.admins}
-            placeholder="enter an admin here"
-            warningMsg="Please check the information"
-            handleInput={handleInputAdmin}
-            handleClick={handleClickAdmin}
-            handleBlur={handleBlurAdmin}
-            showWarning={showWarningAdmin}
-          ></Input>
+            required="required"
+            placeholder="Assign the admins"
+            value={project.admins}
+            onChange={handleChange}
+          ></input>
         </div>
       </form>
       <div>
         <Button
           type={('submit', styles.modalProjectBtn)}
           name="project-submit"
-          handleClick={(e) => {
+          handleClick={() => {
             if (
               project.name === '' ||
               project.description === '' ||
@@ -288,64 +183,38 @@ const AddNew = () => {
               project.active === '' ||
               project.admins === ''
             ) {
-              setIsOpenFail(true);
+              setIsOpen2(true);
             } else {
-              confirmModal(e);
+              setIsOpen(true);
             }
           }}
         >
           New Project
         </Button>
-        <Modal showModal={isOpen} closeModal={() => setIsOpenConfirm(false)}>
-          <h2>Project Creation</h2>
+        <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+          <h2>Success!</h2>
           <div>
-            <p>Do you really want to create this project?</p>
+            <p>Project created successfully</p>
           </div>
           <div>
             <Button
               type={styles.modalProjectBtn}
-              handleClick={() => {
-                setIsOpenConfirm(false);
+              handleClick={(e) => {
+                handleSubmit(e);
+                history.push('/projects');
               }}
             >
-              Cancel
-            </Button>
-            <Button
-              type={styles.modalProjectBtn}
-              handleClick={() => {
-                dispatch(postProject(projectInput, setSuccess, setModalText));
-                setIsOpenError(true);
-                setIsOpenConfirm(false);
-              }}
-            >
-              Create
+              Ok
             </Button>
           </div>
         </Modal>
-        <Modal showModal={isOpenError} closeModal={() => setIsOpenError(false)}>
-          <p>{modalText}</p>
-          <Button
-            type={styles.backBtn}
-            handleClick={() => {
-              if (Success) {
-                setSuccess(false);
-                window.location.href = '/projects';
-              } else {
-                setSuccess(false);
-                setIsOpenError(false);
-              }
-            }}
-          >
-            Ok
-          </Button>
-        </Modal>
-        <Modal showModal={isOpenFail} closeModal={() => setIsOpenFail(false)}>
+        <Modal showModal={isOpen2} closeModal={() => setIsOpen2(false)}>
           <h2>Fill every field to continue</h2>
-          <Button type={styles.modalProjectBtn} handleClick={() => setIsOpenFail(false)}>
+          <Button type={styles.modalProjectBtn} handleClick={() => setIsOpen2(false)}>
             Ok
           </Button>
         </Modal>
-        <Button type={styles.backBtn} handleClick={() => (window.location.href = '/projects')}>
+        <Button type={styles.backBtn} handleClick={() => history.goBack()}>
           Cancel
         </Button>
       </div>

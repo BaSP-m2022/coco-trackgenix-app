@@ -37,6 +37,7 @@ const ContentList = ({ listItem, deleteItem }) => {
       const minute = date.getMinutes();
       return `${month}/${day}/${year} - ${hour}:${minute} hrs`;
     };
+    console.log(task.date);
 
     return (
       <tr key={task.id}>
