@@ -1,9 +1,10 @@
 .container {
-  flex: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 8%;
   padding-top: 10px;
 }
 .logoContainer {
@@ -41,29 +42,29 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  margin-top: 20px;
+  justify-content: center;
 }
 
 .employeeBtnEdit {
   align-self: flex-start;
   width: 130px;
   height: 50px;
-  margin-left: 20px;
+  margin: 20px;
   background: #aace9b;
   border: 1px solid #373867;
   border-radius: 5px;
-  text-transform: uppercase;
-  font-size: 15px;
+  font-style: normal;
   font-weight: 700;
-  color: #373867;
+  font-size: 16px;
+  line-height: 19px;
+  color: #505168;
   cursor: pointer;
+  transition-duration: 0.3s;
 }
 
 .addEmployeeBtn {
-  align-self: flex-start;
   width: 130px;
   height: 50px;
-  margin-left: 170px;
   margin-top: 20px;
   margin-bottom: -40px;
   background: #aace9b;
@@ -74,6 +75,11 @@
   font-weight: 700;
   color: #373867;
   cursor: pointer;
+}
+
+.addEmployeeBtn:hover {
+  background-color: #ffffff;
+  border: 1px solid #a5de93;
 }
 
 .returnEmployeeBtn {
@@ -97,8 +103,7 @@
 }
 
 .modalEmployeeBtn {
-  /* justify-content: center; */
-  align-self: center;
+  margin: 5px;
   width: 170px;
   height: 50px;
   background: #aace9b;

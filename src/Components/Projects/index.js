@@ -5,61 +5,22 @@ import Modal from '../SharedComponents/Modal/Modal';
 import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
 import Table from '../SharedComponents/Table/index';
+import Loading from '../SharedComponents/Loading/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteProject, getProject } from '../redux/modules/projects/thunks';
 
-const Projects = (props) => {
-  const [list, setList] = useState([]);
+const Projects = () => {
+  const dispatch = useDispatch();
+  const dataResponse = useSelector((state) => state.project.list);
+  const isLoading = useSelector((state) => state.project.isLoading);
   const [isOpen, setIsOpen] = useState(false);
 
-  const changeDate = (date) => {
-    let changedDate;
-    if (!date) {
-      changedDate = null;
-    } else {
-      let substrained = date.substring(0, 10);
-      let year = Number(substrained.split('-')[0]);
-      let month = Number(substrained.split('-')[1]);
-      let day = Number(substrained.split('-')[2]);
-
-      if (day < 10) {
-        day = `0${day}`;
-      }
-      if (month < 10) {
-        month = `0${month}`;
-      }
-
-      changedDate = `${month}-${day}-${year}`;
-    }
-
-    return changedDate;
-  };
-
   useEffect(async () => {
-    try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects`);
-      const data = await response.json();
-      data.data.map((item) => {
-        item.active = item.active ? 'true' : 'false';
-        item.createdAt = changeDate(item.createdAt);
-        item.startDate = changeDate(item.startDate);
-        item.endDate = changeDate(item.endDate);
-        item.employees = item.employees.length;
-      });
-      setList(data.data);
-    } catch (error) {
-      console.error;
-    }
+    dispatch(getProject());
   }, []);
 
-  const deleteItem = async (_id) => {
-    try {
-      await fetch(`https://coco-trackgenix-server.vercel.app/projects/${_id}`, {
-        method: 'DELETE'
-      });
-      setIsOpen(true);
-    } catch (error) {
-      console.error;
-    }
-    setList(list.filter((listItem) => listItem._id !== _id));
+  const deleteItem = (_id) => {
+    dispatch(deleteProject(_id));
   };
 
   let history = useHistory();
@@ -67,16 +28,19 @@ const Projects = (props) => {
     history.push(`/projects/edit?=${item}`);
   };
 
+  if (isLoading) {
+    return <Loading className={styles.loading}></Loading>;
+  }
   return (
     <div className={styles.container}>
       <Logo />
       <div className={styles.container}>
         <h2 className={styles.title}>Projects</h2>
-        <Button type={styles.addProject} handleClick={() => props.history.push('/projects/add')}>
+        <Button type={styles.addProject} handleClick={() => history.push('/projects/add')}>
           + Add New Project
         </Button>
         <Table
-          data={list}
+          data={dataResponse}
           headers={[
             'name',
             'clientName',

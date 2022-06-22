@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import styles from './tasks.module.css';
-import Logo from '../SharedComponents/Logo/Logo';
-import Table from '../SharedComponents/Table/index';
-import Button from '../SharedComponents/Button/Button';
-import Modal from '../SharedComponents/Modal/Modal';
-import Loading from '../SharedComponents/Loading/Loading';
+import styles from 'Components/Tasks/tasks.module.css';
+import Logo from 'Components/SharedComponents/Logo/Logo';
+import Table from 'Components/SharedComponents/Table/index';
+import Button from 'Components/SharedComponents/Button/Button';
+import Modal from 'Components/SharedComponents/Modal/Modal';
+import Loading from 'Components/SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTasks, getTasks } from '../redux/modules/tasks/thunks';
+import { deleteTasks, getTasks } from 'Components/redux/modules/tasks/thunks';
 
 const Tasks = (props) => {
   const dispatch = useDispatch();
@@ -41,15 +41,16 @@ const Tasks = (props) => {
       <Logo />
       <h2 className={styles.title}>Tasks</h2>
       <div className={styles.tableContainer}>
-        <Button type={styles.buttonAdd} handleClick={() => props.history.push('tasks/add')}>
-          + Add Task
-        </Button>
         <Table
           data={list}
           headers={['description', 'workedHours', 'date']}
           handleEdit={handleEdit}
           deleteItem={deleteItem}
-        />
+        >
+          <Button type={styles.buttonAdd} handleClick={() => props.history.push('tasks/add')}>
+            + Add Task
+          </Button>
+        </Table>
       </div>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>Tasks has been deleted successfully!</h2>

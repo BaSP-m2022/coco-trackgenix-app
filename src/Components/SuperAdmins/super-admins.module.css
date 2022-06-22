@@ -1,10 +1,11 @@
 .container {
-  width: 100%;
+  width: 50%;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
   margin: 30px;
+  margin-left: 12%;
 }
 
 .container > h2 {
@@ -49,15 +50,18 @@
   background: #aace9b;
   border: 1px solid #505168;
   border-radius: 5px;
-  font-size: 15px;
+  font-style: normal;
   font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
   color: #505168;
   cursor: pointer;
+  transition-duration: 0.3s;
 }
 
 .addSuperAdminBtn:hover {
-  background-color: white;
-  border: 2px solid #aace9b;
+  background-color: #FFFFFF;
+  border: 1px solid #A5DE93;
 }
 
 .stylesBtn {
