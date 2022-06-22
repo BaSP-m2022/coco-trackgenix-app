@@ -42,19 +42,19 @@ function Layout() {
           <Switch>
             <Route exact path="/home" component={Home} />
             <Route exact path="/admins" component={Admins} />
-            <Route path="/admins/add" component={AdminForm} />
-            <Route path="/admins/edit" component={AdminFormEdit} />
+            <Route exact path="/admins/add" component={AdminForm} />
+            <Route exact path="/admins/edit" component={AdminFormEdit} />
             <Route exact path="/super-admins" component={SuperAdmins} />
-            <Route path="/super-admins/Form" component={SuperAdminFormEdit} />
-            <Route path="/super-admins/formAdd" component={SuperAdminForm} />
+            <Route exact path="/super-admins/Form" component={SuperAdminFormEdit} />
+            <Route exact path="/super-admins/formAdd" component={SuperAdminForm} />
             <Route exact path="/employee" component={Employees} />
-            <Route path="/employee/timesheet" component={EmployeesTimesheet} />
-            <Route path="/employee/timesheetAdd" component={EmployeesTimesheetAdd} />
-            <Route path="/employee/timesheetEdit" component={EmployeesTimesheetEdit} />
-            <Route path="/employee/profile" component={EmployeesProfile} />
-            <Route path="/employee/projects" component={EmployeesProject} />
-            <Route path="/employees/signup" component={FormEmployee} />
-            <Route path="/employees/formEdit" component={FormEmployeeEdit} />
+            <Route exact path="/employee/timesheet" component={EmployeesTimesheet} />
+            <Route exact path="/employee/timesheetAdd" component={EmployeesTimesheetAdd} />
+            <Route exact path="/employee/timesheetEdit" component={EmployeesTimesheetEdit} />
+            <Route exact path="/employee/profile" component={EmployeesProfile} />
+            <Route exact path="/employee/projects" component={EmployeesProject} />
+            <Route exact path="/employee/signup" component={FormEmployee} />
+            <Route exact path="/employee/profile/edit" component={FormEmployeeEdit} />
             <Route exact path="/projects" component={Projects} />
             <Route path="/projects/add" component={AddNew} />
             <Route path="/projects/edit" component={EditProject} />

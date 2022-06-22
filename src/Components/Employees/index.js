@@ -29,7 +29,7 @@ const Employees = () => {
 
   let history = useHistory();
   const handleEdit = (item) => {
-    history.push(`/employees/formEdit?=${item}`);
+    history.push(`/employee/profile/edit?=${item}`);
   };
 
   if (isLoadingEmployee) {
