@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './dropdown.module.css';
 
-const Dropdown = ({ data, name, labelText, path, onChange, register, error }) => {
+const Dropdown = ({ data, name, labelText, path, onChange, register, error, value }) => {
   if (name === 'active') {
     return (
       <div className={styles.container}>
@@ -26,7 +26,7 @@ const Dropdown = ({ data, name, labelText, path, onChange, register, error }) =>
         <label className={styles.label}>{labelText}</label>
         <select onChange={onChange} className={styles.select} name={name}>
           <option disabled selected className={styles.options}>
-            {labelText}
+            {value ? value : labelText}
           </option>
           {data.map((item) => (
             <option className={styles.options} key={item.id} value={item._id}>

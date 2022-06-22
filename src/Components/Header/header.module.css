@@ -1,28 +1,28 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-li{
+li {
   list-style: none;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-button{
+button {
   border: none;
 }
 
-.container{
+.container {
   width: 100%;
   padding: 0 150px;
-  background-color: #50A780;
+  background-color: #50a780;
 }
 
-.headerContainer{
+.headerContainer {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -34,7 +34,7 @@ button{
   display: none;
 }
 
-.headerContainer input{
+.headerContainer input {
   color: #000;
   padding: 8px 13px;
   font-size: 1rem;
@@ -44,12 +44,12 @@ button{
   width: 40%;
 }
 
-.flexItem{
+.flexItem {
   width: 48px;
 }
 
 .headerContainer .burguerButton {
-  background-color: #50A780;
+  background-color: #50a780;
 }
 
 .styleIcon {
@@ -59,18 +59,19 @@ button{
   cursor: pointer;
 }
 
-.navigation{
+.navigation {
   color: #000;
   padding: 8px 13px;
   font-size: 1rem;
   background-color: #fff;
   border-radius: 6px;
+  margin: 10px;
   width: 102.38px;
   min-width: 102.38px;
   text-align: center;
 }
 
-.background{
+.background {
   position: fixed;
   left: 0;
   top: 0;
@@ -81,73 +82,81 @@ button{
   animation-duration: 0.5s;
 }
 
-.navbar{
+.navbar {
   display: flex;
   flex-direction: column;
-  position: fixed; 
-  align-items: center; 
-  left: 0px; 
+  position: fixed;
+  align-items: center;
+  left: 0px;
   width: 250px;
   z-index: 100;
   height: 100vh;
-  background-color: #50A780;
+  background-color: #50a780;
   color: #000;
   animation-name: mymove;
   animation-duration: 0.5s;
 }
 
 @keyframes mymove {
-  from {width: 0;}
-  to {width: 250px;}
+  from {
+    width: 0;
+  }
+  to {
+    width: 250px;
+  }
 }
 @keyframes backGround {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.navbar a{
+.navbar a {
   color: #000;
   font-weight: 400;
 }
 
-.navbar h2{
+.navbar h2 {
   font-size: 2rem;
   margin-top: 40px;
-  text-decoration: underline #ED2626;
+  text-decoration: underline #ed2626;
 }
 
-.navbar li{
+.navbar li {
   margin: 15px;
 }
 
-.links{
+.links {
   font-size: 1.5rem;
 }
 
-.contact h3{
+.contact h3 {
   font-size: 2rem;
   margin-top: 40px;
   text-align: center;
   padding-bottom: 4px;
-  text-decoration: underline #ED2626;
+  text-decoration: underline #ed2626;
 }
 
-.contact p{
+.contact p {
   text-align: center;
   padding: 10px;
   font-weight: 400;
 }
 
-.location{
+.location {
   font-size: 1.2rem;
   font-weight: 300;
   margin-top: 40px;
   text-align: center;
 }
 
-.closeBtn{
+.closeBtn {
   font-weight: 1000;
   font-size: 1.6rem;
-  background-color: #50A780;
+  background-color: #50a780;
   cursor: pointer;
 }
