@@ -27,7 +27,13 @@ export const getTasks = () => {
 
   return (dispatch) => {
     dispatch(getTasksPending());
-    return fetch(`https://coco-trackgenix-server.vercel.app/tasks`)
+    return fetch(`https://coco-trackgenix-server.vercel.app/tasks`, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    })
       .then((response) => response.json())
       .then((response) => {
         response.data.forEach((task) => {
@@ -119,12 +125,10 @@ export const editTasks = (id, values, setResStatus, setResponseMsg) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.error === false) {
-          console.log('error', data.error);
           setResStatus(true);
           setResponseMsg(data.msg.substring(9));
           dispatch(editTasksSuccess(data));
         } else {
-          console.log('error else', data.error);
           setResStatus(false);
           if (data.msg.includes('fails to match the required pattern')) {
             setResponseMsg('the data entered is not correct');
