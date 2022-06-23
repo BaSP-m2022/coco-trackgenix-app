@@ -139,25 +139,18 @@ const TimeSheetsFormAdd = (props) => {
             </tbody>
           </table>
         </div>
-        <div className={styles.inputContainer}>
-          <label className={styles.label}>Start Date</label>
+        <div>
+          <label>Start Date</label>
           <input
             type="date"
             name="startDate"
-            className={styles.input}
             value={timesheetInput.startDate}
             onChange={onChange}
           />
         </div>
-        <div className={styles.inputContainer}>
-          <label className={styles.label}>End Date</label>
-          <input
-            type="date"
-            name="endDate"
-            className={styles.input}
-            value={timesheetInput.endDate}
-            onChange={onChange}
-          />
+        <div>
+          <label>End Date</label>
+          <input type="date" name="endDate" value={timesheetInput.endDate} onChange={onChange} />
         </div>
         <Button
           type={('button', styles.returnTimesheetBtn)}

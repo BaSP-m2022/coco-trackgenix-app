@@ -146,22 +146,15 @@ const EditFormTimesheet = (props) => {
             </tbody>
           </table>
         </div>
-        <div className={styles.inputContainer}>
-          <label className={styles.label}>Start Date</label>
-          <input
-            type="date"
-            name="startDate"
-            className={styles.input}
-            value={startDate.slice(0, 10)}
-            disabled
-          />
+        <div>
+          <label>Start Date</label>
+          <input type="date" name="startDate" value={startDate.slice(0, 10)} disabled />
         </div>
-        <div className={styles.inputContainer}>
-          <label className={styles.label}>End Date</label>
+        <div>
+          <label>End Date</label>
           <input
             type="date"
             name="endDate"
-            className={styles.input}
             value={endDate.slice(0, 10)}
             onChange={(e) => {
               setEndDate(e.target.value);

@@ -1,13 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import styles from './super-admins.module.css';
-import Button from '../SharedComponents/Button/Button';
-import Modal from '../SharedComponents/Modal/Modal';
-import Logo from '../SharedComponents/Logo/Logo';
-import Loading from '../SharedComponents/Loading/Loading';
-import Dropdown from '../SharedComponents/Dropdown/Dropdown';
-import Input from '../SharedComponents/Input/Input';
+import Button from 'Components/SharedComponents/Button/Button';
+import Modal from 'Components/SharedComponents/Modal/Modal';
+import Logo from 'Components/SharedComponents/Logo/Logo';
+import Loading from 'Components/SharedComponents/Loading/Loading';
+import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
+import Input from 'Components/SharedComponents/Input/Input';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { editSuperAdmin, getSuperAdminById } from '../redux/modules/superAdmins/thunks';
+import { editSuperAdmin, getSuperAdminById } from 'Components/redux/modules/superAdmins/thunks';
+import joi from 'joi';
+import { useForm } from 'react-hook-form';
+import { joiResolver } from '@hookform/resolvers/joi';
+
+const schema = joi.object({
+  name: joi
+    .string()
+    .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
+    .min(3)
+    .max(30)
+    .messages({
+      'string.empty': 'First name is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single space',
+      'string.min': 'Invalid name, it must not contain less than 3 letters',
+      'string.max': 'Invalid name, it must not contain more than 30 letters'
+    }),
+  lastName: joi
+    .string()
+    .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
+    .min(3)
+    .max(30)
+    .messages({
+      'string.empty': 'Last name is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single space',
+      'string.min': 'Invalid name, it must not contain less than 3 letters',
+      'string.max': 'Invalid name, it must not contain more than 30 letters'
+    }),
+  email: joi
+    .string()
+    .email({ tlds: { allow: false } })
+    .lowercase()
+    .messages({
+      'string.empty': 'Email is not allowed to be empty',
+      'string.email': 'Invalid email format',
+      'string.required': 'This field is required'
+    }),
+  password: joi
+    .string()
+    .pattern(/^(?=.*?\d)(?=.*?[a-zA-Z])[a-zA-Z\d]+$/)
+    .min(8)
+    .max(30)
+    .messages({
+      'string.empty': 'Password is not allowed to be empty',
+      'string.pattern.base':
+        'Password must contain at least 1 letter or number. Wihout any symbols',
+      'string.required': 'This field is required'
+    }),
+  active: joi.boolean().messages({
+    'boolean.base': 'You must select an option'
+  })
+});
 
 const EditSuperAdmin = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,17 +71,17 @@ const EditSuperAdmin = (props) => {
   const dispatch = useDispatch();
 
   const [previousSuperAdmin, setPreviousSuperAdmin] = useState({});
-
-  const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [active, setActive] = useState();
-  const [showWarning1, setShowWarning1] = useState(false);
-  const [showWarning2, setShowWarning2] = useState(false);
-  const [showWarning3, setShowWarning3] = useState(false);
-  const [showWarning4, setShowWarning4] = useState(false);
   const selectedItem = useSelector((state) => state.superadmins.selectedItem);
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset
+  } = useForm({
+    mode: 'onChange',
+    resolver: joiResolver(schema)
+  });
 
   const params = window.location.search;
   let id = params.substring(2);
@@ -37,14 +90,13 @@ const EditSuperAdmin = (props) => {
     dispatch(editSuperAdmin(e, id, setModalText, setShowButton, setSuperAdminEdited));
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const onSubmit = (superadmin) => {
     setPreviousSuperAdmin({
-      name: name,
-      lastName: lastName,
-      email: email,
-      password: password,
-      active: active
+      name: superadmin.name,
+      lastName: superadmin.lastName,
+      email: superadmin.email,
+      password: superadmin.password,
+      active: superadmin.active
     });
     setModalText('Are you sure you want to edit this SuperAdmin?');
     setIsOpen(true);
@@ -52,12 +104,15 @@ const EditSuperAdmin = (props) => {
 
   useEffect(() => {
     if (Object.keys(selectedItem).length) {
-      setName(selectedItem.name);
-      setLastName(selectedItem.lastName);
-      setEmail(selectedItem.email);
-      setPassword(selectedItem.password);
-      setActive(selectedItem.active);
+      reset({
+        name: selectedItem.name,
+        lastName: selectedItem.lastName,
+        email: selectedItem.email,
+        password: selectedItem.password,
+        active: selectedItem.active
+      });
     }
+    setPreviousSuperAdmin();
   }, [selectedItem]);
 
   useEffect(() => {
@@ -67,43 +122,6 @@ const EditSuperAdmin = (props) => {
   if (isLoading) {
     return <Loading></Loading>;
   }
-
-  const handleInput = (e) => {
-    switch (e.target.name) {
-      case 'name':
-        setName(e.target.value);
-        if (e.target.value === '') {
-          setShowWarning1(true);
-        } else {
-          setShowWarning1(false);
-        }
-        break;
-      case 'lastName':
-        setLastName(e.target.value);
-        if (e.target.value === '') {
-          setShowWarning2(true);
-        } else {
-          setShowWarning2(false);
-        }
-        break;
-      case 'email':
-        setEmail(e.target.value);
-        if (e.target.value === '') {
-          setShowWarning3(true);
-        } else {
-          setShowWarning3(false);
-        }
-        break;
-      case 'password':
-        setPassword(e.target.value);
-        if (e.target.value === '') {
-          setShowWarning4(true);
-        } else {
-          setShowWarning4(false);
-        }
-        break;
-    }
-  };
 
   const handleButton = () => {
     if (!showButton && superAdminEdited) {
@@ -121,97 +139,60 @@ const EditSuperAdmin = (props) => {
     <div className={styles.container}>
       <Logo />
       <h2>Form Edit</h2>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Input
             labelText="Name"
             name="name"
-            inputValue={name}
             placeholder="Name"
-            warningMsg="Please check the information"
-            handleInput={handleInput}
-            handleClick={() => {
-              setShowWarning1(false);
-            }}
-            handleBlur={(e) => {
-              if (e.target.value === '') {
-                setShowWarning1(true);
-              }
-            }}
-            showWarning={showWarning1}
+            type="text"
+            register={register}
+            error={errors.name?.message}
           ></Input>
         </div>
         <div>
           <Input
             labelText="Last Name"
             name="lastName"
-            inputValue={lastName}
             placeholder="Last Name"
-            warningMsg="Please check the information"
-            handleInput={handleInput}
-            handleClick={() => {
-              setShowWarning2(false);
-            }}
-            handleBlur={(e) => {
-              if (e.target.value === '') {
-                setShowWarning2(true);
-              }
-            }}
-            showWarning={showWarning2}
+            type="text"
+            register={register}
+            error={errors.lastName?.message}
           ></Input>
         </div>
         <div>
           <Input
             labelText="Email"
             name="email"
-            inputValue={email}
             placeholder="Email"
-            warningMsg="Please check the information"
-            handleInput={handleInput}
-            handleClick={() => {
-              setShowWarning3(false);
-            }}
-            handleBlur={(e) => {
-              if (e.target.value === '') {
-                setShowWarning3(true);
-              }
-            }}
-            showWarning={showWarning3}
+            type="text"
+            register={register}
+            error={errors.email?.message}
           />
         </div>
         <div>
           <Input
             labelText="Password"
             name="password"
-            inputValue={password}
             placeholder="Password"
-            warningMsg="Please check the information"
-            handleInput={handleInput}
-            handleClick={() => {
-              setShowWarning4(false);
-            }}
-            handleBlur={(e) => {
-              if (e.target.value === '') {
-                setShowWarning4(true);
-              }
-            }}
-            showWarning={showWarning4}
+            type="password"
+            register={register}
+            error={errors.password?.message}
           />
         </div>
         <div>
           <Dropdown
             name="active"
             labelText="Active"
-            onChange={(e) => {
-              setActive(e.target.value);
-            }}
+            register={register}
+            error={errors.active?.message}
           ></Dropdown>
         </div>
         <div className={styles.formButtonsContainer}>
+          <Button type={('submit', styles.stylesBtn)}>Edit</Button>
           <Button type={styles.stylesBtn} handleClick={() => props.history.push('/super-admins')}>
             Back
           </Button>
-          <Button type={('submit', styles.stylesBtn)}>Edit</Button>
         </div>
       </form>
       <Modal
@@ -223,9 +204,6 @@ const EditSuperAdmin = (props) => {
         <h2>{superAdminEdited ? 'Success!' : 'Warning!'}</h2>
         <h3 className={styles.modalMsg}>{modalText}</h3>
         <div>
-          <Button type={styles.stylesModalBtn} handleClick={handleButton}>
-            {showButton && !superAdminEdited ? 'Cancel' : 'Ok'}
-          </Button>
           <Button
             type={
               showButton && !superAdminEdited ? styles.stylesModalBtn : styles.stylesModalBtnNone
@@ -235,6 +213,9 @@ const EditSuperAdmin = (props) => {
             }}
           >
             Confirm
+          </Button>
+          <Button type={styles.stylesModalBtn} handleClick={handleButton}>
+            {showButton && !superAdminEdited ? 'Cancel' : 'Ok'}
           </Button>
         </div>
       </Modal>
