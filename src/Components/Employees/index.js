@@ -33,7 +33,7 @@ const Employees = (props) => {
   };
 
   if (isLoadingEmployee) {
-    return <Loading className={styles.loadText}></Loading>;
+    return <Loading></Loading>;
   }
 
   if (window.location.pathname === '/employee/profile') {

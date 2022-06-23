@@ -119,7 +119,7 @@ const AdminFormEdit = (props) => {
   };
 
   if (isLoading) {
-    return <Loading className={styles.loading}></Loading>;
+    return <Loading></Loading>;
   }
 
   return (

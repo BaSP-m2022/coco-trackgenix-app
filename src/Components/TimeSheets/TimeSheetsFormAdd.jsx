@@ -92,7 +92,7 @@ const TimeSheetsFormAdd = (props) => {
   };
 
   if (isLoadingTimesheet) {
-    return <Loading className={styles.loadText}></Loading>;
+    return <Loading></Loading>;
   }
 
   return (
@@ -139,18 +139,25 @@ const TimeSheetsFormAdd = (props) => {
             </tbody>
           </table>
         </div>
-        <div>
-          <label>Start Date</label>
+        <div className={styles.inputContainer}>
+          <label className={styles.label}>Start Date</label>
           <input
             type="date"
             name="startDate"
+            className={styles.input}
             value={timesheetInput.startDate}
             onChange={onChange}
           />
         </div>
-        <div>
-          <label>End Date</label>
-          <input type="date" name="endDate" value={timesheetInput.endDate} onChange={onChange} />
+        <div className={styles.inputContainer}>
+          <label className={styles.label}>End Date</label>
+          <input
+            type="date"
+            name="endDate"
+            className={styles.input}
+            value={timesheetInput.endDate}
+            onChange={onChange}
+          />
         </div>
         <Button
           type={('button', styles.returnTimesheetBtn)}

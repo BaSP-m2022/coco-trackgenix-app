@@ -33,7 +33,7 @@ const Timesheets = (props) => {
   };
 
   if (isLoadingTimesheet) {
-    return <Loading className={styles.loadText}></Loading>;
+    return <Loading></Loading>;
   }
 
   return (
@@ -66,7 +66,5 @@ const Timesheets = (props) => {
     </section>
   );
 };
-
-console.log('hay que entregar la pr');
 
 export default Timesheets;

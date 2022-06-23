@@ -114,7 +114,7 @@ const AddSuperAdmin = (props) => {
   };
 
   if (isLoading) {
-    return <Loading className={styles.loadText}></Loading>;
+    return <Loading></Loading>;
   }
   return (
     <div className={styles.container}>
