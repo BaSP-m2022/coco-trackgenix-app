@@ -83,6 +83,14 @@ const AddNew = () => {
   const isLoading = useSelector((state) => state.project.isLoading);
   const dispatch = useDispatch();
   const employeeData = useSelector((state) => state.employee.list);
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    watch
+  } = useForm({ mode: 'onChange', resolver: joiResolver(projectSchema) });
+
   const [projectInput, setProjectInput] = useState({
     name: '',
     description: '',
@@ -103,13 +111,6 @@ const AddNew = () => {
     employees: [],
     admins: ''
   });
-
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-    watch
-  } = useForm({ mode: 'onChange', resolver: joiResolver(projectSchema) });
 
   console.log(watch('name'));
   console.log(watch('description'));
@@ -182,7 +183,7 @@ const AddNew = () => {
     <div className={styles.container}>
       <Logo />
       <h2>New Project</h2>
-      <form onSubmit={handleSubmit()}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Input
             labelText="Name"
@@ -249,9 +250,9 @@ const AddNew = () => {
           name="employees"
           labelText="Select an employee"
           path="firstName"
-          onChange={handleChange}
           register={register}
           error={errors.active?.message}
+          onChange={handleChange}
         ></Dropdown>
         <div>
           <Input
