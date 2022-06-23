@@ -16,10 +16,6 @@ import { joiResolver } from '@hookform/resolvers/joi';
 const AddNew = () => {
   const [modalText, setModalText] = useState('');
   const [Success, setSuccess] = useState('');
-  const [showWarningName, setShowWarningName] = useState(false);
-  const [showWarningDesc, setShowWarningDesc] = useState(false);
-  const [showWarningCName, setShowWarningCName] = useState(false);
-  const [showWarningAdmin, setShowWarningAdmin] = useState(false);
   const isLoading = useSelector((state) => state.project.isLoading);
   const dispatch = useDispatch();
   const employeeData = useSelector((state) => state.employee.list);
@@ -107,90 +103,6 @@ const AddNew = () => {
     onSubmit(e);
   };
 
-  /* Input NAME */
-  const handleInputName = (e) => {
-    setProject({
-      ...project,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarningName(true);
-    } else {
-      setShowWarningName(false);
-    }
-  };
-  const handleClickName = () => {
-    setShowWarningName(false);
-  };
-  const handleBlurName = (e) => {
-    if (e.target.value === '') {
-      setShowWarningName(true);
-    }
-  };
-
-  /* Input DESCRIPTION */
-  const handleInputDesc = (e) => {
-    setProject({
-      ...project,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarningDesc(true);
-    } else {
-      setShowWarningDesc(false);
-    }
-  };
-  const handleClickDesc = () => {
-    setShowWarningDesc(false);
-  };
-  const handleBlurDesc = (e) => {
-    if (e.target.value === '') {
-      setShowWarningDesc(true);
-    }
-  };
-
-  /* Input CLIENT NAME */
-  const handleInputCName = (e) => {
-    setProject({
-      ...project,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarningCName(true);
-    } else {
-      setShowWarningCName(false);
-    }
-  };
-  const handleClickCName = () => {
-    setShowWarningCName(false);
-  };
-  const handleBlurCName = (e) => {
-    if (e.target.value === '') {
-      setShowWarningCName(true);
-    }
-  };
-
-  /* Input ADMIN */
-  const handleInputAdmin = (e) => {
-    setProject({
-      ...project,
-      [e.target.name]: e.target.value
-    });
-    if (e.target.value === '') {
-      setShowWarningAdmin(true);
-    } else {
-      setShowWarningAdmin(false);
-    }
-  };
-  const handleClickAdmin = () => {
-    setShowWarningAdmin(false);
-  };
-  const handleBlurAdmin = (e) => {
-    if (e.target.value === '') {
-      setShowWarningAdmin(true);
-    }
-  };
-
   useEffect(() => {
     dispatch(getEmployee());
   }, []);
@@ -207,73 +119,64 @@ const AddNew = () => {
           <Input
             labelText="Name"
             name="name"
-            inputValue={project.name}
             placeholder="Name"
-            warningMsg="Please check the information"
-            handleInput={handleInputName}
-            handleClick={handleClickName}
-            handleBlur={handleBlurName}
-            showWarning={showWarningName}
+            type="text"
+            error={errors.name?.message}
+            register={register}
           ></Input>
         </div>
         <div>
           <Input
             labelText="Description"
             name="description"
-            inputValue={project.description}
             placeholder="write a description here"
-            warningMsg="Please check the information"
-            handleInput={handleInputDesc}
-            handleClick={handleClickDesc}
-            handleBlur={handleBlurDesc}
-            showWarning={showWarningDesc}
+            type="text"
+            error={errors.description?.message}
+            register={register}
           ></Input>
         </div>
         <div>
-          <label htmlFor="startDate">Start Date</label>
-          <input
+          <Input
+            labelText="Start Date"
             type="date"
             name="startDate"
-            required="required"
             placeholder="DD/MM/YYYY"
-            value={project.startDate.slice(0, 10)}
-            onChange={handleChange}
-          ></input>
+            register={register}
+            error={errors.startDate?.message}
+          ></Input>
         </div>
         <div>
-          <label htmlFor="endDate">End Date</label>
-          <input
+          <Input
+            labelText="End Date"
             type="date"
             name="endDate"
-            required="required"
             placeholder="DD/MM/YYYY"
-            value={project.endDate.slice(0, 10)}
-            onChange={handleChange}
-          ></input>
+            error={errors.endDate?.message}
+            register={register}
+          ></Input>
         </div>
         <div>
           <Input
             labelText="Client Name"
+            type="text"
             name="clientName"
-            inputValue={project.clientName}
             placeholder="enter a client here"
-            warningMsg="Please check the information"
-            handleInput={handleInputCName}
-            handleClick={handleClickCName}
             register={register}
-            handleBlur={handleBlurCName}
-            showWarning={showWarningCName}
+            error={errors.clientName?.message}
           ></Input>
         </div>
         <Dropdown
           name="active"
+          type="boolean"
           labelText="Set if is active"
           register={register}
           error={errors.active?.message}
+          onChange={handleChange}
         ></Dropdown>
         <Dropdown
           data={employeeData}
           name="employees"
+          type="text"
           labelText="Select an employee"
           path="firstName"
           onChange={handleChange}
@@ -282,13 +185,10 @@ const AddNew = () => {
           <Input
             labelText="Administrator"
             name="admins"
-            inputValue={project.admins}
+            type="text"
+            register={register}
+            error={errors.admins?.message}
             placeholder="enter an admin here"
-            warningMsg="Please check the information"
-            handleInput={handleInputAdmin}
-            handleClick={handleClickAdmin}
-            handleBlur={handleBlurAdmin}
-            showWarning={showWarningAdmin}
           ></Input>
         </div>
       </form>
