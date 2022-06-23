@@ -63,7 +63,6 @@ const AddNew = () => {
     if (typeof item !== 'string' || !item) {
       membersData = null;
     } else {
-      console.log(item);
       const splitted = item.split(',');
       if (splitted.length === 0) {
         membersData = '';

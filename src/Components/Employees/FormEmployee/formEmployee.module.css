@@ -1,0 +1,21 @@
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 55%;
+}
+.formContainer > h2 {
+  margin-bottom: 15%;
+  align-self: center;
+}
+.inputsColumns {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.inputsColumns > Input {
+  width: 45%;
+}
+

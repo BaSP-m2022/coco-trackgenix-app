@@ -1,23 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import Dropdown from '../SharedComponents/Dropdown/Dropdown';
+import styles from './time-sheets.module.css';
+import Logo from '../SharedComponents/Logo/Logo';
 import Button from '../SharedComponents/Button/Button';
+import Dropdown from '../SharedComponents/Dropdown/Dropdown';
+import Loading from '../SharedComponents/Loading/Loading';
+import Modal from '../SharedComponents/Modal/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTimesheet } from '../redux/modules/timeSheets/thunks';
+import { getEmployee } from '../redux/modules/employees/thunks';
+import { getProject } from '../redux/modules/projects/thunks';
+import { getTasks } from '../redux/modules/tasks/thunks';
 
-const TimeSheetsForm = (props) => {
+const TimeSheetsFormAdd = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState('');
+  const [timesheetInput, setTimesheetInput] = useState({
+    employeeId: props.employeeId,
+    projectId: props.projectId,
+    tasks: [props.tasks],
+    startDate: props.startDate,
+    endDate: props.endDate
+  });
+
   const [addItem, setItem] = useState({});
-  const [employeesItem, setEmployeesItem] = useState([]);
-  const [projectsItem, setProjectsItem] = useState([]);
-  const [tasksItem, setTasksItem] = useState([]);
+  const employeeData = useSelector((state) => state.employee.list);
+  const tasksData = useSelector((state) => state.tasks.list);
+  const projectData = useSelector((state) => state.project.list);
+  const [taskList, setTaskList] = useState([]);
+  const [showButton, setShowButton] = useState(true);
+  const [successTimesheet, setSuccessTimesheet] = useState(false);
 
-  const emptyList = [];
-  const [taskList, setTaskList] = useState(emptyList);
+  const dispatch = useDispatch();
 
   const handleDeleteTask = (id) => {
     setTaskList([...taskList.filter((task) => task._id !== id)]);
   };
+  const isLoadingTimesheet = useSelector((state) => state.timesheet.isLoading);
+
+  useEffect(() => {
+    dispatch(getEmployee());
+    dispatch(getProject());
+    dispatch(getTasks());
+  }, []);
 
   const onChange = (e) => {
-    setItem({
-      ...addItem,
+    setTimesheetInput({
+      ...timesheetInput,
       [e.target.name]: e.target.value
     });
   };
@@ -33,170 +61,141 @@ const TimeSheetsForm = (props) => {
     }
   }, [taskList]);
 
+  const formTimesheet = (e) => {
+    setIsOpen(true);
+    setTimesheetInput({
+      employeeId: '',
+      projectId: '',
+      tasks: [],
+      startDate: '',
+      endDate: ''
+    });
+    dispatch(addTimesheet(e, setModalText, setSuccessTimesheet, setShowButton));
+  };
+
   const onChangeTasks = (e) => {
     if (taskList.find((task) => task._id === e.target.value) === undefined) {
-      setTaskList([...taskList, tasksItem.find((task) => task._id === e.target.value)]);
+      setTaskList([...taskList, tasksData.find((task) => task._id === e.target.value)]);
     } else {
       alert('This task has already been selected');
     }
   };
 
-  const create = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    try {
-      fetch(`https://coco-trackgenix-server.vercel.app/timesheets`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(addItem)
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          alert(response.error ? `Error! ${response.msg}` : `Success! ${response.message}`);
-          if (!response.error) {
-            props.history.push('/time-sheets');
-          }
-        });
-    } catch (error) {
-      console.error(error);
-    }
+    setTimesheetInput({
+      ...timesheetInput,
+      tasks: taskList.map((task) => task._id)
+    });
+    setModalText('Are you sure you want to create an new timesheet ?');
+    setIsOpen(true);
   };
 
-  useEffect(() => {
-    fetch(`https://coco-trackgenix-server.vercel.app/employees`)
-      .then((res) => res.json())
-      .then((json) => {
-        setEmployeesItem(json.data);
-      });
-    fetch(`https://coco-trackgenix-server.vercel.app/projects`)
-      .then((res) => res.json())
-      .then((json) => {
-        setProjectsItem(json.data);
-      });
-    fetch(`https://coco-trackgenix-server.vercel.app/tasks`)
-      .then((res) => res.json())
-      .then((json) => {
-        setTasksItem(json.data);
-      });
-  }, []);
-
-  if (window.location.pathname === '/employee/timesheetAdd') {
-    return (
-      <div>
-        <div>
-          <h2>Add New TimeSheet</h2>
-        </div>
-        <form onSubmit={create}>
-          <div>
-            <button onClick={() => props.history.push('/employee/timesheet')}>Back</button>
-          </div>
-          <Dropdown
-            data={employeesItem}
-            name="employeeId"
-            labelText="Select an employee"
-            path="firstName"
-            onChange={onChange}
-          ></Dropdown>
-          <Dropdown
-            data={projectsItem}
-            name="projectId"
-            labelText="Select a project"
-            path="name"
-            onChange={onChange}
-          ></Dropdown>
-          <Dropdown
-            data={tasksItem}
-            name="tasks"
-            labelText="Select a task"
-            path="description"
-            onChange={onChangeTasks}
-          ></Dropdown>
-          <div>
-            <table>
-              <tbody>
-                {taskList.map((task, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{task.description}</td>
-                      <td>
-                        <Button handleClick={() => handleDeleteTask(task._id)}>X</Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-          <div>
-            <label>Start Date</label>
-            <input type="date" name="startDate" value={addItem.startDate} onChange={onChange} />
-          </div>
-          <div>
-            <label>End Date</label>
-            <input type="date" name="endDate" value={addItem.endDate} onChange={onChange} />
-          </div>
-          <input type="submit" value="submit" />
-        </form>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <div>
-          <h2>Add New TimeSheet</h2>
-        </div>
-        <form onSubmit={create}>
-          <div>
-            <button onClick={() => props.history.push('/time-sheets')}>Back</button>
-          </div>
-          <Dropdown
-            data={employeesItem}
-            name="employeeId"
-            labelText="Select an employee"
-            path="firstName"
-            onChange={onChange}
-          ></Dropdown>
-          <Dropdown
-            data={projectsItem}
-            name="projectId"
-            labelText="Select a project"
-            path="name"
-            onChange={onChange}
-          ></Dropdown>
-          <Dropdown
-            data={tasksItem}
-            name="tasks"
-            labelText="Select a task"
-            path="description"
-            onChange={onChangeTasks}
-          ></Dropdown>
-          <div>
-            <table>
-              <tbody>
-                {taskList.map((task, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{task.description}</td>
-                      <td>
-                        <Button handleClick={() => handleDeleteTask(task._id)}>X</Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-          <div>
-            <label>Start Date</label>
-            <input type="date" name="startDate" value={addItem.startDate} onChange={onChange} />
-          </div>
-          <div>
-            <label>End Date</label>
-            <input type="date" name="endDate" value={addItem.endDate} onChange={onChange} />
-          </div>
-          <input type="submit" value="submit" />
-        </form>
-      </div>
-    );
+  if (isLoadingTimesheet) {
+    return <Loading className={styles.loadText}></Loading>;
   }
+
+  return (
+    <div className={styles.container}>
+      <Logo />
+      <div>
+        <h2 className={styles.title}>Add New TimeSheet</h2>
+      </div>
+      <form onSubmit={onSubmit}>
+        <Dropdown
+          data={employeeData}
+          name="employeeId"
+          labelText="Select an employee"
+          path="firstName"
+          onChange={onChange}
+        ></Dropdown>
+        <Dropdown
+          data={projectData}
+          name="projectId"
+          labelText="Select a project"
+          path="name"
+          onChange={onChange}
+        ></Dropdown>
+        <Dropdown
+          data={tasksData}
+          name="tasks"
+          labelText="Select a task"
+          path="description"
+          onChange={onChangeTasks}
+        ></Dropdown>
+        <div>
+          <table>
+            <tbody>
+              {taskList.map((task, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{task.description}</td>
+                    <td>
+                      <Button handleClick={() => handleDeleteTask(task._id)}>X</Button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <label>Start Date</label>
+          <input
+            type="date"
+            name="startDate"
+            value={timesheetInput.startDate}
+            onChange={onChange}
+          />
+        </div>
+        <div>
+          <label>End Date</label>
+          <input type="date" name="endDate" value={timesheetInput.endDate} onChange={onChange} />
+        </div>
+        <Button
+          type={('button', styles.returnTimesheetBtn)}
+          handleClick={() => props.history.goBack()}
+        >
+          Return
+        </Button>
+        <Button type={('submit', styles.timesheetButton)}>Create</Button>
+      </form>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <div>
+          <p>{modalText}</p>
+        </div>
+        <div>
+          <Button
+            type={styles.modalTimesheetBtn}
+            handleClick={() => {
+              if (!showButton && successTimesheet) {
+                setShowButton(true);
+                setSuccessTimesheet(false);
+                props.history.push('/time-sheets');
+              } else {
+                setShowButton(true);
+                setSuccessTimesheet(false);
+                setIsOpen(false);
+              }
+            }}
+          >
+            {showButton && !successTimesheet ? 'Cancel' : 'Ok'}
+          </Button>
+          <Button
+            type={
+              showButton && !successTimesheet
+                ? styles.modalTimesheetBtn
+                : styles.modalTimesheetBtnNone
+            }
+            handleClick={() => {
+              formTimesheet(timesheetInput);
+            }}
+          >
+            Confirm
+          </Button>
+        </div>
+      </Modal>
+    </div>
+  );
 };
-export default TimeSheetsForm;
+export default TimeSheetsFormAdd;

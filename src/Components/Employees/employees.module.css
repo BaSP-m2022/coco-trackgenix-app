@@ -1,5 +1,5 @@
 .container {
-  width: 60%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,6 +15,19 @@
   margin-top: 10px;
 }
 
+.titleTwo {
+  color: #373867;
+  font-size: xx-large;
+  font-weight: 700;
+  text-align: center;
+  margin: 15px;
+}
+
+.logoContainer {
+  margin-bottom: 40px;
+  margin-top: -50px;
+}
+
 .formAdd {
   flex: 1;
   display: flex;
@@ -28,13 +41,14 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .employeeBtnEdit {
   align-self: flex-start;
   width: 130px;
   height: 50px;
-  margin-left: 20px;
+  margin: 20px;
   background: #aace9b;
   border: 1px solid #373867;
   border-radius: 5px;
@@ -48,7 +62,6 @@
 }
 
 .addEmployeeBtn {
-  align-self: center;
   width: 130px;
   height: 50px;
   margin-top: 20px;
@@ -63,8 +76,8 @@
 }
 
 .addEmployeeBtn:hover {
-  background-color: #FFFFFF;
-  border: 1px solid #A5DE93;
+  background-color: #ffffff;
+  border: 1px solid #a5de93;
 }
 
 .returnEmployeeBtn {
@@ -88,7 +101,7 @@
 }
 
 .modalEmployeeBtn {
-  align-self: center;
+  margin: 5px;
   width: 170px;
   height: 50px;
   background: #aace9b;
