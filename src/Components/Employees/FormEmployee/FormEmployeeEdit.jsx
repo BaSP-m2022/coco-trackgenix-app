@@ -136,7 +136,7 @@ const FormEmployeeEdit = (props) => {
   };
 
   if (isLoadingEmployee) {
-    return <Loading className={styles.loadText}></Loading>;
+    return <Loading></Loading>;
   }
 
   return (
