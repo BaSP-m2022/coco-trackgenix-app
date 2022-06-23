@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import styles from './addNew.module.css';
-import Logo from '../SharedComponents/Logo/Logo';
-import Button from '../SharedComponents/Button/Button';
-import Input from '../SharedComponents/Input/Input';
-import Modal from '../SharedComponents/Modal/Modal';
-import Dropdown from '../SharedComponents/Dropdown/Dropdown';
-import Loading from '../SharedComponents/Loading/Loading';
+import styles from 'Components/Projects/addNew.module.css';
+import Logo from 'Components/SharedComponents/Logo/Logo';
+import Button from 'Components/SharedComponents/Button/Button';
+import Input from 'Components/SharedComponents/Input/Input';
+import Modal from 'Components/SharedComponents/Modal/Modal';
+import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
+import Loading from 'Components/SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEmployee } from '../redux/modules/employees/thunks';
-import { putProject, getProjectById } from '../redux/modules/projects/thunks';
+import { getEmployee } from 'Components/redux/modules/employees/thunks';
+import { putProject, getProjectById } from 'Components/redux/modules/projects/thunks';
 
 const EditProject = () => {
   const [modalText, setModalText] = useState('');

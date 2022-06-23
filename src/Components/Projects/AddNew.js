@@ -1,27 +1,96 @@
 import React, { useState, useEffect } from 'react';
-import styles from './addNew.module.css';
-import Logo from '../SharedComponents/Logo/Logo';
-import Button from '../SharedComponents/Button/Button';
-import Input from '../SharedComponents/Input/Input';
-import Modal from '../SharedComponents/Modal/Modal';
-import Dropdown from '../SharedComponents/Dropdown/Dropdown';
-import Loading from '../SharedComponents/Loading/Loading';
+import styles from 'Components/Projects/addNew.module.css';
+import Logo from 'Components/SharedComponents/Logo/Logo';
+import Button from 'Components/SharedComponents/Button/Button';
+import Input from 'Components/SharedComponents/Input/Input';
+import Modal from 'Components/SharedComponents/Modal/Modal';
+import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
+import Loading from 'Components/SharedComponents/Loading/Loading';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEmployee } from '../redux/modules/employees/thunks';
-import { postProject } from '../redux/modules/projects/thunks';
+import { getEmployee } from 'Components/redux/modules/employees/thunks';
+import { postProject } from 'Components/redux/modules/projects/thunks';
 import Joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
 
+const projectSchema = Joi.object({
+  name: Joi.string()
+    .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
+    .min(3)
+    .max(50)
+    .required()
+    .messages({
+      'string.min': 'Must contain at least 3 letters',
+      'string.max': 'Must contain a maximum of 50 letters',
+      'string.required': 'Name is required!',
+      'string.empty': 'Name is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single white space'
+    }),
+  description: Joi.string().min(10).max(130).required().messages({
+    'string.min': 'Must contain at least 10 characters',
+    'string.max': 'Must contain a maximum of 130 characters',
+    'string.required': 'Description is required!',
+    'string.empty': 'Description is not allowed to be empty'
+  }),
+  startDate: Joi.date().required().messages({
+    'date.base': 'Date is not valid',
+    'date.empty': 'This field is required'
+  }),
+  endDate: Joi.date().required().greater(Joi.ref('startDate')).messages({
+    'date.base': 'Date is not valid',
+    'date.greater': 'End date must be after the start date',
+    'date.empty': 'This field is required'
+  }),
+  clientName: Joi.string()
+    .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
+    .min(3)
+    .max(50)
+    .required()
+    .messages({
+      'string.min': 'Must contain at least 3 letters',
+      'string.max': 'Must contain a maximum of 50 letters',
+      'string.required': 'Client is required!',
+      'string.empty': 'Client is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single white space'
+    }),
+  active: Joi.boolean().required().messages({
+    'boolean.base': 'Must indicate if the project is active'
+  }),
+  employees: Joi.array().required(),
+  admins: Joi.string()
+    .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
+    .min(3)
+    .max(50)
+    .required()
+    .messages({
+      'string.min': 'Must contain at least 3 letters',
+      'string.max': 'Must contain a maximum of 50 letters',
+      'string.required': 'Admin is required!',
+      'string.empty': 'Admin is not allowed to be empty',
+      'string.pattern.base':
+        'Must contain only letters and words can only be separated by a single white space'
+    })
+});
+
 const AddNew = () => {
+  const [isOpen, setIsOpenConfirm] = useState(false);
+  const [isOpenFail, setIsOpenFail] = useState(false);
+  const [isOpenError, setIsOpenError] = useState(false);
   const [modalText, setModalText] = useState('');
   const [Success, setSuccess] = useState('');
   const isLoading = useSelector((state) => state.project.isLoading);
   const dispatch = useDispatch();
   const employeeData = useSelector((state) => state.employee.list);
-  const [isOpen, setIsOpenConfirm] = useState(false);
-  const [isOpenFail, setIsOpenFail] = useState(false);
-  const [isOpenError, setIsOpenError] = useState(false);
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    watch
+  } = useForm({ mode: 'onChange', resolver: joiResolver(projectSchema) });
+
   const [projectInput, setProjectInput] = useState({
     name: '',
     description: '',
@@ -32,9 +101,6 @@ const AddNew = () => {
     employees: [],
     admins: ''
   });
-
-  const projectSchema = Joi.object({});
-
   const [project, setProject] = useState({
     name: '',
     description: '',
@@ -45,6 +111,15 @@ const AddNew = () => {
     employees: [],
     admins: ''
   });
+
+  console.log(watch('name'));
+  console.log(watch('description'));
+  console.log(watch('startDate'));
+  console.log(watch('endDate'));
+  console.log(watch('ClientName'));
+  console.log(watch('active'));
+  console.log(watch('employees'));
+  console.log(watch('admins'));
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,12 +134,6 @@ const AddNew = () => {
       [name]: value
     });
   };
-
-  const {
-    handleSubmit,
-    register,
-    formState: { errors }
-  } = useForm({ mode: 'onChange', resolver: joiResolver(projectSchema) });
 
   const addMembers = (item) => {
     let membersData = [];
@@ -114,25 +183,27 @@ const AddNew = () => {
     <div className={styles.container}>
       <Logo />
       <h2>New Project</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Input
             labelText="Name"
             name="name"
+            type="string"
             placeholder="Name"
-            type="text"
-            error={errors.name?.message}
             register={register}
+            error={errors.name?.message}
+            onChange={handleChange}
           ></Input>
         </div>
         <div>
           <Input
             labelText="Description"
             name="description"
+            type="string"
             placeholder="write a description here"
-            type="text"
-            error={errors.description?.message}
             register={register}
+            error={errors.description?.message}
+            onChange={handleChange}
           ></Input>
         </div>
         <div>
@@ -141,8 +212,10 @@ const AddNew = () => {
             type="date"
             name="startDate"
             placeholder="DD/MM/YYYY"
+            value={project.startDate.slice(0, 10)}
             register={register}
             error={errors.startDate?.message}
+            onChange={handleChange}
           ></Input>
         </div>
         <div>
@@ -151,8 +224,9 @@ const AddNew = () => {
             type="date"
             name="endDate"
             placeholder="DD/MM/YYYY"
-            error={errors.endDate?.message}
             register={register}
+            error={errors.endDate?.message}
+            onChange={handleChange}
           ></Input>
         </div>
         <div>
@@ -163,6 +237,7 @@ const AddNew = () => {
             placeholder="enter a client here"
             register={register}
             error={errors.clientName?.message}
+            onChange={handleChange}
           ></Input>
         </div>
         <Dropdown
@@ -179,16 +254,17 @@ const AddNew = () => {
           type="text"
           labelText="Select an employee"
           path="firstName"
+          register={register}
+          error={errors.active?.message}
           onChange={handleChange}
         ></Dropdown>
         <div>
           <Input
             labelText="Administrator"
             name="admins"
-            type="text"
+            placeholder="enter an admin here"
             register={register}
             error={errors.admins?.message}
-            placeholder="enter an admin here"
           ></Input>
         </div>
       </form>
@@ -210,6 +286,7 @@ const AddNew = () => {
             } else {
               confirmModal(e);
             }
+            console.log(project);
           }}
         >
           New Project
