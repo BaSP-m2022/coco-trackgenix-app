@@ -58,7 +58,7 @@ const projectSchema = Joi.object({
   active: Joi.boolean().required().messages({
     'boolean.base': 'Must indicate if the project is active'
   }),
-  employees: Joi.array().required(),
+  employees: Joi.required(),
   admins: Joi.string()
     .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
     .min(3)
@@ -86,18 +86,8 @@ const AddNew = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
-    watch
+    formState: { errors }
   } = useForm({ mode: 'onChange', resolver: joiResolver(projectSchema) });
-
-  // console.log(watch('name'));
-  // console.log(watch('description'));
-  // console.log(watch('startDate'));
-  // console.log(watch('endDate'));
-  // console.log(watch('clientName'));
-  // console.log(watch('active'));
-  // console.log(watch('employees'));
-  // console.log(watch('admins'));
 
   const [projectInput, setProjectInput] = useState({
     name: '',
@@ -110,35 +100,16 @@ const AddNew = () => {
     admins: ''
   });
 
-  // const addMembers = (item) => {
-  //   let membersData = [];
-  //   if (typeof item !== 'string' || !item) {
-  //     membersData = null;
-  //   } else {
-  //     const splitted = item.split(',');
-  //     if (splitted.length === 0) {
-  //       membersData = '';
-  //     } else if (splitted.length === 1) {
-  //       membersData.push({ name: `${splitted}` });
-  //     } else {
-  //       for (let i = 0; i < splitted.length; i++) {
-  //         membersData.push({ name: `${splitted[i]}` });
-  //       }
-  //     }
-  //   }
-  //   return membersData;
-  // };
-
-  const onSubmit = () => {
+  const onSubmit = (data) => {
     setProjectInput({
-      name: watch('name'),
-      description: watch('description'),
-      startDate: watch('startDate'),
-      endDate: watch('endDate'),
-      clientName: watch('clientName'),
-      active: watch('active'),
-      employees: [watch('employees')],
-      admins: watch('admins')
+      name: data.name,
+      description: data.description,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      clientName: data.clientName,
+      active: data.active,
+      employees: [data.employees],
+      admins: data.admins
     });
     setIsOpenConfirm(true);
   };
@@ -224,7 +195,7 @@ const AddNew = () => {
           labelText="Select an employee"
           path="firstName"
           register={register}
-          error={errors.active?.message}
+          error={errors.employees?.message}
         ></Dropdown>
         <div>
           <Input
@@ -235,15 +206,12 @@ const AddNew = () => {
             error={errors.admins?.message}
           ></Input>
         </div>
+        <Button type={('submit', styles.modalProjectBtn)}>New Project</Button>
+        <Button type={styles.backBtn} handleClick={() => (window.location.href = '/projects')}>
+          Cancel
+        </Button>
       </form>
       <div>
-        <Button
-          type={('submit', styles.modalProjectBtn)}
-          name="project-submit"
-          handleClick={() => onSubmit()}
-        >
-          New Project
-        </Button>
         <Modal showModal={isOpen} closeModal={() => setIsOpenConfirm(false)}>
           <h2>Project Creation</h2>
           <div>
@@ -285,9 +253,6 @@ const AddNew = () => {
             Ok
           </Button>
         </Modal>
-        <Button type={styles.backBtn} handleClick={() => (window.location.href = '/projects')}>
-          Cancel
-        </Button>
       </div>
     </div>
   );
