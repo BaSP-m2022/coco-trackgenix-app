@@ -115,7 +115,6 @@ const AddNew = () => {
   };
 
   const projectForm = (e) => {
-    console.log(e);
     dispatch(postProject(e, setSuccess, setModalText));
     setIsOpenError(true);
     setIsOpenConfirm(false);
