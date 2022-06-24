@@ -113,38 +113,20 @@ const EditProject = () => {
     dispatch(getProjectById(id));
   }, []);
 
-  // const [project, setProject] = useState({
-  //   name: '',
-  //   description: '',
-  //   startDate: '',
-  //   endDate: '',
-  //   clientName: '',
-  //   active: false,
-  //   employees: [],
-  //   admins: ''
-  // });
-
-  // useEffect(() => {
-  //   if (Object.keys(projectData).length) {
-  //     setProject(projectData);
-  //   }
-  // }, [projectData]);
-
   useEffect(() => {
-    console.log('employees', projectData.employees);
     if (Object.keys(projectData).length) {
       reset({
         name: projectData.name,
         description: projectData.description,
-        startDate: projectData.startDate,
-        endDate: projectData.endDate,
+        startDate: projectData.startDate.slice(0, 10),
+        endDate: projectData.endDate.slice(0, 10),
         clientName: projectData.clientName,
         active: projectData.active,
-        employees: projectData.employees,
+        employees: projectData.employees[0]._id,
         admins: projectData.admins
       });
     }
-  }, [projectData]);
+  }, [projectData, employeeData]);
 
   const projectForm = () => {
     dispatch(putProject(projectInput, id, setSuccess, setModalText));
@@ -152,7 +134,7 @@ const EditProject = () => {
     setIsOpenError(true);
   };
 
-  function onSubmit(data) {
+  const onSubmit = (data) => {
     setProjectInput({
       name: data.name,
       description: data.description,
@@ -163,11 +145,8 @@ const EditProject = () => {
       employees: [data.employees],
       admins: data.admins
     });
-  }
-  // const confirmModal = (e) => {
-  //   setIsOpenConfirm(true);
-  //   handleSubmit(e);
-  // };
+    setIsOpenConfirm(true);
+  };
 
   if (isLoading) {
     return <Loading className={styles.loading}></Loading>;
@@ -234,7 +213,6 @@ const EditProject = () => {
           error={errors.active?.message}
         ></Dropdown>
         <Dropdown
-          // value={projectData.employees}
           data={employeeData}
           name="employees"
           labelText="Select an employee"
