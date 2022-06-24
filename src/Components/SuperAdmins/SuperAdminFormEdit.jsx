@@ -120,7 +120,7 @@ const EditSuperAdmin = (props) => {
   }, []);
 
   if (isLoading) {
-    return <Loading className={styles.loadText}></Loading>;
+    return <Loading></Loading>;
   }
 
   const handleButton = () => {

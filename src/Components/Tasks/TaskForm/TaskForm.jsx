@@ -59,7 +59,7 @@ const TaskForm = (props) => {
 
   if (isFetching) {
     console.error(isOpen);
-    return <Loading className={styles.loadText}></Loading>;
+    return <Loading></Loading>;
   }
 
   return (

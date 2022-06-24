@@ -23,7 +23,7 @@ const SuperAdmin = (props) => {
     props.history.push(`/super-admins/Form?=${_id}`);
   };
   if (isLoading) {
-    return <Loading className={styles.loadText}></Loading>;
+    return <Loading></Loading>;
   }
 
   return (
