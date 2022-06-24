@@ -60,6 +60,13 @@ function Navigation() {
           >
             Task
           </button>
+          <button
+            onClick={() => {
+              history.push('/login');
+            }}
+          >
+            Log in
+          </button>
         </div>
       </div>
     </section>

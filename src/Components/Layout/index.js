@@ -11,6 +11,7 @@ import AdminForm from 'Components/Admins/AdminForm/AdminForm';
 import SuperAdminForm from 'Components/SuperAdmins/SuperAdminForm';
 import FormEmployee from 'Components/Employees/FormEmployee/FormEmployee';
 import TaskForm from 'Components/Tasks/TaskForm/TaskForm';
+import Login from 'Components/Auth/Login/Login';
 
 const Admins = lazy(() => import('Components/Admins/index'));
 const AdminFormEdit = lazy(() => import('Components/Admins/AdminForm/AdminFormEdit'));
@@ -65,6 +66,7 @@ function Layout() {
             <Route path="/tasks/add" component={TaskForm} />
             <Route path="/tasks/edit" component={TaskFormEdit} />
             <Route path="/nav" component={Navigation} />
+            <Route exact path="/login" component={Login} />
             <Route exact path="/" component={Home}>
               <Redirect to="/home" />
             </Route>
