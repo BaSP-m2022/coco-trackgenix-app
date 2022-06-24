@@ -86,8 +86,18 @@ const AddNew = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors }
+    formState: { errors },
+    watch
   } = useForm({ mode: 'onChange', resolver: joiResolver(projectSchema) });
+
+  // console.log(watch('name'));
+  // console.log(watch('description'));
+  // console.log(watch('startDate'));
+  // console.log(watch('endDate'));
+  // console.log(watch('clientName'));
+  // console.log(watch('active'));
+  // console.log(watch('employees'));
+  // console.log(watch('admins'));
 
   const [projectInput, setProjectInput] = useState({
     name: '',
@@ -100,36 +110,35 @@ const AddNew = () => {
     admins: ''
   });
 
-  const addMembers = (item) => {
-    let membersData = [];
-    if (typeof item !== 'string' || !item) {
-      membersData = null;
-    } else {
-      const splitted = item.split(',');
-      if (splitted.length === 0) {
-        membersData = '';
-      } else if (splitted.length === 1) {
-        membersData.push({ name: `${splitted}` });
-      } else {
-        for (let i = 0; i < splitted.length; i++) {
-          membersData.push({ name: `${splitted[i]}` });
-        }
-      }
-    }
-    return membersData;
-  };
+  // const addMembers = (item) => {
+  //   let membersData = [];
+  //   if (typeof item !== 'string' || !item) {
+  //     membersData = null;
+  //   } else {
+  //     const splitted = item.split(',');
+  //     if (splitted.length === 0) {
+  //       membersData = '';
+  //     } else if (splitted.length === 1) {
+  //       membersData.push({ name: `${splitted}` });
+  //     } else {
+  //       for (let i = 0; i < splitted.length; i++) {
+  //         membersData.push({ name: `${splitted[i]}` });
+  //       }
+  //     }
+  //   }
+  //   return membersData;
+  // };
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = () => {
     setProjectInput({
-      name: data.name,
-      description: data.description,
-      startDate: data.startDate,
-      endDate: data.endDate,
-      clientName: data.clientName,
-      active: data.active,
-      employees: addMembers(data.employees),
-      admins: data.admins
+      name: watch('name'),
+      description: watch('description'),
+      startDate: watch('startDate'),
+      endDate: watch('endDate'),
+      clientName: watch('clientName'),
+      active: watch('active'),
+      employees: [watch('employees')],
+      admins: watch('admins')
     });
     setIsOpenConfirm(true);
   };
@@ -228,7 +237,11 @@ const AddNew = () => {
         </div>
       </form>
       <div>
-        <Button type={('submit', styles.modalProjectBtn)} name="project-submit">
+        <Button
+          type={('submit', styles.modalProjectBtn)}
+          name="project-submit"
+          handleClick={() => onSubmit()}
+        >
           New Project
         </Button>
         <Modal showModal={isOpen} closeModal={() => setIsOpenConfirm(false)}>
