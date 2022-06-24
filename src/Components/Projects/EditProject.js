@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from 'Components/Projects/addNew.module.css';
+import styles from 'Components/Projects/editProject.module.css';
 import Logo from 'Components/SharedComponents/Logo/Logo';
 import Button from 'Components/SharedComponents/Button/Button';
 import Input from 'Components/SharedComponents/Input/Input';
@@ -157,82 +157,78 @@ const EditProject = () => {
       <h2>Edit Project</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <Input
-            labelText="Name"
-            name="name"
-            type="string"
-            placeholder="Name"
-            register={register}
-            error={errors.name?.message}
-          ></Input>
+          <div>
+            <Input
+              labelText="Name"
+              name="name"
+              type="string"
+              placeholder="Name"
+              register={register}
+              error={errors.name?.message}
+            ></Input>
+            <Input
+              labelText="Description"
+              name="description"
+              type="string"
+              placeholder="write a description here"
+              register={register}
+              error={errors.description?.message}
+            ></Input>
+            <Input
+              labelText="Start Date"
+              type="date"
+              name="startDate"
+              placeholder="DD/MM/YYYY"
+              register={register}
+              error={errors.startDate?.message}
+            ></Input>
+            <Input
+              labelText="End Date"
+              type="date"
+              name="endDate"
+              placeholder="DD/MM/YYYY"
+              register={register}
+              error={errors.endDate?.message}
+            ></Input>
+          </div>
+          <div>
+            <Input
+              labelText="Client Name"
+              type="text"
+              name="clientName"
+              placeholder="enter a client here"
+              register={register}
+              error={errors.clientName?.message}
+            ></Input>
+            <Dropdown
+              name="active"
+              labelText="Set if is active"
+              register={register}
+              error={errors.active?.message}
+            ></Dropdown>
+            <Dropdown
+              data={employeeData}
+              name="employees"
+              labelText="Select an employee"
+              path="firstName"
+              register={register}
+              error={errors.employees?.message}
+            ></Dropdown>
+            <Input
+              labelText="Administrator"
+              name="admins"
+              placeholder="enter an admin here"
+              register={register}
+              error={errors.admins?.message}
+            ></Input>
+          </div>
         </div>
         <div>
-          <Input
-            labelText="Description"
-            name="description"
-            type="string"
-            placeholder="write a description here"
-            register={register}
-            error={errors.description?.message}
-          ></Input>
+          <Button type={('submit', styles.modalProjectBtn)}>Edit Project</Button>
+          <Button type={styles.backBtn} handleClick={() => (window.location.href = '/projects')}>
+            Cancel
+          </Button>
         </div>
-        <div>
-          <Input
-            labelText="Start Date"
-            type="date"
-            name="startDate"
-            placeholder="DD/MM/YYYY"
-            register={register}
-            error={errors.startDate?.message}
-          ></Input>
-        </div>
-        <div>
-          <Input
-            labelText="End Date"
-            type="date"
-            name="endDate"
-            placeholder="DD/MM/YYYY"
-            register={register}
-            error={errors.endDate?.message}
-          ></Input>
-        </div>
-        <div>
-          <Input
-            labelText="Client Name"
-            type="text"
-            name="clientName"
-            placeholder="enter a client here"
-            register={register}
-            error={errors.clientName?.message}
-          ></Input>
-        </div>
-        <Dropdown
-          name="active"
-          labelText="Set if is active"
-          register={register}
-          error={errors.active?.message}
-        ></Dropdown>
-        <Dropdown
-          data={employeeData}
-          name="employees"
-          labelText="Select an employee"
-          path="firstName"
-          register={register}
-          error={errors.employees?.message}
-        ></Dropdown>
-        <div>
-          <Input
-            labelText="Administrator"
-            name="admins"
-            placeholder="enter an admin here"
-            register={register}
-            error={errors.admins?.message}
-          ></Input>
-        </div>
-        <Button type={('submit', styles.modalProjectBtn)}>Edit Project</Button>
-        <Button type={styles.backBtn} handleClick={() => (window.location.href = '/projects')}>
-          Cancel
-        </Button>
       </form>
       <div>
         <Modal showModal={isOpen} closeModal={() => setIsOpenConfirm(false)}>
@@ -240,15 +236,7 @@ const EditProject = () => {
           <div>
             <p>Do you really want to edit this project?</p>
           </div>
-          <div>
-            <Button
-              type={styles.modalProjectBtn}
-              handleClick={() => {
-                setIsOpenConfirm(false);
-              }}
-            >
-              Cancel
-            </Button>
+          <div className={styles.buttonsDiv}>
             <Button
               type={styles.modalProjectBtn}
               handleClick={() => {
@@ -256,6 +244,14 @@ const EditProject = () => {
               }}
             >
               Confirm
+            </Button>
+            <Button
+              type={styles.modalProjectBtn}
+              handleClick={() => {
+                setIsOpenConfirm(false);
+              }}
+            >
+              Cancel
             </Button>
           </div>
         </Modal>

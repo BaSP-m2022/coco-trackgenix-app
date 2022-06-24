@@ -1,20 +1,19 @@
-form > div:nth-child(9) > input{
-    width: 140px;
-    padding: 10px 15px;
-    border: 0px;
-    background-color: rgb(170, 206, 155);
-    border-radius: 5px;
-    font-family: Roboto, Arial, Helvetica, sans-serif;
-    font-weight: 600;
-    color: rgb(55, 56, 103);
+form > div:nth-child(1){
+    display: flex;
+    flex-direction: row;
 }
 
-form > div:nth-child(9){
+form > div:nth-child(2){
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100px;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 70%;
+    margin: auto;
 }
+
+form > div > div{
+    margin: 0px 20px;
+  }
 
 .container{
     display: flex;
