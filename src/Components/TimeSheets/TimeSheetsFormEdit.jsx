@@ -1,16 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import styles from './time-sheets.module.css';
-import Logo from '../SharedComponents/Logo/Logo';
-import Button from '../SharedComponents/Button/Button';
-import Modal from '../SharedComponents/Modal/Modal';
-import Dropdown from '../SharedComponents/Dropdown/Dropdown';
-import Loading from '../SharedComponents/Loading/Loading';
+import Logo from 'Components/SharedComponents/Logo/Logo';
+import Button from 'Components/SharedComponents/Button/Button';
+import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
+import Loading from 'Components/SharedComponents/Loading/Loading';
+import Modal from 'Components/SharedComponents/Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEmployee } from '../redux/modules/employees/thunks';
-import { getProject } from '../redux/modules/projects/thunks';
-import { getTasks } from '../redux/modules/tasks/thunks';
+import { getEmployee } from 'Components/redux/modules/employees/thunks';
+import { getProject } from 'Components/redux/modules/projects/thunks';
+import { getTasks } from 'Components/redux/modules/tasks/thunks';
 import { editTimesheet, getTimesheetById } from '../redux/modules/timeSheets/thunks';
+// import joi from 'joi';
+// import { useForm } from 'react-hook-form';
+// import { joiResolver } from '@hookform/resolvers/joi';
 
+// const Schema = joi.Object({
+//   tasks: joi.string().items(joi.string().lowercase()).messages({
+//     'string.empty': 'Task cannot be empty'
+//   }),
+//   employeeId: joi.string().lowercase().messages({
+//     'string.empty': 'Employee cannot be empty'
+//   }),
+//   projectId: joi.string().lowercase().messages({
+//     'string.empty': 'Project cannot be empty'
+//   }),
+//   startDate: joi.date().messages({
+//     'date.base': 'Date is not valid',
+//     'date.empty': 'This field is required'
+//   }),
+//   endDate: joi.date().greater(joi.ref('startDate')).messages({
+//     'date.base': 'Date is not valid',
+//     'date.greater': 'End date must be after the start date',
+//     'date.empty': 'This field is required'
+//   })
+// });
 const EditFormTimesheet = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState('');
@@ -22,6 +45,13 @@ const EditFormTimesheet = (props) => {
 
   const params = window.location.search;
   let idParam = params.substring(2);
+
+  // const {
+  //   handleSubmit,
+  //   register,
+  //   formState: { errors },
+  //   reset
+  // } = useForm({ mode: 'onChange', resolver: joiResolver(Schema) });
 
   const [editItem, setItem] = useState({});
   const employeeData = useSelector((state) => state.employee.list);
@@ -99,76 +129,84 @@ const EditFormTimesheet = (props) => {
         <h2 className={styles.title}>Edit TimeSheet</h2>
       </div>
       <form onSubmit={onSubmit}>
-        <Dropdown
-          data={employeeData}
-          name="employeeId"
-          path="firstName"
-          labelText="Employee"
-          value={employeeId && employeeId.firstName}
-          onChange={(e) => {
-            setEmployeeId(e.target.value);
-          }}
-        ></Dropdown>
-        <Dropdown
-          data={projectData}
-          name="projectId"
-          labelText="Project"
-          value={projectId && projectId.name}
-          path="name"
-          onChange={(e) => {
-            setProjectId(e.target.value);
-          }}
-        ></Dropdown>
-        <Dropdown
-          data={tasksData}
-          name="tasks"
-          labelText="Tasks"
-          value={taskValue.description}
-          path="description"
-          onChange={(e) => {
-            onChangeTasks;
-            setTaskValue(e.target.value);
-          }}
-        ></Dropdown>
-        <div>
-          <table>
-            <tbody>
-              {taskList.map((task, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{task.description}</td>
-                    <td>
-                      <Button handleClick={() => handleDeleteTask(task._id)}>X</Button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <label>Start Date</label>
-          <input type="date" name="startDate" value={startDate.slice(0, 10)} disabled />
-        </div>
-        <div>
-          <label>End Date</label>
-          <input
-            type="date"
-            name="endDate"
-            value={endDate.slice(0, 10)}
-            onChange={(e) => {
-              setEndDate(e.target.value);
-            }}
-          />
+        <div className={styles.mainContainer}>
+          <div className={styles.col}>
+            <Dropdown
+              data={employeeData}
+              name="employeeId"
+              path="firstName"
+              labelText="Employee"
+              value={employeeId && employeeId.firstName}
+              onChange={(e) => {
+                setEmployeeId(e.target.value);
+              }}
+            ></Dropdown>
+            <Dropdown
+              data={projectData}
+              name="projectId"
+              labelText="Project"
+              value={projectId && projectId.name}
+              path="name"
+              onChange={(e) => {
+                setProjectId(e.target.value);
+              }}
+            ></Dropdown>
+            <Dropdown
+              data={tasksData}
+              name="tasks"
+              labelText="Tasks"
+              value={taskValue.description}
+              path="description"
+              onChange={(e) => {
+                onChangeTasks;
+                setTaskValue(e.target.value);
+              }}
+            ></Dropdown>
+          </div>
+          <div>
+            <table>
+              <tbody>
+                {taskList.map((task, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{task.description}</td>
+                      <td>
+                        <Button handleClick={() => handleDeleteTask(task._id)}>X</Button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <div className={styles.col}>
+            <div>
+              <label>Start Date</label>
+              <input type="date" name="startDate" value={startDate.slice(0, 10)} disabled />
+            </div>
+            <div>
+              <label>End Date</label>
+              <input
+                type="date"
+                name="endDate"
+                value={endDate.slice(0, 10)}
+                onChange={(e) => {
+                  setEndDate(e.target.value);
+                }}
+              />
+            </div>
+          </div>
         </div>
         <div className={styles.buttonsContainer}>
-          <Button
-            type={('button', styles.returnTimesheetBtn)}
-            handleClick={() => props.history.goBack()}
-          >
-            Return
-          </Button>
-          <Button type={('submit', styles.timesheetButton)}>Edit</Button>
+          <div className={styles.btnContainer}>
+            <Button type={('submit', styles.timesheetButton)}>Edit</Button>
+            <Button
+              type={('button', styles.returnTimesheetBtn)}
+              handleClick={() => props.history.goBack()}
+            >
+              Return
+            </Button>
+          </div>
         </div>
       </form>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
@@ -176,22 +214,6 @@ const EditFormTimesheet = (props) => {
           <p>{modalText}</p>
         </div>
         <div>
-          <Button
-            type={styles.modalTimesheetBtn}
-            handleClick={() => {
-              if (!showButton && successTimesheet) {
-                setShowButton(true);
-                setSuccessTimesheet(false);
-                props.history.push('/time-sheets');
-              } else {
-                setShowButton(true);
-                setSuccessTimesheet(false);
-                setIsOpen(false);
-              }
-            }}
-          >
-            {showButton && !successTimesheet ? 'Cancel' : 'Ok'}
-          </Button>
           <Button
             type={
               showButton && !successTimesheet
@@ -210,6 +232,22 @@ const EditFormTimesheet = (props) => {
             }}
           >
             Confirm
+          </Button>
+          <Button
+            type={styles.modalTimesheetBtn}
+            handleClick={() => {
+              if (!showButton && successTimesheet) {
+                setShowButton(true);
+                setSuccessTimesheet(false);
+                props.history.push('/time-sheets');
+              } else {
+                setShowButton(true);
+                setSuccessTimesheet(false);
+                setIsOpen(false);
+              }
+            }}
+          >
+            {showButton && !successTimesheet ? 'Cancel' : 'Ok'}
           </Button>
         </div>
       </Modal>
