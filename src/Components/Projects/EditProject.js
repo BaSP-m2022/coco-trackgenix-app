@@ -33,8 +33,9 @@ const projectSchema = Joi.object({
     'string.required': 'Description is required!',
     'string.empty': 'Description is not allowed to be empty'
   }),
-  startDate: Joi.date().required().messages({
+  startDate: Joi.date().required().min('now').messages({
     'date.base': 'Date is not valid',
+    'date.min': 'Date must be greater than now',
     'date.empty': 'This field is required'
   }),
   endDate: Joi.date().required().greater(Joi.ref('startDate')).messages({
@@ -79,7 +80,7 @@ const projectSchema = Joi.object({
     })
 });
 
-const EditProject = () => {
+const EditProject = (props) => {
   const [modalText, setModalText] = useState('');
   const [Success, setSuccess] = useState('');
   const isLoading = useSelector((state) => state.project.isLoading);
@@ -230,7 +231,7 @@ const EditProject = () => {
         </div>
         <div>
           <Button type={('submit', styles.modalProjectBtn)}>Edit Project</Button>
-          <Button type={styles.backBtn} handleClick={() => (window.location.href = '/projects')}>
+          <Button type={styles.backBtn} handleClick={() => (props.history.push = '/projects')}>
             Cancel
           </Button>
         </div>
@@ -267,7 +268,7 @@ const EditProject = () => {
             handleClick={() => {
               if (Success) {
                 setSuccess(false);
-                window.location.href = '/projects';
+                props.history.push = '/projects';
               } else {
                 setSuccess(false);
                 setIsOpenError(false);

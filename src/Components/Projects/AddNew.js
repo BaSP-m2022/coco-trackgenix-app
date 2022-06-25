@@ -33,8 +33,9 @@ const projectSchema = Joi.object({
     'string.required': 'Description is required!',
     'string.empty': 'Description is not allowed to be empty'
   }),
-  startDate: Joi.date().required().messages({
+  startDate: Joi.date().required().min('now').messages({
     'date.base': 'Date is not valid',
+    'date.min': 'Date must be greater than now',
     'date.empty': 'This field is required'
   }),
   endDate: Joi.date().required().greater(Joi.ref('startDate')).messages({
@@ -79,7 +80,7 @@ const projectSchema = Joi.object({
     })
 });
 
-const AddNew = () => {
+const AddNew = (props) => {
   const [isOpen, setIsOpenConfirm] = useState(false);
   const [isOpenError, setIsOpenError] = useState(false);
   const [modalText, setModalText] = useState('');
@@ -209,7 +210,7 @@ const AddNew = () => {
           <Button type={('submit', styles.projectButton)}>Confirm</Button>
           <Button
             type={styles.returnProjectBtn}
-            handleClick={() => (window.location.href = '/projects')}
+            handleClick={() => (props.history.push = '/projects')}
           >
             Cancel
           </Button>
@@ -246,7 +247,7 @@ const AddNew = () => {
           handleClick={() => {
             if (Success) {
               setSuccess(false);
-              window.location.href = '/projects';
+              props.history.push = '/projects';
             } else {
               setSuccess(false);
               setIsOpenError(false);
