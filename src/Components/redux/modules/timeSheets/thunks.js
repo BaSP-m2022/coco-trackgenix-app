@@ -80,6 +80,8 @@ export const addTimesheet = (e, setModalText, setSuccessTimesheet, setShowButton
         body: JSON.stringify(e)
       });
       const res = await response.json();
+      console.log(res.data);
+      console.log(e);
       if (res.error === true) {
         setShowButton(false);
         setSuccessTimesheet(false);

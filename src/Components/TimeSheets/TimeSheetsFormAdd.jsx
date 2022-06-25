@@ -11,25 +11,34 @@ import { addTimesheet } from 'Components/redux/modules/timeSheets/thunks';
 import { getEmployee } from 'Components/redux/modules/employees/thunks';
 import { getProject } from 'Components/redux/modules/projects/thunks';
 import { getTasks } from 'Components/redux/modules/tasks/thunks';
-import joi from 'joi';
+import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 
-const Schema = joi.object({
-  tasks: joi.array().required().messages({
-    'array.base': 'Task is a required field'
-  }),
-  employeeId: joi.string().required().messages({
-    'string.base': 'Employee is a required field'
-  }),
-  projectId: joi.string().required().messages({
-    'string.base': 'Project is a required field'
-  }),
-  startDate: joi.date().required().messages({
+const timesheetSchema = Joi.object({
+  employeeId: Joi.string()
+    .required()
+    .regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)
+    .messages({
+      'string.pattern.base': 'Select a valid employee'
+    }),
+  projectId: Joi.string()
+    .required()
+    .regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)
+    .messages({
+      'string.pattern.base': 'Select a valid project'
+    }),
+  tasks: Joi.string()
+    .required()
+    .regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)
+    .messages({
+      'string.pattern.base': 'Select a valid task'
+    }),
+  startDate: Joi.date().required().messages({
     'date.base': 'Date is not valid',
     'date.empty': 'This field is required'
   }),
-  endDate: joi.date().required().greater(joi.ref('startDate')).messages({
+  endDate: Joi.date().required().greater(Joi.ref('startDate')).messages({
     'date.base': 'Date is not valid',
     'date.greater': 'End date must be after the start date',
     'date.empty': 'This field is required'
@@ -51,21 +60,16 @@ const TimeSheetsFormAdd = (props) => {
     handleSubmit,
     register,
     formState: { errors }
-  } = useForm({ mode: 'onChange', resolver: joiResolver(Schema) });
+  } = useForm({ mode: 'onChange', resolver: joiResolver(timesheetSchema) });
 
-  const [addItem, setItem] = useState({});
   const employeeData = useSelector((state) => state.employee.list);
   const tasksData = useSelector((state) => state.tasks.list);
   const projectData = useSelector((state) => state.project.list);
-  const [taskList, setTaskList] = useState([]);
   const [showButton, setShowButton] = useState(true);
   const [successTimesheet, setSuccessTimesheet] = useState(false);
 
   const dispatch = useDispatch();
 
-  const handleDeleteTask = (id) => {
-    setTaskList([...taskList.filter((task) => task._id !== id)]);
-  };
   const isLoadingTimesheet = useSelector((state) => state.timesheet.isLoading);
 
   useEffect(() => {
@@ -74,48 +78,26 @@ const TimeSheetsFormAdd = (props) => {
     dispatch(getTasks());
   }, []);
 
-  useEffect(() => {
-    if (taskList.length) {
-      setItem({
-        ...addItem,
-        tasks: taskList.map((task) => {
-          return task._id;
-        })
-      });
-    }
-  }, [taskList]);
-
   const formTimesheet = (e) => {
     setIsOpen(true);
-    setTimesheetInput({
-      employeeId: '',
-      projectId: '',
-      tasks: [],
-      startDate: '',
-      endDate: ''
-    });
     dispatch(addTimesheet(e, setModalText, setSuccessTimesheet, setShowButton));
   };
 
-  const onChangeTasks = (e) => {
-    if (taskList.find((task) => task._id === e.target.value) === undefined) {
-      setTaskList([...taskList, tasksData.find((task) => task._id === e.target.value)]);
-    } else {
-      alert('This task has already been selected');
-    }
-  };
-
-  const onSubmit = () => {
+  const onSubmit = (data) => {
     setTimesheetInput({
       ...timesheetInput,
-      tasks: taskList.map((task) => task._id)
+      employeeId: data.employeeId,
+      projectId: data.projectId,
+      tasks: [data.tasks],
+      startDate: data.startDate.toString(),
+      endDate: data.endDate.toString()
     });
     setModalText('Are you sure you want to create an new timesheet ?');
     setIsOpen(true);
   };
 
   if (isLoadingTimesheet) {
-    return <Loading className={styles.loadText}></Loading>;
+    return <Loading></Loading>;
   }
 
   return (
@@ -148,26 +130,9 @@ const TimeSheetsFormAdd = (props) => {
               name="tasks"
               labelText="Select a task"
               path="description"
-              onChange={onChangeTasks}
               register={register}
               error={errors.tasks?.message}
             ></Dropdown>
-          </div>
-          <div>
-            <table>
-              <tbody>
-                {taskList.map((task, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{task.description}</td>
-                      <td>
-                        <Button handleClick={() => handleDeleteTask(task._id)}>X</Button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
           </div>
           <div className={styles.col}>
             <div>
@@ -175,7 +140,6 @@ const TimeSheetsFormAdd = (props) => {
               <Input
                 type="date"
                 name="startDate"
-                value={timesheetInput.startDate}
                 register={register}
                 error={errors.startDate?.message}
               />
@@ -185,7 +149,6 @@ const TimeSheetsFormAdd = (props) => {
               <Input
                 type="date"
                 name="endDate"
-                value={timesheetInput.endDate}
                 register={register}
                 error={errors.endDate?.message}
               />
