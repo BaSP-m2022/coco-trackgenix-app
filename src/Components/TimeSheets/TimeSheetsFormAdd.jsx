@@ -34,8 +34,9 @@ const timesheetSchema = Joi.object({
     .messages({
       'string.pattern.base': 'Select a valid task'
     }),
-  startDate: Joi.date().required().messages({
+  startDate: Joi.date().required().min('now').messages({
     'date.base': 'Date is not valid',
+    'date.min': 'Date must be greater than now',
     'date.empty': 'This field is required'
   }),
   endDate: Joi.date().required().greater(Joi.ref('startDate')).messages({
