@@ -9,58 +9,54 @@ function Navigation() {
     <section className={styles.container}>
       <Logo />
       <div className={styles.rowConteiner}>
-        <div className={styles.buttonRow}>
-          <button
-            className={styles.navButton}
-            onClick={() => {
-              history.push('/employee/projects');
-            }}
-          >
-            Employee
-          </button>
-          <button
-            className={styles.navButton}
-            onClick={() => {
-              history.push('/super-admins');
-            }}
-          >
-            Super Admin
-          </button>
-          <button
-            className={styles.navButton}
-            onClick={() => {
-              history.push('/time-sheets');
-            }}
-          >
-            Timesheet
-          </button>
-        </div>
-        <div className={styles.buttonRow}>
-          <button
-            className={styles.navButton}
-            onClick={() => {
-              history.push('/projects');
-            }}
-          >
-            Project
-          </button>
-          <button
-            className={styles.navButton}
-            onClick={() => {
-              history.push('/admins');
-            }}
-          >
-            Admin
-          </button>
-          <button
-            className={styles.navButton}
-            onClick={() => {
-              history.push('/tasks');
-            }}
-          >
-            Task
-          </button>
-        </div>
+        <button
+          className={styles.navButton}
+          onClick={() => {
+            history.push('/employee/projects');
+          }}
+        >
+          Employee
+        </button>
+        <button
+          className={styles.navButton}
+          onClick={() => {
+            history.push('/super-admins');
+          }}
+        >
+          Super Admin
+        </button>
+        <button
+          className={styles.navButton}
+          onClick={() => {
+            history.push('/time-sheets');
+          }}
+        >
+          Timesheet
+        </button>
+        <button
+          className={styles.navButton}
+          onClick={() => {
+            history.push('/projects');
+          }}
+        >
+          Project
+        </button>
+        <button
+          className={styles.navButton}
+          onClick={() => {
+            history.push('/admins');
+          }}
+        >
+          Admin
+        </button>
+        <button
+          className={styles.navButton}
+          onClick={() => {
+            history.push('/tasks');
+          }}
+        >
+          Task
+        </button>
       </div>
     </section>
   );
