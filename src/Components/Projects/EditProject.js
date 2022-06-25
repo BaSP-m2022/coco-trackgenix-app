@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from 'Components/Projects/editProject.module.css';
+import styles from 'Components/Projects/addNew.module.css';
 import Logo from 'Components/SharedComponents/Logo/Logo';
 import Button from 'Components/SharedComponents/Button/Button';
 import Input from 'Components/SharedComponents/Input/Input';
@@ -58,7 +58,12 @@ const projectSchema = Joi.object({
   active: Joi.boolean().required().messages({
     'boolean.base': 'Must indicate if the project is active'
   }),
-  employees: Joi.required(),
+  employees: Joi.string()
+    .required()
+    .regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)
+    .messages({
+      'string.pattern.base': 'Select a valid employee'
+    }),
   admins: Joi.string()
     .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
     .min(3)

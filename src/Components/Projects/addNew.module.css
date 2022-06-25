@@ -1,110 +1,93 @@
-form {
+.container {
+  padding-top: 10px;
+  margin-bottom: 30px;
+  flex: 1;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
 
-form > div{
+form{
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-direction: row;
-  margin-bottom: 20px;
-}
-
-form > div > div{
-  margin: 0px 20px;
-}
-
-form > div > label {
-  align-self: flex-start;
-  color: rgb(55, 56, 103);
-  font-weight: 600;
-}
-
-form > div > select{
-    width: 100%;
-    padding: 10px 0px 10px 10px;
-    border-width: 1px;
-    border-radius: 4px;
-}
-
-form > div > input{
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding: 10px 0px 10px 10px;
-    border-width: 1px;
-    border-radius: 4px;
-    width: 100%;
-}
-
-form > div:nth-child(9) {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-form > div:nth-child(9) > input{
-    width: 100px;
-    padding: 10px 15px;
-    border: 0px;
-    background-color: rgb(170, 206, 155);
-    border-radius: 5px;
-    font-family: Roboto, Arial, Helvetica, sans-serif;
-    font-weight: 600;
-    color: rgb(55, 56, 103);
-}
-
-Modal > div:nth-child(2) {
-  width: 300px;
-}
-
-.divButtons {
-  display: flex;
-  justify-content: space-around;
-  width: 300px;
-}
-
-.container{
-    display: flex;
-    justify-content: center;
-    margin: 30px auto;
-    align-items: center;
-    flex-direction: column;
-}
-
-.container > h2:nth-child(2){
-  text-align: center;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  color: rgb(55, 56, 103);
-  font-size: 50px;
-  font-weight: 1000;
-}
-
-.backBtn{
-    padding: 10px 15px;
-    border: 0px;
-    background-color: rgb(224, 224, 224);
-    border-radius: 5px;
-    font-family: Roboto, Arial, Helvetica, sans-serif;
-    font-weight: 600;
-    color: rgb(55, 56, 103);
-}
-
-.modalProjectBtn{
-  padding: 10px 15px;
-  border: 0px;
-  background-color: rgb(170, 206, 155);
-  border-radius: 5px;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  color: rgb(55, 56, 103);
-}
-
-.buttonsModal{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 200px;
+  flex-direction: column;
   margin: auto;
+}
+
+.title {
+  margin: 35px 0;
+  text-align: center;
+  color: #373867;
+  font-family: 'Arial';
+  font-weight: 700;
+  font-size: 35px;
+  color: #373867;
+  font-size: xx-large;
+  font-weight: 700;
+  margin: 30px 0;
+}
+
+.btnContainer, .buttonsModal {
+  display: flex;
+  justify-content: center;
+}
+
+.btnContainer button{
+  margin: 0 15px;
+}
+
+.inputContainers {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.columnContainer{
+  margin: 0 15px;
+}
+
+.projectButton{
+  margin: 0 20px;
+  align-self: flex-start;
+  width: 130px;
+  height: 50px;
+  background: #aace9b;
+  border: 1px solid #373867;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 700;
+  color: #373867;
+  cursor: pointer;
+}
+
+.returnProjectBtn {
+  background: #eee;
+  margin: 0 20px;
+  align-self: flex-start;
+  width: 130px;
+  height: 50px;
+  border: 1px solid #373867;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 700;
+  color: #373867;
+  cursor: pointer;
+}
+
+.modalProjectBtn {
+  margin: 0 15px;
+  width: 170px;
+  height: 50px;
+  background: #aace9b;
+  border: 1px solid #373867;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 700;
+  color: #373867;
+  cursor: pointer;
 }

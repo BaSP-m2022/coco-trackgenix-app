@@ -98,9 +98,7 @@ const TimeSheetsFormAdd = (props) => {
   return (
     <div className={styles.container}>
       <Logo />
-      <div>
-        <h2 className={styles.title}>Add New TimeSheet</h2>
-      </div>
+      <h2 className={styles.title}>Add New TimeSheet</h2>
       <form onSubmit={onSubmit}>
         <Dropdown
           data={employeeData}

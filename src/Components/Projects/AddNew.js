@@ -58,7 +58,12 @@ const projectSchema = Joi.object({
   active: Joi.boolean().required().messages({
     'boolean.base': 'Must indicate if the project is active'
   }),
-  employees: Joi.required(),
+  employees: Joi.string()
+    .required()
+    .regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)
+    .messages({
+      'string.pattern.base': 'Select a valid employee'
+    }),
   admins: Joi.string()
     .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
     .min(3)
@@ -127,13 +132,14 @@ const AddNew = () => {
   if (isLoading) {
     return <Loading className={styles.loading}></Loading>;
   }
+
   return (
     <div className={styles.container}>
       <Logo />
       <h2>New Project</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <div>
+        <div className={styles.inputContainers}>
+          <div className={styles.columnContainer}>
             <Input
               labelText="Name"
               name="name"
@@ -167,7 +173,7 @@ const AddNew = () => {
               error={errors.endDate?.message}
             ></Input>
           </div>
-          <div>
+          <div className={styles.columnContainer}>
             <Input
               labelText="Client Name"
               type="text"
@@ -199,56 +205,57 @@ const AddNew = () => {
             ></Input>
           </div>
         </div>
-        <div>
-          <Button type={('submit', styles.modalProjectBtn)}>Confirm</Button>
-          <Button type={styles.backBtn} handleClick={() => (window.location.href = '/projects')}>
+        <div className={styles.btnContainer}>
+          <Button type={('submit', styles.projectButton)}>Confirm</Button>
+          <Button
+            type={styles.returnProjectBtn}
+            handleClick={() => (window.location.href = '/projects')}
+          >
             Cancel
           </Button>
         </div>
       </form>
-      <div>
-        <Modal showModal={isOpen} closeModal={() => setIsOpenConfirm(false)}>
-          <h2>Project Creation</h2>
-          <div>
-            <p>Do you really want to create this project?</p>
-          </div>
-          <div className={styles.buttonsModal}>
-            <Button
-              type={styles.modalProjectBtn}
-              handleClick={() => {
-                projectForm(projectInput);
-              }}
-            >
-              Create
-            </Button>
-            <Button
-              type={styles.modalProjectBtn}
-              handleClick={() => {
-                setIsOpenConfirm(false);
-              }}
-            >
-              Cancel
-            </Button>
-          </div>
-        </Modal>
-        <Modal showModal={isOpenError} closeModal={() => setIsOpenError(false)}>
-          <p>{modalText}</p>
+      <Modal showModal={isOpen} closeModal={() => setIsOpenConfirm(false)}>
+        <h2>Project Creation</h2>
+        <div>
+          <p>Do you really want to create this project?</p>
+        </div>
+        <div className={styles.buttonsModal}>
           <Button
-            type={styles.backBtn}
+            type={styles.modalProjectBtn}
             handleClick={() => {
-              if (Success) {
-                setSuccess(false);
-                window.location.href = '/projects';
-              } else {
-                setSuccess(false);
-                setIsOpenError(false);
-              }
+              projectForm(projectInput);
             }}
           >
-            Ok
+            Create
           </Button>
-        </Modal>
-      </div>
+          <Button
+            type={styles.modalProjectBtn}
+            handleClick={() => {
+              setIsOpenConfirm(false);
+            }}
+          >
+            Cancel
+          </Button>
+        </div>
+      </Modal>
+      <Modal showModal={isOpenError} closeModal={() => setIsOpenError(false)}>
+        <p>{modalText}</p>
+        <Button
+          type={styles.modalProjectBtn}
+          handleClick={() => {
+            if (Success) {
+              setSuccess(false);
+              window.location.href = '/projects';
+            } else {
+              setSuccess(false);
+              setIsOpenError(false);
+            }
+          }}
+        >
+          Ok
+        </Button>
+      </Modal>
     </div>
   );
 };
