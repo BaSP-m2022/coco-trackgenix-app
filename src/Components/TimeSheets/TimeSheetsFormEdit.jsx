@@ -181,7 +181,7 @@ const EditFormTimesheet = (props) => {
         <div>
           <p>{modalText}</p>
         </div>
-        <div>
+        <div className={styles.modalBtnContainer}>
           <Button
             type={
               showButton && !successTimesheet

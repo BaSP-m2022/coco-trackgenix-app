@@ -60,6 +60,12 @@
   cursor: pointer;
 }
 
+.modalBtnContainer{
+  display: flex;
+  justify-content: space-evenly;
+  width: 80%;
+}
+
 .modalTimesheetBtnNone {
   display: none;
 }
