@@ -29,7 +29,7 @@ const Tasks = (props) => {
   };
 
   if (isFetching) {
-    return <Loading className={styles.loadText}></Loading>;
+    return <Loading></Loading>;
   }
 
   if (error) {

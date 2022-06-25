@@ -1,5 +1,21 @@
-.loading {
-    font-family: 'Quicksand', serif;
-    font-size: 1rem;
-    font-weight: 500;
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 130vw;
+  height: 130vh;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.rotate {
+  animation: rotation .7s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
