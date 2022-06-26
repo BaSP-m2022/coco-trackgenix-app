@@ -231,7 +231,10 @@ const EditProject = (props) => {
         </div>
         <div>
           <Button type={('submit', styles.modalProjectBtn)}>Edit Project</Button>
-          <Button type={styles.backBtn} handleClick={() => (props.history.push = '/projects')}>
+          <Button
+            type={styles.returnProjectBtn}
+            handleClick={() => props.history.push('/projects')}
+          >
             Cancel
           </Button>
         </div>

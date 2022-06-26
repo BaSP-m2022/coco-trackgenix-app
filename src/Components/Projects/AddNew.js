@@ -210,7 +210,7 @@ const AddNew = (props) => {
           <Button type={('submit', styles.projectButton)}>Confirm</Button>
           <Button
             type={styles.returnProjectBtn}
-            handleClick={() => (props.history.push = '/projects')}
+            handleClick={() => props.history.push('/projects')}
           >
             Cancel
           </Button>
