@@ -162,8 +162,8 @@ const EditProject = (props) => {
       <Logo />
       <h2>Edit Project</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <div>
+        <div className={styles.inputContainers}>
+          <div className={styles.columnContainer}>
             <Input
               labelText="Name"
               name="name"
@@ -186,6 +186,7 @@ const EditProject = (props) => {
               name="startDate"
               placeholder="DD/MM/YYYY"
               register={register}
+              disabled={true}
               error={errors.startDate?.message}
             ></Input>
             <Input
@@ -229,7 +230,7 @@ const EditProject = (props) => {
             ></Input>
           </div>
         </div>
-        <div>
+        <div className={styles.btnContainer}>
           <Button type={('submit', styles.modalProjectBtn)}>Edit Project</Button>
           <Button
             type={styles.returnProjectBtn}
@@ -267,11 +268,11 @@ const EditProject = (props) => {
         <Modal showModal={isOpenError} closeModal={() => setIsOpenError(false)}>
           <p>{modalText}</p>
           <Button
-            type={styles.backBtn}
+            type={styles.modalProjectBtn}
             handleClick={() => {
               if (Success) {
                 setSuccess(false);
-                props.history.push = '/projects';
+                props.history.push('/projects');
               } else {
                 setSuccess(false);
                 setIsOpenError(false);

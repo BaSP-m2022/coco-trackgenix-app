@@ -247,7 +247,7 @@ const AddNew = (props) => {
           handleClick={() => {
             if (Success) {
               setSuccess(false);
-              props.history.push = '/projects';
+              window.location.href = '/projects';
             } else {
               setSuccess(false);
               setIsOpenError(false);
