@@ -1,6 +1,6 @@
 import styles from './input.module.css';
 
-const Input = ({ name, labelText, type, placeholder, register, error }) => {
+const Input = ({ name, labelText, type, placeholder, register, error, disabled }) => {
   return (
     <div className={styles.inputContainer}>
       <label className={styles.label} htmlFor={name}>
@@ -10,6 +10,7 @@ const Input = ({ name, labelText, type, placeholder, register, error }) => {
         className={error ? styles.emptyInput : styles.input}
         type={type}
         placeholder={placeholder}
+        disabled={disabled}
         {...register(name)}
       ></input>
       {error && <p className={styles.showWarningMsg}>{error}</p>}
