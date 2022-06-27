@@ -1,20 +1,13 @@
-import {
-  CLEAN_ERROR,
-  LOGIN_ERROR,
-  LOGIN_PENDING,
-  LOGIN_SUCCESS,
-  SET_AUTHENTICATION
-} from './constants';
+import { CLEAN_ERROR, LOGIN_ERROR, LOGIN_PENDING, LOGIN_SUCCESS } from './constants';
 
 export const loginPending = () => {
   return {
     type: LOGIN_PENDING
   };
 };
-export const loginSuccess = (data) => {
+export const loginSuccess = () => {
   return {
-    type: LOGIN_SUCCESS,
-    payload: data
+    type: LOGIN_SUCCESS
   };
 };
 export const loginError = (error) => {
@@ -26,12 +19,5 @@ export const loginError = (error) => {
 export const cleanError = () => {
   return {
     type: CLEAN_ERROR
-  };
-};
-
-export const setAuthentication = (user) => {
-  return {
-    type: SET_AUTHENTICATION,
-    payload: user
   };
 };
