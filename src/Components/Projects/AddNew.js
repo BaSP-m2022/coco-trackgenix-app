@@ -33,8 +33,9 @@ const projectSchema = Joi.object({
     'string.required': 'Description is required!',
     'string.empty': 'Description is not allowed to be empty'
   }),
-  startDate: Joi.date().required().messages({
+  startDate: Joi.date().required().min('now').messages({
     'date.base': 'Date is not valid',
+    'date.min': 'Date must be greater than now',
     'date.empty': 'This field is required'
   }),
   endDate: Joi.date().required().greater(Joi.ref('startDate')).messages({
@@ -58,7 +59,12 @@ const projectSchema = Joi.object({
   active: Joi.boolean().required().messages({
     'boolean.base': 'Must indicate if the project is active'
   }),
-  employees: Joi.array().required(),
+  employees: Joi.string()
+    .required()
+    .regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)
+    .messages({
+      'string.pattern.base': 'Select a valid employee'
+    }),
   admins: Joi.string()
     .regex(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)
     .min(3)
@@ -74,7 +80,7 @@ const projectSchema = Joi.object({
     })
 });
 
-const AddNew = () => {
+const AddNew = (props) => {
   const [isOpen, setIsOpenConfirm] = useState(false);
   const [isOpenError, setIsOpenError] = useState(false);
   const [modalText, setModalText] = useState('');
@@ -86,8 +92,7 @@ const AddNew = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
-    watch
+    formState: { errors }
   } = useForm({ mode: 'onChange', resolver: joiResolver(projectSchema) });
 
   const [projectInput, setProjectInput] = useState({
@@ -101,22 +106,21 @@ const AddNew = () => {
     admins: ''
   });
 
-  const onSubmit = () => {
+  const onSubmit = (data) => {
     setProjectInput({
-      name: watch('name'),
-      description: watch('description'),
-      startDate: watch('startDate'),
-      endDate: watch('endDate'),
-      clientName: watch('clientName'),
-      active: watch('active'),
-      employees: [watch('employees')],
-      admins: watch('admins')
+      name: data.name,
+      description: data.description,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      clientName: data.clientName,
+      active: data.active,
+      employees: [data.employees],
+      admins: data.admins
     });
     setIsOpenConfirm(true);
   };
 
   const projectForm = (e) => {
-    console.log(e);
     dispatch(postProject(e, setSuccess, setModalText));
     setIsOpenError(true);
     setIsOpenConfirm(false);
@@ -129,138 +133,130 @@ const AddNew = () => {
   if (isLoading) {
     return <Loading className={styles.loading}></Loading>;
   }
+
   return (
     <div className={styles.container}>
       <Logo />
       <h2>New Project</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <Input
-            labelText="Name"
-            name="name"
-            type="string"
-            placeholder="Name"
-            register={register}
-            error={errors.name?.message}
-          ></Input>
+        <div className={styles.inputContainers}>
+          <div className={styles.columnContainer}>
+            <Input
+              labelText="Name"
+              name="name"
+              type="string"
+              placeholder="Name"
+              register={register}
+              error={errors.name?.message}
+            ></Input>
+            <Input
+              labelText="Description"
+              name="description"
+              type="string"
+              placeholder="write a description here"
+              register={register}
+              error={errors.description?.message}
+            ></Input>
+            <Input
+              labelText="Start Date"
+              type="date"
+              name="startDate"
+              placeholder="DD/MM/YYYY"
+              register={register}
+              error={errors.startDate?.message}
+            ></Input>
+            <Input
+              labelText="End Date"
+              type="date"
+              name="endDate"
+              placeholder="DD/MM/YYYY"
+              register={register}
+              error={errors.endDate?.message}
+            ></Input>
+          </div>
+          <div className={styles.columnContainer}>
+            <Input
+              labelText="Client Name"
+              type="text"
+              name="clientName"
+              placeholder="enter a client here"
+              register={register}
+              error={errors.clientName?.message}
+            ></Input>
+            <Dropdown
+              name="active"
+              labelText="Set if is active"
+              register={register}
+              error={errors.active?.message}
+            ></Dropdown>
+            <Dropdown
+              data={employeeData}
+              name="employees"
+              labelText="Select an employee"
+              path="firstName"
+              register={register}
+              error={errors.employees?.message}
+            ></Dropdown>
+            <Input
+              labelText="Administrator"
+              name="admins"
+              placeholder="enter an admin here"
+              register={register}
+              error={errors.admins?.message}
+            ></Input>
+          </div>
         </div>
-        <div>
-          <Input
-            labelText="Description"
-            name="description"
-            type="string"
-            placeholder="write a description here"
-            register={register}
-            error={errors.description?.message}
-          ></Input>
-        </div>
-        <div>
-          <Input
-            labelText="Start Date"
-            type="date"
-            name="startDate"
-            placeholder="DD/MM/YYYY"
-            register={register}
-            error={errors.startDate?.message}
-          ></Input>
-        </div>
-        <div>
-          <Input
-            labelText="End Date"
-            type="date"
-            name="endDate"
-            placeholder="DD/MM/YYYY"
-            register={register}
-            error={errors.endDate?.message}
-          ></Input>
-        </div>
-        <div>
-          <Input
-            labelText="Client Name"
-            type="text"
-            name="clientName"
-            placeholder="enter a client here"
-            register={register}
-            error={errors.clientName?.message}
-          ></Input>
-        </div>
-        <Dropdown
-          name="active"
-          labelText="Set if is active"
-          register={register}
-          error={errors.active?.message}
-        ></Dropdown>
-        <Dropdown
-          data={employeeData}
-          name="employees"
-          labelText="Select an employee"
-          path="firstName"
-          register={register}
-          error={errors.active?.message}
-        ></Dropdown>
-        <div>
-          <Input
-            labelText="Administrator"
-            name="admins"
-            placeholder="enter an admin here"
-            register={register}
-            error={errors.admins?.message}
-          ></Input>
+        <div className={styles.btnContainer}>
+          <Button type={('submit', styles.projectButton)}>Confirm</Button>
+          <Button
+            type={styles.returnProjectBtn}
+            handleClick={() => props.history.push('/projects')}
+          >
+            Cancel
+          </Button>
         </div>
       </form>
-      <div>
-        <Button
-          type={('submit', styles.modalProjectBtn)}
-          name="project-submit"
-          handleClick={() => onSubmit()}
-        >
-          New Project
-        </Button>
-        <Modal showModal={isOpen} closeModal={() => setIsOpenConfirm(false)}>
-          <h2>Project Creation</h2>
-          <div>
-            <p>Do you really want to create this project?</p>
-          </div>
-          <div className={styles.buttonsModal}>
-            <Button
-              type={styles.modalProjectBtn}
-              handleClick={() => {
-                projectForm(projectInput);
-              }}
-            >
-              Create
-            </Button>
-            <Button
-              type={styles.modalProjectBtn}
-              handleClick={() => {
-                setIsOpenConfirm(false);
-              }}
-            >
-              Cancel
-            </Button>
-          </div>
-        </Modal>
-        <Modal showModal={isOpenError} closeModal={() => setIsOpenError(false)}>
-          <p>{modalText}</p>
+      <Modal showModal={isOpen} closeModal={() => setIsOpenConfirm(false)}>
+        <h2>Project Creation</h2>
+        <div>
+          <p>Do you really want to create this project?</p>
+        </div>
+        <div className={styles.buttonsModal}>
           <Button
-            type={styles.backBtn}
+            type={styles.modalProjectBtn}
             handleClick={() => {
-              if (Success) {
-                setSuccess(false);
-                window.location.href = '/projects';
-              } else {
-                setSuccess(false);
-                setIsOpenError(false);
-              }
+              projectForm(projectInput);
             }}
           >
-            Ok
+            Create
           </Button>
-        </Modal>
-        <Button type={styles.backBtn} handleClick={() => (window.location.href = '/projects')}>
-          Cancel
+          <Button
+            type={styles.modalProjectBtn}
+            handleClick={() => {
+              setIsOpenConfirm(false);
+            }}
+          >
+            Cancel
+          </Button>
+        </div>
+      </Modal>
+      <Modal showModal={isOpenError} closeModal={() => setIsOpenError(false)}>
+        <p>{modalText}</p>
+        <Button
+          type={styles.modalProjectBtn}
+          handleClick={() => {
+            if (Success) {
+              setSuccess(false);
+              window.location.href = '/projects';
+            } else {
+              setSuccess(false);
+              setIsOpenError(false);
+            }
+          }}
+        >
+          Ok
         </Button>
-      </div>
+      </Modal>
     </div>
   );
 };
