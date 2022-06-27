@@ -90,15 +90,6 @@ const AddNew = () => {
     watch
   } = useForm({ mode: 'onChange', resolver: joiResolver(projectSchema) });
 
-  // console.log(watch('name'));
-  // console.log(watch('description'));
-  // console.log(watch('startDate'));
-  // console.log(watch('endDate'));
-  // console.log(watch('clientName'));
-  // console.log(watch('active'));
-  // console.log(watch('employees'));
-  // console.log(watch('admins'));
-
   const [projectInput, setProjectInput] = useState({
     name: '',
     description: '',
@@ -109,25 +100,6 @@ const AddNew = () => {
     employees: [],
     admins: ''
   });
-
-  // const addMembers = (item) => {
-  //   let membersData = [];
-  //   if (typeof item !== 'string' || !item) {
-  //     membersData = null;
-  //   } else {
-  //     const splitted = item.split(',');
-  //     if (splitted.length === 0) {
-  //       membersData = '';
-  //     } else if (splitted.length === 1) {
-  //       membersData.push({ name: `${splitted}` });
-  //     } else {
-  //       for (let i = 0; i < splitted.length; i++) {
-  //         membersData.push({ name: `${splitted[i]}` });
-  //       }
-  //     }
-  //   }
-  //   return membersData;
-  // };
 
   const onSubmit = () => {
     setProjectInput({
