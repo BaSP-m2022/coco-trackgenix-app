@@ -1,4 +1,11 @@
-import { CLEAN_ERROR, LOGIN_ERROR, LOGIN_PENDING, LOGIN_SUCCESS } from './constants';
+import {
+  CLEAN_ERROR,
+  LOGIN_ERROR,
+  LOGIN_PENDING,
+  LOGIN_SUCCESS,
+  LOGOUT_PENDING,
+  LOGOUT_SUCCESS
+} from './constants';
 
 const initialState = {
   isLoading: true,
@@ -27,6 +34,19 @@ export const loginReducer = (state = initialState, action) => {
         ...state,
         isFetching: false,
         error: action.payload
+      };
+    }
+    case LOGOUT_PENDING: {
+      return {
+        ...state,
+        isFetching: false
+      };
+    }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        isFetching: false,
+        authenticated: false
       };
     }
     case CLEAN_ERROR: {

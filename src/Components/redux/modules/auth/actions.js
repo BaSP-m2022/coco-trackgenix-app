@@ -1,4 +1,12 @@
-import { CLEAN_ERROR, LOGIN_ERROR, LOGIN_PENDING, LOGIN_SUCCESS } from './constants';
+import {
+  CLEAN_ERROR,
+  LOGIN_ERROR,
+  LOGIN_PENDING,
+  LOGIN_SUCCESS,
+  LOGOUT_ERROR,
+  LOGOUT_PENDING,
+  LOGOUT_SUCCESS
+} from './constants';
 
 export const loginPending = () => {
   return {
@@ -16,6 +24,24 @@ export const loginError = (error) => {
     payload: error
   };
 };
+
+export const logoutPending = () => {
+  return {
+    type: LOGOUT_PENDING
+  };
+};
+export const logoutSuccess = () => {
+  return {
+    type: LOGOUT_SUCCESS
+  };
+};
+export const logoutError = (error) => {
+  return {
+    type: LOGOUT_ERROR,
+    payload: error
+  };
+};
+
 export const cleanError = () => {
   return {
     type: CLEAN_ERROR
