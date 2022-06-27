@@ -10,12 +10,13 @@
 .formContainer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     width: 55%;
 }
 
 .title {
+    margin-top: 50px;
     margin-bottom: 15%;
     align-self: center;
 }
@@ -32,9 +33,15 @@
     width: 45%;
 }
 
-.loginButton{
-    margin: 0;
+.loginBtn {
+    display: flex;
+    justify-content: center;
+}
+
+.loginButton {
+    margin-top: 15px;
     align-self: center;
+    justify-content: center;
     width: 130px;
     height: 50px;
     background: #aace9b;

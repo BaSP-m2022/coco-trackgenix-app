@@ -93,7 +93,7 @@ const Login = (props) => {
               error={errors.password?.message}
             />
           </div>
-          <div>
+          <div className={styles.loginBtn}>
             <Button label="Login" type={('submit', styles.loginButton)}>
               Login
             </Button>
