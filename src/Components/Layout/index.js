@@ -57,15 +57,15 @@ function Layout() {
             <Route exact path="/employee/signup" component={FormEmployee} />
             <Route exact path="/employee/profile/edit" component={FormEmployeeEdit} />
             <Route exact path="/projects" component={Projects} />
-            <Route path="/projects/add" component={AddNew} />
-            <Route path="/projects/edit" component={EditProject} />
+            <Route exact path="/projects/add" component={AddNew} />
+            <Route exact path="/projects/edit" component={EditProject} />
             <Route exact path="/time-sheets" component={TimeSheets} />
-            <Route path="/time-sheets/add" component={TimeSheetsFormAdd} />
-            <Route path="/time-sheets/edit" component={TimeSheetsFormEdit} />
+            <Route exact path="/time-sheets/add" component={TimeSheetsFormAdd} />
+            <Route exact path="/time-sheets/edit" component={TimeSheetsFormEdit} />
             <Route exact path="/tasks" component={Tasks} />
-            <Route path="/tasks/add" component={TaskForm} />
-            <Route path="/tasks/edit" component={TaskFormEdit} />
-            <Route path="/nav" component={Navigation} />
+            <Route exact path="/tasks/add" component={TaskForm} />
+            <Route exact path="/tasks/edit" component={TaskFormEdit} />
+            <Route exact path="/nav" component={Navigation} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/" component={Home}>
               <Redirect to="/home" />
