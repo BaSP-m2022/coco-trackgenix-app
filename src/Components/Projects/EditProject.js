@@ -33,9 +33,8 @@ const projectSchema = Joi.object({
     'string.required': 'Description is required!',
     'string.empty': 'Description is not allowed to be empty'
   }),
-  startDate: Joi.date().required().min('now').messages({
+  startDate: Joi.date().required().messages({
     'date.base': 'Date is not valid',
-    'date.min': 'Date must be greater than now',
     'date.empty': 'This field is required'
   }),
   endDate: Joi.date().required().greater(Joi.ref('startDate')).messages({
