@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import styles from './projects.module.css';
+import styles from 'Components/Projects/projects.module.css';
 import { useHistory } from 'react-router-dom';
-import Modal from '../SharedComponents/Modal/Modal';
-import Logo from '../SharedComponents/Logo/Logo';
-import Button from '../SharedComponents/Button/Button';
-import Table from '../SharedComponents/Table/index';
-import Loading from '../SharedComponents/Loading/Loading';
+import Modal from 'Components/SharedComponents/Modal/Modal';
+import Logo from 'Components/SharedComponents/Logo/Logo';
+import Button from 'Components/SharedComponents/Button/Button';
+import Table from 'Components/SharedComponents/Table/index';
+import Loading from 'Components/SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteProject, getProject } from '../redux/modules/projects/thunks';
+import { deleteProject, getProject } from 'Components/redux/modules/projects/thunks';
 
 const Projects = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const Projects = () => {
   };
 
   if (isLoading) {
-    return <Loading></Loading>;
+    return <Loading className={styles.loading}></Loading>;
   }
   return (
     <div className={styles.container}>
