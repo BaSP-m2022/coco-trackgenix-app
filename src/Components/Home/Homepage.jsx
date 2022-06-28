@@ -75,22 +75,16 @@ function Home() {
             <div className={styles.aboutContainer}>
               <img src={about} alt="about-img" />
               <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident, soluta? Ipsam
-                ipsa laudantium voluptatem reiciendis temporibus dolor distinctio suscipit veniam
-                adipisci ab tempore, labore fuga itaque laboriosam reprehenderit quae! Ipsum. Lorem
-                ipsum dolor sit amet consectetur adipisicing elit. Ipsa temporibus minima quis
-                commodi sint, vel esse recusandae incidunt sed fugiat inventore. Illo dolorum natus
-                facilis adipisci ipsum similique molestiae autem.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is
+                simply dummy text of the printing and typesetting industry.
               </p>
             </div>
             <div className={styles.aboutContainer}>
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab amet accusantium earum
-                aspernatur placeat distinctio fugit illum consectetur vitae, quos officiis rem aut
-                magnam aliquid officia id? Obcaecati, temporibus sunt? Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Magnam magni maxime quos illum eius iusto similique
-                impedit fuga consequatur fugit corrupti expedita nisi ad accusantium natus tempora,
-                distinctio, est molestias.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is
+                simply dummy text of the printing and typesetting industry.
               </p>
               <img src={aboutTwo} alt="about-two" />
             </div>
