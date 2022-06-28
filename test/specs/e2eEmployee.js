@@ -1,0 +1,11 @@
+// const homePage = require('../pageobjects/homePage');
+// const loginPage = require('../pageobjects/logInPage');
+// const signUpPage = require('../pageobjects/signUpPage');
+// const employeeProjectsPage = require('../pageobjects/employee/employeeProjectsPage');
+// const employeeAddNewProjectPage = require('../pageobjects/employee/employeeAddNewProjectPage');
+// const employeeEditProjectPage = require('../pageobjects/employee/employeeEditProjectPage');
+// const employeeTimesheetsPage = require('../pageobjects/employee/employeeTimesheetsPage');
+// const employeeAddNewTimesheet = require('../pageobjects/employee/employeeAddNewTimesheet');
+// const employeeEditTimesheet = require('../pageobjects/employee/employeeEditTimesheet');
+// const employeePersonalInfo = require('../pageobjects/employee/employeePersonalInfo');
+// const employeeEditPersonalInfoPage = require('../pageobjects/employee/employeeEditPersonalInfoPage');
