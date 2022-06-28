@@ -40,7 +40,7 @@ const Login = (props) => {
     setIsOpen(true);
     return dispatch(login(formValues, setResStatus)).then((response) => {
       if (response) {
-        setRole(response.payload?.role);
+        setRole(sessionStorage.getItem('role'));
       }
     });
   };
