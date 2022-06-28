@@ -13,8 +13,12 @@ const Header = () => {
   const loginButtonText = (a) => {
     if (a === 'log') {
       if (sessionStorage.getItem('token')) {
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('role');
+        console.log('LOGED OUT');
         return 'Logout';
       } else {
+        console.log('LOGED IN');
         return 'Login';
       }
     } else if (sessionStorage.getItem('token')) {
@@ -72,9 +76,14 @@ const Header = () => {
             </Link>
           </div>
         ) : (
-          <Link to="/home" className={style.navigation}>
-            Home
-          </Link>
+          <div>
+            <Link to="/home" className={style.navigation}>
+              Home
+            </Link>
+            <Link to="/home" className={style.navigation}>
+              Logout
+            </Link>
+          </div>
         )}
       </div>
     </header>
