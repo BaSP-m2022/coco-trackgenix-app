@@ -7,7 +7,7 @@ describe('E2E LOCKED USER', () => {
     browser.url('https://coco-trackgenix-app-git-feature-tg-143-basp-m2022.vercel.app/home');
   });
   it('Click btn sign up', async () => {
-    await HomePage.();
+    await HomePage.asdasd();
     await browser.pause(300);
     await SignupPage.clickFieldName('Alan');
   });
