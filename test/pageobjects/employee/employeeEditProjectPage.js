@@ -67,14 +67,29 @@ class employeeEditProjectPage {
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div.addNew_columnContainer__1lg50 > div:nth-child(1) > input'
     );
   }
+  get labelNameErroMsg() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div.addNew_columnContainer__1lg50 > div:nth-child(1) > p'
+    );
+  }
   get labelDescription() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div.addNew_columnContainer__1lg50 > div:nth-child(2) > input'
     );
   }
+  get labelDescriptionErrorMsg() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div.addNew_columnContainer__1lg50 > div:nth-child(2) > p'
+    );
+  }
   get labelStartDate() {
     return $(
-      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div.addNew_columnContainer__1lg50 > div:nth-child(1) > input'
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div.addNew_columnContainer__1lg50 > div:nth-child(3) > input'
+    );
+  }
+  get labelStartDateErrorMsg() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div.addNew_columnContainer__1lg50 > div:nth-child(3) > p'
     );
   }
   get labelEndDate() {
@@ -82,14 +97,29 @@ class employeeEditProjectPage {
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div.addNew_columnContainer__1lg50 > div:nth-child(4) > input'
     );
   }
+  get labelEndDateErroMsg() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div.addNew_columnContainer__1lg50 > div:nth-child(4) > p'
+    );
+  }
   get labelClientName() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(1) > input'
     );
   }
+  get labelClientNameErroMsg() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(1) > p'
+    );
+  }
   get dropdownsActive() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(2) > select'
+    );
+  }
+  get dropdownsActiveErrorMsg() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(2) > p'
     );
   }
   get dropdownsActiveTitle() {
@@ -112,6 +142,11 @@ class employeeEditProjectPage {
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(3) > select'
     );
   }
+  get dropdownsEmployeeeErrorMsg() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(3) > p'
+    );
+  }
   get dropdownsEmployeeTitle() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(3) > select > option:nth-child(1)'
@@ -125,6 +160,11 @@ class employeeEditProjectPage {
   get labelAdmin() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(4) > input'
+    );
+  }
+  get labelAdminErrorMsg() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(4) > p'
     );
   }
 

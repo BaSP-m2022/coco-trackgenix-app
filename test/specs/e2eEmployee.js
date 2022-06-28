@@ -5,7 +5,7 @@
 // const employeeAddNewProjectPage = require('../pageobjects/employee/employeeAddNewProjectPage');
 // const employeeEditProjectPage = require('../pageobjects/employee/employeeEditProjectPage');
 // const employeeTimesheetsPage = require('../pageobjects/employee/employeeTimesheetsPage');
-// const employeeAddNewTimesheet = require('../pageobjects/employee/employeeAddNewTimesheet');
-// const employeeEditTimesheet = require('../pageobjects/employee/employeeEditTimesheet');
-// const employeePersonalInfo = require('../pageobjects/employee/employeePersonalInfo');
+// const employeeAddNewTimesheetPage = require('../pageobjects/employee/employeeAddNewTimesheetPage');
+// const employeeEditTimesheetPage = require('../pageobjects/employee/employeeEditTimesheetPage');
+// const employeePersonalInfoPage = require('../pageobjects/employee/employeePersonalInfoPage');
 // const employeeEditPersonalInfoPage = require('../pageobjects/employee/employeeEditPersonalInfoPage');

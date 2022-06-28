@@ -112,9 +112,19 @@ class employeeEditTimesheetPage {
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(1) > div > input'
     );
   }
+  get labelStartDateErrorMsg() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(1) > div > p'
+    );
+  }
   get labelEndDate() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(2) > div > input'
+    );
+  }
+  get labelEndDateErrorMsg() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(2) > div > p'
     );
   }
 

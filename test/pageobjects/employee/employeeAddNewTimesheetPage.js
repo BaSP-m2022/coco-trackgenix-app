@@ -67,6 +67,11 @@ class employeeAddNewTimesheetPage {
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(1) > select'
     );
   }
+  get dropdownsEmployeeErrorMsg() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(1) > p'
+    );
+  }
   get dropdownsEmployeeTitle() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(1) > select > option:nth-child(1)'
@@ -80,6 +85,11 @@ class employeeAddNewTimesheetPage {
   get dropdownsProject() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(2) > select'
+    );
+  }
+  get dropdownsProjectErrorMsg() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(2) > p'
     );
   }
   get dropdownsProjectTitle() {
@@ -97,6 +107,11 @@ class employeeAddNewTimesheetPage {
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(3) > select'
     );
   }
+  get dropdownsTaskErrorMsg() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(3) > p'
+    );
+  }
   get dropdownsTaskTitle() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(3) > select > option:nth-child(1)'
@@ -112,9 +127,19 @@ class employeeAddNewTimesheetPage {
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(1) > div > input'
     );
   }
+  get labelStartDateErrorMsg() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(1) > div > p'
+    );
+  }
   get labelEndDate() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(2) > div > input'
+    );
+  }
+  get labelEndDateErrorMsg() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(2) > div > p'
     );
   }
 
