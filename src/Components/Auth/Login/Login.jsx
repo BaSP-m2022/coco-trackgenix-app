@@ -32,14 +32,13 @@ const schema = joi.object({
 
 const Login = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [resStatus, setResStatus] = useState(false);
 
   const dispatch = useDispatch();
   const isFetching = useSelector((state) => state.login.isFetching);
+  const authenticated = useSelector((state) => state.login.authenticated);
 
   const onSubmit = (formValues) => {
-    setIsOpen(true);
-    return dispatch(login(formValues, setResStatus));
+    dispatch(login(formValues, setIsOpen));
   };
 
   const {
@@ -48,9 +47,7 @@ const Login = (props) => {
     formState: { errors }
   } = useForm({ mode: 'onChange', resolver: joiResolver(schema) });
 
-  const handleOkBtn = () => {
-    setIsOpen(false);
-    dispatch(cleanError());
+  const roleRedirection = () => {
     const role = sessionStorage.getItem('role');
     switch (role) {
       case 'EMPLOYEE':
@@ -66,8 +63,17 @@ const Login = (props) => {
     }
   };
 
+  const handleOkBtn = () => {
+    setIsOpen(false);
+    dispatch(cleanError());
+  };
+
   if (isFetching) {
     return <Loading></Loading>;
+  }
+
+  if (authenticated && !isFetching) {
+    roleRedirection();
   }
 
   return (
@@ -102,10 +108,8 @@ const Login = (props) => {
           </div>
         </form>
         <Modal showModal={isOpen} closeModal={handleOkBtn}>
-          <h2>{resStatus ? 'Success!' : 'Warning!'}</h2>
-          <h3 className={styles.modalMsg}>
-            {resStatus ? 'Login successfully' : 'Wrong credentials, check the fields'}
-          </h3>
+          <h2>Warning</h2>
+          <h3 className={styles.modalMsg}>Wrong credentials, check the fields</h3>
           <Button type={styles.loginButton} handleClick={handleOkBtn}>
             Ok
           </Button>

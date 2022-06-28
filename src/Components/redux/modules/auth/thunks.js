@@ -1,7 +1,7 @@
 import { loginPending, loginSuccess, loginError, logoutPending, logoutSuccess } from './actions';
 import firebase from 'Components/helper/firebase';
 
-export const login = (credentials, setResStatus) => {
+export const login = (credentials, setIsOpen) => {
   return (dispatch) => {
     dispatch(loginPending());
     return firebase
@@ -12,12 +12,12 @@ export const login = (credentials, setResStatus) => {
         const {
           claims: { role }
         } = await response.user.getIdTokenResult();
-        setResStatus(true);
         sessionStorage.setItem('token', token);
         sessionStorage.setItem('role', role);
         dispatch(loginSuccess());
       })
       .catch((error) => {
+        setIsOpen(true);
         dispatch(loginError(error.toString()));
       });
   };
