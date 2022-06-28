@@ -7,7 +7,8 @@ const NavBar = () => {
   if (
     location.pathname == '/home' ||
     location.pathname == '/nav' ||
-    location.pathname == '/employee/signup'
+    location.pathname == '/employee/signup' ||
+    location.pathname == '/login'
   ) {
     return null;
   } else if (
