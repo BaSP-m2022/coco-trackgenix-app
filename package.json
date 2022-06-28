@@ -20,6 +20,9 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "test": "npx wdio run ./wdio.conf.js --spec",
+    "allure-report": "allure generate --clean allure-results && allure open",
+    "pretest": "rimraf allure-results && rimraf allure-report && rimraf test-screenshots && rimraf wdio-logs",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint .",
@@ -52,6 +55,12 @@
   "devDependencies": {
     "@types/react": "^18.0.12",
     "@types/react-router-dom": "^5.3.3",
+    "@wdio/allure-reporter": "^7.20.3",
+    "@wdio/cli": "^7.20.5",
+    "@wdio/jasmine-framework": "^7.20.3",
+    "@wdio/local-runner": "^7.20.5",
+    "@wdio/spec-reporter": "^7.20.3",
+    "chromedriver": "^103.0.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
@@ -63,6 +72,8 @@
     "husky": "^7.0.0",
     "lint-staged": "^12.1.2",
     "prettier": "^2.4.1",
-    "remote-redux-devtools": "^0.5.0"
+    "remote-redux-devtools": "^0.5.0",
+    "wdio-chromedriver-service": "^7.3.2",
+    "wdio-wait-for": "^2.2.6"
   }
 }
