@@ -21,6 +21,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "test": "npx wdio run ./wdio.conf.js --spec",
+    "allure-report": "allure generate --clean allure-results && allure open",
+    "pretest": "rimraf allure-results && rimraf allure-report && rimraf test-screenshots && rimraf wdio-logs",
     "build": "react-scripts build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
