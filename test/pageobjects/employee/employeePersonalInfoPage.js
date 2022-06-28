@@ -53,59 +53,95 @@ class employeePersonalInfoPage {
     return $('#root > div > div > nav > ul > li:nth-child(3) > a');
   }
 
-  get employeePersonalInfoPageLogo() {
+  get logo() {
     return $('#root > div > div > section > div.logo_container__YUs9e');
   }
-  get employeePersonalInfoPageTitleEmployees() {
+  get titleEmployees() {
     return $('#root > div > div > section > h2:nth-child(2)');
   }
-  get employeePersonalInfoPageTitlePersonalInfo() {
+  get titlePersonalInfo() {
     return $('#root > div > div > div > div.projects_container__1eYs7 > h2');
   }
-  get employeePersonalInfoPageRow() {
+
+  get row() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13)'
     );
   }
-
-  get employeePersonalInfoPageRowFirstName() {
+  get rowFirstName() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(1)'
     );
   }
-  get employeePersonalInfoPageRowLastName() {
+  get rowLastName() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(2)'
     );
   }
-  get employeePersonalInfoPageRowPhone() {
+  get rowPhone() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(3)'
     );
   }
-  get employeePersonalInfoPageRowEmail() {
+  get rowEmail() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(4)'
     );
   }
-  get employeePersonalInfoPageRowPassword() {
+  get rowPassword() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(5)'
     );
   }
-  get employeePersonalInfoPageRowActive() {
+  get rowActive() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(6)'
     );
   }
-  get employeePersonalInfoPageRowEdit() {
+  get rowEdit() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td.table_buttonTd__1cGKe > button:nth-child(1)'
     );
   }
-  get employeePersonalInfoPageRowDelete() {
+  get rowDelete() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td.table_buttonTd__1cGKe > button:nth-child(2)'
+    );
+  }
+
+  get deleteModal() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div'
+    );
+  }
+  get deleteModalCross() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div > button'
+    );
+  }
+  get deleteCModalTitle() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div > h2'
+    );
+  }
+  get deleteModalText1() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > p:nth-child(1)'
+    );
+  }
+  get deleteModalText2() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > p:nth-child(2)'
+    );
+  }
+  get deletenModalCancelButton() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div > div:nth-child(4) > button.table_deleteModalBtn__1PDV0'
+    );
+  }
+  get deleteModalConfirmButton() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div > div:nth-child(4) > button.table_stylesModalBtn__gb5_E'
     );
   }
 
@@ -117,12 +153,24 @@ class employeePersonalInfoPage {
     await this.headerButtonHome.click();
     browser.pause(4000);
   }
-  async clickEmployeePersonalInfoPageRowEdit() {
-    await this.employeePersonalInfoPageRowEdit.click();
+  async clickRowEdit() {
+    await this.rowEdit.click();
     browser.pause(4000);
   }
-  async clickEmployeePersonalInfoPageRowDelete() {
-    await this.employeePersonalInfoPageRowDelete.click();
+  async clickRowDelete() {
+    await this.rowDelete.click();
+    browser.pause(4000);
+  }
+  async clickDeleteModalCross() {
+    await this.deleteModalCross.click();
+    browser.pause(4000);
+  }
+  async clickDeletenModalCancelButton() {
+    await this.deletenModalCancelButton.click();
+    browser.pause(4000);
+  }
+  async clickDeleteModalConfirmButton() {
+    await this.deleteModalConfirmButton.click();
     browser.pause(4000);
   }
 }

@@ -53,54 +53,90 @@ class employeeTimesheetsPage {
     return $('#root > div > div > nav > ul > li:nth-child(3) > a');
   }
 
-  get employeeTimesheetsPageLogo() {
+  get logo() {
     return $('#root > div > div > section > div.logo_container__YUs9e');
   }
-  get employeeTimesheetsPageTitle() {
+  get title() {
     return $('#root > div > div > section > h2');
   }
-  get employeeTimesheetsPageButtonAddNewTimesheet() {
+  get buttonAddNewTimesheet() {
     return $('#root > div > div > section > button');
   }
-  get employeeTimesheetsPageTimesheetRow() {
+  get row() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9)'
     );
   }
 
-  get employeeTimesheetsPageTimesheetRowEmployeeId() {
+  get rowEmployeeId() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td:nth-child(1)'
     );
   }
-  get employeeTimesheetsPageTimesheetRowTimesheetId() {
+  get rowTimesheetId() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td:nth-child(2)'
     );
   }
-  get employeeTimesheetsPageTimesheetRowStartDate() {
+  get rowStartDate() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td:nth-child(3)'
     );
   }
-  get employeeTimesheetsPageTimesheetRowEndDate() {
+  get rowEndDate() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td:nth-child(4)'
     );
   }
-  get employeeTimesheetsPageTimesheetRowTasks() {
+  get rowTasks() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td:nth-child(5)'
     );
   }
-  get employeeTimesheetsPageTimesheetRowEdit() {
+  get rowEdit() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td.table_buttonTd__1cGKe > button:nth-child(1)'
     );
   }
-  get employeeTimesheetsPageTimesheetRowDelete() {
+  get rowDelete() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td.table_buttonTd__1cGKe > button:nth-child(2)'
+    );
+  }
+
+  get deleteModal() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div'
+    );
+  }
+  get deleteModalCross() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div > button'
+    );
+  }
+  get deleteCModalTitle() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div > h2'
+    );
+  }
+  get deleteModalText1() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > p:nth-child(1)'
+    );
+  }
+  get deleteModalText2() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > p:nth-child(2)'
+    );
+  }
+  get deletenModalCancelButton() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div > div:nth-child(4) > button.table_deleteModalBtn__1PDV0'
+    );
+  }
+  get deleteModalConfirmButton() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div > div:nth-child(4) > button.table_stylesModalBtn__gb5_E'
     );
   }
 
@@ -112,16 +148,28 @@ class employeeTimesheetsPage {
     await this.headerButtonHome.click();
     browser.pause(4000);
   }
-  async clickEmployeeTimesheetsPageButtonAddNewTimesheet() {
-    await this.employeeTimesheetsPageButtonAddNewTimesheet.click();
+  async clickButtonAddNewTimesheet() {
+    await this.ButtonAddNewTimesheet.click();
     browser.pause(4000);
   }
-  async clickEmployeeTimesheetsPageTimesheetRowEdit() {
-    await this.employeeTimesheetsPageTimesheetRowEdit.click();
+  async clickRowEdit() {
+    await this.rowEdit.click();
     browser.pause(4000);
   }
-  async clickEmployeeTimesheetsPageTimesheetRowDelete() {
-    await this.employeeTimesheetsPageTimesheetRowDelete.click();
+  async clickRowDelete() {
+    await this.rowDelete.click();
+    browser.pause(4000);
+  }
+  async clickDeleteModalCross() {
+    await this.deleteModalCross.click();
+    browser.pause(4000);
+  }
+  async clickDeletenModalCancelButton() {
+    await this.deletenModalCancelButton.click();
+    browser.pause(4000);
+  }
+  async clickDeleteModalConfirmButton() {
+    await this.deleteModalConfirmButton.click();
     browser.pause(4000);
   }
 }

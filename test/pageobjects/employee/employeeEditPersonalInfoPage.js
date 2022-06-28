@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-class employeeEditPersonalInfoPage {
+class employeePersonalInfoPage {
   //getters
 
   get headerButtonHome() {
@@ -53,65 +53,65 @@ class employeeEditPersonalInfoPage {
     return $('#root > div > div > nav > ul > li:nth-child(3) > a');
   }
 
-  get employeeEditPersonalInfoPageLogo() {
-    return $('#root > div > div > div > div.logo_container__YUs9e');
+  get logo() {
+    return $('#root > div > div > section > div.logo_container__YUs9e');
   }
-  get employeeEditPersonalInfoPageTitle() {
-    return $('#root > div > div > div > div.formEmployee_formContainer__2w_8O > h2');
+  get title() {
+    return $('#root > div > div > section > h2:nth-child(2)');
   }
 
-  get employeeEditPersonalInfoPageLabelName() {
+  get labelName() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(1) > input'
     );
   }
-  get employeeEditPersonalInfoPageLabelDescription() {
+  get labelLastName() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(2) > input'
     );
   }
-  get employeeEditPersonalInfoPageLabelphone() {
+  get labelPhone() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(3) > input'
     );
   }
-  get employeeEditPersonalInfoPageLabelemail() {
+  get labelEmail() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(4) > input'
     );
   }
-  get employeeEditPersonalInfoPageLabelClientName() {
+  get labelPassword() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(5) > input'
     );
   }
-  get employeeEditPersonalInfoPageDropdowsActive() {
+  get dropdownsActive() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select'
     );
   }
-  get employeeEditPersonalInfoPageDropdowsActiveTitle() {
+  get dropdownsActiveTitle() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select > option:nth-child(1)'
     );
   }
-  get employeeEditPersonalInfoPageDropdowsActiveTrue() {
+  get dropdownsActiveTrue() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select > option:nth-child(2)'
     );
   }
-  get employeeEditPersonalInfoPageDropdowsActiveFalse() {
+  get dropdownsActiveFalse() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select > option:nth-child(3)'
     );
   }
 
-  get employeeEditPersonalInfoPageButtonConfirm() {
+  get buttonConfirm() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.employees_containerBtn__3oxVC > button:nth-child(1)'
     );
   }
-  get employeeEditPersonalInfoPageButtonCancel() {
+  get buttonCancel() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.employees_containerBtn__3oxVC > button:nth-child(2)'
     );
@@ -120,38 +120,34 @@ class employeeEditPersonalInfoPage {
   //Setters
 
   async setName(name) {
-    await this.employeeEditFieldName.setValue(name);
+    await this.labelName.setValue(name);
   }
-  async setLastName(lastName) {
-    await this.employeeEditFieldLastName.setValue(lastName);
+  async setDescription(lastName) {
+    await this.labelDescription.setValue(lastName);
   }
-  async setPhone(phone) {
-    await this.employeeEditFieldPhone.setValue(phone);
+  async setStartDate(StartDate) {
+    await this.labelStartDate.setValue(StartDate);
   }
-  async setEmail(email) {
-    await this.employeeEditFieldEmail.setValue(email);
+  async setEndDate(EndDate) {
+    await this.labelDescription.setValue(EndDate);
   }
-  async setPassword(Password) {
-    await this.employeeEditFieldPassword.setValue(Password);
+  async setClientName(password) {
+    await this.labelClientName.setValue(password);
   }
 
   //methods
 
-  async fillSignUpForm(name, lastName, phone, email, Password) {
+  async fillSignUpForm(name, lastName, phone, email, password) {
     await this.setName(name);
     await this.setLastName(lastName);
     await this.setPhone(phone);
     await this.setEmail(email);
-    await this.setPassword(Password);
+    await this.setPassword(password);
   }
-  async fillEditFormDorpdowns() {
-    await this.employeeEditPersonalInfoPageDropdowsActive.click();
+  async fillFormDropdowns() {
+    await this.dropdownsActive.click();
     browser.pause(4000);
-    await this.employeeEditPersonalInfoPageDropdowsActiveTrue.click();
-    browser.pause(4000);
-    await this.employeeEditPersonalInfoPageDropdowsEmployeee.click();
-    browser.pause(4000);
-    await this.employeeEditPersonalInfoPageDropdowsEmployeeSelect.click();
+    await this.dropdownsActiveTrue.click();
     browser.pause(4000);
   }
 
@@ -159,13 +155,13 @@ class employeeEditPersonalInfoPage {
     await this.headerButtonHome.click();
     browser.pause(4000);
   }
-  async clickEmployeeEditProjectPageButtonConfirm() {
-    await this.employeeEditPersonalInfoPageButtonConfirm.click();
+  async clickButtonConfirm() {
+    await this.buttonConfirm.click();
     browser.pause(4000);
   }
-  async clickEmployeeEditProjectPageButtonCancel() {
-    await this.employeeEditPersonalInfoPageButtonCancel.click();
+  async clickButtonCancel() {
+    await this.buttonCancel.click();
     browser.pause(4000);
   }
 }
-module.exports = new employeeEditPersonalInfoPage();
+module.exports = new employeePersonalInfoPage();

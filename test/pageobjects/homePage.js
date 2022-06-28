@@ -116,10 +116,10 @@ class homePage {
     );
   }
 
-  get homePageLogo() {
+  get logo() {
     return $('#root > div > div > div > div');
   }
-  get homePageContainer() {
+  get pageContainer() {
     return $('#root > div > div > div > main');
   }
 

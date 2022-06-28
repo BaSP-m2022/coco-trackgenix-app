@@ -55,85 +55,85 @@ class employeeAddNewProjectPage {
 
   // Not implemented
 
-  get employeeAddNewProjectPageLogo() {
+  get logo() {
     return $('#root > div > div > div > div');
   }
-  get employeeAddNewProjectPageTitle() {
+  get title() {
     return $('#root > div > div > div > h2');
   }
 
-  get employeeAddNewProjectPageLabelName() {
+  get labelName() {
     return $(
-      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(1) >Label'
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(1) >label'
     );
   }
-  get employeeAddNewProjectPageLabelDescription() {
+  get labelDescription() {
     return $(
-      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(2) >Label'
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(2) >label'
     );
   }
-  get employeeAddNewProjectPageLabelStartDate() {
+  get labelStartDate() {
     return $(
-      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(3) >Label'
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(3) >label'
     );
   }
-  get employeeAddNewProjectPageLabelEndDate() {
+  get labelEndDate() {
     return $(
-      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(4) >Label'
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(4) >label'
     );
   }
-  get employeeAddNewProjectPageLabelClientName() {
+  get labelClientName() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(1) > input'
     );
   }
-  get employeeAddNewProjectPageDropdowsActive() {
+  get dropdownsActive() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(2) > select'
     );
   }
-  get employeeAddNewProjectPageDropdowsActiveTitle() {
+  get dropdownsActiveTitle() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(2) > select > option:nth-child(1)'
     );
   }
-  get employeeAddNewProjectPageDropdowsActiveTrue() {
+  get dropdownsActiveTrue() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(2) > select > option:nth-child(2)'
     );
   }
-  get employeeAddNewProjectPageDropdowsActiveFalse() {
+  get dropdownsActiveFalse() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(2) > select > option:nth-child(3)'
     );
   }
-  get employeeAddNewProjectPageDropdowsEmployeee() {
+  get dropdownsEmployeee() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(3) > select'
     );
   }
-  get employeeAddNewProjectPageDropdowsEmployeeTitle() {
+  get dropdownsEmployeeTitle() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(3) > select > option:nth-child(1)'
     );
   }
-  get employeeAddNewProjectPageDropdowsEmployeeSelect() {
+  get dropdownsEmployeeSelect() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(3) > select > option:nth-child(2)'
     );
   }
-  get employeeAddNewProjectPageLabelAdmin() {
+  get labelAdmin() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(4) > input'
     );
   }
 
-  get employeeAddNewProjectPageButtonConfirm() {
+  get buttonConfirm() {
     return $(
       '#root > div > div > div > form > div.addNew_btnContainer__s4aoC > button.addNew_projectButton__1aZdV'
     );
   }
-  get employeeAddNewProjectPageButtonCancel() {
+  get buttonCancel() {
     return $(
       '#root > div > div > div > form > div.addNew_btnContainer__s4aoC > button.addNew_returnProjectBtn__2nYYz'
     );
@@ -142,42 +142,42 @@ class employeeAddNewProjectPage {
   //Setters
 
   async setName(name) {
-    await this.signUpFieldName.setValue(name);
+    await this.labelName.setValue(name);
   }
   async setDescription(description) {
-    await this.signUpFieldLastName.setValue(description);
+    await this.labelDescription.setValue(description);
   }
   async setStartDate(StartDate) {
-    await this.signUpFieldPhone.setValue(StartDate);
+    await this.labelStartDate.setValue(StartDate);
   }
   async setEndDate(EndDate) {
-    await this.signUpFieldEmail.setValue(EndDate);
+    await this.labelEndDate.setValue(EndDate);
   }
   async setClientName(clientName) {
-    await this.signUpFieldPassword.setValue(clientName);
+    await this.labelClientName.setValue(clientName);
   }
   async setAdmin(admin) {
-    await this.signUpFieldPassword.setValue(admin);
+    await this.labelAdmin.setValue(admin);
   }
 
   //methods
 
-  async fillSignUpForm(name, description, startDate, endDate, clientName, admin) {
+  async fillForm(name, description, startDate, endDate, clientName, admin) {
     await this.setName(name);
-    await this.setLastName(description);
-    await this.setPhone(startDate);
-    await this.setEmail(endDate);
-    await this.setPassword(clientName);
-    await this.setPassword(admin);
+    await this.setDescription(description);
+    await this.setStartDate(startDate);
+    await this.setEndDate(endDate);
+    await this.setClientName(clientName);
+    await this.setAdmin(admin);
   }
-  async fillSignUpFormDorpdowns() {
-    await this.employeeAddNewProjectPageDropdowsActive.click();
+  async fillFormDorpdowns() {
+    await this.dropdownsActive.click();
     browser.pause(4000);
-    await this.employeeAddNewProjectPageDropdowsActiveTrue.click();
+    await this.dropdownsActiveTrue.click();
     browser.pause(4000);
-    await this.employeeAddNewProjectPageDropdowsEmployeee.click();
+    await this.dropdownsEmployeee.click();
     browser.pause(4000);
-    await this.employeeAddNewProjectPageDropdowsEmployeeSelect.click();
+    await this.dropdownsEmployeeSelect.click();
     browser.pause(4000);
   }
 
@@ -185,12 +185,12 @@ class employeeAddNewProjectPage {
     await this.headerButtonHome.click();
     browser.pause(4000);
   }
-  async clickEmployeeAddNewProjectPageButtonConfirm() {
-    await this.employeeAddNewProjectPageButtonConfirm.click();
+  async clickButtonConfirm() {
+    await this.buttonConfirm.click();
     browser.pause(4000);
   }
-  async clickEmployeeAddNewProjectPageButtonCancel() {
-    await this.employeeAddNewProjectPageButtonCancel.click();
+  async clickButtonCancel() {
+    await this.buttonCancel.click();
     browser.pause(4000);
   }
 }

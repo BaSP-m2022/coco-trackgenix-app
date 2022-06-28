@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-class employeeAddNewTimesheetPage {
+class employeeEditTimesheetPage {
   //getters
 
   get headerButtonHome() {
@@ -55,107 +55,107 @@ class employeeAddNewTimesheetPage {
 
   // Not implemented
 
-  get employeeAddNewTimesheetPageLogo() {
+  get logo() {
     return $('#root > div > div > div > div.logo_container__YUs9e');
   }
-  get employeeAddNewTimesheetPageTitle() {
+  get title() {
     return $('#root > div > div > div > div:nth-child(2) > h2');
   }
 
-  get employeeAddNewTimesheetPageDropdowsEmployee() {
+  get dropdownsEmployee() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(1) > select'
     );
   }
-  get employeeAddNewTimesheetPageDropdowsEmployeeTitle() {
+  get dropdownsEmployeeTitle() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(1) > select > option:nth-child(1)'
     );
   }
-  get employeeAddNewTimesheetPageDropdowsEmployeeSelect() {
+  get dropdownsEmployeeSelect() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(1) > select > option:nth-child(2)'
     );
   }
-  get employeeAddNewTimesheetPageDropdowsProject() {
+  get dropdownsProject() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(2) > select'
     );
   }
-  get employeeAddNewTimesheetPageDropdowsProjectTitle() {
+  get dropdownsProjectTitle() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(2) > select > option:nth-child(1)'
     );
   }
-  get employeeAddNewTimesheetPageDropdowsProjectSelect() {
+  get dropdownsProjectSelect() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(2) > select > option:nth-child(2)'
     );
   }
-  get employeeAddNewTimesheetPageDropdowsTask() {
+  get dropdownsTask() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(3) > select'
     );
   }
-  get employeeAddNewTimesheetPageDropdowsTaskTitle() {
+  get dropdownsTaskTitle() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(3) > select > option:nth-child(1)'
     );
   }
-  get employeeAddNewTimesheetPageDropdowsTaskSelect() {
+  get dropdownsTaskSelect() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(3) > select > option:nth-child(2)'
     );
   }
-  get employeeAddNewProjectPageLabelStartDate() {
+  get labelStartDate() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(1) > div > input'
     );
   }
-  get employeeAddNewProjectPageLabelEndDate() {
+  get labelEndDate() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(2) > div > input'
     );
   }
 
-  get employeeAddNewTimesheetPageButtonConfirm() {
+  get buttonConfirm() {
     return $(
-      '#root > div > div > div > form > div.time-sheets_btnContainer__fPrOP > button.time-sheets_timesheetButton__36_a6'
+      '#root > div > div > div > form > div:nth-child(2) > div > button.time-sheets_timesheetButton__36_a6'
     );
   }
-  get employeeAddNewTimesheetPageButtonCancel() {
+  get buttonCancel() {
     return $(
-      '#root > div > div > div > form > div.time-sheets_btnContainer__fPrOP > button.time-sheets_returnTimesheetBtn__2Kp49'
+      '#root > div > div > div > form > div:nth-child(2) > div > button.time-sheets_returnTimesheetBtn__2Kp49'
     );
   }
 
   //Setters
 
-  async setEndDate(EndDate) {
-    await this.signUpFieldEmail.setValue(EndDate);
+  async setStartDate(startDate) {
+    await this.labelStartDate.setValue(startDate);
   }
-  async setClientName(clientName) {
-    await this.signUpFieldPassword.setValue(clientName);
+  async setEndDate(endDate) {
+    await this.labelEndDate.setValue(endDate);
   }
 
   //methods
 
   async fillSignUpForm(startDate, endDate) {
-    await this.setPhone(startDate);
-    await this.setEmail(endDate);
+    await this.setStartDate(startDate);
+    await this.setEndDate(endDate);
   }
-  async fillSignUpFormDorpdowns() {
-    await this.employeeAddNewTimesheetPageDropdowsEmployeee.click();
+  async fillFormDorpdowns() {
+    await this.dropdownsEmployee.click();
     browser.pause(4000);
-    await this.employeeAddNewTimesheetPageDropdowsEmployeeSelect.click();
+    await this.dropdownsEmployeeSelect.click();
     browser.pause(4000);
-    await this.employeeAddNewTimesheetPageDropdowsProject.click();
+    await this.dropdownsProject.click();
     browser.pause(4000);
-    await this.employeeAddNewTimesheetPageDropdowsProjectSelect.click();
+    await this.dropdownsProjectSelect.click();
     browser.pause(4000);
-    await this.employeeAddNewTimesheetPageDropdowsTask.click();
+    await this.dropdownsTask.click();
     browser.pause(4000);
-    await this.employeeAddNewTimesheetPageDropdowsTaskSelect.click();
+    await this.dropdownsTaskSelect.click();
     browser.pause(4000);
   }
 
@@ -163,13 +163,13 @@ class employeeAddNewTimesheetPage {
     await this.headerButtonHome.click();
     browser.pause(4000);
   }
-  async clickEmployeeAddNewProjectPageButtonConfirm() {
-    await this.employeeAddNewTimesheetPageButtonConfirm.click();
+  async clickButtonConfirm() {
+    await this.buttonConfirm.click();
     browser.pause(4000);
   }
-  async clickEmployeeAddNewProjectPageButtonCancel() {
-    await this.employeeAddNewTimesheetPageButtonCancel.click();
+  async clickButtonCancel() {
+    await this.buttonCancel.click();
     browser.pause(4000);
   }
 }
-module.exports = new employeeAddNewTimesheetPage();
+module.exports = new employeeEditTimesheetPage();

@@ -55,85 +55,85 @@ class employeeEditProjectPage {
 
   // Not implemented
 
-  get employeeEditProjectPageLogo() {
+  get logo() {
     return $('#root > div > div > div > div.logo_container__YUs9e');
   }
-  get employeeEditProjectPageTitle() {
+  get title() {
     return $('#root > div > div > div > h2');
   }
 
-  get employeeEditProjectPageLabelName() {
+  get labelName() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div.addNew_columnContainer__1lg50 > div:nth-child(1) > input'
     );
   }
-  get employeeEditProjectPageLabelDescription() {
+  get labelDescription() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div.addNew_columnContainer__1lg50 > div:nth-child(2) > input'
     );
   }
-  get employeeEditProjectPageLabelStartDate() {
+  get labelStartDate() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div.addNew_columnContainer__1lg50 > div:nth-child(1) > input'
     );
   }
-  get employeeEditProjectPageLabelEndDate() {
+  get labelEndDate() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div.addNew_columnContainer__1lg50 > div:nth-child(4) > input'
     );
   }
-  get employeeEditProjectPageLabelClientName() {
+  get labelClientName() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(1) > input'
     );
   }
-  get employeeEditProjectPageDropdowsActive() {
+  get dropdownsActive() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(2) > select'
     );
   }
-  get employeeEditProjectPageDropdowsActiveTitle() {
+  get dropdownsActiveTitle() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(2) > select > option:nth-child(1)'
     );
   }
-  get employeeEditProjectPageDropdowsActiveTrue() {
+  get dropdownsActiveTrue() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(2) > select > option:nth-child(2)'
     );
   }
-  get employeeEditProjectPageDropdowsActiveFalse() {
+  get dropdownsActiveFalse() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(2) > select > option:nth-child(3)'
     );
   }
-  get employeeEditProjectPageDropdowsEmployeee() {
+  get dropdownsEmployeee() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(3) > select'
     );
   }
-  get employeeEditProjectPageDropdowsEmployeeTitle() {
+  get dropdownsEmployeeTitle() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(3) > select > option:nth-child(1)'
     );
   }
-  get employeeEditProjectPageDropdowsEmployeeSelect() {
+  get dropdownsEmployeeSelect() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(3) > select > option:nth-child(2)'
     );
   }
-  get employeeEditProjectPageLabelAdmin() {
+  get labelAdmin() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(4) > input'
     );
   }
 
-  get employeeEditProjectPageButtonConfirm() {
+  get buttonConfirm() {
     return $(
       '#root > div > div > div > form > div.addNew_btnContainer__s4aoC > button.addNew_projectButton__1aZdV'
     );
   }
-  get employeeEditProjectPageButtonCancel() {
+  get buttonCancel() {
     return $(
       '#root > div > div > div > form > div.addNew_btnContainer__s4aoC > button.addNew_returnProjectBtn__2nYYz'
     );
@@ -142,42 +142,42 @@ class employeeEditProjectPage {
   //Setters
 
   async setName(name) {
-    await this.signUpFieldName.setValue(name);
+    await this.labelName.setValue(name);
   }
   async setDescription(description) {
-    await this.signUpFieldLastName.setValue(description);
+    await this.labelDescription.setValue(description);
   }
   async setStartDate(StartDate) {
-    await this.signUpFieldPhone.setValue(StartDate);
+    await this.labelStartDate.setValue(StartDate);
   }
   async setEndDate(EndDate) {
-    await this.signUpFieldEmail.setValue(EndDate);
+    await this.labelDescription.setValue(EndDate);
   }
   async setClientName(clientName) {
-    await this.signUpFieldPassword.setValue(clientName);
+    await this.labelClientName.setValue(clientName);
   }
   async setAdmin(admin) {
-    await this.signUpFieldPassword.setValue(admin);
+    await this.labelAdmin.setValue(admin);
   }
 
   //methods
 
   async fillSignUpForm(name, description, startDate, endDate, clientName, admin) {
     await this.setName(name);
-    await this.setLastName(description);
-    await this.setPhone(startDate);
-    await this.setEmail(endDate);
-    await this.setPassword(clientName);
-    await this.setPassword(admin);
+    await this.setDescription(description);
+    await this.setStartDate(startDate);
+    await this.setEndDate(endDate);
+    await this.setClientName(clientName);
+    await this.setAdmin(admin);
   }
-  async fillSignUpFormDorpdowns() {
-    await this.employeeEditProjectPageDropdowsActive.click();
+  async fillFormDropdowns() {
+    await this.dropdownsActive.click();
     browser.pause(4000);
-    await this.employeeEditProjectPageDropdowsActiveTrue.click();
+    await this.dropdownsActiveTrue.click();
     browser.pause(4000);
-    await this.employeeEditProjectPageDropdowsEmployeee.click();
+    await this.dropdownsEmployeee.click();
     browser.pause(4000);
-    await this.employeeEditProjectPageDropdowsEmployeeSelect.click();
+    await this.dropdownsEmployeeSelect.click();
     browser.pause(4000);
   }
 
@@ -185,12 +185,12 @@ class employeeEditProjectPage {
     await this.headerButtonHome.click();
     browser.pause(4000);
   }
-  async clickEmployeeEditProjectPageButtonConfirm() {
-    await this.employeeEditProjectPageButtonConfirm.click();
+  async clickButtonConfirm() {
+    await this.buttonConfirm.click();
     browser.pause(4000);
   }
-  async clickEmployeeEditProjectPageButtonCancel() {
-    await this.employeeEditProjectPageButtonCancel.click();
+  async clickButtonCancel() {
+    await this.buttonCancel.click();
     browser.pause(4000);
   }
 }

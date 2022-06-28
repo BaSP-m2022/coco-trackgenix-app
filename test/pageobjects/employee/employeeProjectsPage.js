@@ -53,74 +53,110 @@ class employeeProjectsPage {
     return $('#root > div > div > nav > ul > li:nth-child(3) > a');
   }
 
-  get employeeProjectsPageLogo() {
+  get logo() {
     return $('#root > div > div > div > div.logo_container__YUs9e');
   }
-  get employeeProjectsPageTitle() {
+  get title() {
     return $('#root > div > div > div > div.projects_container__1eYs7 > h2');
   }
-  get employeeProjectsPageButtonAddNewProject() {
+  get buttonAddNewProject() {
     return $('#root > div > div > div > div.projects_container__1eYs7 > button');
   }
-  get employeeProjectsPageProjectRow() {
+  get row() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(15)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14)'
     );
   }
 
-  get employeeProjectsPageProjectRowName() {
+  get rowName() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(15) > td:nth-child(1)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(1)'
     );
   }
-  get employeeProjectsPageProjectRowClientName() {
+  get rowClientName() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(15) > td:nth-child(2)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(2)'
     );
   }
-  get employeeProjectsPageProjectRowAdmins() {
+  get rowAdmins() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(15) > td:nth-child(3)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(3)'
     );
   }
-  get employeeProjectsPageProjectRowCreatedAt() {
+  get rowCreatedAt() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(15) > td:nth-child(4)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(4)'
     );
   }
-  get employeeProjectsPageProjectRowDescription() {
+  get rowDescription() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(15) > td:nth-child(5)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(5)'
     );
   }
-  get employeeProjectsPageProjectRowStartDate() {
+  get rowStartDate() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(15) > td:nth-child(6)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(6)'
     );
   }
-  get employeeProjectsPageProjectRowEndDate() {
+  get rowEndDate() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(15) > td:nth-child(7)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(7)'
     );
   }
-  get employeeProjectsPageProjectRowEmployees() {
+  get rowEmployees() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(15) > td:nth-child(8)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(8)'
     );
   }
-  get employeeProjectsPageProjectRowActive() {
+  get rowActive() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(15) > td:nth-child(9)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(9)'
     );
   }
-  get employeeProjectsPageProjectRowEdit() {
+  get rowEdit() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(15) > td.table_buttonTd__1cGKe > button:nth-child(1)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td.table_buttonTd__1cGKe > button:nth-child(1)'
     );
   }
-  get employeeProjectsPageProjectRowDelete() {
+  get rowDelete() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(15) > td.table_buttonTd__1cGKe > button:nth-child(2)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td.table_buttonTd__1cGKe > button:nth-child(2)'
+    );
+  }
+
+  get deleteModal() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > div.modal_modalOverlay__1jXdD > div'
+    );
+  }
+  get deleteModalCross() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > div.modal_modalOverlay__1jXdD > div > button'
+    );
+  }
+  get deleteCModalTitle() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > div.modal_modalOverlay__1jXdD > div > h2'
+    );
+  }
+  get deleteModalText1() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > p:nth-child(1)'
+    );
+  }
+  get deleteModalText2() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > p:nth-child(2)'
+    );
+  }
+  get deletenModalCancelButton() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(4) > button.table_deleteModalBtn__1PDV0'
+    );
+  }
+  get deleteModalConfirmButton() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(4) > button.table_stylesModalBtn__gb5_E'
     );
   }
 
@@ -128,20 +164,28 @@ class employeeProjectsPage {
 
   //methods
 
-  async clickHeaderButtonHome() {
-    await this.headerButtonHome.click();
+  async clickButtonAddNewProject() {
+    await this.buttonAddNewProject.click();
     browser.pause(4000);
   }
-  async clickEmployeeProjectsPageButtonAddNewProject() {
-    await this.employeeProjectsPageButtonAddNewProject.click();
+  async clickRowEdit() {
+    await this.rowEdit.click();
     browser.pause(4000);
   }
-  async clickEmployeeProjectsPageProjectRowEdit() {
-    await this.employeeProjectsPageProjectRowEdit.click();
+  async clickRowDelete() {
+    await this.rowDelete.click();
     browser.pause(4000);
   }
-  async clickEmployeeProjectsPageProjectRowDelete() {
-    await this.employeeProjectsPageProjectRowDelete.click();
+  async clickDeleteModalCross() {
+    await this.deleteModalCross.click();
+    browser.pause(4000);
+  }
+  async clickDeletenModalCancelButton() {
+    await this.deletenModalCancelButton.click();
+    browser.pause(4000);
+  }
+  async clickDeleteModalConfirmButton() {
+    await this.deleteModalConfirmButton.click();
     browser.pause(4000);
   }
 }
