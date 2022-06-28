@@ -2,9 +2,10 @@ import { useForm } from 'react-hook-form';
 import Input from 'Components/SharedComponents/Input/Input';
 import Modal from 'Components/SharedComponents/Modal/Modal';
 import Button from 'Components/SharedComponents/Button/Button';
+import Loading from 'Components/SharedComponents/Loading/Loading';
 import { login } from 'Components/redux/modules/auth/thunks';
 import { cleanError } from 'Components/redux/modules/auth/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useState } from 'react';
@@ -31,18 +32,14 @@ const schema = joi.object({
 
 const Login = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [role, setRole] = useState(false);
   const [resStatus, setResStatus] = useState(false);
 
   const dispatch = useDispatch();
+  const isFetching = useSelector((state) => state.login.isFetching);
 
   const onSubmit = (formValues) => {
     setIsOpen(true);
-    return dispatch(login(formValues, setResStatus)).then((response) => {
-      if (response) {
-        setRole(sessionStorage.getItem('role'));
-      }
-    });
+    return dispatch(login(formValues, setResStatus));
   };
 
   const {
@@ -54,6 +51,7 @@ const Login = (props) => {
   const handleOkBtn = () => {
     setIsOpen(false);
     dispatch(cleanError());
+    const role = sessionStorage.getItem('role');
     switch (role) {
       case 'EMPLOYEE':
         return props.history.push('/employee/projects');
@@ -67,6 +65,10 @@ const Login = (props) => {
         break;
     }
   };
+
+  if (isFetching) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div className={styles.container}>

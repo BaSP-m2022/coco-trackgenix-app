@@ -15,10 +15,10 @@ export const login = (credentials, setResStatus) => {
         setResStatus(true);
         sessionStorage.setItem('token', token);
         sessionStorage.setItem('role', role);
-        return dispatch(loginSuccess({ role, token }));
+        dispatch(loginSuccess());
       })
       .catch((error) => {
-        return dispatch(loginError(error.toString()));
+        dispatch(loginError(error.toString()));
       });
   };
 };
