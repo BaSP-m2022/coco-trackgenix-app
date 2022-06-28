@@ -10,6 +10,20 @@ const Header = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
+  const loginButtonText = (a) => {
+    if (a === 'log') {
+      if (sessionStorage.getItem('token')) {
+        return 'Logout';
+      } else {
+        return 'Login';
+      }
+    } else if (sessionStorage.getItem('token')) {
+      return '/home';
+    } else {
+      return '/login';
+    }
+  };
+
   return (
     <header className={style.container}>
       {sidebarOpen ? (
@@ -53,8 +67,8 @@ const Header = () => {
             <Link to="/employee/signup" className={style.navigation} disable={!sidebarOpen}>
               Sign Up
             </Link>
-            <Link to="/nav" className={style.navigation} disable={!sidebarOpen}>
-              Navigation
+            <Link to={loginButtonText('path')} className={style.navigation} disable={!sidebarOpen}>
+              {loginButtonText('log')}
             </Link>
           </div>
         ) : (
