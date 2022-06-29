@@ -1,6 +1,6 @@
 /* eslint-disable no-dupe-class-members */
 /* eslint-disable no-undef */
-class GeneralPages {
+class HomePage {
   get menuH() {
     return $('#root > div > header > div > button');
   }
@@ -115,61 +115,10 @@ class GeneralPages {
   get column_ul_support() {
     return $('#root > div > div > div > section > div:nth-child(5) > ul');
   }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
-  get asd() {
-    return $('');
-  }
 
   async btnSignUpClick() {
     await this.btnSignUp.click();
   }
 }
 
-module.exports = new GeneralPages();
+module.exports = new HomePage();

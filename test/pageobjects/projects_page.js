@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-class GeneralPages {
+class ProjectsPage {
   get link_project() {
     return $('#root > div > div > nav > div.navBar_userInfo__11FpW > img');
   }
@@ -147,4 +147,4 @@ class GeneralPages {
   }
 }
 
-module.exports = new GeneralPages();
+module.exports = new ProjectsPage();

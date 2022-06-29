@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-class GeneralPages {
+class TimeSheetPage {
   get linkedin() {
     return $('#root > div > footer > div > div > a:nth-child(1)');
   }
@@ -147,4 +147,4 @@ class GeneralPages {
   }
 }
 
-module.exports = new GeneralPages();
+module.exports = new TimeSheetPage();

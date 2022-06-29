@@ -114,11 +114,42 @@ class SignupPage {
     return $('#root > div > footer > div > p:nth-child(3)');
   }
 
-  // Falta social media, header, logo y URL
-
-  async clickFieldName(firstName) {
-    await this.placeholder_firstName.setValue(firstName);
+  get modal_create() {
+    return $('#root > div > div > div > div.modal_modalOverlay__1jXdD > div');
   }
+  get modal_confirm() {
+    return $(
+      '#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > button:nth-child(1)'
+    );
+  }
+  get modal_cancel() {
+    return $(
+      '#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > button:nth-child(2)'
+    );
+  }
+  get modal_btn_success() {
+    return $(
+        '#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > button.employees_modalEmployeeBtn__-7PeI'
+    );
+  }
+
+  async clickFields(firstName, phone, password, lastName, email, active) {
+    await this.placeholder_firstName.setValue(firstName);
+    await this.placeholder_lastName.setValue(lastName);
+    await this.placeholder_lastName.setValue(phone);
+    await this.placeholder_lastName.setValue(password);
+    await this.placeholder_lastName.setValue(email);
+    await this.placeholder_lastName.setValue(active);
+  }
+  async clickConfirm() {
+    await this.btn_confirm.click();
+  }
+  async clickSuccess() {
+    await this.modal_btn_success.click();
+  }
+//   async clickSignUp(firstName) {
+//     await this.placeholder_firstName.setValue(firstName);
+//   }
 }
 
 module.exports = new SignupPage();

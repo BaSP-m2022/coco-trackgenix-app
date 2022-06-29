@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-class GeneralPages {
+class SuperAdminPage {
   get instagram() {
     return $('#root > div > footer > div > div > a:nth-child(5)');
   }
@@ -28,25 +28,21 @@ class GeneralPages {
   }
   get btn_create() {
     return $(
-      '#root > div > div > div > form > div.time-sheets_btnContainer__fPrOP > button.time-sheets_timesheetButton__36_a6'
+      '#root > div > div > div > form > div.super-admins_formButtonsContainer__3zKgF > button:nth-child(1)'
     );
   }
   get btn_return() {
     return $(
-      '#root > div > div > div > form > div.time-sheets_btnContainer__fPrOP > button.time-sheets_returnTimesheetBtn__2Kp49'
+      '#root > div > div > div > form > div.super-admins_formButtonsContainer__3zKgF > button:nth-child(2)'
     );
-  }
-
-  get h2_timeSheet() {
-    return $('#root > div > div > div > div.projects_container__1eYs7 > h2');
   }
 
   get logo() {
     return $('#root > div > div > div > div > div');
   }
 
-  get addTimeSheet() {
-    return $('#root > div > div > section > button');
+  get add_superAdmin() {
+    return $('#root > div > div > section > div.table_container__2zHgd > div > button');
   }
 
   get paragraph_01() {
@@ -54,7 +50,7 @@ class GeneralPages {
   }
   get paragraph_02() {
     return $('#root > div > footer > div > p:nth-child(3)');
-  } //ME FALTAN LOS MODALSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  }
 
   get sidebar() {
     return $('#root > div > div > nav');
@@ -100,51 +96,41 @@ class GeneralPages {
     return $('#root > div > div > nav > ul > li:nth-child(6) > a');
   }
 
-  get div_select_employee() {
-    return $(
-      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(1)'
-    );
+  get h2_form_superadmin() {
+    return $('');
   }
-  get div_select_project() {
-    return $(
-      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(2)'
-    );
+  get input_name() {
+    return $('#root > div > div > div > form > div:nth-child(1) > div > input');
   }
-  get div_select_task() {
-    return $(
-      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(3)'
-    );
+  get input_lastName() {
+    return $('#root > div > div > div > form > div:nth-child(2) > div > input');
   }
-  get div_select_startDate() {
-    return $(
-      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(1) > div'
-    );
+  get input_email() {
+    return $('#root > div > div > div > form > div:nth-child(3) > div > input');
   }
-  get div_select_endDate() {
-    return $(
-      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(2) > div'
-    );
+  get input_password() {
+    return $('#root > div > div > div > form > div:nth-child(4) > div > input');
+  }
+  get input_active() {
+    return $('#root > div > div > div > form > div:nth-child(5) > div > select');
+  }
+  get () {
+    return $('#root > div > div > div > form > div:nth-child(5) > div > select');
+  }
+  get input_active() {
+    return $('#root > div > div > div > form > div:nth-child(5) > div > select');
+  }
+  get input_active() {
+    return $('#root > div > div > div > form > div:nth-child(5) > div > select');
+  }
+  get input_active() {
+    return $('#root > div > div > div > form > div:nth-child(5) > div > select');
   }
 
-  get select_employee() {
-    return $('');
-  }
-  get select_project() {
-    return $('');
-  }
-  get select_task() {
-    return $('');
-  }
-  get select_startDate() {
-    return $('');
-  }
-  get select_endDate() {
-    return $('');
-  }
 
   async asd() {
     await this.asd.setValue(asd);
   }
 }
 
-module.exports = new GeneralPages();
+module.exports = new SuperAdminPage();
