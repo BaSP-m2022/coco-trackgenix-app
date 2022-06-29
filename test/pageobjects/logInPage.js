@@ -31,33 +31,44 @@ class loginPage {
     return $('#root > div > footer > div > p:nth-child(3)');
   }
 
-  get logInLogo() {
+  get logo() {
     return $('#root > div > div > div > div.logo_container__YUs9e');
   }
-  get logInTitle() {
+  get title() {
     return $('#root > div > div > div > div.login_formContainer__3cyuE > div > h2');
   }
 
-  get logInLabelEmail() {
+  get labelEmail() {
     return $(
       '#root > div > div > div > div.login_formContainer__3cyuE > form > div:nth-child(1) > div:nth-child(1) > label'
     );
   }
-  get logInFieldEmail() {
+  get labelEmailnput() {
     return $(
       '#root > div > div > div > div.login_formContainer__3cyuE > form > div:nth-child(1) > div:nth-child(1) > input'
     );
   }
-  get logInLabelPassword() {
+  get labelEmailErrorMsg() {
+    return $(
+      '#root > div > div > div > div.login_formContainer__3cyuE > form > div:nth-child(1) > div:nth-child(1) > p'
+    );
+  }
+  get labelPassword() {
     return $(
       '#root > div > div > div > div.login_formContainer__3cyuE > form > div:nth-child(1) > div:nth-child(2) > label'
     );
   }
-  get logInFieldPassword() {
+  get labelPasswordInput() {
     return $(
       '#root > div > div > div > div.login_formContainer__3cyuE > form > div:nth-child(1) > div:nth-child(2) > input'
     );
   }
+  get labelPasswordErrorMsg() {
+    return $(
+      '#root > div > div > div > div.login_formContainer__3cyuE > form > div:nth-child(1) > div:nth-child(2) > p'
+    );
+  }
+
   get logInButtonLogIn() {
     return $(
       '#root > div > div > div > div.login_formContainer__3cyuE > form > div.login_loginBtn__20UQA > button'
@@ -67,15 +78,15 @@ class loginPage {
   //Setters
 
   async setEmail(email) {
-    await this.logInFieldEmail.setValue(email);
+    await this.labelEmailnput.setValue(email);
   }
   async setPassword(password) {
-    await this.logInFieldPassword.setValue(password);
+    await this.labelPasswordInput.setValue(password);
   }
 
   //methods
 
-  async fillSignUpForm(email, password) {
+  async fillLogInForm(email, password) {
     await this.setEmail(email);
     await this.setPassword(password);
   }

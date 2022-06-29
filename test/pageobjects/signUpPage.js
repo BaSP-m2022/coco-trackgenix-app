@@ -38,77 +38,107 @@ class signUpPage {
     return $('#root > div > div > div > div.formEmployee_formContainer__2w_8O > div > h2');
   }
 
-  get signUpLabelName() {
+  get labelName() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(1) > label'
     );
   }
-  get signUpFieldName() {
+  get labelNameInput() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(1) > input'
     );
   }
-  get signUpLabelLastName() {
+  get labelNameErrorMsg() {
     return $(
-      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(2) > input'
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(1) > p'
     );
   }
-  get signUpFieldLastName() {
+  get labelLastName() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(2) > label'
     );
   }
-  get signUpLabelPhone() {
+  get labelLastNameInput() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(2) > input'
+    );
+  }
+  get labelLastNameErrorMsg() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(2) > p'
+    );
+  }
+  get labelPhone() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(3) > label'
+    );
+  }
+  get labelPhoneInput() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(3) > input'
     );
   }
-  get signUpFieldPhone() {
+  get labelPhoneErrorMsg() {
     return $(
-      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(3) > input'
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(3) > p'
     );
   }
-  get signUpLabelEmail() {
+  get labelEmail() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(4) > label'
     );
   }
-  get signUpFieldEmail() {
+  get labelEmailInput() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(4) > input'
     );
   }
-  get signUpLabelPassword() {
+  get labelEmailErrorMsg() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(4) > p'
+    );
+  }
+  get labelPassword() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(5) > label'
     );
   }
-  get signUpFieldPassword() {
+  get labelPasswordInput() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(5) > input'
     );
   }
-  get signUpLabelActive() {
+  get labelPasswordErrorMsg() {
     return $(
-      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > label'
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(5) > p'
     );
   }
-  get signUpDropdownActive() {
+  get dropdownsActive() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select'
     );
   }
-  get signUpDropdownActiveTitle() {
+  get dropdownsLabelActive() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > label'
+    );
+  }
+  get dropdownsActiveErrorMsg() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > p'
+    );
+  }
+  get dropdownsActiveTitle() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select > option:nth-child(1)'
     );
   }
-  get signUpDropdownActiveTrue() {
+  get dropdownsActiveTrue() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select > option:nth-child(2)'
     );
   }
-  get signUpDropdownActiveFalse() {
+  get dropdownsActiveFalse() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select > option:nth-child(3)'
     );
@@ -128,19 +158,19 @@ class signUpPage {
   //Setters
 
   async setName(name) {
-    await this.signUpFieldName.setValue(name);
+    await this.labelNameInput.setValue(name);
   }
   async setLastName(lastName) {
-    await this.signUpFieldLastName.setValue(lastName);
+    await this.labelLastNameInput.setValue(lastName);
   }
   async setPhone(phone) {
-    await this.signUpFieldPhone.setValue(phone);
+    await this.labelPhoneInput.setValue(phone);
   }
   async setEmail(email) {
-    await this.signUpFieldEmail.setValue(email);
+    await this.labelEmailInput.setValue(email);
   }
   async setPassword(password) {
-    await this.signUpFieldPassword.setValue(password);
+    await this.labelPasswordInput.setValue(password);
   }
 
   //methods
@@ -151,6 +181,16 @@ class signUpPage {
     await this.setPhone(phone);
     await this.setEmail(email);
     await this.setPassword(password);
+  }
+
+  async clickDropdownsActive() {
+    await this.dropdownsActive.click();
+    browser.pause(4000);
+  }
+
+  async clickDropdownsActiveTrue() {
+    await this.dropdownsActiveTrue.click();
+    browser.pause(4000);
   }
 
   async clickSignUpButtonCreate() {

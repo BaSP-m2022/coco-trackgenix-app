@@ -61,9 +61,6 @@ class adminPage {
   get title() {
     return $('#root > div > div > section > h2');
   }
-  get topButton() {
-    return $('#root > div > div > section > div.table_container__2zHgd > div > button');
-  }
 
   get row() {
     return $(
@@ -179,10 +176,6 @@ class adminPage {
 
   async clickHeaderButtonHome() {
     await this.headerButtonHome.click();
-    browser.pause(4000);
-  }
-  async clickTopButton() {
-    await this.topButton.click();
     browser.pause(4000);
   }
   async clickRowEdit() {

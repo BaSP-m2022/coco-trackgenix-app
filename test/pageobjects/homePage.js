@@ -12,7 +12,7 @@ class homePage {
     return $('#root > div > header > div > div > a:nth-child(2)');
   }
   get headerSearchBox() {
-    return $('#root > div > header > div > div > a:nth-child(2)');
+    return $('#root > div > header > div > input[type=text]');
   }
 
   //   get footerListProductItemFuncionalities() {
@@ -79,14 +79,14 @@ class homePage {
   }
 
   get sidebarIconCross() {
-    return $('#root > div > header > div.header_background__3_lNh > nav > button > img');
+    return $('#root > div > header > div.header_background__3_lNh > nav > button');
   }
 
   get sidebarTitleMenu() {
-    return $('#root > div > header > div.header_background__3_lNh > nav > button > img');
+    return $('#root > div > header > div.header_background__3_lNh > nav > h2');
   }
   get sidebarItemReports() {
-    return $('#root > div > header > div.header_background__3_lNh > nav > ul > li:nth-child(2)');
+    return $('#root > div > header > div.header_background__3_lNh > nav > ul > li:nth-child(1)');
   }
   get sidebarItemTrackgenix() {
     return $('#root > div > header > div.header_background__3_lNh > nav > ul > li:nth-child(2)');
