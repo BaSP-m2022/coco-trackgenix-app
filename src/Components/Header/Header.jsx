@@ -15,10 +15,8 @@ const Header = () => {
       return 'home';
     }
     if (sessionStorage.getItem('token')) {
-      console.log('LOGED OUT');
       return 'Logout';
     } else {
-      console.log('LOGED IN');
       return 'Login';
     }
   };
