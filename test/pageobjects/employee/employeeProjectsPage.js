@@ -59,7 +59,7 @@ class employeeProjectsPage {
   get title() {
     return $('#root > div > div > div > div.projects_container__1eYs7 > h2');
   }
-  get buttonAddNewProject() {
+  get topButton() {
     return $('#root > div > div > div > div.projects_container__1eYs7 > button');
   }
   get row() {
@@ -209,8 +209,8 @@ class employeeProjectsPage {
 
   //methods
 
-  async clickButtonAddNewProject() {
-    await this.buttonAddNewProject.click();
+  async clickTopButton() {
+    await this.topButton.click();
     browser.pause(4000);
   }
   async clickRowEdit() {

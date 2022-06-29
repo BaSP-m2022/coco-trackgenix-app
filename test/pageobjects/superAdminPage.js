@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-class employeeTimesheetsPage {
+class adminPage {
   //getters
 
   get headerButtonHome() {
@@ -31,27 +31,29 @@ class employeeTimesheetsPage {
     return $('#root > div > footer > div > p:nth-child(3)');
   }
 
-  get sidebarImageUser() {
-    return $('#root > div > div > nav > div.navBar_userInfo__11FpW > img');
-  }
-  get sidebarUserName() {
-    return $('#root > div > div > nav > div.navBar_userInfo__11FpW > div.navBar_userName__12Id5');
-  }
-  get sidebarUserRole() {
-    return $('#root > div > div > nav > div.navBar_userInfo__11FpW > div.navBar_userRole__UDHZ7');
-  }
-  get sidebarTitleMenu() {
-    return $('#root > div > div > nav > div.navBar_menu__3QISb');
-  }
-  get sidebarItemResources() {
-    return $('#root > div > div > nav > ul > li:nth-child(1) > a');
-  }
-  get sidebarItemTimesheet() {
-    return $('#root > div > div > nav > ul > li:nth-child(2) > a');
-  }
-  get sidebarItemPersonalnfo() {
-    return $('#root > div > div > nav > ul > li:nth-child(3) > a');
-  }
+  // get sidebarImageUser() {
+  //   return $('#root > div > div > nav > div.navBar_userInfo__11FpW > img');
+  // }
+  // get sidebarUserName() {
+  //   return $('#root > div > div > nav > div.navBar_userInfo__11FpW > div.navBar_userName__12Id5');
+  // }
+  // get sidebarUserRole() {
+  //   return $('#root > div > div > nav > div.navBar_userInfo__11FpW > div.navBar_userRole__UDHZ7');
+  // }
+  // get sidebarTitleMenu() {
+  //   return $('#root > div > div > nav > div.navBar_menu__3QISb');
+  // }
+  // get sidebarItemResources() {
+  //   return $('#root > div > div > nav > ul > li:nth-child(1) > a');
+  // }
+  // get sidebarItemTimesheet() {
+  //   return $('#root > div > div > nav > ul > li:nth-child(2) > a');
+  // }
+  // get sidebarItemPersonalnfo() {
+  //   return $('#root > div > div > nav > ul > li:nth-child(3) > a');
+  // }
+
+  // Not implemented
 
   get logo() {
     return $('#root > div > div > section > div.logo_container__YUs9e');
@@ -60,99 +62,78 @@ class employeeTimesheetsPage {
     return $('#root > div > div > section > h2');
   }
   get topButton() {
-    return $('#root > div > div > section > button');
+    return $('#root > div > div > section > div.table_container__2zHgd > div > button');
   }
 
   get row() {
     return $(
-      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9)'
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(1)'
     );
   }
-  get rowTitleEmployeeId() {
+  get rowTitleName() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(1)'
     );
   }
-  get rowTitleProjectId() {
+  get rowTitleLasrName() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(2)'
     );
   }
-  get rowTitleStartDate() {
+  get rowTitlePhone() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(3)'
     );
   }
-  get rowTitleEndDate() {
+  get rowTitleEmail() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(4)'
     );
   }
-  get rowTitleTasks() {
+  get rowTitlePassword() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(5)'
     );
   }
-
-  get rowFirstName() {
+  get rowTitleActive() {
     return $(
-      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(1)'
+      '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(6)'
+    );
+  }
+
+  get rowName() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(3) > td:nth-child(1)'
     );
   }
   get rowLastName() {
     return $(
-      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(2)'
-    );
-  }
-  get rowPhone() {
-    return $(
-      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(3)'
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(3) > td:nth-child(2)'
     );
   }
   get rowEmail() {
     return $(
-      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(4)'
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(3) > td:nth-child(3)'
     );
   }
   get rowPassword() {
     return $(
-      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(5)'
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(3) > td:nth-child(4)'
     );
   }
-
-  get rowEmployeeId() {
+  get rowActive() {
     return $(
-      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td:nth-child(1)'
-    );
-  }
-  get rowTimesheetId() {
-    return $(
-      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td:nth-child(2)'
-    );
-  }
-  get rowStartDate() {
-    return $(
-      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td:nth-child(3)'
-    );
-  }
-  get rowEndDate() {
-    return $(
-      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td:nth-child(4)'
-    );
-  }
-  get rowTasks() {
-    return $(
-      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td:nth-child(5)'
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(3) > td:nth-child(5)'
     );
   }
   get rowEdit() {
     return $(
-      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td.table_buttonTd__1cGKe > button:nth-child(1)'
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(1) > td.table_buttonTd__1cGKe > button:nth-child(1)'
     );
   }
   get rowDelete() {
     return $(
-      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9) > td.table_buttonTd__1cGKe > button:nth-child(2)'
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(1) > td.table_buttonTd__1cGKe > button:nth-child(2)'
     );
   }
 
@@ -225,4 +206,4 @@ class employeeTimesheetsPage {
     browser.pause(4000);
   }
 }
-module.exports = new employeeTimesheetsPage();
+module.exports = new adminPage();
