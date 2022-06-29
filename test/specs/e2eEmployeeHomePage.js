@@ -2,8 +2,6 @@
 const homePage = require('../pageobjects/homePage');
 const logInPage = require('../pageobjects/logInPage');
 const signUpPage = require('../pageobjects/signUpPage');
-// const loginPage = require('../pageobjects/logInPage');
-// const signUpPage = require('../pageobjects/signUpPage');
 // const employeeProjectsPage = require('../pageobjects/employee/employeeProjectsPage');
 // const employeeAddNewProjectPage = require('../pageobjects/employee/employeeAddNewProjectPage');
 // const employeeEditProjectPage = require('../pageobjects/employee/employeeEditProjectPage');
@@ -119,40 +117,6 @@ describe('Simple Employee Flow', () => {
     await expect(homePage.pageContainer).toBeDisplayed();
   });
 
-  it('Cliclk on LogIn button', async () => {
-    await expect(homePage.headerButtonLogIn).toBeDisplayed();
-    await expect(homePage.headerButtonLogIn).toBeClickable();
-    await homePage.clickHeaderButtonLogIn();
-  });
-
-  it('Failed LogIn attempt with empty fields', async () => {
-    await expect(logInPage.labelEmailnput).toBeDisplayed();
-    await expect(logInPage.labelPasswordInput).toBeDisplayed();
-    await logInPage.clickLogInButtonLogIn();
-    await expect(logInPage.labelEmailErrorMsg).toBeDisplayed();
-    await expect(logInPage.labelPasswordErrorMsg).toBeDisplayed();
-  });
-
-  it('Failed LogIn attempt with wrongly filled fields', async () => {
-    await expect(logInPage.labelEmailnput).toBeDisplayed();
-    await expect(logInPage.labelPasswordInput).toBeDisplayed();
-    await logInPage.fillLogInForm('asdf', 'asdf');
-    await logInPage.clickLogInButtonLogIn();
-    await expect(logInPage.labelEmailErrorMsg).toBeDisplayed();
-    await expect(logInPage.labelPasswordErrorMsg).toBeDisplayed();
-
-    await logInPage.clickHeaderButtonHome();
-  });
-
-  //   it('Succesful LogIn attempt', async () => {
-  //     await expect(logInPage.labelEmailnput).toBeDisplayed();
-  //     await expect(logInPage.labelPasswordInput).toBeDisplayed();
-  //     await logInPage.fillLogInForm('TestEmployee', 'Test1234');
-  //     await logInPage.clickLogInButtonLogIn();
-  //   });
-
-  // Not implemented
-
   it('Cliclk on SignUp button', async () => {
     await expect(homePage.headerButtonSignUp).toBeDisplayed();
     await expect(homePage.headerButtonSignUp).toBeClickable();
@@ -178,13 +142,6 @@ describe('Simple Employee Flow', () => {
   });
 
   it('Failed SignUp attempt wrongly filled fields', async () => {
-    await expect(signUpPage.labelNameInput).toBeDisplayed();
-    await expect(signUpPage.labelLastNameInput).toBeDisplayed();
-    await expect(signUpPage.labelPhoneInput).toBeDisplayed();
-    await expect(signUpPage.labelEmailInput).toBeDisplayed();
-    await expect(signUpPage.labelPasswordInput).toBeDisplayed();
-    await expect(signUpPage.dropdownsActive).toBeDisplayed();
-
     await signUpPage.fillSignUpForm('123', '123', '1234', 'asdf', 'asdf');
 
     await expect(signUpPage.labelNameErrorMsg).toBeDisplayed();
@@ -197,13 +154,6 @@ describe('Simple Employee Flow', () => {
   });
 
   //   it('Succesful SignUp attempt', async () => {
-  //     await expect(signUpPage.labelNameInput).toBeDisplayed();
-  //     await expect(signUpPage.labelLastNameInput).toBeDisplayed();
-  //     await expect(signUpPage.labelPhoneInput).toBeDisplayed();
-  //     await expect(signUpPage.labelEmailInput).toBeDisplayed();
-  //     await expect(signUpPage.labelPasswordInput).toBeDisplayed();
-  //     await expect(signUpPage.dropdownsActive).toBeDisplayed();
-
   //     await signUpPage.clickDropdownsActive();
   //     await signUpPage.clickDropdownsActiveTrue();
   //     await signUpPage.clickSignUpButtonCreate();
@@ -211,6 +161,36 @@ describe('Simple Employee Flow', () => {
   //     await logInPage.fillLogInForm('Test', 'Employee', '1234567891', 'Test@mail.com', 'abcd1234');
 
   //     await signUpPage.clickHeaderButtonSignUp();
+  //   });
+
+  // Not implemented
+
+  it('Cliclk on LogIn button', async () => {
+    await expect(homePage.headerButtonLogIn).toBeDisplayed();
+    await expect(homePage.headerButtonLogIn).toBeClickable();
+    await homePage.clickHeaderButtonLogIn();
+  });
+
+  it('Failed LogIn attempt with empty fields', async () => {
+    await expect(logInPage.labelEmailnput).toBeDisplayed();
+    await expect(logInPage.labelPasswordInput).toBeDisplayed();
+    await logInPage.clickLogInButtonLogIn();
+    await expect(logInPage.labelEmailErrorMsg).toBeDisplayed();
+    await expect(logInPage.labelPasswordErrorMsg).toBeDisplayed();
+  });
+
+  it('Failed LogIn attempt with wrongly filled fields', async () => {
+    await logInPage.fillLogInForm('asdf', 'asdf');
+    await logInPage.clickLogInButtonLogIn();
+    await expect(logInPage.labelEmailErrorMsg).toBeDisplayed();
+    await expect(logInPage.labelPasswordErrorMsg).toBeDisplayed();
+
+    await logInPage.clickHeaderButtonHome();
+  });
+
+  //   it('Succesful LogIn attempt', async () => {
+  //     await logInPage.fillLogInForm('TestEmployee', 'Test1234');
+  //     await logInPage.clickLogInButtonLogIn();
   //   });
 
   // Not implemented

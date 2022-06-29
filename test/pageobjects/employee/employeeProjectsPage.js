@@ -10,19 +10,19 @@ class employeeProjectsPage {
   }
 
   get footerIconLinkIn() {
-    return $('#root > div > footer > div > div > a:nth-child(1) > img');
+    return $('#root > div > footer > div > div > a:nth-child(1)');
   }
   get footerIconLinkFb() {
-    return $('#root > div > footer > div > div > a:nth-child(2) > img');
+    return $('#root > div > footer > div > div > a:nth-child(2)');
   }
   get footerIconLinkTw() {
-    return $('#root > div > footer > div > div > a:nth-child(3) > img');
+    return $('#root > div > footer > div > div > a:nth-child(3)');
   }
   get footerIconLinkGh() {
-    return $('#root > div > footer > div > div > a:nth-child(4) > img');
+    return $('#root > div > footer > div > div > a:nth-child(4)');
   }
   get footerIconLinkIg() {
-    return $('#root > div > footer > div > div > a:nth-child(5) > img');
+    return $('#root > div > footer > div > div > a:nth-child(5)');
   }
   get footerTextPlace() {
     return $('#root > div > footer > div > p:nth-child(2)');
@@ -43,7 +43,7 @@ class employeeProjectsPage {
   get sidebarTitleMenu() {
     return $('#root > div > div > nav > div.navBar_menu__3QISb');
   }
-  get sidebarItemResources() {
+  get sidebarItemProjects() {
     return $('#root > div > div > nav > ul > li:nth-child(1) > a');
   }
   get sidebarItemTimesheet() {
@@ -64,7 +64,7 @@ class employeeProjectsPage {
   }
   get row() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(1)'
     );
   }
   get rowTitleName() {
@@ -115,57 +115,57 @@ class employeeProjectsPage {
 
   get rowName() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(1)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(1) > td:nth-child(1)'
     );
   }
   get rowClientName() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(2)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(1) > td:nth-child(2)'
     );
   }
   get rowAdmins() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(3)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(1) > td:nth-child(3)'
     );
   }
   get rowCreatedAt() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(4)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(1) > td:nth-child(4)'
     );
   }
   get rowDescription() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(5)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(1) > td:nth-child(5)'
     );
   }
   get rowStartDate() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(6)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(1) > td:nth-child(6)'
     );
   }
   get rowEndDate() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(7)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(1) > td:nth-child(7)'
     );
   }
   get rowEmployees() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(8)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(1) > td:nth-child(8)'
     );
   }
   get rowActive() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td:nth-child(9)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(1) > td:nth-child(9)'
     );
   }
   get rowEdit() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td.table_buttonTd__1cGKe > button:nth-child(1)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(1) > td.table_buttonTd__1cGKe > button:nth-child(1)'
     );
   }
   get rowDelete() {
     return $(
-      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14) > td.table_buttonTd__1cGKe > button:nth-child(2)'
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(1) > td.table_buttonTd__1cGKe > button:nth-child(2)'
     );
   }
 
@@ -179,7 +179,7 @@ class employeeProjectsPage {
       '#root > div > div > div > div.projects_container__1eYs7 > div > div.modal_modalOverlay__1jXdD > div > button'
     );
   }
-  get deleteCModalTitle() {
+  get deleteModalTitle() {
     return $(
       '#root > div > div > div > div.projects_container__1eYs7 > div > div.modal_modalOverlay__1jXdD > div > h2'
     );
@@ -231,6 +231,18 @@ class employeeProjectsPage {
   }
   async clickDeleteModalConfirmButton() {
     await this.deleteModalConfirmButton.click();
+    browser.pause(4000);
+  }
+  async clickSidebarItemProjects() {
+    await this.sidebarItemProjects.click();
+    browser.pause(4000);
+  }
+  async clickSidebarItemTimesheet() {
+    await this.sidebarItemTimesheet.click();
+    browser.pause(4000);
+  }
+  async clickSidebarItemPersonalnfo() {
+    await this.sidebarItemPersonalnfo.click();
     browser.pause(4000);
   }
 }

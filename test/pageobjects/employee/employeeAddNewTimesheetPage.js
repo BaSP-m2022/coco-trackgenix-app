@@ -178,6 +178,30 @@ class employeeAddNewTimesheetPage {
       '#root > div > div > div > form > div.time-sheets_btnContainer__fPrOP > button.time-sheets_returnTimesheetBtn__2Kp49'
     );
   }
+  get confirmationModal() {
+    return $('#root > div > div > div > div.modal_modalOverlay__1jXdD > div');
+  }
+  get confirmationModalCross() {
+    return $('#root > div > div > div > div.modal_modalOverlay__1jXdD > div > button');
+  }
+  get confirmationCModalTitle() {
+    return $('#root > div > div > div > div.modal_modalOverlay__1jXdD > div > h2');
+  }
+  get confirmationModalText() {
+    return $(
+      '#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > p'
+    );
+  }
+  get confirmationnModalCancelButton() {
+    return $(
+      '#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div.addNew_buttonsModal__1s4gJ > button:nth-child(2)'
+    );
+  }
+  get confirmationModalConfirmButton() {
+    return $(
+      '#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div.addNew_buttonsModal__1s4gJ > button:nth-child(1)'
+    );
+  }
 
   //Setters
 
