@@ -30,8 +30,7 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "prepare": "husky install",
     "allure-report": "allure generate --clean allure results && allure open",
-    
-    "e2e-Test": "npx wdio run ./wdio.conf.js --spec"
+    "test": "npx wdio run ./wdio.conf.js --spec"
   },
   "eslintConfig": {
     "extends": [
