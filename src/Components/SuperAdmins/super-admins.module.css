@@ -9,7 +9,7 @@
 }
 
 .container > h2 {
-  color: #373867;
+  color: #2F2E69;
   font-family: 'Arial';
   width: 280px;
   margin-top: 20px;
@@ -25,7 +25,7 @@
   height: 50px;
   margin: 0 20px;
   padding: 10px 24px;
-  background: #aace9b;
+  background: #A5DE93;
   border: 1px solid #505168;
   border-radius: 5px;
   font-size: 15px;
@@ -39,7 +39,7 @@
 
 .stylesModalBtn:hover {
   background-color: white;
-  border: 2px solid #aace9b;
+  border: 2px solid #A5DE93;
 }
 
 .addSuperAdminBtn {
@@ -47,7 +47,7 @@
   height: 50px;
   margin: 0;
   padding: 0;
-  background: #aace9b;
+  background: #A5DE93;
   border: 1px solid #505168;
   border-radius: 5px;
   font-style: normal;
@@ -69,7 +69,7 @@
   height: 30px;
   margin: 30px;
   padding: 0;
-  background: #aace9b;
+  background: #A5DE93;
   border: 1px solid #505168;
   border-radius: 5px;
   font-size: 15px;
@@ -80,7 +80,7 @@
 
 .stylesBtn:hover {
   background-color: white;
-  border: 2px solid #aace9b;
+  border: 2px solid #A5DE93;
 }
 
 .formButtonsContainer {

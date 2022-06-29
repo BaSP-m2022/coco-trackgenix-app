@@ -12,7 +12,7 @@
   font-weight: 700;
   font-size: 45px;
   line-height: 67px;
-  color: #373867;
+  color: #2F2E69;
 }
 
 .formContainer {
@@ -47,7 +47,7 @@
   margin: 0px 25px 15px 25px;
   padding: 14px 48px;
   gap: 10px;
-  background: #aace9b;
+  background: #A5DE93;
   border: 1px solid #505168;
   border-radius: 5px;
   font-weight: 700;
@@ -67,7 +67,7 @@
   margin: 0px 20px 15px 20px;
   padding: 14px 36px;
   gap: 10px;
-  background: #aace9b;
+  background: #A5DE93;
   border: 1px solid #505168;
   border-radius: 5px;
   font-weight: 700;
@@ -81,7 +81,7 @@
 .buttonEdit:hover,
 .buttonForm:hover {
   background-color: white;
-  border: 2px solid #aace9b;
+  border: 2px solid #A5DE93;
 }
 
 .modalMsg {
