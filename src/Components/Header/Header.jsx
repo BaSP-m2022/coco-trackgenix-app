@@ -15,8 +15,6 @@ const Header = () => {
       return 'home';
     }
     if (sessionStorage.getItem('token')) {
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('role');
       console.log('LOGED OUT');
       return 'Logout';
     } else {
@@ -26,6 +24,8 @@ const Header = () => {
   };
   const loginButtonPath = () => {
     if (sessionStorage.getItem('token')) {
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('role');
       return '/home';
     } else {
       return '/login';
