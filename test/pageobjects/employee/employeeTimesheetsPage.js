@@ -67,6 +67,57 @@ class employeeTimesheetsPage {
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(9)'
     );
   }
+  get rowTitleEmployeeId() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(1)'
+    );
+  }
+  get rowTitleProjectId() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(2)'
+    );
+  }
+  get rowTitleStartDate() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(3)'
+    );
+  }
+  get rowTitleEndDate() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(4)'
+    );
+  }
+  get rowTitleTasks() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(5)'
+    );
+  }
+
+  get rowFirstName() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(1)'
+    );
+  }
+  get rowLastName() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(2)'
+    );
+  }
+  get rowPhone() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(3)'
+    );
+  }
+  get rowEmail() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(4)'
+    );
+  }
+  get rowPassword() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(5)'
+    );
+  }
 
   get rowEmployeeId() {
     return $(

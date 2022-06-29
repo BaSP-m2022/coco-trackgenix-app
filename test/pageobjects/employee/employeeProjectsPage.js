@@ -67,6 +67,51 @@ class employeeProjectsPage {
       '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(14)'
     );
   }
+  get rowTitleName() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > thead > tr > th:nth-child(1)'
+    );
+  }
+  get rowTitleClientName() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > thead > tr > th:nth-child(2)'
+    );
+  }
+  get rowTitleAdmins() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > thead > tr > th:nth-child(3)'
+    );
+  }
+  get rowTitleCreatedAT() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > thead > tr > th:nth-child(4)'
+    );
+  }
+  get rowTitleDescription() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > thead > tr > th:nth-child(5)'
+    );
+  }
+  get rowTitleStartDate() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > thead > tr > th:nth-child(6)'
+    );
+  }
+  get rowTitleEndDate() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > thead > tr > th:nth-child(7)'
+    );
+  }
+  get rowTitleEmployees() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > thead > tr > th:nth-child(8)'
+    );
+  }
+  get rowTitleActive() {
+    return $(
+      '#root > div > div > div > div.projects_container__1eYs7 > div > table > thead > tr > th:nth-child(9)'
+    );
+  }
 
   get rowName() {
     return $(

@@ -62,6 +62,11 @@ class employeeAddNewTimesheetPage {
     return $('#root > div > div > div > div:nth-child(2) > h2');
   }
 
+  get dropdownsLabelEmployee() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(1) > label'
+    );
+  }
   get dropdownsEmployee() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(1) > select'
@@ -82,6 +87,11 @@ class employeeAddNewTimesheetPage {
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(1) > select > option:nth-child(2)'
     );
   }
+  get dropdownsLabelProject() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(2) > label'
+    );
+  }
   get dropdownsProject() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(2) > select'
@@ -100,6 +110,11 @@ class employeeAddNewTimesheetPage {
   get dropdownsProjectSelect() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(2) > select > option:nth-child(2)'
+    );
+  }
+  get dropdownsLabelTask() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(3) > label'
     );
   }
   get dropdownsTask() {
@@ -124,6 +139,11 @@ class employeeAddNewTimesheetPage {
   }
   get labelStartDate() {
     return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(1) > label'
+    );
+  }
+  get labelStartDateInput() {
+    return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(1) > div > input'
     );
   }
@@ -133,6 +153,11 @@ class employeeAddNewTimesheetPage {
     );
   }
   get labelEndDate() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(2) > label'
+    );
+  }
+  get labelEndDateInput() {
     return $(
       '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(2) > div > input'
     );
@@ -157,10 +182,10 @@ class employeeAddNewTimesheetPage {
   //Setters
 
   async setStartDate(startDate) {
-    await this.labelStartDate.setValue(startDate);
+    await this.labelStartDateInput.setValue(startDate);
   }
   async setEndDate(endDate) {
-    await this.labelEndDate.setValue(endDate);
+    await this.labelEndDateInput.setValue(endDate);
   }
 
   //methods

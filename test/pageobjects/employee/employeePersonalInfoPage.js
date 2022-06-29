@@ -68,6 +68,37 @@ class employeePersonalInfoPage {
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13)'
     );
   }
+  get rowTitleName() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(1)'
+    );
+  }
+  get rowTitleLasrName() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(2)'
+    );
+  }
+  get rowTitlePhone() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(3)'
+    );
+  }
+  get rowTitleEmail() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(4)'
+    );
+  }
+  get rowTitlePassword() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(5)'
+    );
+  }
+  get rowTitleActive() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > thead > tr > th:nth-child(6)'
+    );
+  }
+
   get rowFirstName() {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(13) > td:nth-child(1)'

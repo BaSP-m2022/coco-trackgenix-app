@@ -64,7 +64,12 @@ class employeeAddNewProjectPage {
 
   get labelName() {
     return $(
-      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(1) >label'
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(1) > label'
+    );
+  }
+  get labelNameInput() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(1) > input'
     );
   }
   get labelNameErrorMsg() {
@@ -74,7 +79,12 @@ class employeeAddNewProjectPage {
   }
   get labelDescription() {
     return $(
-      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(2) >label'
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(2) > label'
+    );
+  }
+  get labelDescriptionInput() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(2) > input'
     );
   }
   get labelDescriptionErrorMsg() {
@@ -84,17 +94,27 @@ class employeeAddNewProjectPage {
   }
   get labelStartDate() {
     return $(
-      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(3) >label'
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(3) > label'
     );
   }
-  get labelStartDateErroMsh() {
+  get labelStartDateInput() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(3) > input'
+    );
+  }
+  get labelStartDateErroMsg() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(3) > p'
     );
   }
   get labelEndDate() {
     return $(
-      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(4) >label'
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(4) > label'
+    );
+  }
+  get labelEndDateInput() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(1) > div:nth-child(4) > input'
     );
   }
   get labelEndDateErrorMsg() {
@@ -104,12 +124,22 @@ class employeeAddNewProjectPage {
   }
   get labelClientName() {
     return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(1) > label'
+    );
+  }
+  get labelClientNameInput() {
+    return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(1) > input'
     );
   }
   get labelClientNameErrorMsg() {
     return $(
-      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(1) > p'
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(4) > p'
+    );
+  }
+  get dropdownsLabelActive() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(2) > label'
     );
   }
   get dropdownsActive() {
@@ -137,6 +167,11 @@ class employeeAddNewProjectPage {
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(2) > select > option:nth-child(3)'
     );
   }
+  get dropdownsLabelEmployee() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(3) > label'
+    );
+  }
   get dropdownsEmployeee() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(3) > select'
@@ -158,6 +193,11 @@ class employeeAddNewProjectPage {
     );
   }
   get labelAdmin() {
+    return $(
+      '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(4) > label'
+    );
+  }
+  get labelAdminInput() {
     return $(
       '#root > div > div > div > form > div.addNew_inputContainers__qBpBh > div:nth-child(2) > div:nth-child(4) > input'
     );
@@ -182,22 +222,22 @@ class employeeAddNewProjectPage {
   //Setters
 
   async setName(name) {
-    await this.labelName.setValue(name);
+    await this.labelNameInput.setValue(name);
   }
   async setDescription(description) {
-    await this.labelDescription.setValue(description);
+    await this.labelDescriptionInput.setValue(description);
   }
   async setStartDate(StartDate) {
-    await this.labelStartDate.setValue(StartDate);
+    await this.labelStartDateInput.setValue(StartDate);
   }
   async setEndDate(EndDate) {
-    await this.labelEndDate.setValue(EndDate);
+    await this.labelEndDateInput.setValue(EndDate);
   }
   async setClientName(clientName) {
-    await this.labelClientName.setValue(clientName);
+    await this.labelClientNameInput.setValue(clientName);
   }
   async setAdmin(admin) {
-    await this.labelAdmin.setValue(admin);
+    await this.labelAdminInput.setValue(admin);
   }
 
   //methods

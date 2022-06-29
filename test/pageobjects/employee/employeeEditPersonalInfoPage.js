@@ -62,6 +62,11 @@ class employeePersonalInfoPage {
 
   get labelName() {
     return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(1) > label'
+    );
+  }
+  get labelNameInput() {
+    return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(1) > input'
     );
   }
@@ -72,42 +77,62 @@ class employeePersonalInfoPage {
   }
   get labelLastName() {
     return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(2) > label'
+    );
+  }
+  get labelLastNameInput() {
+    return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(2) > input'
     );
   }
   get labelLastNameErrorMsg() {
     return $(
-      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(1) > input'
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(2) > p'
     );
   }
   get labelPhone() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(3) > label'
+    );
+  }
+  get labelPhoneInput() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(3) > input'
     );
   }
   get labelPhoneErrorMsg() {
     return $(
-      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(2) > input'
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(3) > p'
     );
   }
   get labelEmail() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(4) > label'
+    );
+  }
+  get labelEmailInput() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(4) > input'
     );
   }
   get labelEmailErrorMsg() {
     return $(
-      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(4) > input'
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(4) > p'
     );
   }
   get labelPassword() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(5) > label'
+    );
+  }
+  get labelPasswordInput() {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(5) > input'
     );
   }
   get labelPasswordErrorMsg() {
     return $(
-      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(5) > input'
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(5) > p'
     );
   }
   get dropdownsActive() {
@@ -145,19 +170,19 @@ class employeePersonalInfoPage {
   //Setters
 
   async setName(name) {
-    await this.labelName.setValue(name);
+    await this.labelNameInput.setValue(name);
   }
   async setDescription(lastName) {
-    await this.labelDescription.setValue(lastName);
+    await this.labelLastNameInput.setValue(lastName);
   }
-  async setStartDate(StartDate) {
-    await this.labelStartDate.setValue(StartDate);
+  async setphone(phone) {
+    await this.labelPhoneInput.setValue(phone);
   }
-  async setEndDate(EndDate) {
-    await this.labelDescription.setValue(EndDate);
+  async setemail(email) {
+    await this.labelEmailInput.setValue(email);
   }
   async setClientName(password) {
-    await this.labelClientName.setValue(password);
+    await this.labelPasswordInput.setValue(password);
   }
 
   //methods
