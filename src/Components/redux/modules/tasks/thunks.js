@@ -27,11 +27,13 @@ export const getTasks = () => {
 
   return (dispatch) => {
     dispatch(getTasksPending());
+    const token = sessionStorage.getItem('token');
     return fetch(`https://coco-trackgenix-server.vercel.app/tasks`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        token
       })
     })
       .then((response) => response.json())
@@ -51,7 +53,10 @@ export const getTasks = () => {
 export const getTaskById = (id) => {
   return (dispatch) => {
     dispatch(getTasksByIdPending());
-    return fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`)
+    const token = sessionStorage.getItem('token');
+    return fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`, {
+      headers: { token }
+    })
       .then((response) => response.json())
       .then((response) => {
         dispatch(getTasksByIdSuccess(response.data));
@@ -65,8 +70,10 @@ export const getTaskById = (id) => {
 export const deleteTasks = (id) => {
   return (dispatch) => {
     dispatch(deleteTasksPending());
+    const token = sessionStorage.getItem('token');
     return fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      token
     })
       .then(() => {
         dispatch(deleteTasksSuccess(id));
@@ -83,10 +90,12 @@ export const deleteTasks = (id) => {
 export const addTasks = (values, setResStatus, setResponseMsg) => {
   return (dispatch) => {
     dispatch(addTasksPending());
+    const token = sessionStorage.getItem('token');
     fetch(`https://coco-trackgenix-server.vercel.app/tasks`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        token
       },
       body: JSON.stringify(values)
     })
@@ -115,10 +124,12 @@ export const addTasks = (values, setResStatus, setResponseMsg) => {
 export const editTasks = (id, values, setResStatus, setResponseMsg) => {
   return (dispatch) => {
     dispatch(editTasksPending());
+    const token = sessionStorage.getItem('token');
     fetch(`https://coco-trackgenix-server.vercel.app/tasks/${id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        token
       },
       body: JSON.stringify(values)
     })

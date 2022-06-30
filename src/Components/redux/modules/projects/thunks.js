@@ -38,12 +38,14 @@ const changeDate = (date) => {
 export const getProject = () => {
   return async (dispatch) => {
     dispatch(getProjectPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
         method: 'GET',
         headers: new Headers({
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+          token
         })
       });
       const data = await response.json();
@@ -64,9 +66,11 @@ export const getProject = () => {
 export const deleteProject = (_id) => {
   return async (dispatch) => {
     dispatch(DeleteProjectPending());
+    const token = sessionStorage.getItem('token');
     try {
       await fetch(`https://coco-trackgenix-server.vercel.app/projects/${_id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        token
       });
       dispatch(DeleteProjectSuccess(_id));
       dispatch(getProject());
@@ -78,12 +82,14 @@ export const deleteProject = (_id) => {
 export const postProject = (projectInput, setSuccess, setModalText) => {
   return async (dispatch) => {
     dispatch(PostProjectPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token
         },
         body: JSON.stringify(projectInput)
       });
@@ -107,12 +113,14 @@ export const postProject = (projectInput, setSuccess, setModalText) => {
 export const putProject = (projectInput, id, setSuccess, setModalText) => {
   return async (dispatch) => {
     dispatch(PutProjectPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects/${id}`, {
         method: 'PUT',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token
         },
         body: JSON.stringify(projectInput)
       });
@@ -136,8 +144,11 @@ export const putProject = (projectInput, id, setSuccess, setModalText) => {
 export const getProjectById = (id) => {
   return async (dispatch) => {
     dispatch(getProjectByIdPending());
+    const token = sessionStorage.getItem('token');
     try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects/${id}`);
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects/${id}`, {
+        headers: { token }
+      });
       const response_1 = await response.json();
       dispatch(getProjectByIdSuccess(response_1.data));
     } catch (error) {
