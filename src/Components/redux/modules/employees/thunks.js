@@ -19,12 +19,14 @@ import {
 export const getEmployee = () => {
   return async (dispatch) => {
     dispatch(getEMPLOYEEPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/Employees`, {
         method: 'GET',
         headers: new Headers({
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': '*',
+          token
         })
       });
       const data = await response.json();
@@ -41,9 +43,11 @@ export const getEmployee = () => {
 export const deleteEmployee = (_id) => {
   return async (dispatch) => {
     dispatch(deleteEMPLOYEEPending());
+    const token = sessionStorage.getItem('token');
     try {
       await fetch(`https://coco-trackgenix-server.vercel.app/employees/${_id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: { token }
       });
       dispatch(deleteEMPLOYEESuccess(_id));
     } catch (error) {
@@ -55,12 +59,14 @@ export const deleteEmployee = (_id) => {
 export const addEmployee = (e, setModalText, setShowButton, setSuccessEmployee) => {
   return async (dispatch) => {
     dispatch(addEMPLOYEEPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/employees`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token
         },
         body: JSON.stringify(e)
       });
@@ -88,11 +94,13 @@ export const addEmployee = (e, setModalText, setShowButton, setSuccessEmployee) 
 export const editEmployee = (employee, id, setModalText, setShowButton, setSuccessEmployee) => {
   return async (dispatch) => {
     dispatch(editEMPLOYEEPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/employees/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token
         },
         body: JSON.stringify(employee)
       });
@@ -120,8 +128,11 @@ export const editEmployee = (employee, id, setModalText, setShowButton, setSucce
 export const getEmployeeById = (id) => {
   return async (dispatch) => {
     dispatch(getEMPLOYEEbyIdPending());
+    const token = sessionStorage.getItem('token');
     try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/employees/${id}`);
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/employees/${id}`, {
+        headers: { token }
+      });
       const employeeData = await response.json();
       employeeData.data.phone = employeeData.data.phone.toString();
       dispatch(getEMPLOYEEbyIdSuccess(employeeData.data));
