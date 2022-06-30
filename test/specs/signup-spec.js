@@ -10,16 +10,21 @@ describe('E2E Sign-Up', () => {
     await HomePage.btnSignUpClick();
   });
   it('Complete fields inputs signup', async () => {
-    await SignupPage.clickFields('NewUser', 'User', '3416123456', 'TestingTrack123', 'qa@tester.com', true);
+    await SignupPage.clickFields(
+      'NewUser',
+      'User',
+      '3416123456',
+      'TestingTrack123',
+      'qa@tester.com',
+      true
+    );
     await SignupPage.clickConfirm();
     await SignupPage.clickSuccess();
   });
   it('Waiting browser', async () => {
-    await browser.url('https://coco-trackgenix-app.vercel.app/employee/profile')
+    await browser.url('https://coco-trackgenix-app.vercel.app/employee/profile');
   });
   it('Waiting browser', async () => {
-    await browser.url('')
+    await browser.url('');
   });
 });
-
-//ME FALTAN LOS MODALSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS

@@ -1,31 +1,5 @@
 /* eslint-disable no-undef */
 class TimeSheetPage {
-  get linkedin() {
-    return $('#root > div > footer > div > div > a:nth-child(1)');
-  }
-  get facebook() {
-    return $('#root > div > footer > div > div > a:nth-child(2)');
-  }
-  get twitter() {
-    return $('#root > div > footer > div > div > a:nth-child(3)');
-  }
-  get github() {
-    return $('#root > div > footer > div > div > a:nth-child(4)');
-  }
-  get instagram() {
-    return $('#root > div > footer > div > div > a:nth-child(5)');
-  }
-
-  get search() {
-    return $('#root > div > header > div > input[type=text]');
-  }
-  get header() {
-    return $('#root > div > header');
-  }
-
-  get btn_home() {
-    return $('#root > div > header > div > a');
-  }
   get btn_create() {
     return $(
       '#root > div > div > div > form > div.time-sheets_btnContainer__fPrOP > button.time-sheets_timesheetButton__36_a6'
@@ -41,10 +15,6 @@ class TimeSheetPage {
     return $('#root > div > div > div > div.projects_container__1eYs7 > h2');
   }
 
-  get logo() {
-    return $('#root > div > div > div > div > div');
-  }
-
   get addTimeSheet() {
     return $('#root > div > div > section > button');
   }
@@ -54,7 +24,7 @@ class TimeSheetPage {
   }
   get paragraph_02() {
     return $('#root > div > footer > div > p:nth-child(3)');
-  } //ME FALTAN LOS MODALSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  }
 
   get sidebar() {
     return $('#root > div > div > nav');
@@ -76,28 +46,6 @@ class TimeSheetPage {
     return $(
       '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(1) > td.table_buttonTd__1cGKe'
     );
-  }
-
-  get link_project() {
-    return $('#root > div > div > nav > div.navBar_userInfo__11FpW > img');
-  }
-  get link_timesheet() {
-    return $('#root > div > div > nav > ul > li:nth-child(3) > a');
-  }
-  get link_personalInf() {
-    return $('#root > div > div > nav > ul > li:nth-child(3) > a');
-  }
-  get link_employee() {
-    return $('#root > div > div > nav > ul > li:nth-child(2) > a');
-  }
-  get link_task() {
-    return $('#root > div > div > nav > ul > li:nth-child(4) > a');
-  }
-  get link_admins() {
-    return $('#root > div > div > nav > ul > li:nth-child(5) > a');
-  }
-  get link_superAdmin() {
-    return $('#root > div > div > nav > ul > li:nth-child(6) > a');
   }
 
   get div_select_employee() {
@@ -126,20 +74,56 @@ class TimeSheetPage {
     );
   }
 
-  get select_employee() {
-    return $('');
+  get select_dropdown_employee() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(1)'
+    );
   }
-  get select_project() {
-    return $('');
+  get select_dropdown_project() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(2) > select'
+    );
   }
-  get select_task() {
-    return $('');
+  get select_dropdown_task() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(3) > select'
+    );
   }
-  get select_startDate() {
-    return $('');
+  get select_dropdown_startDate() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(1) > div > input'
+    );
   }
-  get select_endDate() {
-    return $('');
+  get select_dropdown_endDate() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(2) > div > input'
+    );
+  }
+
+  get error_msg_add_dropdown_employee() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(1) > p'
+    );
+  }
+  get error_msg_add_dropdown_project() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(2) > p'
+    );
+  }
+  get error_msg_add_task() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(1) > div:nth-child(3) > p'
+    );
+  }
+  get error_msg_add_startDate() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(1) > div > p'
+    );
+  }
+  get error_msg_add_endDate() {
+    return $(
+      '#root > div > div > div > form > div.time-sheets_mainContainer__1QfEp > div:nth-child(2) > div:nth-child(2) > div > p'
+    );
   }
 
   async asd() {

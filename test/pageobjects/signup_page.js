@@ -76,43 +76,6 @@ class SignupPage {
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.employees_containerBtn__3oxVC > button:nth-child(2)'
     );
   }
-  get btn_home() {
-    return $('#root > div > header > div > a');
-  }
-
-  get linkedin() {
-    return $('#root > div > footer > div > div > a:nth-child(1)');
-  }
-  get facebook() {
-    return $('#root > div > footer > div > div > a:nth-child(2)');
-  }
-  get twitter() {
-    return $('#root > div > footer > div > div > a:nth-child(3)');
-  }
-  get github() {
-    return $('#root > div > footer > div > div > a:nth-child(4)');
-  }
-  get instagram() {
-    return $('#root > div > footer > div > div > a:nth-child(5)');
-  }
-
-  get search() {
-    return $('#root > div > header > div > input[type=text]');
-  }
-  get header() {
-    return $('#root > div > header');
-  }
-
-  get logo() {
-    return $('#root > div > div > div > div > div');
-  }
-
-  get paragraph_01() {
-    return $('#root > div > footer > div > p:nth-child(2)');
-  }
-  get paragraph_02() {
-    return $('#root > div > footer > div > p:nth-child(3)');
-  }
 
   get modal_create() {
     return $('#root > div > div > div > div.modal_modalOverlay__1jXdD > div');
@@ -129,7 +92,38 @@ class SignupPage {
   }
   get modal_btn_success() {
     return $(
-        '#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > button.employees_modalEmployeeBtn__-7PeI'
+      '#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > button.employees_modalEmployeeBtn__-7PeI'
+    );
+  }
+
+  get error_msg_name() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(1) > p'
+    );
+  }
+  get error_msg_lastName() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(2) > p'
+    );
+  }
+  get error_msg_phone() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(3) > p'
+    );
+  }
+  get error_msg_email() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(4) > p'
+    );
+  }
+  get error_msg_password() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(5) > p'
+    );
+  }
+  get error_msg_active() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > p'
     );
   }
 
@@ -147,9 +141,9 @@ class SignupPage {
   async clickSuccess() {
     await this.modal_btn_success.click();
   }
-//   async clickSignUp(firstName) {
-//     await this.placeholder_firstName.setValue(firstName);
-//   }
+  //   async clickSignUp(firstName) {
+  //     await this.placeholder_firstName.setValue(firstName);
+  //   }
 }
 
 module.exports = new SignupPage();

@@ -8,34 +8,57 @@ class AdminPage {
     return $('#root > div > div > section > div:nth-child(3) > button');
   }
   get input_name() {
-    return $('#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(1) > input');
+    return $(
+      '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(1) > input'
+    );
   }
   get input_email() {
-    return $('#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(3) > input');
+    return $(
+      '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(3) > input'
+    );
   }
   get input_lastName() {
-    return $('#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(2) > input');
+    return $(
+      '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(2) > input'
+    );
   }
   get input_password() {
-    return $('#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(4) > input');
+    return $(
+      '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(4) > input'
+    );
   }
   get input_active() {
-    return $('#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div.dropdown_container__3t7mX > select');
+    return $(
+      '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div.dropdown_container__3t7mX > select'
+    );
   }
   get btn_accept() {
-    return $('#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_buttonsContainer__Fgpi8 > button:nth-child(1)');
+    return $(
+      '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_buttonsContainer__Fgpi8 > button:nth-child(1)'
+    );
   }
   get btn_cancel() {
-    return $('#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_buttonsContainer__Fgpi8 > button:nth-child(2)');
+    return $(
+      '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_buttonsContainer__Fgpi8 > button:nth-child(2)'
+    );
+  }
+  get btn_delete_admin() {
+    return $(
+      '#root > div > div > section > div:nth-child(3) > div > table > tbody > tr:nth-child(1) > td.table_buttonTd__1cGKe > button:nth-child(2)'
+    );
   }
   get modal_create_admin() {
     return $('#root > div > div > div > div.modal_modalOverlay__1jXdD > div');
   }
   get modal_btn_confirm() {
-    return $('#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > button:nth-child(1)');
+    return $(
+      '#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > button:nth-child(1)'
+    );
   }
   get modal_btn_cancel() {
-    return $('#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > button:nth-child(2)');
+    return $(
+      '#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > button:nth-child(2)'
+    );
   }
   get table_admin() {
     return $('#root > div > div > section > div:nth-child(3) > div > table');
@@ -44,11 +67,42 @@ class AdminPage {
     return $('#root > div > div > section > div:nth-child(3) > div > table > thead');
   }
   get btn_edit_admin() {
-    return $('#root > div > div > section > div:nth-child(3) > div > table > tbody > tr:nth-child(1) > td.table_buttonTd__1cGKe > button:nth-child(1)');
+    return $(
+      '#root > div > div > section > div:nth-child(3) > div > table > tbody > tr:nth-child(1) > td.table_buttonTd__1cGKe > button:nth-child(1)'
+    );
   }
-  get btn_delete_admin() {
-    return $('#root > div > div > section > div:nth-child(3) > div > table > tbody > tr:nth-child(1) > td.table_buttonTd__1cGKe > button:nth-child(2)');
+
+  get error_msg_name() {
+    return $(
+      '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(1) > p'
+    );
   }
+  get error_msg_lastName() {
+    return $(
+      '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(2) > p'
+    );
+  }
+  get error_msg_phone() {
+    return $(
+      '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(3) > p'
+    );
+  }
+  get error_msg_email() {
+    return $(
+      '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(4) > p'
+    );
+  }
+  get lerror_msg_password() {
+    return $(
+      '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(5) > p'
+    );
+  }
+  get error_msg_active() {
+    return $(
+      '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div.dropdown_container__3t7mX > p'
+    );
+  }
+
   async asd() {
     await this.asd.setValue(asd);
   }

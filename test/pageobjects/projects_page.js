@@ -1,27 +1,5 @@
 /* eslint-disable no-undef */
 class ProjectsPage {
-  get link_project() {
-    return $('#root > div > div > nav > div.navBar_userInfo__11FpW > img');
-  }
-  get link_timesheet() {
-    return $('#root > div > div > nav > ul > li:nth-child(3) > a');
-  }
-  get link_personalInf() {
-    return $('#root > div > div > nav > ul > li:nth-child(3) > a');
-  }
-  get link_employee() {
-    return $('#root > div > div > nav > ul > li:nth-child(2) > a');
-  }
-  get link_task() {
-    return $('#root > div > div > nav > ul > li:nth-child(4) > a');
-  }
-  get link_admins() {
-    return $('#root > div > div > nav > ul > li:nth-child(5) > a');
-  }
-  get link_superAdmin() {
-    return $('#root > div > div > nav > ul > li:nth-child(6) > a');
-  }
-
   get btn_confirm() {
     return $(
       '#root > div > div > div > form > div.addNew_btnContainer__s4aoC > button.addNew_projectButton__1aZdV'

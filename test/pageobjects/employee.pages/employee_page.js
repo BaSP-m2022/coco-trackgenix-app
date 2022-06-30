@@ -1,50 +1,14 @@
+/* eslint-disable no-dupe-class-members */
 /* eslint-disable no-undef */
 class EmployeePage {
-  get linkedin() {
-    return $('#root > div > footer > div > div > a:nth-child(1)');
-  }
-  get facebook() {
-    return $('#root > div > footer > div > div > a:nth-child(2)');
-  }
-  get twitter() {
-    return $('#root > div > footer > div > div > a:nth-child(3)');
-  }
-  get github() {
-    return $('#root > div > footer > div > div > a:nth-child(4)');
-  }
-  get instagram() {
-    return $('#root > div > footer > div > div > a:nth-child(5)');
-  }
-
-  get search() {
-    return $('#root > div > header > div > input[type=text]');
-  }
-  get header() {
-    return $('#root > div > header');
-  }
-  get btn_home() {
-    return $('#root > div > header > div > a');
-  }
-
   get h2_employee() {
     return $('#root > div > div > section > h2');
   }
-
-  get logo() {
-    return $('#root > div > div > div > div > div');
+  get h2_edit_employee() {
+    return $('#root > div > div > div > div.formEmployee_formContainer__2w_8O > h2');
   }
 
-  get paragraph_01() {
-    return $('#root > div > footer > div > p:nth-child(2)');
-  }
-  get paragraph_02() {
-    return $('#root > div > footer > div > p:nth-child(3)');
-  }
-
-  get sidebar() {
-    return $('#root > div > div > nav');
-  }
-  get img_perfil() {
+  get img_profile() {
     return $('#root > div > div > nav > div.navBar_userInfo__11FpW > img');
   }
 
