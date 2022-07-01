@@ -19,8 +19,11 @@ import {
 export const getSuperAdmins = () => {
   return async (dispatch) => {
     dispatch(getSuperAdminsPending());
+    const token = sessionStorage.getItem('token');
     try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins`);
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins`, {
+        headers: { token }
+      });
       const resp = await response.json();
       resp.data.map((superadmin) => {
         superadmin.active = superadmin.active ? 'true' : 'false';
@@ -35,9 +38,11 @@ export const getSuperAdmins = () => {
 export const deleteSuperAdmins = (_id) => {
   return async (dispatch) => {
     dispatch(deleteSuperAdminsPending());
+    const token = sessionStorage.getItem('token');
     try {
       await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins/${_id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: { token }
       });
       dispatch(deleteSuperAdminsSuccess(_id));
       dispatch(getSuperAdmins());
@@ -51,11 +56,13 @@ export const deleteSuperAdmins = (_id) => {
 export const addSuperAdmin = (superAdmin, setModalText, setShowButton, setSuperAdminCreated) => {
   return async (dispatch) => {
     dispatch(addSuperAdminsPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins`, {
         method: 'POST',
         headers: {
-          'Content-type': 'application/json'
+          'Content-type': 'application/json',
+          token
         },
         body: JSON.stringify(superAdmin)
       });
@@ -89,11 +96,13 @@ export const editSuperAdmin = (
 ) => {
   return async (dispatch) => {
     dispatch(editSuperAdminsPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/superAdmins/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-type': 'application/json'
+          'Content-type': 'application/json',
+          token
         },
         body: JSON.stringify(superAdmin)
       });
@@ -121,8 +130,11 @@ export const editSuperAdmin = (
 export const getSuperAdminById = (id) => {
   return async (dispatch) => {
     dispatch(getSuperAdminByIdPending());
+    const token = sessionStorage.getItem('token');
     try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/superAdmins/${id}`);
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/superAdmins/${id}`, {
+        headers: { token }
+      });
       const resp = await response.json();
       dispatch(getSuperAdminByIdSuccess(resp.data));
     } catch (error) {
