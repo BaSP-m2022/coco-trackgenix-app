@@ -43,9 +43,11 @@ function Home() {
             <img src={confidence} alt="confidence-img" />
             <p>Confidence</p>
           </div>
-          <div className={styles.assetsCard}>
-            <img src={management} alt="management-img" />
-            <p>Management</p>
+          <div className={styles.assetsCardManagement}>
+            <div className={styles.cardManagementStyle}>
+              <img src={management} alt="management-img" />
+              <p>Management</p>
+            </div>
           </div>
         </section>
         <section className={styles.cards}>
