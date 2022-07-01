@@ -14,9 +14,10 @@ export const loginPending = () => {
     type: LOGIN_PENDING
   };
 };
-export const loginSuccess = () => {
+export const loginSuccess = (data) => {
   return {
-    type: LOGIN_SUCCESS
+    type: LOGIN_SUCCESS,
+    payload: data
   };
 };
 export const loginError = (error) => {

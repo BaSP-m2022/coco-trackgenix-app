@@ -27,7 +27,7 @@ export const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        authenticated: true
+        authenticated: action.payload
       };
     }
     case LOGIN_ERROR: {

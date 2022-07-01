@@ -9,27 +9,21 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
   const error = useSelector((state) => state.auth.error);
 
   return (
-    <>
-      {isFetching ? (
-        <Loading show={true} />
-      ) : (
-        <Route
-          {...rest}
-          render={(routeProps) => {
-            if (isFetching) {
-              return <></>;
-            }
-            if (role === rest.role) {
-              return <RouteComponent {...routeProps} />;
-            }
-            if (role && !error) {
-              return <Redirect to={'/auth/notAllowed'} />;
-            }
-            return <Redirect to={'/login'} />;
-          }}
-        />
-      )}
-    </>
+    <Route
+      {...rest}
+      render={(routeProps) => {
+        if (isFetching) {
+          return <Loading />;
+        }
+        if (role === rest.role) {
+          return <RouteComponent {...routeProps} />;
+        }
+        if (role && !error) {
+          return <Redirect to={'/auth/NotAllowed'} />;
+        }
+        return <Redirect to={'/auth/NotAllowed'} />;
+      }}
+    />
   );
 };
 
