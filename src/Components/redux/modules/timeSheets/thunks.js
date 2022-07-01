@@ -19,8 +19,11 @@ import {
 export const getTimesheet = () => {
   return async (dispatch) => {
     dispatch(getTimesheetsPending());
+    const token = sessionStorage.getItem('token');
     try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/timesheets`);
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/timesheets`, {
+        headers: { token }
+      });
       const data = await response.json();
       data.data.map((item) => {
         item.employeeId = item.employeeId ? item.employeeId.firstName : 'No Employee';
@@ -39,9 +42,11 @@ export const getTimesheet = () => {
 export const deleteTimesheet = (_id) => {
   return async (dispatch) => {
     dispatch(deleteTimesheetPending());
+    const token = sessionStorage.getItem('token');
     try {
       await fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${_id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: { token }
       });
       dispatch(deleteTimesheetSuccess(_id));
     } catch (error) {
@@ -71,11 +76,13 @@ const dateFormatter = (inputDate) => {
 export const addTimesheet = (e, setModalText, setSuccessTimesheet, setShowButton) => {
   return async (dispatch) => {
     dispatch(addTimesheetPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/timesheets/`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token
         },
         body: JSON.stringify(e)
       });
@@ -103,11 +110,13 @@ export const addTimesheet = (e, setModalText, setSuccessTimesheet, setShowButton
 export const editTimesheet = (timesheet, id, setModalText, setShowButton, setSuccessTimesheet) => {
   return async (dispatch) => {
     dispatch(editTimesheetPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token
         },
         body: JSON.stringify(timesheet)
       });
@@ -135,8 +144,11 @@ export const editTimesheet = (timesheet, id, setModalText, setShowButton, setSuc
 export const getTimesheetById = (id) => {
   return async (dispatch) => {
     dispatch(getTimesheetByIdPending());
+    const token = sessionStorage.getItem('token');
     try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${id}`);
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/timesheets/${id}`, {
+        headers: { token }
+      });
       const res = await response.json();
       dispatch(getTimesheetByIdSuccess(res.data));
     } catch (error) {

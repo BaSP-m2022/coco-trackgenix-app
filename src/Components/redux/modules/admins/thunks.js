@@ -19,8 +19,11 @@ import {
 export const getAdmin = () => {
   return async (dispatch) => {
     dispatch(getAdminPending());
+    const token = sessionStorage.getItem('token');
     try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins`);
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins`, {
+        headers: { token }
+      });
       const data = await response.json();
       data.data.map((admin) => {
         admin.active = admin.active ? 'true' : 'false';
@@ -36,9 +39,11 @@ export const getAdmin = () => {
 export const deleteAdmin = (_id) => {
   return async (dispatch) => {
     dispatch(DeleteAdminPending());
+    const token = sessionStorage.getItem('token');
     try {
       await fetch(`https://coco-trackgenix-server.vercel.app/admins/${_id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: { token }
       });
       dispatch(DeleteAdminSuccess(_id));
       dispatch(getAdmin());
@@ -51,12 +56,14 @@ export const deleteAdmin = (_id) => {
 export const postAdmin = (e, setModalText, setShowButton, setSuccessAdmin) => {
   return async (dispatch) => {
     dispatch(PostAdminPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token
         },
         body: JSON.stringify(e)
       });
@@ -84,11 +91,13 @@ export const postAdmin = (e, setModalText, setShowButton, setSuccessAdmin) => {
 export const putAdmin = (admin, id, setModalText, setShowButton, setSuccessAdmin) => {
   return async (dispatch) => {
     dispatch(PutAdminsPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          token
         },
         body: JSON.stringify(admin)
       });
@@ -116,8 +125,11 @@ export const putAdmin = (admin, id, setModalText, setShowButton, setSuccessAdmin
 export const getAdminById = (id) => {
   return async (dispatch) => {
     dispatch(getAdminByIdPending());
+    const token = sessionStorage.getItem('token');
     try {
-      const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins/${id}`);
+      const response = await fetch(`https://coco-trackgenix-server.vercel.app/admins/${id}`, {
+        headers: { token }
+      });
       const adminData = await response.json();
       dispatch(getAdminByIdSuccess(adminData.data));
     } catch (error) {
