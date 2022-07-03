@@ -37,6 +37,9 @@ class ProjectsPage {
       '#root > div > div > div > div.projects_container__1eYs7 > div > table > tbody > tr:nth-child(1) > td.table_buttonTd__1cGKe'
     );
   }
+  get table_xpath() {
+    return $('//*[@id="root"]/div/div/div/div[2]/div/table/tbody/tr[0]');
+  }
 
   get div_field_name() {
     return $(
@@ -120,9 +123,9 @@ class ProjectsPage {
     );
   }
 
-  async asd() {
-    await this.asd.setValue(asd);
-  }
+  // async tableList() {
+  //   return this.table_xpath.map((Element) => console.log(Element.getText()));
+  // }
 }
 
 module.exports = new ProjectsPage();

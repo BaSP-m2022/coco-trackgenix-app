@@ -27,6 +27,27 @@ class EmployeePage {
     );
   }
 
+  get btn_edit() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(14) > td.table_buttonTd__1cGKe > button:nth-child(1)'
+    );
+  }
+  get btn_delete() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > table > tbody > tr:nth-child(20) > td.table_buttonTd__1cGKe > button:nth-child(2)'
+    );
+  }
+  get modal_btn_confirm_delete() {
+    return $(
+      '#root > div > div > section > div.table_container__2zHgd > div.modal_modalOverlay__1jXdD > div > div:nth-child(4) > button.table_stylesModalBtn__gb5_E'
+    );
+  }
+  get modal_btn_ok() {
+    return $(
+      '#root > div > div > section > div.modal_modalOverlay__1jXdD > div > div:nth-child(4) > button'
+    );
+  }
+
   get link_project() {
     return $('#root > div > div > nav > div.navBar_userInfo__11FpW > img');
   }
@@ -37,8 +58,17 @@ class EmployeePage {
     return $('#root > div > div > nav > ul > li:nth-child(3) > a');
   }
 
-  async asd() {
-    await this.asd.setValue(asd);
+  async edit() {
+    await this.btn_edit.click();
+  }
+  async delete() {
+    await this.btn_delete.click();
+  }
+  async confirm_delete() {
+    await this.modal_btn_confirm_delete.click();
+  }
+  async ok() {
+    await this.modal_btn_ok.click();
   }
 }
 

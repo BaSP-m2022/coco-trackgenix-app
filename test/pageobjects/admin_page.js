@@ -4,9 +4,11 @@ class AdminPage {
   get h2_Admin() {
     return $('#root > div > div > section > h2');
   }
+
   get add_admin() {
     return $('#root > div > div > section > div:nth-child(3) > button');
   }
+
   get input_name() {
     return $(
       '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(1) > input'
@@ -47,6 +49,12 @@ class AdminPage {
       '#root > div > div > section > div:nth-child(3) > div > table > tbody > tr:nth-child(1) > td.table_buttonTd__1cGKe > button:nth-child(2)'
     );
   }
+  get btn_edit_admin() {
+    return $(
+      '#root > div > div > section > div:nth-child(3) > div > table > tbody > tr:nth-child(1) > td.table_buttonTd__1cGKe > button:nth-child(1)'
+    );
+  }
+
   get modal_create_admin() {
     return $('#root > div > div > div > div.modal_modalOverlay__1jXdD > div');
   }
@@ -65,11 +73,6 @@ class AdminPage {
   }
   get table_head_admin() {
     return $('#root > div > div > section > div:nth-child(3) > div > table > thead');
-  }
-  get btn_edit_admin() {
-    return $(
-      '#root > div > div > section > div:nth-child(3) > div > table > tbody > tr:nth-child(1) > td.table_buttonTd__1cGKe > button:nth-child(1)'
-    );
   }
 
   get error_msg_name() {
@@ -92,7 +95,7 @@ class AdminPage {
       '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(4) > p'
     );
   }
-  get lerror_msg_password() {
+  get error_msg_password() {
     return $(
       '#root > div > div > div > div.admins_formContainer__3kCmu > form > div.admins_inputsColumns__1mTem > div:nth-child(5) > p'
     );
@@ -103,8 +106,14 @@ class AdminPage {
     );
   }
 
-  async asd() {
-    await this.asd.setValue(asd);
+  async add() {
+    await this.add_admin.click();
+  }
+  async btnAccept() {
+    await this.btn_accept.click();
+  }
+  async btnCancel() {
+    await this.btn_cancel.click();
   }
 }
 

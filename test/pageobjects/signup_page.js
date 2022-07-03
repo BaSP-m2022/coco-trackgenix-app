@@ -65,6 +65,16 @@ class SignupPage {
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select'
     );
   }
+  get placeholder_active_true() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select > option:nth-child(2)'
+    );
+  }
+  get placeholder_active_false() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select > option:nth-child(3)'
+    );
+  }
 
   get btn_create() {
     return $(
@@ -75,10 +85,6 @@ class SignupPage {
     return $(
       '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.employees_containerBtn__3oxVC > button:nth-child(2)'
     );
-  }
-
-  get modal_create() {
-    return $('#root > div > div > div > div.modal_modalOverlay__1jXdD > div');
   }
   get modal_confirm() {
     return $(
@@ -127,23 +133,24 @@ class SignupPage {
     );
   }
 
-  async clickFields(firstName, phone, password, lastName, email, active) {
+  async clickFields(firstName, lastName, phone, email, password) {
     await this.placeholder_firstName.setValue(firstName);
     await this.placeholder_lastName.setValue(lastName);
-    await this.placeholder_lastName.setValue(phone);
-    await this.placeholder_lastName.setValue(password);
-    await this.placeholder_lastName.setValue(email);
-    await this.placeholder_lastName.setValue(active);
+    await this.placeholder_phone.setValue(phone);
+    await this.placeholder_email.setValue(email);
+    await this.placeholder_password.setValue(password);
+    await this.placeholder_active.click();
+    await this.placeholder_active_true.click();
+  }
+  async create() {
+    await this.btn_create.click();
   }
   async clickConfirm() {
-    await this.btn_confirm.click();
+    await this.modal_confirm.click();
   }
   async clickSuccess() {
     await this.modal_btn_success.click();
   }
-  //   async clickSignUp(firstName) {
-  //     await this.placeholder_firstName.setValue(firstName);
-  //   }
 }
 
 module.exports = new SignupPage();

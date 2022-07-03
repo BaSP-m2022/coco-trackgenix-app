@@ -30,7 +30,7 @@ class General {
   }
 
   get logo() {
-    return $('#root > div > div > div > div > div');
+    return $('#root > div > div > section > div.logo_container__YUs9e > img');
   }
 
   get paragraph_01() {

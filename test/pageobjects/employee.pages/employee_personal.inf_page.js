@@ -80,7 +80,17 @@ class EmployeePersonalInf {
   }
   get input_edit_active() {
     return $(
-      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(6) > input'
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select'
+    );
+  }
+  get input_edit_active_true() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select > option:nth-child(2)'
+    );
+  }
+  get input_edit_active_false() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > select > option:nth-child(3)'
     );
   }
 
@@ -138,6 +148,41 @@ class EmployeePersonalInf {
     return $(
       '#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > button:nth-child(2)'
     );
+  }
+  get modal_edit_ok() {
+    return $(
+      '#root > div > div > div > div.modal_modalOverlay__1jXdD > div > div:nth-child(3) > button.employees_modalEmployeeBtn__-7PeI'
+    );
+  }
+
+  async clickFields(firstName, lastName, phone, password, email) {
+    await this.input_edit_name.setValue(firstName);
+    await this.input_edit_lastName.setValue(lastName);
+    await this.input_edit_phone.setValue(phone);
+    await this.input_edit_password.setValue(password);
+    await this.input_edit_email.setValue(email);
+    await this.input_edit_active.click();
+  }
+  async true() {
+    await this.input_edit_active_true.click();
+  }
+  async false() {
+    await this.input_edit_active_false.click();
+  }
+  async clickCreateEdit() {
+    await this.btn_edit_create.click();
+  }
+  async clickCancelEdit() {
+    await this.btn_edit_cancel.click();
+  }
+  async clickConfirm() {
+    await this.modal_edit_btn_confirm.click();
+  }
+  async clickCancel() {
+    await this.modal_edit_btn_cancel.click();
+  }
+  async clickOk() {
+    await this.modal_edit_ok.click();
   }
 }
 
