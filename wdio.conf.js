@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 exports.config = {
   //
@@ -25,6 +26,7 @@ exports.config = {
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
+    ['./test/specs/e2eProjectManager']
   ],
   //
   // ============
@@ -53,10 +55,11 @@ exports.config = {
       // maxInstances can get overwritten per capability. So if you have an in-house Selenium
       // grid with only 5 firefox instances available you can make sure that not more than
       // 5 instances get started at a time.
-      maxInstances: 1,
+      maxInstances: 5,
       //
       browserName: 'chrome',
-      acceptInsecureCerts: true
+      acceptInsecureCerts: true //,
+      //   'goog:chromeOptions': {args:{'--headless'}}, // Test without open the browser.
       // If outputDir is provided WebdriverIO can capture driver session logs
       // it is possible to configure which logTypes to include/exclude.
       // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
@@ -132,13 +135,16 @@ exports.config = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
-  reporters: ['spec'],
+  reporters: [
+    'spec',
+    ['allure', { outputDir: 'allure-results', disableWebdriverScreenshotsReporting: false }]
+  ],
 
   //
   // Options to be passed to Jasmine.
   jasmineOpts: {
     // Jasmine default timeout
-    defaultTimeoutInterval: 60000,
+    defaultTimeoutInterval: 24 * 60 * 60 * 1000,
     //
     // The Jasmine framework allows interception of each assertion in order to log the state of the application
     // or website depending on the result. For example, it is pretty handy to take a screenshot every time
@@ -146,7 +152,7 @@ exports.config = {
     expectationResultHandler: function (passed, assertion) {
       // do something
     }
-  }
+  },
 
   //
   // =====
@@ -242,8 +248,29 @@ exports.config = {
    * @param {Boolean} result.passed    true if test has passed, otherwise false
    * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
    */
-  // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-  // },
+  onComplete: function () {
+    const reportError = new Error('Could not generate Allure report');
+    const generation = allure(['generate', 'allure-results', '--clean']);
+    return new Promise((resolve, reject) => {
+      const generationTimeout = setTimeout(() => reject(reportError), 5000);
+
+      generation.on('exit', function (exitCode) {
+        clearTimeout(generationTimeout);
+
+        if (exitCode !== 0) {
+          return reject(reportError);
+        }
+
+        console.log('Allure report successfully generated');
+        resolve();
+      });
+    });
+  },
+  afterTest: async function (test, context, { error, result, duration, passed, retries }) {
+    if (!error) {
+      await browser.takeScreenshot();
+    }
+  }
 
   /**
    * Hook that gets executed after the suite has ended

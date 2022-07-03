@@ -20,31 +20,50 @@ class HomePage {
   get btnSignUp() {
     return $('#root > div > header > div > div > a:nth-child(1)');
   }
+  get btn_login() {
+    return $('#root > div > header > div > div > a:nth-child(2)');
+  }
   get btnNavigation() {
     return $('#root > div > header > div > div > a:nth-child(2)');
   }
+  get sidebarHome() {
+    return $('#root > div > header > div.header_background__3_lNh > nav');
+  }
 
   get img_01() {
-    return $('#root > div > div > div > main > section.home_assets__3WjuV > div:nth-child(1)');
+    return $('#root > div > div > div > main > section.home_trackgenix__omOC_ > img');
   }
   get img_02() {
-    return $('#root > div > div > div > main > section.home_assets__3WjuV > div:nth-child(2)');
+    return $(
+      '#root > div > div > div > main > section.home_assets__3WjuV > div:nth-child(1) > img'
+    );
   }
   get img_03() {
-    return $('#root > div > div > div > main > section.home_assets__3WjuV > div:nth-child(3)');
+    return $(
+      '#root > div > div > div > main > section.home_assets__3WjuV > div:nth-child(2) > img'
+    );
   }
   get img_04() {
-    return $('#root > div > div > div > main > section.home_assets__3WjuV > div:nth-child(4)');
+    return $(
+      '#root > div > div > div > main > section.home_assets__3WjuV > div:nth-child(3) > img'
+    );
   }
   get img_05() {
-    return $('#root > div > div > div > main > section.home_assets__3WjuV > div:nth-child(5)');
+    return $(
+      '#root > div > div > div > main > section.home_assets__3WjuV > div:nth-child(4) > img'
+    );
   }
   get img_06() {
+    return $(
+      '#root > div > div > div > main > section.home_assets__3WjuV > div:nth-child(5) > img'
+    );
+  }
+  get img_07() {
     return $(
       '#root > div > div > div > main > section.home_about__jl4Ko > div > div:nth-child(3) > img'
     );
   }
-  get img_07() {
+  get img_08() {
     return $(
       '#root > div > div > div > main > section.home_about__jl4Ko > div > div:nth-child(4) > img'
     );
@@ -88,6 +107,15 @@ class HomePage {
 
   async btnSignUpClick() {
     await this.btnSignUp.click();
+  }
+  async btnLogin() {
+    await this.btn_login.click();
+  }
+  async menu() {
+    await this.menuH.click();
+  }
+  async X() {
+    await this.xMenu.click();
   }
 }
 

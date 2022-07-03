@@ -40,8 +40,12 @@ class LoginPage {
     );
   }
 
-  async asd() {
-    await this.asd.setValue(asd);
+  async login(email, password) {
+    await this.div_email.setValue(email);
+    await this.div_password.setValue(password);
+  }
+  async btnLogin() {
+    await this.btn_login.click();
   }
 }
 

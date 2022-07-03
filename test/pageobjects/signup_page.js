@@ -133,6 +133,37 @@ class SignupPage {
     );
   }
 
+  get error_msg_name_02() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(1) > p'
+    );
+  }
+  get error_msg_lastName_02() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(2) > p'
+    );
+  }
+  get error_msg_phone_02() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(3) > p'
+    );
+  }
+  get error_msg_email_02() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(4) > p'
+    );
+  }
+  get error_msg_password_02() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div:nth-child(5) > p'
+    );
+  }
+  get error_msg_active_02() {
+    return $(
+      '#root > div > div > div > div.formEmployee_formContainer__2w_8O > form > div.formEmployee_inputsColumns__26M38 > div.dropdown_container__3t7mX > p'
+    );
+  }
+
   async clickFields(firstName, lastName, phone, email, password) {
     await this.placeholder_firstName.setValue(firstName);
     await this.placeholder_lastName.setValue(lastName);
