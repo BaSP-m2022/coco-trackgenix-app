@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 import Loading from 'Components/SharedComponents/Loading/Loading';
 
 const PrivateRoute = ({ component: RouteComponent, ...props }) => {
-  const getRole = sessionStorage.getItem('role');
+  const role = sessionStorage.getItem('role');
   const isFetching = useSelector((state) => state.isFetching);
   const error = useSelector((state) => state.error);
 
@@ -15,10 +15,10 @@ const PrivateRoute = ({ component: RouteComponent, ...props }) => {
         if (isFetching) {
           return <Loading />;
         }
-        if (props.role.includes(getRole)) {
+        if (role === props.role) {
           return <RouteComponent {...routeProps} />;
         }
-        if (getRole && !error) {
+        if (role && !error) {
           return <Redirect to={'/auth/NotAllowed'} />;
         }
         return <Redirect to={'/home'} />;

@@ -1,7 +1,9 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy } from 'react';
 import { Switch, Redirect, useRouteMatch, Route } from 'react-router-dom';
 import AdminForm from 'Components/Admins/AdminForm/AdminForm';
+import Layout from 'Components/Layout';
 
+const Home = lazy(() => import('Components/Home/Homepage'));
 const Admins = lazy(() => import('Components/Admins/index'));
 const AdminFormEdit = lazy(() => import('Components/Admins/AdminForm/AdminFormEdit'));
 const SuperAdmins = lazy(() => import('Components/SuperAdmins/index'));
@@ -24,22 +26,22 @@ const Tasks = lazy(() => import('Components/Tasks/index'));
 const TaskFormEdit = lazy(() => import('Components/Tasks/TaskForm/TaskFormEdit'));
 const TaskForm = lazy(() => import('Components/Tasks/TaskForm/TaskForm'));
 
-// const adminRoutes = [
-//   { path: '/admins', name: 'Admins' },
-//   { path: '/admins/super-admins', name: 'Super-admins' },
-//   { path: '/admins/employees', name: 'Employees' },
-//   { path: '/admins/projects', name: 'Projects' },
-//   { path: '/admins/time-sheets', name: 'Time-sheets' },
-//   { path: '/admins/tasks', name: 'Tasks' }
-// ];
+const adminRoutes = [
+  { path: '/admins', name: 'Admins' },
+  { path: '/admins/super-admins', name: 'Super-admins' },
+  { path: '/admins/employees', name: 'Employees' },
+  { path: '/admins/projects', name: 'Projects' },
+  { path: '/admins/time-sheets', name: 'Time-sheets' },
+  { path: '/admins/tasks', name: 'Tasks' }
+];
 
 const AdminRoutes = () => {
   const { url } = useRouteMatch();
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      {/* <Layout routes={adminRoutes}> */}
+    <Layout routes={adminRoutes}>
       <Switch>
+        <Route exact path={`${url}/home`} component={Home} />
         <Route exact path={`${url}/admins`} component={Admins} />
         <Route exact path={`${url}/admins/add`} component={AdminForm} />
         <Route exact path={`${url}/admins/edit`} component={AdminFormEdit} />
@@ -64,8 +66,7 @@ const AdminRoutes = () => {
         <Route exact path={`${url}/tasks/edit`} component={TaskFormEdit} />
         <Redirect to={`${url}/admins`} />
       </Switch>
-      {/* </Layout> */}
-    </Suspense>
+    </Layout>
   );
 };
 

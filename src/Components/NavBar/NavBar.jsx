@@ -6,8 +6,7 @@ import styles from './navBar.module.css';
 const NavBar = () => {
   if (
     location.pathname == '/home' ||
-    location.pathname == '/nav' ||
-    location.pathname == '/employee/signup' ||
+    location.pathname == '/auth/sign-up' ||
     location.pathname == '/login'
   ) {
     return null;
@@ -58,7 +57,7 @@ const NavBar = () => {
         <div className={styles.menu}>menu</div>
         <ul className={styles.rutes}>
           <li>
-            <Link className={styles.links} to="/projects">
+            <Link className={styles.links} to="/admins/projects">
               projects
             </Link>
           </li>

@@ -11,8 +11,8 @@ const Header = () => {
   };
 
   const loginButtonText = () => {
-    if (location.pathname === '/login' || location.pathname === '/employee/signup') {
-      return 'home';
+    if (location.pathname === '/auth/login' || location.pathname === '/auth/sign-up') {
+      return 'Home';
     }
     if (sessionStorage.getItem('token')) {
       return 'Logout';
@@ -26,7 +26,7 @@ const Header = () => {
       sessionStorage.removeItem('role');
       return '/home';
     } else {
-      return '/login';
+      return '/auth/login';
     }
   };
 
@@ -70,7 +70,7 @@ const Header = () => {
         <input type="text" placeholder="Search" />
         {location.pathname === '/home' ? (
           <div>
-            <Link to="/employee/signup" className={style.navigation} disable={!sidebarOpen}>
+            <Link to="/auth/sign-up" className={style.navigation} disable={!sidebarOpen}>
               Sign Up
             </Link>
             <Link to={loginButtonPath()} className={style.navigation} disable={!sidebarOpen}>
