@@ -10,14 +10,20 @@ const Header = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const loginButtonText = (a) => {
-    if (a === 'log') {
-      if (sessionStorage.getItem('token')) {
-        return 'Logout';
-      } else {
-        return 'Login';
-      }
-    } else if (sessionStorage.getItem('token')) {
+  const loginButtonText = () => {
+    if (location.pathname === '/login' || location.pathname === '/employee/signup') {
+      return 'home';
+    }
+    if (sessionStorage.getItem('token')) {
+      return 'Logout';
+    } else {
+      return 'Login';
+    }
+  };
+  const loginButtonPath = () => {
+    if (sessionStorage.getItem('token')) {
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('role');
       return '/home';
     } else {
       return '/login';
@@ -67,13 +73,13 @@ const Header = () => {
             <Link to="/employee/signup" className={style.navigation} disable={!sidebarOpen}>
               Sign Up
             </Link>
-            <Link to={loginButtonText('path')} className={style.navigation} disable={!sidebarOpen}>
-              {loginButtonText('log')}
+            <Link to={loginButtonPath()} className={style.navigation} disable={!sidebarOpen}>
+              {loginButtonText()}
             </Link>
           </div>
         ) : (
           <Link to="/home" className={style.navigation}>
-            Home
+            {loginButtonText()}
           </Link>
         )}
       </div>

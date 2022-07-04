@@ -4,8 +4,7 @@ import {
   LOGIN_PENDING,
   LOGIN_SUCCESS,
   LOGOUT_PENDING,
-  LOGOUT_SUCCESS,
-  SET_AUTHENTICATION
+  LOGOUT_SUCCESS
 } from './constants';
 
 const initialState = {
@@ -27,7 +26,7 @@ export const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        authenticated: action.payload
+        authenticated: true
       };
     }
     case LOGIN_ERROR: {
@@ -54,13 +53,6 @@ export const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         error: initialState.error
-      };
-    }
-    case SET_AUTHENTICATION: {
-      return {
-        ...state,
-        authenticated: action.payload,
-        isFetching: false
       };
     }
     default: {

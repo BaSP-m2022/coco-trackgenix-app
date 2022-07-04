@@ -3,25 +3,25 @@ import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import Loading from 'Components/SharedComponents/Loading/Loading';
 
-const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
-  const role = useSelector((state) => state.auth.authenticated?.role);
-  const isFetching = useSelector((state) => state.auth.isFetching);
-  const error = useSelector((state) => state.auth.error);
+const PrivateRoute = ({ component: RouteComponent, ...props }) => {
+  const getRole = sessionStorage.getItem('role');
+  const isFetching = useSelector((state) => state.isFetching);
+  const error = useSelector((state) => state.error);
 
   return (
     <Route
-      {...rest}
+      {...props}
       render={(routeProps) => {
         if (isFetching) {
           return <Loading />;
         }
-        if (role === rest.role) {
+        if (props.role.includes(getRole)) {
           return <RouteComponent {...routeProps} />;
         }
-        if (role && !error) {
+        if (getRole && !error) {
           return <Redirect to={'/auth/NotAllowed'} />;
         }
-        return <Redirect to={'/auth/NotAllowed'} />;
+        return <Redirect to={'/home'} />;
       }}
     />
   );

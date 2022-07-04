@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Switch, Redirect, useRouteMatch, Route } from 'react-router-dom';
 import AdminForm from 'Components/Admins/AdminForm/AdminForm';
-import Layout from 'Components/Layout/';
 
 const Admins = lazy(() => import('Components/Admins/index'));
 const AdminFormEdit = lazy(() => import('Components/Admins/AdminForm/AdminFormEdit'));
@@ -39,33 +38,33 @@ const AdminRoutes = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Layout>
-        <Switch>
-          <Route exact path={`${url}/admins`} component={Admins} />
-          <Route exact path={`${url}/admins/add`} component={AdminForm} />
-          <Route exact path={`${url}/admins/edit`} component={AdminFormEdit} />
-          <Route exact path={`${url}/super-admins`} component={SuperAdmins} />
-          <Route exact path={`${url}/super-admins/Form`} component={SuperAdminFormEdit} />
-          <Route exact path={`${url}/super-admins/formAdd`} component={SuperAdminsForm} />
-          <Route exact path={`${url}/employee`} component={Employees} />
-          <Route exact path={`${url}/employee/timesheet`} component={EmployeesTimesheet} />
-          <Route exact path={`${url}/employee/timesheetAdd`} component={EmployeesTimesheetAdd} />
-          <Route exact path={`${url}/employee/timesheetEdit`} component={EmployeesTimesheetEdit} />
-          <Route exact path={`${url}/employee/profile`} component={EmployeesProfile} />
-          <Route exact path={`${url}/employee/projects`} component={EmployeesProject} />
-          <Route exact path={`${url}/employee/profile/edit`} component={FormEmployeeEdit} />
-          <Route exact path={`${url}/projects`} component={Projects} />
-          <Route exact path={`${url}/projects/add`} component={AddNew} />
-          <Route exact path={`${url}/projects/edit`} component={EditProject} />
-          <Route exact path={`${url}time-sheets`} component={TimeSheets} />
-          <Route exact path={`${url}time-sheets/add`} component={TimeSheetsFormAdd} />
-          <Route exact path={`${url}/time-sheets/edit`} component={TimeSheetsFormEdit} />
-          <Route exact path={`${url}/tasks`} component={Tasks} />
-          <Route exact path={`${url}/tasks/add`} component={TaskForm} />
-          <Route exact path={`${url}/tasks/edit`} component={TaskFormEdit} />
-          <Redirect to={`${url}/admins`} />
-        </Switch>
-      </Layout>
+      {/* <Layout routes={adminRoutes}> */}
+      <Switch>
+        <Route exact path={`${url}/admins`} component={Admins} />
+        <Route exact path={`${url}/admins/add`} component={AdminForm} />
+        <Route exact path={`${url}/admins/edit`} component={AdminFormEdit} />
+        <Route exact path={`${url}/super-admins`} component={SuperAdmins} />
+        <Route exact path={`${url}/super-admins/Form`} component={SuperAdminFormEdit} />
+        <Route exact path={`${url}/super-admins/formAdd`} component={SuperAdminsForm} />
+        <Route exact path={`${url}/employee`} component={Employees} />
+        <Route exact path={`${url}/employee/timesheet`} component={EmployeesTimesheet} />
+        <Route exact path={`${url}/employee/timesheetAdd`} component={EmployeesTimesheetAdd} />
+        <Route exact path={`${url}/employee/timesheetEdit`} component={EmployeesTimesheetEdit} />
+        <Route exact path={`${url}/employee/profile`} component={EmployeesProfile} />
+        <Route exact path={`${url}/employee/projects`} component={EmployeesProject} />
+        <Route exact path={`${url}/employee/profile/edit`} component={FormEmployeeEdit} />
+        <Route exact path={`${url}/projects`} component={Projects} />
+        <Route exact path={`${url}/projects/add`} component={AddNew} />
+        <Route exact path={`${url}/projects/edit`} component={EditProject} />
+        <Route exact path={`${url}time-sheets`} component={TimeSheets} />
+        <Route exact path={`${url}time-sheets/add`} component={TimeSheetsFormAdd} />
+        <Route exact path={`${url}/time-sheets/edit`} component={TimeSheetsFormEdit} />
+        <Route exact path={`${url}/tasks`} component={Tasks} />
+        <Route exact path={`${url}/tasks/add`} component={TaskForm} />
+        <Route exact path={`${url}/tasks/edit`} component={TaskFormEdit} />
+        <Redirect to={`${url}/admins`} />
+      </Switch>
+      {/* </Layout> */}
     </Suspense>
   );
 };

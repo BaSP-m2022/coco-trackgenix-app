@@ -5,8 +5,7 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_ERROR,
   LOGOUT_PENDING,
-  LOGOUT_SUCCESS,
-  SET_AUTHENTICATION
+  LOGOUT_SUCCESS
 } from './constants';
 
 export const loginPending = () => {
@@ -14,10 +13,9 @@ export const loginPending = () => {
     type: LOGIN_PENDING
   };
 };
-export const loginSuccess = (data) => {
+export const loginSuccess = () => {
   return {
-    type: LOGIN_SUCCESS,
-    payload: data
+    type: LOGIN_SUCCESS
   };
 };
 export const loginError = (error) => {
@@ -47,12 +45,5 @@ export const logoutError = (error) => {
 export const cleanError = () => {
   return {
     type: CLEAN_ERROR
-  };
-};
-
-export const setAuthentication = (user) => {
-  return {
-    type: SET_AUTHENTICATION,
-    payload: user
   };
 };
