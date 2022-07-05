@@ -1,11 +1,11 @@
 import Loading from 'Components/SharedComponents/Loading/Loading';
 import { lazy, Suspense } from 'react';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
-import PrivateRoute from 'Components/Routes/PrivateRoute';
+import PrivateRoute from 'Components/routes/PrivateRoute';
 
-const AdminRoutes = lazy(() => import('Components/Routes/admins'));
-const AuthRoutes = lazy(() => import('Components/Routes/auth'));
-const HomeRoutes = lazy(() => import('Components/Routes/Home'));
+const AdminRoutes = lazy(() => import('Components/routes/admins'));
+const AuthRoutes = lazy(() => import('Components/routes/auth'));
+const HomeRoutes = lazy(() => import('Components/routes/Home'));
 
 const Routes = () => {
   return (
