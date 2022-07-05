@@ -1,10 +1,10 @@
 import React, { lazy } from 'react';
 import { Switch, Redirect, useRouteMatch, Route } from 'react-router-dom';
-import AdminForm from 'Components/Admins/AdminForm/AdminForm';
 import Layout from 'Components/Layout';
+// import tokenListener from 'Components/helper/firebase/index';
 
-const Home = lazy(() => import('Components/Home/Homepage'));
 const Admins = lazy(() => import('Components/Admins/index'));
+const AdminForm = lazy(() => import('Components/Admins/AdminForm/AdminForm'));
 const AdminFormEdit = lazy(() => import('Components/Admins/AdminForm/AdminFormEdit'));
 const SuperAdmins = lazy(() => import('Components/SuperAdmins/index'));
 const SuperAdminFormEdit = lazy(() => import('Components/SuperAdmins/SuperAdminFormEdit'));
@@ -27,7 +27,7 @@ const TaskFormEdit = lazy(() => import('Components/Tasks/TaskForm/TaskFormEdit')
 const TaskForm = lazy(() => import('Components/Tasks/TaskForm/TaskForm'));
 
 const adminRoutes = [
-  { path: '/admins', name: 'Admins' },
+  { path: '/', name: 'Admins' },
   { path: '/admins/super-admins', name: 'Super-admins' },
   { path: '/admins/employees', name: 'Employees' },
   { path: '/admins/projects', name: 'Projects' },
@@ -38,10 +38,13 @@ const adminRoutes = [
 const AdminRoutes = () => {
   const { url } = useRouteMatch();
 
+  // useEffect(() => {
+  //   tokenListener();
+  // }, []);
+
   return (
     <Layout routes={adminRoutes}>
       <Switch>
-        <Route exact path={`${url}/home`} component={Home} />
         <Route exact path={`${url}/admins`} component={Admins} />
         <Route exact path={`${url}/admins/add`} component={AdminForm} />
         <Route exact path={`${url}/admins/edit`} component={AdminFormEdit} />

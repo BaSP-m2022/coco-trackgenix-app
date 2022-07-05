@@ -8,8 +8,10 @@ function Layout(props) {
   return (
     <div className={styles.container}>
       <Header />
-      <NavBar />
-      {props.children}
+      <div className={styles.contentContainer}>
+        <NavBar />
+        {props.children}
+      </div>
       <Footer routes={routes} />
     </div>
   );

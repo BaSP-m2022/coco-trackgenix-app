@@ -3,12 +3,16 @@ import style from './header.module.css';
 import burguerMenu from '../../Assets/burguer-menu.png';
 import closeBtn from '../../Assets/closeBtn.png';
 import { Link, withRouter } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from 'Components/redux/modules/auth/thunks';
 
 const Header = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+
+  const dispatch = useDispatch();
 
   const loginButtonText = () => {
     if (location.pathname === '/auth/login' || location.pathname === '/auth/sign-up') {
@@ -22,8 +26,7 @@ const Header = () => {
   };
   const loginButtonPath = () => {
     if (sessionStorage.getItem('token')) {
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('role');
+      dispatch(logout());
       return '/home';
     } else {
       return '/auth/login';

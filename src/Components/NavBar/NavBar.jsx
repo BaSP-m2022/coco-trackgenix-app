@@ -7,7 +7,7 @@ const NavBar = () => {
   if (
     location.pathname == '/home' ||
     location.pathname == '/auth/sign-up' ||
-    location.pathname == '/login'
+    location.pathname == '/auth/login'
   ) {
     return null;
   } else if (
@@ -62,12 +62,12 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            <Link className={styles.links} to="/employee/projects">
+            <Link className={styles.links} to="/admins/employees">
               employees
             </Link>
           </li>
           <li>
-            <Link className={styles.links} to="/time-sheets">
+            <Link className={styles.links} to="/admins/time-sheets">
               timesheets
             </Link>
           </li>

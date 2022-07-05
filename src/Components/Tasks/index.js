@@ -25,7 +25,7 @@ const Tasks = (props) => {
   };
 
   const handleEdit = (_id) => {
-    window.location = `/tasks/edit?=${_id}`;
+    window.location = `/admins/tasks/edit?=${_id}`;
   };
 
   if (isFetching) {
@@ -47,7 +47,10 @@ const Tasks = (props) => {
           handleEdit={handleEdit}
           deleteItem={deleteItem}
         >
-          <Button type={styles.buttonAdd} handleClick={() => props.history.push('tasks/add')}>
+          <Button
+            type={styles.buttonAdd}
+            handleClick={() => props.history.push('admins/tasks/add')}
+          >
             + Add Task
           </Button>
         </Table>
