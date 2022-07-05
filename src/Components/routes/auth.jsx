@@ -19,7 +19,6 @@ const AuthRoutes = () => {
       <Suspense fallback={<Loading />}>
         <Switch>
           <Route exact path={`${url}/login`} component={Login} />
-          {/* <Route path={`${url}`} component={Home} /> */}
           <Route path={`${url}/sign-up`} component={SignUp} />
           <Route path={`${url}/notAllowed`} component={NotAllowed} />
           <Redirect to={`${url}`} />

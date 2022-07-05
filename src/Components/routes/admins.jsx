@@ -38,10 +38,6 @@ const adminRoutes = [
 const AdminRoutes = () => {
   const { url } = useRouteMatch();
 
-  // useEffect(() => {
-  //   tokenListener();
-  // }, []);
-
   return (
     <Layout routes={adminRoutes}>
       <Switch>
