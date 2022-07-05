@@ -10,6 +10,17 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+export const tokenListener = () => {
+  firebase.auth().onIdTokenChanged(async (user) => {
+    if (user) {
+      const token = await user.getIdToken();
+      const {
+        claims: { role }
+      } = await user.getIdTokenResult();
+      sessionStorage.setItem('token', token);
+      sessionStorage.setItem('role', role);
+    }
+  });
+};
 
-export default firebaseApp;
+export const firebaseApp = firebase.initializeApp(firebaseConfig);

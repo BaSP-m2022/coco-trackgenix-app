@@ -1,10 +1,10 @@
 import { loginPending, loginSuccess, loginError, logoutPending, logoutSuccess } from './actions';
-import firebase from 'Components/helper/firebase';
+import { firebaseApp } from 'Components/helper/firebase';
 
 export const login = (credentials, setIsOpen) => {
   return (dispatch) => {
     dispatch(loginPending());
-    return firebase
+    return firebaseApp
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.password)
       .then(async (response) => {
