@@ -1,4 +1,4 @@
-import styles from './notAllowed.module.css';
+import styles from 'Components/Auth/NotAllowed/NotAllowed.module.css';
 
 const NotAllowed = () => {
   return (

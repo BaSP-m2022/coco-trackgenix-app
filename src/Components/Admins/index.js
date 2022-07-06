@@ -23,7 +23,7 @@ const Admins = (props) => {
   };
   let history = useHistory();
   const handleEdit = (_id) => {
-    history.push(`/admins/edit?=${_id}`);
+    history.push(`/admins/admins/edit?=${_id}`);
   };
 
   if (isLoading) {
@@ -38,7 +38,10 @@ const Admins = (props) => {
       <Logo />
       <h2 className={styles.title}>Admins</h2>
       <div>
-        <Button type={styles.buttonAdd} handleClick={() => props.history.push('admins/add')}>
+        <Button
+          type={styles.buttonAdd}
+          handleClick={() => props.history.push('/admins/admins/add')}
+        >
           Add Admin
         </Button>
         <Table

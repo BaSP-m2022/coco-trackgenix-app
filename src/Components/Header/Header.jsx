@@ -3,6 +3,8 @@ import style from './header.module.css';
 import burguerMenu from '../../Assets/burguer-menu.png';
 import closeBtn from '../../Assets/closeBtn.png';
 import { Link, withRouter } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from 'Components/redux/modules/auth/thunks';
 
 const Header = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -10,9 +12,11 @@ const Header = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
+  const dispatch = useDispatch();
+
   const loginButtonText = () => {
-    if (location.pathname === '/login' || location.pathname === '/employee/signup') {
-      return 'home';
+    if (location.pathname === '/auth/login' || location.pathname === '/auth/sign-up') {
+      return 'Home';
     }
     if (sessionStorage.getItem('token')) {
       return 'Logout';
@@ -22,11 +26,10 @@ const Header = () => {
   };
   const loginButtonPath = () => {
     if (sessionStorage.getItem('token')) {
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('role');
+      dispatch(logout());
       return '/home';
     } else {
-      return '/login';
+      return '/auth/login';
     }
   };
 
@@ -70,7 +73,7 @@ const Header = () => {
         <input type="text" placeholder="Search" />
         {location.pathname === '/home' ? (
           <div>
-            <Link to="/employee/signup" className={style.navigation} disable={!sidebarOpen}>
+            <Link to="/auth/sign-up" className={style.navigation} disable={!sidebarOpen}>
               Sign Up
             </Link>
             <Link to={loginButtonPath()} className={style.navigation} disable={!sidebarOpen}>
