@@ -6,9 +6,6 @@ import Layout from 'Components/Layout';
 const Admins = lazy(() => import('Components/Admins/index'));
 const AdminForm = lazy(() => import('Components/Admins/AdminForm/AdminForm'));
 const AdminFormEdit = lazy(() => import('Components/Admins/AdminForm/AdminFormEdit'));
-const SuperAdmins = lazy(() => import('Components/SuperAdmins/index'));
-const SuperAdminFormEdit = lazy(() => import('Components/SuperAdmins/SuperAdminFormEdit'));
-const SuperAdminsForm = lazy(() => import('Components/SuperAdmins/SuperAdminForm'));
 const Employees = lazy(() => import('Components/Employees/index'));
 const EmployeesTimesheet = lazy(() => import('Components/TimeSheets/index'));
 const EmployeesTimesheetAdd = lazy(() => import('Components/TimeSheets/TimeSheetsFormAdd'));
@@ -44,9 +41,9 @@ const AdminRoutes = () => {
         <Route exact path={`${url}/admins`} component={Admins} />
         <Route exact path={`${url}/admins/add`} component={AdminForm} />
         <Route exact path={`${url}/admins/edit`} component={AdminFormEdit} />
-        <Route exact path={`${url}/super-admins`} component={SuperAdmins} />
+        {/* <Route exact path={`${url}/super-admins`} component={SuperAdmins} />
         <Route exact path={`${url}/super-admins/Form`} component={SuperAdminFormEdit} />
-        <Route exact path={`${url}/super-admins/formAdd`} component={SuperAdminsForm} />
+        <Route exact path={`${url}/super-admins/formAdd`} component={SuperAdminsForm} /> */}
         <Route exact path={`${url}/employee`} component={Employees} />
         <Route exact path={`${url}/employee/timesheet`} component={EmployeesTimesheet} />
         <Route exact path={`${url}/employee/timesheetAdd`} component={EmployeesTimesheetAdd} />
