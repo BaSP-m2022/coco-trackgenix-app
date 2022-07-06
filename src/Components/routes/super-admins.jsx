@@ -1,7 +1,3 @@
-// const SuperAdmins = lazy(() => import('Components/SuperAdmins/index'));
-// const SuperAdminFormEdit = lazy(() => import('Components/SuperAdmins/SuperAdminFormEdit'));
-// const SuperAdminsForm = lazy(() => import('Components/SuperAdmins/SuperAdminForm'));
-
 import { lazy } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 import Layout from 'Components/Layout';
