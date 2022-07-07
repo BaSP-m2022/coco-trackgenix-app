@@ -40,14 +40,12 @@ const Admins = (props) => {
       <Logo />
       <h2 className={styles.title}>Admins</h2>
       <div>
-        {sessionStorage.getItem('role') === 'SUPERADMIN' && (
-          <Button
-            type={styles.buttonAdd}
-            handleClick={() => props.history.push('/super-admins/admins/add')}
-          >
-            Add Admin
-          </Button>
-        )}
+        <Button
+          type={styles.buttonAdd}
+          handleClick={() => props.history.push('/super-admins/admins/add')}
+        >
+          Add Admin
+        </Button>
         <Table
           data={dataResponse}
           headers={['name', 'lastName', 'email', 'password', 'active']}
