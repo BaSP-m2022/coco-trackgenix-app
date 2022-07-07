@@ -47,8 +47,9 @@
 .assets{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-bottom: 30px;
+  height: 90vh;
 }
 
 .assetsCard{
@@ -195,6 +196,11 @@
     margin-top: 10px;
   }
 
+  .assets {
+    display: flex;
+    justify-content: space-around;
+  }
+
   .assetsCard {
     width: 40%;
     height: 20vh;
@@ -268,6 +274,23 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 600px) {
+  .trackgenix img {
+    width: 50%;
+    height: 10%;
+    margin-top: 60px;
+  }
+
+  .trackgenix p {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  .assets {
+    display: flex;
+    justify-content: space-around;
+    height: 750px;
+  }
 
 }
