@@ -35,26 +35,19 @@ const Admins = (props) => {
     return <div>There was an error!</div>;
   }
 
-  const roleRedirection = () => {
-    const role = sessionStorage.getItem('role');
-    switch (role) {
-      case 'ADMIN':
-        return props.history.push('/admins/admins/add');
-      case 'SUPERADMIN':
-        return props.history.push('/super-admins/admins/add');
-      default:
-        break;
-    }
-  };
-
   return (
     <section className={styles.container}>
       <Logo />
       <h2 className={styles.title}>Admins</h2>
       <div>
-        <Button type={styles.buttonAdd} handleClick={() => roleRedirection()}>
-          Add Admin
-        </Button>
+        {sessionStorage.getItem('role') === 'SUPERADMIN' && (
+          <Button
+            type={styles.buttonAdd}
+            handleClick={() => props.history.push('/super-admins/admins/add')}
+          >
+            Add Admin
+          </Button>
+        )}
         <Table
           data={dataResponse}
           headers={['name', 'lastName', 'email', 'password', 'active']}

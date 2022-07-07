@@ -111,18 +111,6 @@ const AdminForm = (props) => {
     return <Loading></Loading>;
   }
 
-  const roleRedirection = () => {
-    const role = sessionStorage.getItem('role');
-    switch (role) {
-      case 'ADMIN':
-        return props.history.push('/admins/admins');
-      case 'SUPERADMIN':
-        return props.history.push('/super-admins/admins');
-      default:
-        break;
-    }
-  };
-
   return (
     <div className={styles.container}>
       <Logo />
@@ -168,7 +156,10 @@ const AdminForm = (props) => {
           </div>
           <div className={styles.buttonsContainer}>
             <Button type={('submit', styles.confirmAndDeleteBtn)}>Accept</Button>
-            <Button type={styles.confirmAndDeleteBtn} handleClick={() => roleRedirection()}>
+            <Button
+              type={styles.confirmAndDeleteBtn}
+              handleClick={() => props.history.push('/super-admins/admins')}
+            >
               Cancel
             </Button>
           </div>
@@ -195,7 +186,7 @@ const AdminForm = (props) => {
               if (!showButton && successAdmin) {
                 setShowButton(true);
                 setSuccessAdmin(false);
-                roleRedirection();
+                props.history.push('/super-admins/admins');
               } else {
                 setShowButton(true);
                 setSuccessAdmin(false);
