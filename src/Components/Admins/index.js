@@ -21,6 +21,7 @@ const Admins = (props) => {
   const deleteItem = (_id) => {
     dispatch(deleteAdmin(_id));
   };
+
   let history = useHistory();
   const handleEdit = (_id) => {
     history.push(`/admins/admins/edit?=${_id}`);
@@ -33,6 +34,7 @@ const Admins = (props) => {
   if (error) {
     return <div>There was an error!</div>;
   }
+
   return (
     <section className={styles.container}>
       <Logo />
@@ -40,7 +42,7 @@ const Admins = (props) => {
       <div>
         <Button
           type={styles.buttonAdd}
-          handleClick={() => props.history.push('/admins/admins/add')}
+          handleClick={() => props.history.push('/super-admins/add-admin')}
         >
           Add Admin
         </Button>
