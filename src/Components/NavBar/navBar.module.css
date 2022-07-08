@@ -55,13 +55,13 @@
   border-bottom: 0.2vh solid #ED2626;
 }
 
-.rutes {
+.routes {
   padding-inline-start: 0;
   justify-content: flex-start;
   align-items: flex-start;
 }
 
-.rutes > li {
+.routes > li {
   margin: 0 0 1.5vh 0;
   list-style: none;
 }

@@ -100,6 +100,8 @@ const EditProject = (props) => {
     admins: ''
   });
 
+  const role = sessionStorage.getItem('role');
+
   const {
     handleSubmit,
     register,
@@ -151,6 +153,10 @@ const EditProject = (props) => {
       admins: data.admins
     });
     setIsOpenConfirm(true);
+  };
+
+  const cancelBtnRouterHandler = () => {
+    role === 'ADMIN' ? props.history.push('/admins/projects') : props.history.push('/pm/projects');
   };
 
   if (isLoading) {
@@ -231,10 +237,7 @@ const EditProject = (props) => {
         </div>
         <div className={styles.btnContainer}>
           <Button type={('submit', styles.modalProjectBtn)}>Edit Project</Button>
-          <Button
-            type={styles.returnProjectBtn}
-            handleClick={() => props.history.push('/projects')}
-          >
+          <Button type={styles.returnProjectBtn} handleClick={cancelBtnRouterHandler}>
             Cancel
           </Button>
         </div>
@@ -271,7 +274,11 @@ const EditProject = (props) => {
             handleClick={() => {
               if (Success) {
                 setSuccess(false);
-                props.history.push('/projects');
+                if (role === 'ADMIN') {
+                  props.history.push('/admins/projects');
+                } else {
+                  props.history.push('/pm/projects');
+                }
               } else {
                 setSuccess(false);
                 setIsOpenError(false);

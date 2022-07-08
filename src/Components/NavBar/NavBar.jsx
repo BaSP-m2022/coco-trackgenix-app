@@ -8,7 +8,7 @@ const NavBar = (props) => {
   if (!role) {
     return null;
   }
-
+  const { routes } = props;
   switch (role) {
     case 'EMPLOYEE':
       return (
@@ -19,7 +19,7 @@ const NavBar = (props) => {
             <div className={styles.userRole}>user role</div>
           </div>
           <div className={styles.menu}>menu</div>
-          <ul className={styles.rutes}>
+          <ul className={styles.routes}>
             <li>
               <Link className={styles.links} to="/employee/projects">
                 projects
@@ -48,37 +48,16 @@ const NavBar = (props) => {
             <div className={styles.userRole}>user role</div>
           </div>
           <div className={styles.menu}>menu</div>
-          <ul className={styles.rutes}>
-            <li>
-              <Link className={styles.links} to="/admins/projects">
-                projects
-              </Link>
-            </li>
-            <li>
-              <Link className={styles.links} to="/admins/employees">
-                employees
-              </Link>
-            </li>
-            <li>
-              <Link className={styles.links} to="/admins/time-sheets">
-                timesheets
-              </Link>
-            </li>
-            <li>
-              <Link className={styles.links} to="/tasks">
-                tasks
-              </Link>
-            </li>
-            <li>
-              <Link className={styles.links} to="/admins">
-                admins
-              </Link>
-            </li>
-            <li>
-              <Link className={styles.links} to="/super-admins">
-                super admins
-              </Link>
-            </li>
+          <ul className={styles.routes}>
+            {routes.map((element, index) => {
+              return (
+                <li key={index}>
+                  <Link className={styles.links} to={element.path}>
+                    {element.name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       );
@@ -92,7 +71,7 @@ const NavBar = (props) => {
             <div className={styles.userRole}>user role</div>
           </div>
           <div className={styles.menu}>menu</div>
-          <ul className={styles.rutes}>
+          <ul className={styles.routes}>
             <li>
               <Link className={styles.links} to="/super-admins">
                 admins

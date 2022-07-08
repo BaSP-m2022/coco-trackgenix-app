@@ -9,10 +9,10 @@ function Layout(props) {
     <div className={styles.container}>
       <Header />
       <div className={styles.contentContainer}>
-        <NavBar />
+        <NavBar routes={routes} />
         {props.children}
       </div>
-      <Footer routes={routes} />
+      <Footer />
     </div>
   );
 }
