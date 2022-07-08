@@ -11,9 +11,9 @@ const SuperAdminRoutes = () => {
   return (
     <Layout>
       <Switch>
-        <Route exact path={`${url}/admins`} component={Admins} />
-        <Route exact path={`${url}/admins/add`} component={AdminForm} />
-        <Redirect to={`${url}/admins`} />
+        <Route exact path={`${url}/`} component={Admins} />
+        <Route exact path={`${url}/add-admin`} component={AdminForm} />
+        <Redirect to={`${url}/`} />
       </Switch>
     </Layout>
   );

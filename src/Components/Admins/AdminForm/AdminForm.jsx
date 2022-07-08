@@ -158,7 +158,7 @@ const AdminForm = (props) => {
             <Button type={('submit', styles.confirmAndDeleteBtn)}>Accept</Button>
             <Button
               type={styles.confirmAndDeleteBtn}
-              handleClick={() => props.history.push('/super-admins/admins')}
+              handleClick={() => props.history.push('/super-admins')}
             >
               Cancel
             </Button>
@@ -186,7 +186,7 @@ const AdminForm = (props) => {
               if (!showButton && successAdmin) {
                 setShowButton(true);
                 setSuccessAdmin(false);
-                props.history.push('/super-admins/admins');
+                props.history.push('/super-admins');
               } else {
                 setShowButton(true);
                 setSuccessAdmin(false);

@@ -55,7 +55,7 @@ const Login = (props) => {
       case 'ADMIN':
         return props.history.push('/admins');
       case 'SUPERADMIN':
-        return props.history.push('/super-admins/admins');
+        return props.history.push('/super-admins');
       case 'PM':
         return props.history.push('/employee');
       default:

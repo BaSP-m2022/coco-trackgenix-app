@@ -42,7 +42,7 @@ const Admins = (props) => {
       <div>
         <Button
           type={styles.buttonAdd}
-          handleClick={() => props.history.push('/super-admins/admins/add')}
+          handleClick={() => props.history.push('/super-admins/add-admin')}
         >
           Add Admin
         </Button>

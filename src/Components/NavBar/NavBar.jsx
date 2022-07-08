@@ -94,7 +94,7 @@ const NavBar = (props) => {
           <div className={styles.menu}>menu</div>
           <ul className={styles.rutes}>
             <li>
-              <Link className={styles.links} to="/super-admins/admins">
+              <Link className={styles.links} to="/super-admins">
                 admins
               </Link>
             </li>
