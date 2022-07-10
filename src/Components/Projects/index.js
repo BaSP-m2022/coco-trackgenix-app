@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from 'Components/Projects/projects.module.css';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import Modal from 'Components/SharedComponents/Modal/Modal';
 import Logo from 'Components/SharedComponents/Logo/Logo';
 import Button from 'Components/SharedComponents/Button/Button';
@@ -9,13 +9,13 @@ import Loading from 'Components/SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProject, getProject } from 'Components/redux/modules/projects/thunks';
 
-const Projects = () => {
+const Projects = (props) => {
   const dispatch = useDispatch();
   const dataResponse = useSelector((state) => state.project.list);
   const isLoading = useSelector((state) => state.project.isLoading);
   const [isOpen, setIsOpen] = useState(false);
 
-  const { url } = useRouteMatch();
+  // const { url } = useRouteMatch();
 
   useEffect(async () => {
     dispatch(getProject());
@@ -25,9 +25,9 @@ const Projects = () => {
     dispatch(deleteProject(_id));
   };
 
-  let history = useHistory();
+  // let history = useHistory();
   const handleEdit = (item) => {
-    history.push(`${url}/edit?=${item}`);
+    props.history.push(`/projects/edit?=${item}`);
   };
 
   if (isLoading) {
@@ -38,7 +38,7 @@ const Projects = () => {
       <Logo />
       <div className={styles.container}>
         <h2 className={styles.title}>Projects</h2>
-        <Button type={styles.addProject} handleClick={() => history.push(`${url}/add`)}>
+        <Button type={styles.addProject} handleClick={() => props.history.push('projects/add')}>
           + Add New Project
         </Button>
         <Table
