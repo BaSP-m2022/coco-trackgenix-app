@@ -7,9 +7,6 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 const Admins = lazy(() => import('Components/Admins/index'));
 // const AdminForm = lazy(() => import('Components/Admins/AdminForm/AdminForm'));
 const AdminFormEdit = lazy(() => import('Components/Admins/AdminForm/AdminFormEdit'));
-const SuperAdmins = lazy(() => import('Components/SuperAdmins/index'));
-const SuperAdminFormEdit = lazy(() => import('Components/SuperAdmins/SuperAdminFormEdit'));
-const SuperAdminsForm = lazy(() => import('Components/SuperAdmins/SuperAdminForm'));
 const Employees = lazy(() => import('Components/Employees/index'));
 const EmployeesTimesheet = lazy(() => import('Components/TimeSheets/index'));
 const EmployeesTimesheetAdd = lazy(() => import('Components/TimeSheets/TimeSheetsFormAdd'));
@@ -21,8 +18,8 @@ const Projects = lazy(() => import('Components/Projects'));
 const AddNew = lazy(() => import('Components/Projects/AddNew'));
 const EditProject = lazy(() => import('Components/Projects/EditProject'));
 const TimeSheets = lazy(() => import('Components/TimeSheets'));
-// const TimeSheetsFormAdd = lazy(() => import('Components/TimeSheets/TimeSheetsFormAdd'));
-// const TimeSheetsFormEdit = lazy(() => import('Components/TimeSheets/TimeSheetsFormEdit'));
+const TimeSheetsFormAdd = lazy(() => import('Components/TimeSheets/TimeSheetsFormAdd'));
+const TimeSheetsFormEdit = lazy(() => import('Components/TimeSheets/TimeSheetsFormEdit'));
 // const Tasks = lazy(() => import('Components/Tasks/index'));
 // const TaskFormEdit = lazy(() => import('Components/Tasks/TaskForm/TaskFormEdit'));
 // const TaskForm = lazy(() => import('Components/Tasks/TaskForm/TaskForm'));
@@ -41,13 +38,10 @@ const AdminRoutes = () => {
   return (
     <Layout routes={adminRoutes}>
       <Switch>
-        {/* <Route exact path={`${url}/admins`} component={Admins} /> */}
+        {/* <Route exact path={`${url}/admins`} component={Admins} />
         {/* <Route exact path={`${url}/admins/add`} component={AdminForm} /> */}
         <Route exact path={`${url}/personal-information`} component={Admins} />
         <Route exact path={`${url}/admins/edit`} component={AdminFormEdit} />
-        <Route exact path={`${url}/super-admins`} component={SuperAdmins} />
-        <Route exact path={`${url}/super-admins/Form`} component={SuperAdminFormEdit} />
-        <Route exact path={`${url}/super-admins/formAdd`} component={SuperAdminsForm} />
         <Route exact path={`${url}/employee`} component={Employees} />
         <Route exact path={`${url}/employee/timesheet`} component={EmployeesTimesheet} />
         <Route exact path={`${url}/employee/timesheetAdd`} component={EmployeesTimesheetAdd} />
@@ -59,8 +53,8 @@ const AdminRoutes = () => {
         <Route exact path={`${url}/projects/add`} component={AddNew} />
         <Route exact path={`${url}/projects/edit`} component={EditProject} />
         <Route exact path={`${url}/time-sheets`} component={TimeSheets} />
-        {/* <Route exact path={`${url}/time-sheets/add`} component={TimeSheetsFormAdd} />
-        <Route exact path={`${url}/time-sheets/edit`} component={TimeSheetsFormEdit} /> */}
+        <Route exact path={`${url}/time-sheets/add`} component={TimeSheetsFormAdd} />
+        <Route exact path={`${url}/time-sheets/edit`} component={TimeSheetsFormEdit} />
         {/* <Route exact path={`${url}/tasks`} component={Tasks} />
         <Route exact path={`${url}/tasks/add`} component={TaskForm} />
         <Route exact path={`${url}/tasks/edit`} component={TaskFormEdit} /> */}

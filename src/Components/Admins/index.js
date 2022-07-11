@@ -35,17 +35,21 @@ const Admins = (props) => {
     return <div>There was an error!</div>;
   }
 
+  const role = sessionStorage.getItem('role');
+
   return (
     <section className={styles.container}>
       <Logo />
       <h2 className={styles.title}>Admins</h2>
       <div>
-        <Button
-          type={styles.buttonAdd}
-          handleClick={() => props.history.push('/super-admins/add-admin')}
-        >
-          Add Admin
-        </Button>
+        {role === 'SUPERADMIN' && (
+          <Button
+            type={styles.buttonAdd}
+            handleClick={() => props.history.push('/super-admins/add-admin')}
+          >
+            Add Admin
+          </Button>
+        )}
         <Table
           data={dataResponse}
           headers={['name', 'lastName', 'email', 'password', 'active']}

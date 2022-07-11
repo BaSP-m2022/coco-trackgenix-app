@@ -169,7 +169,7 @@ const AdminFormEdit = (props) => {
             <Button type={('submit', styles.confirmAndDeleteBtn)}>Accept</Button>
             <Button
               type={styles.confirmAndDeleteBtn}
-              handleClick={() => props.history.push('/admins')}
+              handleClick={() => props.history.push('/admins/personal-information')}
             >
               Cancel
             </Button>
