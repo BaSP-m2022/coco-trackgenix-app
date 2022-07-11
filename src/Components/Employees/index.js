@@ -40,7 +40,6 @@ const Employees = () => {
     return (
       <section className={styles.container}>
         <Logo />
-        <h2 className={styles.title}>Employees</h2>
         <h2 className={styles.title}>Personal Information</h2>
         <Table
           data={responseData}
