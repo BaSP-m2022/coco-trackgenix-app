@@ -197,7 +197,7 @@ const AdminFormEdit = (props) => {
               if (!showButton && successAdmin) {
                 setShowButton(true);
                 setSuccessAdmin(false);
-                props.history.push('/admins');
+                props.history.push('/admins/personal-information');
               } else {
                 setShowButton(true);
                 setSuccessAdmin(false);

@@ -14,7 +14,7 @@ import { editTimesheet, getTimesheetById } from '../redux/modules/timeSheets/thu
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { useRouteMatch } from 'react-router-dom';
+// import { useRouteMatch } from 'react-router-dom';
 
 const timesheetSchema = Joi.object({
   employeeId: Joi.string()
@@ -111,7 +111,7 @@ const EditFormTimesheet = (props) => {
     return <Loading className={styles.loadText}></Loading>;
   }
 
-  const { url } = useRouteMatch();
+  // const { url } = useRouteMatch();
 
   return (
     <div className={styles.container}>
@@ -203,7 +203,7 @@ const EditFormTimesheet = (props) => {
               if (!showButton && successTimesheet) {
                 setShowButton(true);
                 setSuccessTimesheet(false);
-                props.history.push(`${url}/time-sheets`);
+                props.history.goBack();
               } else {
                 setShowButton(true);
                 setSuccessTimesheet(false);
