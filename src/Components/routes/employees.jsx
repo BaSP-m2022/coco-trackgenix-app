@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom/cjs/rea
 import Layout from 'Components/Layout';
 
 const EmployeesTimeSheet = lazy(() => import('Components/TimeSheets/index'));
+const EmployeesTimeSheetAdd = lazy(() => import('Components/TimeSheets/TimeSheetsFormAdd'));
 const EmployeeProfile = lazy(() => import('Components/Employees/index'));
 const EmployeeProject = lazy(() => import('Components/Projects/index'));
 const EmployeeProfileEdit = lazy(() =>
@@ -16,6 +17,7 @@ const EmployeesRoutes = () => {
     <Layout>
       <Switch>
         <Route exact path={`${url}/timesheet`} component={EmployeesTimeSheet} />
+        <Route exact path={`${url}/timesheet/add`} component={EmployeesTimeSheetAdd} />
         <Route exact path={`${url}/profile`} component={EmployeeProfile} />
         <Route exact path={`${url}/profile/edit`} component={EmployeeProfileEdit} />
         <Route exact path={`${url}/project`} component={EmployeeProject} />
