@@ -1,9 +1,10 @@
 import React, { lazy } from 'react';
 import { Switch, useRouteMatch, Route } from 'react-router-dom';
 import Layout from 'Components/Layout';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 // import tokenListener from 'Components/helper/firebase/index';
 
-// const Admins = lazy(() => import('Components/Admins/index'));
+const Admins = lazy(() => import('Components/Admins/index'));
 // const AdminForm = lazy(() => import('Components/Admins/AdminForm/AdminForm'));
 const AdminFormEdit = lazy(() => import('Components/Admins/AdminForm/AdminFormEdit'));
 const SuperAdmins = lazy(() => import('Components/SuperAdmins/index'));
@@ -20,28 +21,29 @@ const Projects = lazy(() => import('Components/Projects'));
 const AddNew = lazy(() => import('Components/Projects/AddNew'));
 const EditProject = lazy(() => import('Components/Projects/EditProject'));
 const TimeSheets = lazy(() => import('Components/TimeSheets'));
-const TimeSheetsFormAdd = lazy(() => import('Components/TimeSheets/TimeSheetsFormAdd'));
-const TimeSheetsFormEdit = lazy(() => import('Components/TimeSheets/TimeSheetsFormEdit'));
+// const TimeSheetsFormAdd = lazy(() => import('Components/TimeSheets/TimeSheetsFormAdd'));
+// const TimeSheetsFormEdit = lazy(() => import('Components/TimeSheets/TimeSheetsFormEdit'));
 // const Tasks = lazy(() => import('Components/Tasks/index'));
 // const TaskFormEdit = lazy(() => import('Components/Tasks/TaskForm/TaskFormEdit'));
 // const TaskForm = lazy(() => import('Components/Tasks/TaskForm/TaskForm'));
 
-// const adminRoutes = [
-//   { path: '/', name: 'Admins' },
-//   { path: '/admins/super-admins', name: 'Super-admins' },
-//   { path: '/admins/employees', name: 'Employees' },
-//   { path: '/admins/projects', name: 'Projects' },
-//   { path: '/admins/time-sheets', name: 'Time-sheets' },
-//   // { path: '/admins/tasks', name: 'Tasks' }
-// ];
+const adminRoutes = [
+  //   { path: '/', name: 'Admins' },
+  //   { path: '/admins/super-admins', name: 'Super-admins' },
+  //   { path: '/admins/employees', name: 'Employees' },
+  { path: '/admins/projects', name: 'Projects' },
+  { path: '/admins/time-sheets', name: 'Time-sheets' },
+  { path: '/admins/personal-information', name: 'Personal information' }
+];
 
 const AdminRoutes = () => {
   const { url } = useRouteMatch();
   return (
-    <Layout>
+    <Layout routes={adminRoutes}>
       <Switch>
         {/* <Route exact path={`${url}/admins`} component={Admins} /> */}
         {/* <Route exact path={`${url}/admins/add`} component={AdminForm} /> */}
+        <Route exact path={`${url}/personal-information`} component={Admins} />
         <Route exact path={`${url}/admins/edit`} component={AdminFormEdit} />
         <Route exact path={`${url}/super-admins`} component={SuperAdmins} />
         <Route exact path={`${url}/super-admins/Form`} component={SuperAdminFormEdit} />
@@ -57,12 +59,12 @@ const AdminRoutes = () => {
         <Route exact path={`${url}/projects/add`} component={AddNew} />
         <Route exact path={`${url}/projects/edit`} component={EditProject} />
         <Route exact path={`${url}/time-sheets`} component={TimeSheets} />
-        <Route exact path={`${url}/time-sheets/add`} component={TimeSheetsFormAdd} />
-        <Route exact path={`${url}/time-sheets/edit`} component={TimeSheetsFormEdit} />
+        {/* <Route exact path={`${url}/time-sheets/add`} component={TimeSheetsFormAdd} />
+        <Route exact path={`${url}/time-sheets/edit`} component={TimeSheetsFormEdit} /> */}
         {/* <Route exact path={`${url}/tasks`} component={Tasks} />
         <Route exact path={`${url}/tasks/add`} component={TaskForm} />
         <Route exact path={`${url}/tasks/edit`} component={TaskFormEdit} /> */}
-        {/* <Redirect to={`${url}`} /> */}
+        <Redirect to={`${url}/projects`} />
       </Switch>
     </Layout>
   );

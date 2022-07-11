@@ -131,9 +131,9 @@ const AddNew = (props) => {
     dispatch(getEmployee());
   }, []);
 
-  // const cancelBtnRouterHandler = () => {
-  //   role === 'ADMIN' ? props.history.push('/admins/projects') : props.history.push('/pm/projects');
-  // };
+  const cancelBtnRouterHandler = () => {
+    role === 'ADMIN' ? props.history.push('/admins/projects') : props.history.push('/pm/projects');
+  };
 
   if (isLoading) {
     return <Loading className={styles.loading}></Loading>;
@@ -213,10 +213,7 @@ const AddNew = (props) => {
         </div>
         <div className={styles.btnContainer}>
           <Button type={('submit', styles.projectButton)}>Confirm</Button>
-          <Button
-            type={styles.returnProjectBtn}
-            handleClick={() => props.history.push('admins/projects')}
-          >
+          <Button type={styles.returnProjectBtn} handleClick={cancelBtnRouterHandler}>
             Cancel
           </Button>
         </div>
