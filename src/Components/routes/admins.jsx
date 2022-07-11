@@ -17,7 +17,7 @@ const FormEmployeeEdit = lazy(() => import('Components/Employees/FormEmployee/Fo
 const Projects = lazy(() => import('Components/Projects'));
 const AddNew = lazy(() => import('Components/Projects/AddNew'));
 const EditProject = lazy(() => import('Components/Projects/EditProject'));
-const TimeSheets = lazy(() => import('Components/TimeSheets'));
+const TimeSheets = lazy(() => import('Components/TimeSheets/index'));
 const TimeSheetsFormAdd = lazy(() => import('Components/TimeSheets/TimeSheetsFormAdd'));
 const TimeSheetsFormEdit = lazy(() => import('Components/TimeSheets/TimeSheetsFormEdit'));
 // const Tasks = lazy(() => import('Components/Tasks/index'));
