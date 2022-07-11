@@ -70,8 +70,13 @@ export const deleteProject = (_id) => {
     try {
       await fetch(`https://coco-trackgenix-server.vercel.app/projects/${_id}`, {
         method: 'DELETE',
-        token
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          token
+        }
       });
+      console.log('hola', _id);
       dispatch(DeleteProjectSuccess(_id));
       dispatch(getProject());
     } catch (error) {

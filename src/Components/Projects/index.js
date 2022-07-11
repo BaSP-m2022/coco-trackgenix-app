@@ -15,14 +15,13 @@ const Projects = () => {
   const isLoading = useSelector((state) => state.project.isLoading);
   const [isOpen, setIsOpen] = useState(false);
 
-  const { url } = useRouteMatch();
-
   useEffect(async () => {
     dispatch(getProject());
   }, []);
 
   const deleteItem = (_id) => {
     dispatch(deleteProject(_id));
+    setIsOpen(true);
   };
 
   let history = useHistory();
@@ -33,6 +32,9 @@ const Projects = () => {
   if (isLoading) {
     return <Loading className={styles.loading}></Loading>;
   }
+
+  const { url } = useRouteMatch();
+
   return (
     <div className={styles.container}>
       <Logo />
