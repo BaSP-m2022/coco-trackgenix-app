@@ -6,7 +6,6 @@ import Modal from 'Components/SharedComponents/Modal/Modal';
 import Button from 'Components/SharedComponents/Button/Button';
 import Input from 'Components/SharedComponents/Input/Input';
 import Loading from 'Components/SharedComponents/Loading/Loading';
-import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { editEmployee, getEmployeeById } from 'Components/redux/modules/employees/thunks';
@@ -70,10 +69,7 @@ const employeeSchema = Joi.object({
       'string.empty': 'Password is not allowed to be empty',
       'string.pattern.base': 'Must contain alphanumeric characters, at least one of each',
       'string.required': 'Password is required!'
-    }),
-  active: Joi.boolean().required().messages({
-    'boolean.required': 'Active is required!'
-  })
+    })
 });
 
 const FormEmployeeEdit = (props) => {
@@ -110,8 +106,7 @@ const FormEmployeeEdit = (props) => {
         lastName: selectedItem.lastName,
         email: selectedItem.email,
         phone: selectedItem.phone,
-        password: selectedItem.password,
-        active: selectedItem.active
+        password: selectedItem.password
       });
     }
   }, [selectedItem]);
@@ -128,8 +123,7 @@ const FormEmployeeEdit = (props) => {
       lastName: employee.lastName,
       phone: employee.phone,
       email: employee.email,
-      password: employee.password,
-      active: employee.active
+      password: employee.password
     });
     setModalText('Are you sure you want to edit the employee ?');
     setIsOpen(true);
@@ -185,12 +179,6 @@ const FormEmployeeEdit = (props) => {
               placeholder="Password"
               register={register}
               error={errors.password?.message}
-            />
-            <Dropdown
-              name={'active'}
-              labelText={'Active'}
-              register={register}
-              error={errors.active?.message}
             />
           </div>
           <div className={styles.containerBtn}>
