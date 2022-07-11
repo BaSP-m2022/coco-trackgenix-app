@@ -105,7 +105,7 @@ export const editEmployee = (employee, id, setModalText, setShowButton, setSucce
         body: JSON.stringify(employee)
       });
       const res = await response.json();
-      if (res.msg == 'Status 200') {
+      if (res.error == false) {
         setShowButton(false);
         setSuccessEmployee(true);
         setModalText('Employee has been edited!');
