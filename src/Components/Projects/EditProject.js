@@ -129,7 +129,7 @@ const EditProject = (props) => {
         endDate: projectData.endDate.slice(0, 10),
         clientName: projectData.clientName,
         active: projectData.active,
-        employees: projectData.employees[0]._id,
+        employees: projectData.employees.length ? projectData.employees[0]._id : '',
         admins: projectData.admins
       });
     }
