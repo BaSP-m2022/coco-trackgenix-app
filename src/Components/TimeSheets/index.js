@@ -29,7 +29,11 @@ const Timesheets = (props) => {
 
   let history = useHistory();
   const handleEdit = (item) => {
-    history.push(`/time-sheets/edit?=${item}`);
+    if (window.location.pathname === '/employee/timesheet') {
+      history.push(`/employee/timesheet/edit?=${item}`);
+    } else {
+      history.push(`/time-sheets/edit?=${item}`);
+    }
   };
 
   if (isLoadingTimesheet) {
