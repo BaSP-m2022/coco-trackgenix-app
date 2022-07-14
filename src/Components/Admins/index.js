@@ -24,7 +24,7 @@ const Admins = (props) => {
 
   let history = useHistory();
   const handleEdit = (_id) => {
-    history.push(`/admins/personal-information/edit?=${_id}`);
+    history.push(`/admin/profile/edit?=${_id}`);
   };
 
   if (isLoading) {

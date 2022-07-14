@@ -132,7 +132,7 @@ const AddNew = (props) => {
   }, []);
 
   const cancelBtnRouterHandler = () => {
-    role === 'ADMIN' ? props.history.push('/admins/projects') : props.history.push('/pm/projects');
+    role === 'ADMIN' ? props.history.push('/admin/projects') : props.history.push('/pm/projects');
   };
 
   if (isLoading) {
@@ -250,7 +250,7 @@ const AddNew = (props) => {
             if (Success) {
               setSuccess(false);
               if (role === 'ADMIN') {
-                window.location.href = '/admins/projects';
+                window.location.href = '/admin/projects';
               } else {
                 window.location.href = '/pm/projects';
               }

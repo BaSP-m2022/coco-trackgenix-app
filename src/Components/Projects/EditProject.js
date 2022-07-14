@@ -156,7 +156,7 @@ const EditProject = (props) => {
   };
 
   const cancelBtnRouterHandler = () => {
-    role === 'ADMIN' ? props.history.push('/admins/projects') : props.history.push('/pm/projects');
+    role === 'ADMIN' ? props.history.push('/admin/projects') : props.history.push('/pm/projects');
   };
 
   if (isLoading) {
@@ -275,7 +275,7 @@ const EditProject = (props) => {
               if (Success) {
                 setSuccess(false);
                 if (role === 'ADMIN') {
-                  props.history.push('/admins/projects');
+                  props.history.push('/admin/projects');
                 } else {
                   props.history.push('/pm/projects');
                 }
