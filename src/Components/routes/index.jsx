@@ -15,7 +15,7 @@ const Routes = () => {
       <Suspense fallback={<Loading />}>
         <Switch>
           <Route path="/home" component={HomeRoutes} />
-          <PrivateRoute path="/admins" role="ADMIN" component={AdminRoutes} />
+          <PrivateRoute path="/admin" role="ADMIN" component={AdminRoutes} />
           <PrivateRoute path="/super-admins" role="SUPERADMIN" component={SuperAdminRoutes} />
           <PrivateRoute path="/employee" role="EMPLOYEE" component={EmployeeRoutes} />
           <Route path="/auth" component={AuthRoutes} />

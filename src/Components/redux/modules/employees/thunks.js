@@ -71,7 +71,7 @@ export const addEmployee = (e, setModalText, setShowButton, setSuccessEmployee) 
         body: JSON.stringify(e)
       });
       const res = await response.json();
-      if (res.msg == 'Status 201') {
+      if (res.message == 'A new employee has been added successfully.') {
         setShowButton(false);
         setSuccessEmployee(true);
         setModalText('Employee has been created!');

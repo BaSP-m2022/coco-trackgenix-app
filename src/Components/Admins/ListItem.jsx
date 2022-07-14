@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './admins.module.css';
 const ListItem = ({ listItem, deleteItem }) => {
   const handleEdit = (_id) => {
-    window.location = `/admins/edit?=${_id}`;
+    window.location = `/admin/edit?=${_id}`;
   };
   const adminListRows = listItem.map((item) => {
     return (

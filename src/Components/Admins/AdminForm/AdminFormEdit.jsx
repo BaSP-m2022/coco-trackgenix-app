@@ -5,7 +5,6 @@ import Modal from 'Components/SharedComponents/Modal/Modal';
 import Logo from 'Components/SharedComponents/Logo/Logo';
 import Loading from 'Components/SharedComponents/Loading/Loading';
 import Input from 'Components/SharedComponents/Input/Input';
-import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { putAdmin, getAdminById } from 'Components/redux/modules/admins/thunks';
@@ -58,10 +57,7 @@ const adminSchema = Joi.object({
       'string.empty': 'Password is not allowed to be empty',
       'string.pattern.base': 'Must contain alphanumeric characters, at least one of each',
       'string.required': 'Password is required!'
-    }),
-  active: Joi.boolean().required().messages({
-    'boolean.base': 'Must indicate if the employee is active'
-  })
+    })
 });
 
 const AdminFormEdit = (props) => {
@@ -94,8 +90,7 @@ const AdminFormEdit = (props) => {
         name: selectedItem.name,
         lastName: selectedItem.lastName,
         email: selectedItem.email,
-        password: selectedItem.password,
-        active: selectedItem.active
+        password: selectedItem.password
       });
     }
   }, [selectedItem]);
@@ -111,8 +106,7 @@ const AdminFormEdit = (props) => {
       name: admin.name,
       lastName: admin.lastName,
       email: admin.email,
-      password: admin.password,
-      active: admin.active
+      password: admin.password
     });
     setModalText('Are you sure you want to edit the admin ?');
     setIsOpen(true);
@@ -158,18 +152,12 @@ const AdminFormEdit = (props) => {
               register={register}
               error={errors.password?.message}
             />
-            <Dropdown
-              name={'active'}
-              labelText={'Active'}
-              register={register}
-              error={errors.active?.message}
-            />
           </div>
           <div className={styles.buttonsContainer}>
             <Button type={('submit', styles.confirmAndDeleteBtn)}>Accept</Button>
             <Button
               type={styles.confirmAndDeleteBtn}
-              handleClick={() => props.history.push('/admins')}
+              handleClick={() => props.history.push('/admin/profile')}
             >
               Cancel
             </Button>
@@ -197,7 +185,7 @@ const AdminFormEdit = (props) => {
               if (!showButton && successAdmin) {
                 setShowButton(true);
                 setSuccessAdmin(false);
-                props.history.push('/admins');
+                props.history.push('/admin/profile');
               } else {
                 setShowButton(true);
                 setSuccessAdmin(false);

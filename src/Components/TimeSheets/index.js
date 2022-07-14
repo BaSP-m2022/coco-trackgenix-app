@@ -1,6 +1,6 @@
 import styles from './time-sheets.module.css';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import Table from '../SharedComponents/Table';
 import Modal from '../SharedComponents/Modal/Modal';
 import Button from '../SharedComponents/Button/Button';
@@ -29,78 +29,41 @@ const Timesheets = (props) => {
 
   let history = useHistory();
   const handleEdit = (item) => {
-    if (window.location.pathname === '/employee/timesheet') {
-      history.push(`/employee/timesheet/edit?=${item}`);
-    } else {
-      history.push(`/time-sheets/edit?=${item}`);
-    }
+    history.push(`${url}/edit?=${item}`);
   };
 
   if (isLoadingTimesheet) {
     return <Loading></Loading>;
   }
 
-  if (window.location.pathname === '/employee/timesheet') {
-    return (
-      <section className={styles.container}>
-        <Logo />
-        <h2 className={styles.title}>My Timesheets</h2>
-        <Button
-          type={styles.timesheetButton}
-          handleClick={() => props.history.push('/employee/timesheet/add')}
-        >
-          Add timesheet
-        </Button>
-        <Table
-          data={responseData}
-          headers={['employeeId', 'projectId', 'startDate', 'endDate', 'tasks']}
-          handleEdit={handleEdit}
-          deleteItem={deleteItem}
-        ></Table>
-        <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
-          <h2>Success!</h2>
-          <div>
-            <p>Timesheet deleted Succesfully</p>
-          </div>
-          <div>
-            <Button type={styles.modalTimesheetBtn} handleClick={() => setIsOpen(false)}>
-              OK
-            </Button>
-          </div>
-        </Modal>
-      </section>
-    );
-  } else {
-    return (
-      <section className={styles.container}>
-        <Logo />
-        <h2 className={styles.title}>Timesheets</h2>
-        <Button
-          type={styles.timesheetButton}
-          handleClick={() => props.history.push('/time-sheets/add')}
-        >
-          Add timesheet
-        </Button>
-        <Table
-          data={responseData}
-          headers={['employeeId', 'projectId', 'startDate', 'endDate', 'tasks']}
-          handleEdit={handleEdit}
-          deleteItem={deleteItem}
-        ></Table>
-        <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
-          <h2>Success!</h2>
-          <div>
-            <p>Timesheet deleted Succesfully</p>
-          </div>
-          <div>
-            <Button type={styles.modalTimesheetBtn} handleClick={() => setIsOpen(false)}>
-              OK
-            </Button>
-          </div>
-        </Modal>
-      </section>
-    );
-  }
+  const { url } = useRouteMatch();
+
+  return (
+    <section className={styles.container}>
+      <Logo />
+      <h2 className={styles.title}>Timesheets</h2>
+      <Button type={styles.timesheetButton} handleClick={() => props.history.push(`${url}/add`)}>
+        Add timesheet
+      </Button>
+      <Table
+        data={responseData}
+        headers={['employeeId', 'projectId', 'startDate', 'endDate', 'tasks']}
+        handleEdit={handleEdit}
+        deleteItem={deleteItem}
+      ></Table>
+      <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <h2>Success!</h2>
+        <div>
+          <p>Timesheet deleted Succesfully</p>
+        </div>
+        <div>
+          <Button type={styles.modalTimesheetBtn} handleClick={() => setIsOpen(false)}>
+            OK
+          </Button>
+        </div>
+      </Modal>
+    </section>
+  );
 };
 
 export default Timesheets;

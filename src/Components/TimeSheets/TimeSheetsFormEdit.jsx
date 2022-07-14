@@ -110,6 +110,8 @@ const EditFormTimesheet = (props) => {
     return <Loading className={styles.loadText}></Loading>;
   }
 
+  // const { url } = useRouteMatch();
+
   return (
     <div className={styles.container}>
       <Logo />
@@ -200,7 +202,7 @@ const EditFormTimesheet = (props) => {
               if (!showButton && successTimesheet) {
                 setShowButton(true);
                 setSuccessTimesheet(false);
-                props.history.push('/employee/timesheet');
+                props.history.goBack();
               } else {
                 setShowButton(true);
                 setSuccessTimesheet(false);
