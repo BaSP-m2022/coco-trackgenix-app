@@ -14,6 +14,7 @@ const Projects = () => {
   const dataResponse = useSelector((state) => state.project.list);
   const isLoading = useSelector((state) => state.project.isLoading);
   const [isOpen, setIsOpen] = useState(false);
+  const role = sessionStorage.getItem('role');
 
   useEffect(async () => {
     dispatch(getProject());
@@ -40,9 +41,11 @@ const Projects = () => {
       <Logo />
       <div className={styles.container}>
         <h2 className={styles.title}>Projects</h2>
-        <Button type={styles.addProject} handleClick={() => history.push(`${url}/add`)}>
-          + Add New Project
-        </Button>
+        {role !== 'EMPLOYEE' && (
+          <Button type={styles.addProject} handleClick={() => history.push(`${url}/add`)}>
+            + Add New Project
+          </Button>
+        )}
         <Table
           data={dataResponse}
           headers={[
