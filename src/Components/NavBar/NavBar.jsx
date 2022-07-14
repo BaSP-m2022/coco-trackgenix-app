@@ -16,12 +16,12 @@ const NavBar = (props) => {
           <div className={styles.userInfo}>
             <img src={userIcon} className={styles.userImg} />
             <div className={styles.userName}>user name</div>
-            <div className={styles.userRole}>user role</div>
+            <div className={styles.userRole}>Employee</div>
           </div>
           <div className={styles.menu}>menu</div>
           <ul className={styles.rutes}>
             <li>
-              <Link className={styles.links} to="/employee/projects">
+              <Link className={styles.links} to="/employee/project">
                 projects
               </Link>
             </li>

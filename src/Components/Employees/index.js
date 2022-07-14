@@ -40,7 +40,6 @@ const Employees = () => {
     return (
       <section className={styles.container}>
         <Logo />
-        <h2 className={styles.title}>Employees</h2>
         <h2 className={styles.title}>Personal Information</h2>
         <Table
           data={responseData}
@@ -51,7 +50,7 @@ const Employees = () => {
         <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
           <h2>Success!</h2>
           <div>
-            <p>Employee deleted Succesffully</p>
+            <p>Employee deleted Successfully</p>
           </div>
           <div>
             <Button type={styles.modalEmployeeBtn} handleClick={() => setIsOpen(false)}>
@@ -75,7 +74,7 @@ const Employees = () => {
         <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
           <h2>Success!</h2>
           <div>
-            <p>Employee deleted Succesffully</p>
+            <p>Employee deleted Successfully</p>
           </div>
           <div>
             <Button type={styles.modalEmployeeBtn} handleClick={() => setIsOpen(false)}>

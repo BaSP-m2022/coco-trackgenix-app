@@ -189,7 +189,7 @@ const TimeSheetsFormAdd = (props) => {
               if (!showButton && successTimesheet) {
                 setShowButton(true);
                 setSuccessTimesheet(false);
-                props.history.push('/time-sheets');
+                props.history.push('/employee/timesheet');
               } else {
                 setShowButton(true);
                 setSuccessTimesheet(false);
