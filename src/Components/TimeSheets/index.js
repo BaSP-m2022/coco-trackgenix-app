@@ -1,6 +1,6 @@
 import styles from './time-sheets.module.css';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import Table from '../SharedComponents/Table';
 import Modal from '../SharedComponents/Modal/Modal';
 import Button from '../SharedComponents/Button/Button';
@@ -29,21 +29,20 @@ const Timesheets = (props) => {
 
   let history = useHistory();
   const handleEdit = (item) => {
-    history.push(`/time-sheets/edit?=${item}`);
+    history.push(`${url}/edit?=${item}`);
   };
 
   if (isLoadingTimesheet) {
     return <Loading></Loading>;
   }
 
+  const { url } = useRouteMatch();
+
   return (
     <section className={styles.container}>
       <Logo />
       <h2 className={styles.title}>Timesheets</h2>
-      <Button
-        type={styles.timesheetButton}
-        handleClick={() => props.history.push('/time-sheets/add')}
-      >
+      <Button type={styles.timesheetButton} handleClick={() => props.history.push(`${url}/add`)}>
         Add timesheet
       </Button>
       <Table

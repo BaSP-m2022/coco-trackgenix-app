@@ -3,7 +3,6 @@ import styles from 'Components/Admins/admins.module.css';
 import Button from 'Components/SharedComponents/Button/Button';
 import Modal from 'Components/SharedComponents/Modal/Modal';
 import Logo from 'Components/SharedComponents/Logo/Logo';
-import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
 import Input from 'Components/SharedComponents/Input/Input';
 import Loading from 'Components/SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
@@ -58,10 +57,7 @@ const adminSchema = Joi.object({
       'string.empty': 'Password is not allowed to be empty',
       'string.pattern.base': 'Must contain alphanumeric characters, at least one of each',
       'string.required': 'Password is required!'
-    }),
-  active: Joi.boolean().required().messages({
-    'boolean.base': 'Must indicate if the employee is active'
-  })
+    })
 });
 
 const AdminForm = (props) => {
@@ -89,8 +85,7 @@ const AdminForm = (props) => {
         name: '',
         lastName: '',
         email: '',
-        password: '',
-        active: ''
+        password: ''
       });
     }
   };
@@ -100,8 +95,7 @@ const AdminForm = (props) => {
       name: admin.name,
       lastName: admin.lastName,
       email: admin.email,
-      password: admin.password,
-      active: admin.active
+      password: admin.password
     });
     setModalText('Are you sure you want to create an new admin ?');
     setIsOpen(true);
@@ -146,12 +140,6 @@ const AdminForm = (props) => {
               placeholder="Password"
               register={register}
               error={errors.password?.message}
-            />
-            <Dropdown
-              name={'active'}
-              labelText={'Active'}
-              register={register}
-              error={errors.active?.message}
             />
           </div>
           <div className={styles.buttonsContainer}>

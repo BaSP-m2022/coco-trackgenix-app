@@ -51,9 +51,9 @@ const Login = (props) => {
     const role = sessionStorage.getItem('role');
     switch (role) {
       case 'EMPLOYEE':
-        return props.history.push('/employee/projects');
+        return props.history.push('/employee/timesheet');
       case 'ADMIN':
-        return props.history.push('/admins');
+        return props.history.push('/admin/projects');
       case 'SUPERADMIN':
         return props.history.push('/super-admins');
       case 'PM':

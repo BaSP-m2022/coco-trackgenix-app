@@ -11,6 +11,7 @@ import { addTimesheet } from 'Components/redux/modules/timeSheets/thunks';
 import { getEmployee } from 'Components/redux/modules/employees/thunks';
 import { getProject } from 'Components/redux/modules/projects/thunks';
 import { getTasks } from 'Components/redux/modules/tasks/thunks';
+// import { useRouteMatch } from 'react-router-dom';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
@@ -101,6 +102,8 @@ const TimeSheetsFormAdd = (props) => {
     return <Loading></Loading>;
   }
 
+  // const { url } = useRouteMatch();
+
   return (
     <div className={styles.container}>
       <Logo />
@@ -189,7 +192,7 @@ const TimeSheetsFormAdd = (props) => {
               if (!showButton && successTimesheet) {
                 setShowButton(true);
                 setSuccessTimesheet(false);
-                props.history.push('/time-sheets');
+                props.history.goBack();
               } else {
                 setShowButton(true);
                 setSuccessTimesheet(false);

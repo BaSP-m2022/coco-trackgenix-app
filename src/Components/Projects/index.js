@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from 'Components/Projects/projects.module.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import Modal from 'Components/SharedComponents/Modal/Modal';
 import Logo from 'Components/SharedComponents/Logo/Logo';
 import Button from 'Components/SharedComponents/Button/Button';
@@ -14,6 +14,7 @@ const Projects = () => {
   const dataResponse = useSelector((state) => state.project.list);
   const isLoading = useSelector((state) => state.project.isLoading);
   const [isOpen, setIsOpen] = useState(false);
+  const role = sessionStorage.getItem('role');
 
   useEffect(async () => {
     dispatch(getProject());
@@ -21,24 +22,30 @@ const Projects = () => {
 
   const deleteItem = (_id) => {
     dispatch(deleteProject(_id));
+    setIsOpen(true);
   };
 
   let history = useHistory();
   const handleEdit = (item) => {
-    history.push(`/projects/edit?=${item}`);
+    history.push(`${url}/edit?=${item}`);
   };
 
   if (isLoading) {
     return <Loading className={styles.loading}></Loading>;
   }
+
+  const { url } = useRouteMatch();
+
   return (
     <div className={styles.container}>
       <Logo />
       <div className={styles.container}>
         <h2 className={styles.title}>Projects</h2>
-        <Button type={styles.addProject} handleClick={() => history.push('/projects/add')}>
-          + Add New Project
-        </Button>
+        {role !== 'EMPLOYEE' && (
+          <Button type={styles.addProject} handleClick={() => history.push(`${url}/add`)}>
+            + Add New Project
+          </Button>
+        )}
         <Table
           data={dataResponse}
           headers={[

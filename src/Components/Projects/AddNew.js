@@ -88,6 +88,7 @@ const AddNew = (props) => {
   const isLoading = useSelector((state) => state.project.isLoading);
   const dispatch = useDispatch();
   const employeeData = useSelector((state) => state.employee.list);
+  const role = sessionStorage.getItem('role');
 
   const {
     handleSubmit,
@@ -129,6 +130,10 @@ const AddNew = (props) => {
   useEffect(() => {
     dispatch(getEmployee());
   }, []);
+
+  const cancelBtnRouterHandler = () => {
+    role === 'ADMIN' ? props.history.push('/admin/projects') : props.history.push('/pm/projects');
+  };
 
   if (isLoading) {
     return <Loading className={styles.loading}></Loading>;
@@ -208,10 +213,7 @@ const AddNew = (props) => {
         </div>
         <div className={styles.btnContainer}>
           <Button type={('submit', styles.projectButton)}>Confirm</Button>
-          <Button
-            type={styles.returnProjectBtn}
-            handleClick={() => props.history.push('/projects')}
-          >
+          <Button type={styles.returnProjectBtn} handleClick={cancelBtnRouterHandler}>
             Cancel
           </Button>
         </div>
@@ -247,7 +249,11 @@ const AddNew = (props) => {
           handleClick={() => {
             if (Success) {
               setSuccess(false);
-              window.location.href = '/projects';
+              if (role === 'ADMIN') {
+                window.location.href = '/admin/projects';
+              } else {
+                window.location.href = '/pm/projects';
+              }
             } else {
               setSuccess(false);
               setIsOpenError(false);
