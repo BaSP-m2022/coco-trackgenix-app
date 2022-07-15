@@ -7,11 +7,11 @@
   align-items: flex-start;
   padding: 0 3%;
   min-height: 100px;
-  background: linear-gradient(180deg, #50A780 0%, rgba(80, 167, 128, 0) 100%),
-              linear-gradient(180deg, #50A780 0%, rgba(80, 167, 128, 0) 100%),
-              linear-gradient(180deg, #50a780 0%, rgba(80, 167, 128, 0) 100%),
-              linear-gradient(180deg, #50a780 0%, rgba(80, 167, 128, 0) 100%),
-              linear-gradient(180deg, #50a780 0%, rgba(80, 167, 128, 0) 100%);
+  background: linear-gradient(180deg, #6CDAA8 0%, rgba(80, 167, 128, 0) 100%),
+              linear-gradient(180deg, #6CDAA8 0%, rgba(80, 167, 128, 0) 100%),
+              linear-gradient(180deg, #6CDAA8 0%, rgba(80, 167, 128, 0) 100%),
+              linear-gradient(180deg, #6CDAA8 0%, rgba(80, 167, 128, 0) 100%),
+              linear-gradient(180deg, #6CDAA8 0%, rgba(80, 167, 128, 0) 100%);
 }
 
 .userInfo {
@@ -52,7 +52,7 @@
   text-transform: capitalize;
   font-size: 1.25rem;
   font-weight: bold;
-  border-bottom: 0.2vh solid #ED2626;
+  border-bottom: 0.2vh solid #AD210C;
 }
 
 .routes {

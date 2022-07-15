@@ -11,14 +11,14 @@
   font-size: 45px;
   line-height: 80px;
   font-weight: 700;
-  color: #373867;
+  color: #2F2E69;
 }
 
 .titleTwo {
   font-size: 35px;
   font-weight: 700;
   line-height: 80px;
-  color: #373867;
+  color: #2F2E69;
 }
 
 .addBtn {
@@ -31,7 +31,7 @@
   margin-left: 40%;
   margin-bottom: -25px;
   padding: 10px;
-  background: #aace9b;
+  background: #A5DE93;
   border: 1px solid #505168;
   border-radius: 5px;
   font-style: normal;
@@ -51,7 +51,7 @@
   padding: 10px 12px;
   width: 80px;
   height: 20px;
-  background: #aace9b;
+  background: #A5DE93;
   border-radius: 5px;
   text-decoration: none;
   color: #505168;
@@ -87,9 +87,9 @@
 .editBtn {
   display: inline-block;
   padding: 5px 10px;
-  background: #aace9b;
+  background: #A5DE93;
   border-radius: 5px;
-  border: 1px solid #aace9b;
+  border: 1px solid #A5DE93;
   color: #ffffff;
   font-size: 12px;
   cursor: pointer;
@@ -117,7 +117,7 @@
   padding: 10px 12px;
   width: 140px;
   height: 30px;
-  background: #aace9b;
+  background: #A5DE93;
   border-radius: 5px;
   text-decoration: none;
   color: #505168;
@@ -129,7 +129,7 @@
   height: 50px;
   margin: 0 20px;
   padding: 10px 24px;
-  background: #aace9b;
+  background: #A5DE93;
   border: 1px solid #505168;
   border-radius: 5px;
   font-size: 15px;
@@ -148,7 +148,7 @@
   height: 30px;
   margin: 30px;
   padding: 0;
-  background: #aace9b;
+  background: #A5DE93;
   border: 1px solid #505168;
   border-radius: 5px;
   font-size: 15px;
@@ -174,7 +174,7 @@
   align-self: center;
   justify-content: center;
   padding: 10px;
-  background: #aace9b;
+  background: #A5DE93;
   border: 1px solid #505168;
   border-radius: 5px;
   font-style: normal;

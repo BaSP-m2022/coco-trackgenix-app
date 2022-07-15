@@ -24,11 +24,11 @@ form{
 .title {
   margin: 35px 0;
   text-align: center;
-  color: #373867;
+  color: #2F2E69;
   font-family: 'Arial';
   font-weight: 700;
   font-size: 35px;
-  color: #373867;
+  color: #2F2E69;
   font-size: xx-large;
   font-weight: 700;
   margin: 30px 0;
@@ -60,13 +60,13 @@ form{
   align-self: flex-start;
   width: 130px;
   height: 50px;
-  background: #aace9b;
-  border: 1px solid #373867;
+  background: #A5DE93;
+  border: 1px solid #2F2E69;
   border-radius: 5px;
   text-transform: uppercase;
   font-size: 15px;
   font-weight: 700;
-  color: #373867;
+  color: #2F2E69;
   cursor: pointer;
 }
 
@@ -76,12 +76,12 @@ form{
   align-self: flex-start;
   width: 130px;
   height: 50px;
-  border: 1px solid #373867;
+  border: 1px solid #2F2E69;
   border-radius: 5px;
   text-transform: uppercase;
   font-size: 15px;
   font-weight: 700;
-  color: #373867;
+  color: #2F2E69;
   cursor: pointer;
 }
 
@@ -89,12 +89,12 @@ form{
   margin: 0 15px;
   width: 170px;
   height: 50px;
-  background: #aace9b;
-  border: 1px solid #373867;
+  background: #A5DE93;
+  border: 1px solid #2F2E69;
   border-radius: 5px;
   text-transform: uppercase;
   font-size: 15px;
   font-weight: 700;
-  color: #373867;
+  color: #2F2E69;
   cursor: pointer;
 }
