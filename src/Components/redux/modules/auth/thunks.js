@@ -1,5 +1,12 @@
 import { loginPending, loginSuccess, loginError, logoutPending, logoutSuccess } from './actions';
 import { firebaseApp } from 'Components/helper/firebase';
+import {
+  employeeRoutes,
+  adminRoutes,
+  pmRoutes,
+  superAdminRoutes
+} from 'Components/routes/routesData';
+import { currentRoutes } from './actions';
 
 export const login = (credentials, setIsOpen) => {
   return (dispatch) => {
@@ -14,6 +21,7 @@ export const login = (credentials, setIsOpen) => {
         } = await response.user.getIdTokenResult();
         sessionStorage.setItem('token', token);
         sessionStorage.setItem('role', role);
+        setCurrentRoutes(role, dispatch);
         dispatch(loginSuccess());
       })
       .catch((error) => {
@@ -30,4 +38,17 @@ export const logout = () => {
     sessionStorage.removeItem('role');
     return dispatch(logoutSuccess());
   };
+};
+
+const setCurrentRoutes = (role, dispatch) => {
+  switch (role) {
+    case 'EMPLOYEE':
+      return dispatch(currentRoutes(employeeRoutes));
+    case 'ADMIN':
+      return dispatch(currentRoutes(adminRoutes));
+    case 'SUPERADMIN':
+      return dispatch(currentRoutes(superAdminRoutes));
+    case 'PM':
+      return dispatch(currentRoutes(pmRoutes));
+  }
 };
