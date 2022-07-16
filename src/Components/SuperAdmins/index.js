@@ -32,7 +32,7 @@ const SuperAdmin = (props) => {
       <h2>Super Admin</h2>
       <Table
         data={superAdminsData}
-        headers={['name', 'lastName', 'email', 'password', 'active']}
+        headers={['name', 'lastName', 'email', 'password']}
         handleEdit={handleEdit}
         deleteItem={deleteItem}
       >

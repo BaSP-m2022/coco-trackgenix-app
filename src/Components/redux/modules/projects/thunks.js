@@ -54,7 +54,8 @@ export const getProject = () => {
         project.createdAt = changeDate(project.createdAt);
         project.startDate = changeDate(project.startDate);
         project.endDate = changeDate(project.endDate);
-        project.employees = project.employees.length;
+        project.members = project.members.length;
+        project.pm = project.pm.employee.firstName;
       });
       dispatch(getProjectSuccess(data.data));
     } catch (error) {

@@ -51,12 +51,12 @@ const Projects = () => {
           headers={[
             'name',
             'clientName',
-            'admins',
+            'pm',
             'createdAt',
             'description',
             'startDate',
             'endDate',
-            'employees',
+            'members',
             'active'
           ]}
           handleEdit={handleEdit}

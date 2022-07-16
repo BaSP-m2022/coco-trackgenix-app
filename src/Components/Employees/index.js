@@ -43,7 +43,7 @@ const Employees = () => {
         <h2 className={styles.title}>Personal Information</h2>
         <Table
           data={responseData}
-          headers={['firstName', 'lastName', 'phone', 'email', 'password', 'active']}
+          headers={['firstName', 'lastName', 'phone', 'email', 'password']}
           handleEdit={handleEdit}
           deleteItem={deleteItem}
         ></Table>

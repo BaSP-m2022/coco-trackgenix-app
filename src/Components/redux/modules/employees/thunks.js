@@ -30,9 +30,6 @@ export const getEmployee = () => {
         })
       });
       const data = await response.json();
-      data.data.map((item) => {
-        item.active = item.active ? 'true' : 'false';
-      });
       dispatch(getEMPLOYEESuccess(data.data));
     } catch (error) {
       dispatch(getEMPLOYEEerror(error));

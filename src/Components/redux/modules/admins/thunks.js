@@ -25,9 +25,6 @@ export const getAdmin = () => {
         headers: { token }
       });
       const data = await response.json();
-      data.data.map((admin) => {
-        admin.active = admin.active ? 'true' : 'false';
-      });
       dispatch(getAdminSuccess(data.data));
     } catch (error) {
       console.error(error);
