@@ -6,7 +6,6 @@ import Modal from 'Components/SharedComponents/Modal/Modal';
 import Button from 'Components/SharedComponents/Button/Button';
 import Input from 'Components/SharedComponents/Input/Input';
 import Loading from 'Components/SharedComponents/Loading/Loading';
-import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { addEmployee } from 'Components/redux/modules/employees/thunks';
@@ -70,10 +69,7 @@ const employeeSchema = Joi.object({
       'string.empty': 'Password is not allowed to be empty',
       'string.pattern.base': 'Must contain alphanumeric characters, at least one of each',
       'string.required': 'Password is required!'
-    }),
-  active: Joi.boolean().required().messages({
-    'boolean.base': 'Must indicate if the employee is active'
-  })
+    })
 });
 
 const FormEmployee = (props) => {
@@ -102,8 +98,7 @@ const FormEmployee = (props) => {
         lastName: '',
         phone: '',
         email: '',
-        password: '',
-        active: ''
+        password: ''
       });
     }
   };
@@ -115,8 +110,7 @@ const FormEmployee = (props) => {
       lastName: employee.lastName,
       phone: employee.phone,
       email: employee.email,
-      password: employee.password,
-      active: employee.active
+      password: employee.password
     });
     setModalText('Are you sure you want to create an new employee ?');
     setIsOpen(true);
@@ -174,12 +168,6 @@ const FormEmployee = (props) => {
               placeholder="Password"
               register={register}
               error={errors.password?.message}
-            />
-            <Dropdown
-              name={'active'}
-              labelText={'Active'}
-              register={register}
-              error={errors.active?.message}
             />
           </div>
           <div className={styles.containerBtn}>
