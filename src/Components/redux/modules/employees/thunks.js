@@ -59,14 +59,12 @@ export const deleteEmployee = (_id) => {
 export const addEmployee = (e, setModalText, setShowButton, setSuccessEmployee) => {
   return async (dispatch) => {
     dispatch(addEMPLOYEEPending());
-    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/employees`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
-          token
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(e)
       });
