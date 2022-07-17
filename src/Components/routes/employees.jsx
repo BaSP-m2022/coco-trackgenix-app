@@ -14,7 +14,8 @@ const EmployeeProjectEdit = lazy(() => import('Components/Projects/AddNew'));
 
 const EmployeeRoutes = [
   { path: '/employee/projects', name: 'Projects' },
-  { path: '/employee/timesheets', name: 'Time-sheets' },
+  { path: '/employee/mytimesheets', name: 'My Timesheets' },
+  { path: '/employee/teamtimesheets', name: 'Team Timesheets' },
   { path: '/employee/profile', name: 'Personal information' }
 ];
 
@@ -24,14 +25,17 @@ const EmployeesRoutes = () => {
   return (
     <Layout routes={EmployeeRoutes}>
       <Switch>
-        <Route exact path={`${url}/timesheet`} component={EmployeesTimeSheet} />
-        <Route exact path={`${url}/timesheet/add`} component={EmployeesTimeSheetAdd} />
-        <Route exact path={`${url}/timesheet/edit`} component={EmployeesTimeSheetEdit} />
+        <Route exact path={`${url}/mytimesheets`} component={EmployeesTimeSheet} />
+        <Route exact path={`${url}/mytimesheets/add`} component={EmployeesTimeSheetAdd} />
+        <Route exact path={`${url}/mytimesheets/edit`} component={EmployeesTimeSheetEdit} />
+        <Route exact path={`${url}/teamtimesheets`} component={EmployeesTimeSheet} />
+        <Route exact path={`${url}/teamtimesheets/add`} component={EmployeesTimeSheetAdd} />
+        <Route exact path={`${url}/teamtimesheets/edit`} component={EmployeesTimeSheetEdit} />
         <Route exact path={`${url}/profile`} component={EmployeeProfile} />
         <Route exact path={`${url}/profile/edit`} component={EmployeeProfileEdit} />
-        <Route exact path={`${url}/project`} component={EmployeeProject} />
-        <Route exact path={`${url}/project/edit`} component={EmployeeProjectEdit} />
-        <Redirect to={`${url}/`} />
+        <Route exact path={`${url}/projects`} component={EmployeeProject} />
+        <Route exact path={`${url}/projects/edit`} component={EmployeeProjectEdit} />
+        <Redirect to={`${url}/timesheets`} />
       </Switch>
     </Layout>
   );

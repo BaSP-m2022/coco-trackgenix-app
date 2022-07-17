@@ -49,14 +49,20 @@ export const getProject = () => {
         })
       });
       const data = await response.json();
+      console.log(data);
       data.data.map((project) => {
         project.active = project.active ? 'true' : 'false';
         project.createdAt = changeDate(project.createdAt);
         project.startDate = changeDate(project.startDate);
         project.endDate = changeDate(project.endDate);
         project.members = project.members.length;
+        // for (var i = 0; i < project.members.length - 1; i++) {
+        //   project.members[0] = project.members[i].employee.firstName;
+        // }
         project.pm = project.pm.employee.firstName;
       });
+      // console.log(miembros);
+      console.log(data.data);
       dispatch(getProjectSuccess(data.data));
     } catch (error) {
       console.error;

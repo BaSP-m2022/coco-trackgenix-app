@@ -21,13 +21,18 @@ const NavBar = (props) => {
           <div className={styles.menu}>menu</div>
           <ul className={styles.routes}>
             <li>
-              <Link className={styles.links} to="/employee/project">
+              <Link className={styles.links} to="/employee/projects">
                 projects
               </Link>
             </li>
             <li>
-              <Link className={styles.links} to="/employee/timesheet">
-                timesheet
+              <Link className={styles.links} to="/employee/mytimesheets">
+                My timesheets
+              </Link>
+            </li>
+            <li>
+              <Link className={styles.links} to="/employee/teamtimesheets">
+                Team timesheets
               </Link>
             </li>
             <li>
