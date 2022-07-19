@@ -16,7 +16,8 @@ const SuperAdmin = (props) => {
   }, []);
 
   const deleteItem = (_id) => {
-    dispatch(deleteSuperAdmins(_id));
+    const userToDelete = superAdminsData.find((user) => user._id === _id);
+    dispatch(deleteSuperAdmins(userToDelete));
   };
 
   const handleEdit = (_id) => {
