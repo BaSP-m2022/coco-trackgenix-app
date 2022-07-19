@@ -29,7 +29,7 @@ const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
                   {headers.map((header, index) => {
                     return (
                       <td className={styles.data} key={index}>
-                        {row[header]}
+                        {header === 'members' ? row[header].length : row[header]}
                       </td>
                     );
                   })}

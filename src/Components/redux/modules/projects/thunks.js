@@ -49,7 +49,6 @@ export const getProject = () => {
         })
       });
       const data = await response.json();
-      console.log(data);
       data.data.map((project) => {
         project.active = project.active ? 'true' : 'false';
         project.createdAt = changeDate(project.createdAt);
@@ -77,7 +76,6 @@ export const deleteProject = (_id) => {
           token
         }
       });
-      console.log('hola', _id);
       dispatch(DeleteProjectSuccess(_id));
       dispatch(getProject());
     } catch (error) {
