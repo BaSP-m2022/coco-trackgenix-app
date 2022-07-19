@@ -41,7 +41,7 @@ export const deleteSuperAdmins = (user) => {
     const token = sessionStorage.getItem('token');
     const uid = user.firebaseId;
     try {
-      await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins/${_id}`, {
+      await fetch(`https://coco-trackgenix-server.vercel.app/SuperAdmins/${user._id}`, {
         method: 'DELETE',
         headers: { token, uid }
       });
