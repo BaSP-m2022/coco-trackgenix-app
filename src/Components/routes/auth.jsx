@@ -7,15 +7,10 @@ import Loading from 'Components/SharedComponents/Loading/Loading';
 const SignUp = lazy(() => import('Components/Employees/FormEmployee/FormEmployee'));
 const Login = lazy(() => import('Components/Auth/Login/Login'));
 
-const authRoutes = [
-  { path: '/auth/login', name: 'Login' },
-  { path: '/auth/sign-up', name: 'Sign Up' }
-];
-
 const AuthRoutes = () => {
   const { url } = useRouteMatch();
   return (
-    <Layout routes={authRoutes}>
+    <Layout>
       <Suspense fallback={<Loading />}>
         <Switch>
           <Route exact path={`${url}/login`} component={Login} />
