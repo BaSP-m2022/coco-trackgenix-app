@@ -5,7 +5,9 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_ERROR,
   LOGOUT_PENDING,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  SET_CURRENT_ROUTES,
+  SET_CURRENT_USR_EMAIL
 } from './constants';
 
 export const loginPending = () => {
@@ -45,5 +47,19 @@ export const logoutError = (error) => {
 export const cleanError = () => {
   return {
     type: CLEAN_ERROR
+  };
+};
+
+export const currentRoutes = (routes) => {
+  return {
+    type: SET_CURRENT_ROUTES,
+    payload: routes
+  };
+};
+
+export const currentUserEmail = (email) => {
+  return {
+    type: SET_CURRENT_USR_EMAIL,
+    payload: email
   };
 };

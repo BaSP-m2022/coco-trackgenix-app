@@ -4,13 +4,17 @@ import {
   LOGIN_PENDING,
   LOGIN_SUCCESS,
   LOGOUT_PENDING,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  SET_CURRENT_ROUTES,
+  SET_CURRENT_USR_EMAIL
 } from './constants';
 
 const initialState = {
   isFetching: false,
   authenticated: false,
-  error: ''
+  error: '',
+  routes: [],
+  userEmail: ''
 };
 
 export const loginReducer = (state = initialState, action) => {
@@ -53,6 +57,18 @@ export const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         error: initialState.error
+      };
+    }
+    case SET_CURRENT_ROUTES: {
+      return {
+        ...state,
+        routes: action.payload
+      };
+    }
+    case SET_CURRENT_USR_EMAIL: {
+      return {
+        ...state,
+        userEmail: action.payload
       };
     }
     default: {
