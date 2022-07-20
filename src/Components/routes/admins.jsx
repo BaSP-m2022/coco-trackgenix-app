@@ -8,6 +8,7 @@ const AdminFormEdit = lazy(() => import('Components/Admins/AdminForm/AdminFormEd
 const Projects = lazy(() => import('Components/Projects'));
 const AddNew = lazy(() => import('Components/Projects/AddNew'));
 const EditProject = lazy(() => import('Components/Projects/EditProject'));
+const EmployeeProjectMembers = lazy(() => import('Components/Projects/MembersTable'));
 const TimeSheets = lazy(() => import('Components/TimeSheets/index'));
 const TimeSheetsFormAdd = lazy(() => import('Components/TimeSheets/TimeSheetsFormAdd'));
 const TimeSheetsFormEdit = lazy(() => import('Components/TimeSheets/TimeSheetsFormEdit'));
@@ -22,6 +23,7 @@ const AdminRoutes = () => {
         <Route exact path={`${url}/projects`} component={Projects} />
         <Route exact path={`${url}/projects/add`} component={AddNew} />
         <Route exact path={`${url}/projects/edit`} component={EditProject} />
+        <Route exact path={`${url}/projects/members`} component={EmployeeProjectMembers} />
         <Route exact path={`${url}/timesheets`} component={TimeSheets} />
         <Route exact path={`${url}/timesheets/add`} component={TimeSheetsFormAdd} />
         <Route exact path={`${url}/timesheets/edit`} component={TimeSheetsFormEdit} />
