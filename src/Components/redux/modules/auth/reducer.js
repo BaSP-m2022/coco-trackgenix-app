@@ -5,14 +5,16 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_PENDING,
   LOGOUT_SUCCESS,
-  SET_CURRENT_ROUTES
+  SET_CURRENT_ROUTES,
+  SET_CURRENT_USR_EMAIL
 } from './constants';
 
 const initialState = {
   isFetching: false,
   authenticated: false,
   error: '',
-  routes: []
+  routes: [],
+  userEmail: ''
 };
 
 export const loginReducer = (state = initialState, action) => {
@@ -61,6 +63,12 @@ export const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         routes: action.payload
+      };
+    }
+    case SET_CURRENT_USR_EMAIL: {
+      return {
+        ...state,
+        userEmail: action.payload
       };
     }
     default: {
