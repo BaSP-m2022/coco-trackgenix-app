@@ -19,7 +19,8 @@ const Admins = (props) => {
   }, []);
 
   const deleteItem = (_id) => {
-    dispatch(deleteAdmin(_id));
+    const userToDelete = dataResponse.find((user) => user._id === _id);
+    dispatch(deleteAdmin(userToDelete));
   };
 
   let history = useHistory();

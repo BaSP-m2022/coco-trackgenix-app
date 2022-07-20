@@ -23,7 +23,8 @@ const Employees = () => {
   }, [isOpen]);
 
   const deleteItem = (_id) => {
-    dispatch(deleteEmployee(_id));
+    const userToDelete = responseData.find((user) => user._id === _id);
+    dispatch(deleteEmployee(userToDelete));
     setIsOpen(true);
   };
 

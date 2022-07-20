@@ -12,16 +12,10 @@ const TimeSheets = lazy(() => import('Components/TimeSheets/index'));
 const TimeSheetsFormAdd = lazy(() => import('Components/TimeSheets/TimeSheetsFormAdd'));
 const TimeSheetsFormEdit = lazy(() => import('Components/TimeSheets/TimeSheetsFormEdit'));
 
-const adminRoutes = [
-  { path: '/admin/projects', name: 'Projects' },
-  { path: '/admin/timesheets', name: 'Time-sheets' },
-  { path: '/admin/profile', name: 'Personal information' }
-];
-
 const AdminRoutes = () => {
   const { url } = useRouteMatch();
   return (
-    <Layout routes={adminRoutes}>
+    <Layout>
       <Switch>
         <Route exact path={`${url}/profile`} component={Admins} />
         <Route exact path={`${url}/profile/edit`} component={AdminFormEdit} />

@@ -37,16 +37,17 @@ export const getEmployee = () => {
   };
 };
 
-export const deleteEmployee = (_id) => {
+export const deleteEmployee = (user) => {
   return async (dispatch) => {
     dispatch(deleteEMPLOYEEPending());
     const token = sessionStorage.getItem('token');
+    const uid = user.firebaseUid;
     try {
-      await fetch(`https://coco-trackgenix-server.vercel.app/employees/${_id}`, {
+      await fetch(`https://coco-trackgenix-server.vercel.app/employees/${user._id}`, {
         method: 'DELETE',
-        headers: { token }
+        headers: { token, uid }
       });
-      dispatch(deleteEMPLOYEESuccess(_id));
+      dispatch(deleteEMPLOYEESuccess(user._id));
     } catch (error) {
       dispatch(deleteEMPLOYEEerror(error));
     }
