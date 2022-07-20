@@ -36,16 +36,17 @@ export const getAdmin = () => {
   };
 };
 
-export const deleteAdmin = (_id) => {
+export const deleteAdmin = (user) => {
   return async (dispatch) => {
     dispatch(DeleteAdminPending());
     const token = sessionStorage.getItem('token');
+    const uid = user.firebaseUid;
     try {
-      await fetch(`https://coco-trackgenix-server.vercel.app/admins/${_id}`, {
+      await fetch(`https://coco-trackgenix-server.vercel.app/admins/${user._id}`, {
         method: 'DELETE',
-        headers: { token }
+        headers: { token, uid }
       });
-      dispatch(DeleteAdminSuccess(_id));
+      dispatch(DeleteAdminSuccess(user._id));
       dispatch(getAdmin());
     } catch (error) {
       dispatch(DeleteAdminError(error.toString()));
