@@ -12,18 +12,11 @@ const EmployeeProfileEdit = lazy(() =>
 const EmployeeProject = lazy(() => import('Components/Projects/index'));
 const EmployeeProjectEdit = lazy(() => import('Components/Projects/AddNew'));
 
-const employeeRoutes = [
-  { path: '/employee/projects', name: 'Projects' },
-  { path: '/employee/mytimesheets', name: 'My Timesheets' },
-  { path: '/employee/teamtimesheets', name: 'Team Timesheets' },
-  { path: '/employee/profile', name: 'Personal information' }
-];
-
 const EmployeesRoutes = () => {
   const { url } = useRouteMatch();
 
   return (
-    <Layout routes={employeeRoutes}>
+    <Layout>
       <Switch>
         <Route exact path={`${url}/mytimesheets`} component={EmployeesTimeSheet} />
         <Route exact path={`${url}/mytimesheets/add`} component={EmployeesTimeSheetAdd} />
