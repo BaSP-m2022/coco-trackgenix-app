@@ -18,6 +18,8 @@ const Admins = (props) => {
     dispatch(getAdmin());
   }, []);
 
+  console.log(dataResponse, 'hola');
+
   const deleteItem = (_id) => {
     dispatch(deleteAdmin(_id));
   };
