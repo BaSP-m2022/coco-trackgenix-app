@@ -8,54 +8,55 @@ import Modal from 'Components/SharedComponents/Modal/Modal';
 import Input from 'Components/SharedComponents/Input/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTimesheet } from 'Components/redux/modules/timeSheets/thunks';
-import { getEmployee } from 'Components/redux/modules/employees/thunks';
 import { getProject } from 'Components/redux/modules/projects/thunks';
-import { getTasks } from 'Components/redux/modules/tasks/thunks';
-// import { useRouteMatch } from 'react-router-dom';
 import Joi from 'joi';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 
 const timesheetSchema = Joi.object({
-  employeeId: Joi.string()
+  member: Joi.string()
     .required()
     .regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)
     .messages({
       'string.pattern.base': 'Select a valid employee'
     }),
-  projectId: Joi.string()
+  project: Joi.string()
     .required()
     .regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)
     .messages({
       'string.pattern.base': 'Select a valid project'
     }),
-  tasks: Joi.string()
+  task: Joi.string()
     .required()
-    .regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)
+    .regex(/^[a-zA-Z]+(\s)*$/)
     .messages({
-      'string.pattern.base': 'Select a valid task'
+      'string.pattern.base': 'A task is required, only text.'
     }),
   startDate: Joi.date().required().min('now').messages({
     'date.base': 'Date is not valid',
     'date.min': 'Date must be greater than now',
     'date.empty': 'This field is required'
   }),
-  endDate: Joi.date().required().greater(Joi.ref('startDate')).messages({
+  endDate: Joi.date().required().min(Joi.ref('startDate')).messages({
     'date.base': 'Date is not valid',
-    'date.greater': 'End date must be after the start date',
+    'date.min': 'End date must be after the start date',
     'date.empty': 'This field is required'
-  })
+  }),
+  workedHours: Joi.array().required().min(7).max(7),
+  approved: Joi.boolean().required()
 });
 
 const TimeSheetsFormAdd = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState('');
   const [timesheetInput, setTimesheetInput] = useState({
-    employeeId: props.employeeId,
-    projectId: props.projectId,
-    tasks: [props.tasks],
+    member: props.member,
+    project: props.projectId,
+    task: props.task,
     startDate: props.startDate,
-    endDate: props.endDate
+    endDate: props.endDate,
+    workedHours: [props.workedHours],
+    approved: props.approved
   });
 
   const {
@@ -64,8 +65,7 @@ const TimeSheetsFormAdd = (props) => {
     formState: { errors }
   } = useForm({ mode: 'onChange', resolver: joiResolver(timesheetSchema) });
 
-  const employeeData = useSelector((state) => state.employee.list);
-  const tasksData = useSelector((state) => state.tasks.list);
+  // const memberData = useSelector((state) => state.member.list);
   const projectData = useSelector((state) => state.project.list);
   const [showButton, setShowButton] = useState(true);
   const [successTimesheet, setSuccessTimesheet] = useState(false);
@@ -75,9 +75,8 @@ const TimeSheetsFormAdd = (props) => {
   const isLoadingTimesheet = useSelector((state) => state.timesheet.isLoading);
 
   useEffect(() => {
-    dispatch(getEmployee());
+    // dispatch(getMember());
     dispatch(getProject());
-    dispatch(getTasks());
   }, []);
 
   const formTimesheet = (e) => {
@@ -88,11 +87,21 @@ const TimeSheetsFormAdd = (props) => {
   const onSubmit = (data) => {
     setTimesheetInput({
       ...timesheetInput,
-      employeeId: data.employeeId,
-      projectId: data.projectId,
-      tasks: [data.tasks],
+      member: data.member,
+      project: data.project,
+      task: data.task,
       startDate: data.startDate.toString(),
-      endDate: data.endDate.toString()
+      endDate: data.endDate.toString(),
+      workedHours: [
+        Number(data.dayOne),
+        Number(data.dayTwo),
+        Number(data.dayThree),
+        Number(data.dayFour),
+        Number(data.dayFive),
+        Number(data.daySix),
+        Number(data.daySeven)
+      ],
+      approved: false
     });
     setModalText('Are you sure you want to create an new timesheet ?');
     setIsOpen(true);
@@ -101,8 +110,6 @@ const TimeSheetsFormAdd = (props) => {
   if (isLoadingTimesheet) {
     return <Loading></Loading>;
   }
-
-  // const { url } = useRouteMatch();
 
   return (
     <div className={styles.container}>
@@ -114,34 +121,34 @@ const TimeSheetsFormAdd = (props) => {
         <div className={styles.mainContainer}>
           <div className={styles.col}>
             <Dropdown
-              data={employeeData}
-              name="employeeId"
-              labelText="Select an employee"
-              path="firstName"
+              data={projectData}
+              name="member"
+              labelText="Select a member"
+              path="employee.firstName"
               register={register}
-              error={errors.employeeId?.message}
+              error={errors.member?.message}
             ></Dropdown>
             <Dropdown
               data={projectData}
-              name="projectId"
+              name="project"
               labelText="Select a project"
               path="name"
               register={register}
-              error={errors.projectId?.message}
+              error={errors.project?.message}
             ></Dropdown>
-            <Dropdown
-              data={tasksData}
-              name="tasks"
-              labelText="Select a task"
-              path="description"
+            <Input
+              labelText="Task"
+              name="task"
+              type="string"
+              placeholder="Write a task here"
               register={register}
-              error={errors.tasks?.message}
-            ></Dropdown>
+              error={errors.task?.message}
+            ></Input>
           </div>
           <div className={styles.col}>
             <div>
-              <label>Start Date</label>
               <Input
+                labelText="Start Date"
                 type="date"
                 name="startDate"
                 register={register}
@@ -149,13 +156,24 @@ const TimeSheetsFormAdd = (props) => {
               />
             </div>
             <div>
-              <label>End Date</label>
               <Input
+                labelText="End Date"
                 type="date"
                 name="endDate"
                 register={register}
                 error={errors.endDate?.message}
               />
+            </div>
+          </div>
+          <div className={styles.col}>
+            <div className={styles.days}>
+              <Input type="string" name="dayOne" register={register} />
+              <Input type="string" name="dayTwo" register={register} />
+              <Input type="string" name="dayThree" register={register} />
+              <Input type="string" name="dayFour" register={register} />
+              <Input type="string" name="dayFive" register={register} />
+              <Input type="string" name="daySix" register={register} />
+              <Input type="string" name="daySeven" register={register} />
             </div>
           </div>
         </div>
