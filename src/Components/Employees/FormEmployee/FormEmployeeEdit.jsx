@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import { editEmployee, getEmployeeById } from 'Components/redux/modules/employees/thunks';
 import Joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const employeeSchema = Joi.object({
   firstName: Joi.string()
@@ -72,11 +73,13 @@ const employeeSchema = Joi.object({
     })
 });
 
-const FormEmployeeEdit = (props) => {
+const FormEmployeeEdit = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState();
 
   const dispatch = useDispatch();
+
+  let history = useHistory();
 
   const [employeeToEdit, setEmployeeToEdit] = useState({});
   const {
@@ -183,10 +186,7 @@ const FormEmployeeEdit = (props) => {
           </div>
           <div className={styles.containerBtn}>
             <Button type={('submit', styles.employeeBtnEdit)}>Create</Button>
-            <Button
-              type={styles.employeeBtnEdit}
-              handleClick={() => props.history.push('/employee/profile')}
-            >
+            <Button type={styles.employeeBtnEdit} handleClick={() => history.goBack()}>
               Return
             </Button>
           </div>
@@ -211,7 +211,7 @@ const FormEmployeeEdit = (props) => {
               if (!showButton && successEmployee) {
                 setShowButton(true);
                 setSuccessEmployee(false);
-                props.history.push('/employee/profile');
+                history.goBack();
               } else {
                 setShowButton(true);
                 setSuccessEmployee(false);
