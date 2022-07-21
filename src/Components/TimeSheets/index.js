@@ -47,7 +47,7 @@ const Timesheets = (props) => {
       </Button>
       <Table
         data={responseData}
-        headers={['employeeId', 'projectId', 'startDate', 'endDate', 'tasks']}
+        headers={['member', 'project', 'startDate', 'endDate', 'task', 'workedHours', 'approved']}
         handleEdit={handleEdit}
         deleteItem={deleteItem}
       ></Table>
