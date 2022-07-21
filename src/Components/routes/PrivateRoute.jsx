@@ -10,12 +10,12 @@ const PrivateRoute = ({ component: RouteComponent, ...props }) => {
   return (
     <Route
       {...props}
-      render={(routeProps) => {
+      render={() => {
         if (isFetching) {
           return <Loading />;
         }
         if (role === props.role) {
-          return <RouteComponent {...routeProps} />;
+          return <RouteComponent />;
         }
         if (role && !error) {
           return <Redirect to={'/auth/NotAllowed'} />;
