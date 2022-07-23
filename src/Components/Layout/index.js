@@ -6,12 +6,12 @@ import NavBar from 'Components/NavBar/NavBar';
 function Layout({ children }) {
   return (
     <div className={styles.container}>
-      <Header />
-      <div className={styles.contentContainer}>
-        <NavBar />
-        {children}
+      <NavBar />
+      <div className={styles.insideContainer}>
+        <Header />
+        <div className={styles.contentContainer}>{children}</div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }
