@@ -18,7 +18,7 @@
 .titleTwo {
   color: #003459;
   font-size: xx-large;
-  font-weight: 700;
+  font-weight: 800;
   text-align: center;
   margin: 15px;
 }
@@ -40,7 +40,7 @@
 .containerBtn {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   justify-content: center;
 }
 
@@ -49,14 +49,31 @@
   width: 130px;
   height: 50px;
   margin: 20px;
-  background: #aace9b;
-  border: 1px solid #003459;
+  background: #00A7E1;
+  border: 1px solid #00171F;
   border-radius: 5px;
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 19px;
-  color: #505168;
+  color: #00171F;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+
+form > div > button:nth-child(2) {
+  align-self: flex-start;
+  width: 130px;
+  height: 50px;
+  margin: 20px;
+  background: #ffffff;
+  border: 1px solid #00171F;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: #00171F;
   cursor: pointer;
   transition-duration: 0.3s;
 }
