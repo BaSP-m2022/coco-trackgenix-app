@@ -55,7 +55,7 @@ const Admins = (props) => {
         )}
         <Table
           data={dataResponse}
-          headers={['name', 'lastName', 'email', 'password', 'active']}
+          headers={['name', 'lastName', 'email', 'password']}
           handleEdit={handleEdit}
           deleteItem={deleteItem}
         />
