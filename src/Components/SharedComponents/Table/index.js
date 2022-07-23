@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './table.module.css';
+import editButton from '../../../Assets/edit-button.png';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 
@@ -91,9 +92,9 @@ const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
                     );
                   })}
                   <td className={styles.buttonTd}>
-                    <Button type={styles.stylesBtn} handleClick={() => handleEdit(row._id)}>
-                      Edit
-                    </Button>
+                    <button type={styles.editButton} onClick={() => handleEdit(row._id)}>
+                      <img className={styles.styleIcon} src={editButton} alt="edit-Button" />
+                    </button>
                   </td>
                 </tr>
               );
@@ -153,7 +154,7 @@ const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
                   })}
                   <td className={styles.buttonTd}>
                     <Button type={styles.stylesBtn} handleClick={() => handleEdit(row._id)}>
-                      Edit
+                      <img src={editButton} alt="editButton" />
                     </Button>
                   </td>
                 </tr>

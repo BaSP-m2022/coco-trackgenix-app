@@ -5,7 +5,6 @@
   justify-content: center;
   flex-direction: column;
   margin: 2%;
-  border-radius: 2px solid #373867;
 }
 
 .buttonAdd {
@@ -78,7 +77,7 @@
 .container > table {
   width: 100%;
   flex-direction: column;
-  border: 1px solid lightgray;
+  border: 2px solid #003459;
   text-align: center;
 }
 
@@ -91,9 +90,8 @@ thead {
 
 .tableCell {
   flex: 4 120px;
-  border: 1px solid lightgray;
-  background-color: #A5DE93;
-  color: #000000;
+  background-color: #003459;
+  color: #ECE5F0;
   font-family: 'Arial';
   max-width: 120px;
   height: 30px;
@@ -102,8 +100,7 @@ thead {
 
 .tableCellButtons {
   flex-direction: row;
-  border: 1px solid lightgray;
-  background-color: #A5DE93;
+  background-color: #003459;
   color: #000000;
   font-family: 'Arial';
   max-width: 40px;
@@ -113,11 +110,17 @@ thead {
   margin: 0 5px;
 }
 
+.styleIcon {
+  height: 30px;
+  cursor: pointer;
+  background-color: #ffffff;
+}
+
 .tableNames {
   flex: 4 120px;
   max-width: 120px;
   height: 50px;
-  border: 1px solid lightgray;
+  border: 2px solid #003459;
   font-family: 'Arial';
   background-color: rgb(255, 255, 255);
   border-radius: 5px;
@@ -132,6 +135,9 @@ thead {
   flex: 1 70px;
   text-align: left;
   padding: 5px;
+  font-weight: 700;
+  color: #003459;
+  text-align: center;
 }
 
 .buttonTd {
