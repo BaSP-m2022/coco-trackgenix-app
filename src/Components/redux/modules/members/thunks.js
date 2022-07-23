@@ -1,7 +1,7 @@
 import {
   getMEMBERSuccess,
   getMEMBERPending,
-  getMEMBEREerror,
+  getMEMBERerror,
   getMEMBERbyIdSuccess,
   getMEMBERbyIdPending,
   getMEMBERbyIdError,
@@ -19,14 +19,20 @@ import {
 export const getMember = () => {
   return async (dispatch) => {
     dispatch(getMEMBERPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/members`, {
-        method: 'GET'
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          token
+        })
       });
       const data = await response.json();
       dispatch(getMEMBERSuccess(data.data));
     } catch (error) {
-      dispatch(getMEMBEREerror(error.toString()));
+      dispatch(getMEMBERerror(error.toString()));
     }
   };
 };
@@ -34,9 +40,11 @@ export const getMember = () => {
 export const deleteMember = (_id) => {
   return async (dispatch) => {
     dispatch(deleteMEMBERPending());
+    const token = sessionStorage.getItem('token');
     try {
       await fetch(`https://coco-trackgenix-server.vercel.app/members/${_id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: { token }
       });
       dispatch(deleteMEMBERSuccess(_id));
     } catch (error) {
@@ -48,9 +56,15 @@ export const deleteMember = (_id) => {
 export const addMember = (e) => {
   return async (dispatch) => {
     dispatch(addMEMBERPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/members`, {
         method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          token
+        },
         body: JSON.stringify(e)
       });
       const res = await response.json();
@@ -68,9 +82,14 @@ export const addMember = (e) => {
 export const editMember = (member, id) => {
   return async (dispatch) => {
     dispatch(editMEMBERPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/members/${id}`, {
         method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          token
+        },
         body: JSON.stringify(member)
       });
       const res = await response.json();
@@ -88,9 +107,11 @@ export const editMember = (member, id) => {
 export const getMemberById = (id) => {
   return async (dispatch) => {
     dispatch(getMEMBERbyIdPending());
+    const token = sessionStorage.getItem('token');
     try {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/members/${id}`, {
-        method: 'GET'
+        method: 'GET',
+        headers: { token }
       });
       const memberData = await response.json();
       dispatch(getMEMBERbyIdSuccess(memberData.data));

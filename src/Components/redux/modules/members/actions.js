@@ -41,7 +41,7 @@ export const addMEMBERSuccess = (member) => ({
 export const addMEMBERPending = () => ({
   type: ADD_MEMBER_PENDING
 });
-export const addEMEMBERerror = (error) => ({
+export const addMEMBERerror = (error) => ({
   type: ADD_MEMBER_ERROR,
   payload: error
 });
@@ -67,7 +67,7 @@ export const deleteMEMBERSuccess = (member) => ({
 export const deleteMEMBERPending = () => ({
   type: DELETE_MEMBER_PENDING
 });
-export const deleteMEMBEREerror = (error) => ({
+export const deleteMEMBERerror = (error) => ({
   type: DELETE_MEMBER_ERROR,
   payload: error
 });
