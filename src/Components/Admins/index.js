@@ -18,6 +18,8 @@ const Admins = (props) => {
     dispatch(getAdmin());
   }, []);
 
+  console.log(dataResponse, 'hola');
+
   const deleteItem = (_id) => {
     const userToDelete = dataResponse.find((user) => user._id === _id);
     dispatch(deleteAdmin(userToDelete));
