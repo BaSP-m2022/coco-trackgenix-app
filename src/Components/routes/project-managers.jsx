@@ -13,7 +13,7 @@ const EmployeeProject = lazy(() => import('Components/Projects/index'));
 const EmployeeProjectEdit = lazy(() => import('Components/Projects/AddNew'));
 const EmployeeProjectMembers = lazy(() => import('Components/Projects/MembersTable'));
 
-const EmployeesRoutes = () => {
+const ProjectManagerRoutes = () => {
   const { url } = useRouteMatch();
 
   return (
@@ -36,4 +36,4 @@ const EmployeesRoutes = () => {
   );
 };
 
-export default EmployeesRoutes;
+export default ProjectManagerRoutes;

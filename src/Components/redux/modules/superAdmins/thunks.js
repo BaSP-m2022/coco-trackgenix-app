@@ -25,9 +25,6 @@ export const getSuperAdmins = () => {
         headers: { token }
       });
       const resp = await response.json();
-      resp.data.map((superadmin) => {
-        superadmin.active = superadmin.active ? 'true' : 'false';
-      });
       dispatch(getSuperAdminsSuccess(resp.data));
     } catch (error) {
       dispatch(getSuperAdminsError(error.toString()));

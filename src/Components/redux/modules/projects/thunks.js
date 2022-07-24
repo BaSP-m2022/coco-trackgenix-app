@@ -54,7 +54,7 @@ export const getProject = () => {
         project.createdAt = changeDate(project.createdAt);
         project.startDate = changeDate(project.startDate);
         project.endDate = changeDate(project.endDate);
-        project.employees = project.employees.length;
+        project.pm = project.pm.employee.firstName;
       });
       dispatch(getProjectSuccess(data.data));
     } catch (error) {
@@ -76,7 +76,6 @@ export const deleteProject = (_id) => {
           token
         }
       });
-      console.log('hola', _id);
       dispatch(DeleteProjectSuccess(_id));
       dispatch(getProject());
     } catch (error) {

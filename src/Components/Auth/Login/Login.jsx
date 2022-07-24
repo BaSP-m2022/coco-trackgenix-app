@@ -51,13 +51,13 @@ const Login = (props) => {
     const role = sessionStorage.getItem('role');
     switch (role) {
       case 'EMPLOYEE':
-        return props.history.push('/employee/timesheet');
+        return props.history.push('/employee/mytimesheets');
       case 'ADMIN':
         return props.history.push('/admin/projects');
       case 'SUPERADMIN':
         return props.history.push('/super-admins');
       case 'PM':
-        return props.history.push('/employee');
+        return props.history.push('/employee/PM/mytimesheets');
       default:
         break;
     }

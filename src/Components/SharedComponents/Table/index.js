@@ -2,12 +2,34 @@ import React, { useState } from 'react';
 import styles from './table.module.css';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [rowMember, setRow] = useState();
 
-  if (window.location.pathname === '/employee/project') {
+  const role = sessionStorage.getItem('role');
+
+  let history = useHistory();
+
+  const membersBtn = (row, header) => {
+    return (
+      <>
+        <span>{row[header].length}</span>
+        <Button
+          type={styles.stylesBtn}
+          handleClick={() => {
+            role == 'ADMIN' && history.push(`/admin/projects/members?=${row._id}`);
+            role == 'PM' && history.push(`/employee/PM/projects/members?=${row._id}`);
+          }}
+        >
+          View
+        </Button>
+      </>
+    );
+  };
+
+  if (window.location.pathname === '/employee/projects') {
     return (
       <div className={styles.container}>
         <div className={styles.buttonAdd}>{children}</div>
@@ -30,7 +52,7 @@ const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
                   {headers.map((header, index) => {
                     return (
                       <td className={styles.data} key={index}>
-                        {row[header]}
+                        {header === 'members' ? membersBtn(row, header) : row[header]}
                       </td>
                     );
                   })}
@@ -208,7 +230,7 @@ const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
                   {headers.map((header, index) => {
                     return (
                       <td className={styles.data} key={index}>
-                        {row[header]}
+                        {header === 'members' ? membersBtn(row, header) : row[header]}
                       </td>
                     );
                   })}

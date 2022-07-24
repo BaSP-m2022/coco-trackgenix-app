@@ -7,18 +7,29 @@ import Button from 'Components/SharedComponents/Button/Button';
 import Table from 'Components/SharedComponents/Table/index';
 import Loading from 'Components/SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteProject, getProject } from 'Components/redux/modules/projects/thunks';
+import { deleteProject } from 'Components/redux/modules/projects/thunks';
+import { getProjectById } from 'Components/redux/modules/projects/thunks';
 
-const Projects = () => {
+const MembersTable = () => {
   const dispatch = useDispatch();
   const dataResponse = useSelector((state) => state.project.list);
   const isLoading = useSelector((state) => state.project.isLoading);
   const [isOpen, setIsOpen] = useState(false);
-  const role = sessionStorage.getItem('role');
 
-  useEffect(async () => {
-    dispatch(getProject());
+  const params = window.location.search;
+  let id = params.substring(2);
+
+  const selectedItem = useSelector((state) => state.project.selectedItem);
+
+  useEffect(() => {
+    dispatch(getProjectById(id));
   }, []);
+
+  console.log(selectedItem.members);
+
+  //   selectedItem.members.map((employee) => {
+  //     employee.employee = employee.firstName;
+  //   });
 
   const deleteItem = (_id) => {
     dispatch(deleteProject(_id));
@@ -40,12 +51,12 @@ const Projects = () => {
     <div className={styles.container}>
       <Logo />
       <div className={styles.container}>
-        <h2 className={styles.title}>Projects</h2>
-        {role !== 'EMPLOYEE' && (
-          <Button type={styles.addProject} handleClick={() => history.push(`${url}/add`)}>
-            + Add New Project
-          </Button>
-        )}
+        <h2 className={styles.title}>Members</h2>
+
+        <Button type={styles.addProject} handleClick={() => history.push(`${url}/add`)}>
+          + Add New Member
+        </Button>
+
         <Table
           data={dataResponse}
           headers={[
@@ -65,7 +76,7 @@ const Projects = () => {
         <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
           <h2>Success!</h2>
           <div>
-            <p>Project deleted successfully</p>
+            <p>Member deleted successfully from this project</p>
           </div>
           <div>
             <Button type={styles.modalProjectBtn} handleClick={() => setIsOpen(false)}>
@@ -78,4 +89,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default MembersTable;
