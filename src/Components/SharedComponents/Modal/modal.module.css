@@ -34,8 +34,8 @@
     flex-direction: row-reverse;
   }
 
-.modalWrapper h2 {
-    color: #000000;
+.modalWrapper h2, h3 {
+    color: #003459;
 }
 
 .modalWrapper p {

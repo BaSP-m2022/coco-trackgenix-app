@@ -17,6 +17,7 @@
 
 td > button {
   background-color: #ffffff00;
+  transition: .2s ease-in-out 0s;
 }
 
 .stylesModalBtn, .deleteModalBtn {
@@ -26,7 +27,6 @@ td > button {
   padding: 10px 24px;
   background: #aace9b;
   border: 1px solid #d3d3d3;
-  border-radius: 5px;
   font-size: 15px;
   font-weight: 700;
   color: #000000;
@@ -50,7 +50,6 @@ td > button {
   padding: 0;
   background: #aace9b;
   border: 1px solid #d3d3d3;
-  border-radius: 5px;
   font-size: 13px;
   font-weight: 700;
   color: #000000;
@@ -126,7 +125,6 @@ thead {
   border: 2px solid #003459;
   font-family: 'Arial';
   background-color: #ffffff;
-  border-radius: 5px;
   padding: 10px;
 }
 
@@ -136,7 +134,10 @@ thead {
 }
 
 .container > table {
+  border-radius: 30px;
+  border: 2px solid #003459;
   border-collapse: collapse;
+  overflow:hidden;
 }
 
 .data {
@@ -148,5 +149,6 @@ thead {
   text-align: center;
 }
 
-.buttonTd {
+td > button:hover {
+  transform: scale(1.25);
 }
