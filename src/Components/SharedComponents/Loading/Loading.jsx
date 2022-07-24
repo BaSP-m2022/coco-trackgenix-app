@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './loading.module.css';
-import Cocoman from 'Assets/cocoman.png';
+import LoadingImage from 'Assets/loading.png';
 
 const Loading = () => {
   return (
     <div className={styles.container}>
-      <img src={Cocoman} alt="coco girando" className={styles.rotate} />
+      <img src={LoadingImage} alt="loading..." className={styles.rotate} />
     </div>
   );
 };
