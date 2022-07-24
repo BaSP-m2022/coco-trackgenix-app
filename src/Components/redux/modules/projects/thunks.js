@@ -154,8 +154,8 @@ export const getProjectById = (id) => {
       const response = await fetch(`https://coco-trackgenix-server.vercel.app/projects/${id}`, {
         headers: { token }
       });
-      const response_1 = await response.json();
-      dispatch(getProjectByIdSuccess(response_1.data));
+      const jsonResponse = await response.json();
+      dispatch(getProjectByIdSuccess(jsonResponse.data));
     } catch (error) {
       dispatch(getProjectByIdError(error.toString()));
     }
