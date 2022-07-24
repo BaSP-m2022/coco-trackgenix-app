@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './dropdown.module.css';
 
 const Dropdown = ({ data, name, labelText, path, register, error, value }) => {
-  if (name === 'active') {
+  if (name === 'active' || name === 'PM') {
     return (
       <div className={styles.container}>
         <label className={styles.label}>{labelText}</label>

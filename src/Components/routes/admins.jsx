@@ -11,6 +11,10 @@ const EditProject = lazy(() => import('Components/Projects/EditProject'));
 const TimeSheets = lazy(() => import('Components/TimeSheets/index'));
 const TimeSheetsFormAdd = lazy(() => import('Components/TimeSheets/TimeSheetsFormAdd'));
 const TimeSheetsFormEdit = lazy(() => import('Components/TimeSheets/TimeSheetsFormEdit'));
+const EmployeeProfile = lazy(() => import('Components/Employees/index'));
+const EmployeeProfileEdit = lazy(() =>
+  import('Components/Employees/FormEmployee/FormEmployeeEdit')
+);
 
 const AdminRoutes = () => {
   const { url } = useRouteMatch();
@@ -25,6 +29,8 @@ const AdminRoutes = () => {
         <Route exact path={`${url}/timesheets`} component={TimeSheets} />
         <Route exact path={`${url}/timesheets/add`} component={TimeSheetsFormAdd} />
         <Route exact path={`${url}/timesheets/edit`} component={TimeSheetsFormEdit} />
+        <Route exact path={`${url}/employees`} component={EmployeeProfile} />
+        <Route exact path={`${url}/employees/edit`} component={EmployeeProfileEdit} />
         <Redirect to={`${url}/projects`} />
       </Switch>
     </Layout>

@@ -11,6 +11,8 @@ import { useForm } from 'react-hook-form';
 import { editEmployee, getEmployeeById } from 'Components/redux/modules/employees/thunks';
 import Joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import Dropdown from 'Components/SharedComponents/Dropdown/Dropdown';
 
 const employeeSchema = Joi.object({
   firstName: Joi.string()
@@ -69,14 +71,20 @@ const employeeSchema = Joi.object({
       'string.empty': 'Password is not allowed to be empty',
       'string.pattern.base': 'Must contain alphanumeric characters, at least one of each',
       'string.required': 'Password is required!'
-    })
+    }),
+  PM: Joi.string()
 });
 
-const FormEmployeeEdit = (props) => {
+const FormEmployeeEdit = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState();
+  const [isPM, setIsPM] = useState();
 
   const dispatch = useDispatch();
+
+  let history = useHistory();
+
+  const role = sessionStorage.getItem('role');
 
   const [employeeToEdit, setEmployeeToEdit] = useState({});
   const {
@@ -113,6 +121,8 @@ const FormEmployeeEdit = (props) => {
 
   const formEmployee = (e) => {
     dispatch(editEmployee(e, id, setModalText, setShowButton, setSuccessEmployee));
+    role == 'ADMIN' && isPM == 'true' && console.log('PM IS TRUE');
+    role == 'ADMIN' && isPM == 'false' && console.log('PM IS FALSE');
     setIsOpen(true);
   };
 
@@ -125,6 +135,7 @@ const FormEmployeeEdit = (props) => {
       email: employee.email,
       password: employee.password
     });
+    setIsPM(employee.PM);
     setModalText('Are you sure you want to edit the employee ?');
     setIsOpen(true);
   };
@@ -172,21 +183,23 @@ const FormEmployeeEdit = (props) => {
               register={register}
               error={errors.email?.message}
             />
-            <Input
-              labelText="Password"
-              name="password"
-              type="password"
-              placeholder="Password"
-              register={register}
-              error={errors.password?.message}
-            />
+            {role != 'ADMIN' && (
+              <Input
+                labelText="Password"
+                name="password"
+                type="password"
+                placeholder="Password"
+                register={register}
+                error={errors.password?.message}
+              />
+            )}
+            {role == 'ADMIN' && (
+              <Dropdown labelText="Is Project Manager?" name="PM" type="text" register={register} />
+            )}
           </div>
           <div className={styles.containerBtn}>
-            <Button type={('submit', styles.employeeBtnEdit)}>Create</Button>
-            <Button
-              type={styles.employeeBtnEdit}
-              handleClick={() => props.history.push('/employee/profile')}
-            >
+            <Button type={('submit', styles.employeeBtnEdit)}>Accept</Button>
+            <Button type={styles.employeeBtnEdit} handleClick={() => history.goBack()}>
               Return
             </Button>
           </div>
@@ -211,7 +224,7 @@ const FormEmployeeEdit = (props) => {
               if (!showButton && successEmployee) {
                 setShowButton(true);
                 setSuccessEmployee(false);
-                props.history.push('/employee/profile');
+                history.goBack();
               } else {
                 setShowButton(true);
                 setSuccessEmployee(false);

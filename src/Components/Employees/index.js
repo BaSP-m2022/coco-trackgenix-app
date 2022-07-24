@@ -8,6 +8,7 @@ import Logo from '../SharedComponents/Logo/Logo';
 import Loading from '../SharedComponents/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEmployee, deleteEmployee } from '../redux/modules/employees/thunks';
+import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Employees = () => {
   const dispatch = useDispatch();
@@ -28,9 +29,11 @@ const Employees = () => {
     setIsOpen(true);
   };
 
+  let { url } = useRouteMatch();
   let history = useHistory();
+
   const handleEdit = (item) => {
-    history.push(`/employee/profile/edit?=${item}`);
+    history.push(`${url}/edit?=${item}`);
   };
 
   if (isLoadingEmployee) {
