@@ -8,22 +8,21 @@ const Table = ({ data, headers, children, handleEdit, deleteItem }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [rowMember, setRow] = useState();
 
-  // const role = sessionStorage.getItem('role');
+  const role = sessionStorage.getItem('role');
 
   let history = useHistory();
 
   const membersBtn = (row, header) => {
-    // const member1 = row.members[0].employee.firstName;
     return (
       <>
         <span>{row[header].length}</span>
         <Button
           type={styles.stylesBtn}
           handleClick={() => {
-            history.push(`/admin/projects/members?=${row._id}`);
+            role == 'ADMIN' && history.push(`/admin/projects/members?=${row._id}`);
+            role == 'PM' && history.push(`/employee/PM/projects/members?=${row._id}`);
           }}
         >
-          {/* {row[header].length} Members */}
           View
         </Button>
       </>
