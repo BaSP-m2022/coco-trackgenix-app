@@ -1,6 +1,5 @@
 .container {
   width: 95%;
-  flex: 1;
   flex-direction: column;
   display: flex;
   justify-content: center;
@@ -9,8 +8,8 @@
 
 .title{
   text-align: center;
-  margin: 30px 0;
-  color: rgb(55, 56, 103);
+  margin-top: 10px;
+  color: #003459;
   font-size: 50px;
   font-weight: 1000;
 }

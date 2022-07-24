@@ -42,15 +42,15 @@ const Timesheets = (props) => {
     <section className={styles.container}>
       <Logo />
       <h2 className={styles.title}>Timesheets</h2>
-      <Button type={styles.timesheetButton} handleClick={() => props.history.push(`${url}/add`)}>
-        Add timesheet
-      </Button>
       <Table
         data={responseData}
         headers={['employeeId', 'projectId', 'startDate', 'endDate', 'tasks']}
         handleEdit={handleEdit}
         deleteItem={deleteItem}
       ></Table>
+      <Button type={styles.timesheetButton} handleClick={() => props.history.push(`${url}/add`)}>
+        Add timesheet
+      </Button>
       <Modal showModal={isOpen} closeModal={() => setIsOpen(false)}>
         <h2>Success!</h2>
         <div>

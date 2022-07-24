@@ -69,6 +69,11 @@ button {
   width: 102.38px;
   min-width: 102.38px;
   text-align: center;
+  transition-duration: 0.3s;
+}
+
+.navigation:hover{
+  background-color: #d7d0db;
 }
 
 .background {
