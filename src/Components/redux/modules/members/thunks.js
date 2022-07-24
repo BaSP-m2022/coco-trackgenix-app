@@ -53,7 +53,7 @@ export const deleteMember = (_id) => {
   };
 };
 
-export const addMember = (e) => {
+export const addMember = (e, setModalText, setShowButton, setSuccessMember) => {
   return async (dispatch) => {
     dispatch(addMEMBERPending());
     const token = sessionStorage.getItem('token');
@@ -69,11 +69,20 @@ export const addMember = (e) => {
       });
       const res = await response.json();
       if (res.message == 'Member has been created') {
+        setShowButton(false);
+        setSuccessMember(true);
+        setModalText('Member has been created!');
         dispatch(addMEMBERSuccess(e));
       } else {
+        setShowButton(false);
+        setSuccessMember(false);
+        setModalText('Fields filled incorrectly, please check the data');
         dispatch(addMEMBERerror(res));
       }
     } catch (error) {
+      setShowButton(false);
+      setSuccessMember(false);
+      setModalText('An error has ocurred!');
       dispatch(addMEMBERerror(error.toString()));
     }
   };

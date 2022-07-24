@@ -18,10 +18,7 @@ const Projects = () => {
 
   useEffect(async () => {
     dispatch(getProject());
-    console.log(dataResponse, 'hola2');
   }, []);
-
-  console.log(dataResponse, 'hola');
 
   const deleteItem = (_id) => {
     dispatch(deleteProject(_id));
