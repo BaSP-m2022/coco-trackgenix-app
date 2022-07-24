@@ -6,6 +6,7 @@ import { tasksReducer } from './/modules/tasks/reducer';
 import { projectReducer } from './modules/projects/reducer';
 import { timesheetReducer } from './modules/timeSheets/reducer';
 import { loginReducer } from './modules/auth/reducer';
+import { memberReducer } from './modules/members/reducer';
 
 const rootReducer = combineReducers({
   superadmins: superAdminsReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   employee: employeeReducer,
   project: projectReducer,
   timesheet: timesheetReducer,
-  login: loginReducer
+  login: loginReducer,
+  member: memberReducer
 });
 
 export default rootReducer;
