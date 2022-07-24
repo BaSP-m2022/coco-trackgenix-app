@@ -5,7 +5,6 @@
   justify-content: center;
   flex-direction: column;
   margin: 2%;
-  border-radius: 2px solid #373867;
 }
 
 .buttonAdd {
@@ -16,14 +15,18 @@
   transition-duration: 0.3s;
 }
 
+td > button {
+  background-color: #ffffff00;
+  transition: .2s ease-in-out 0s;
+}
+
 .stylesModalBtn, .deleteModalBtn {
   width: 110px;
   height: 50px;
   margin: 0 20px;
   padding: 10px 24px;
   background: #aace9b;
-  border: 1px solid lightgray;
-  border-radius: 5px;
+  border: 1px solid #d3d3d3;
   font-size: 15px;
   font-weight: 700;
   color: #000000;
@@ -31,12 +34,12 @@
   transition-duration: 0.3s;
 }
 .deleteBtn {
-  background-color: white;
+  background-color: #ffffff;
   margin: 0px;
 }
 
 .stylesModalBtn:hover {
-  background-color: white;
+  background-color: #ffffff;
   border: 1px solid #A5DE93;
 }
 
@@ -46,8 +49,7 @@
   margin: 5px;
   padding: 0;
   background: #aace9b;
-  border: 1px solid lightgray;
-  border-radius: 5px;
+  border: 1px solid #d3d3d3;
   font-size: 13px;
   font-weight: 700;
   color: #000000;
@@ -56,34 +58,33 @@
 }
 
 .deleteBtn:hover {
-  background-color: white;
+  background-color: #ffffff;
   border: 1px solid #A5DE93;
 }
 
 .stylesBtn:hover {
-  background-color: white;
+  background-color: #ffffff;
   border: 1px solid #A5DE93;
 }
 
 .deleteModalBtn {
-  background-color: white;
+  background-color: #ffffff;
 }
 
 .deleteModalBtn:hover {
-  background-color: rgb(255, 255, 255);
-  background-color: white;
+  background-color: #ffffff;
+  background-color: #ffffff;
   border: 1px solid #A5DE93;
 }
 
 .container > table {
   width: 100%;
   flex-direction: column;
-  border: 1px solid lightgray;
+  border: 2px solid #003459;
   text-align: center;
 }
 
 thead {
-  border: 1px solid lightgray;
   width: 120px;
   height: 50px;
   text-transform: capitalize;
@@ -91,9 +92,8 @@ thead {
 
 .tableCell {
   flex: 4 120px;
-  border: 1px solid lightgray;
-  background-color: #A5DE93;
-  color: #000000;
+  background-color: #003459;
+  color: #ECE5F0;
   font-family: 'Arial';
   max-width: 120px;
   height: 30px;
@@ -102,8 +102,7 @@ thead {
 
 .tableCellButtons {
   flex-direction: row;
-  border: 1px solid lightgray;
-  background-color: #A5DE93;
+  background-color: #003459;
   color: #000000;
   font-family: 'Arial';
   max-width: 40px;
@@ -113,34 +112,43 @@ thead {
   margin: 0 5px;
 }
 
+.styleIcon {
+  height: 30px;
+  cursor: pointer;
+  background-color: #ffffff00;
+}
+
 .tableNames {
   flex: 4 120px;
   max-width: 120px;
   height: 50px;
-  border: 1px solid lightgray;
+  border: 2px solid #003459;
   font-family: 'Arial';
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
+  background-color: #ffffff;
   padding: 10px;
 }
 
+.tableNames:hover {
+  background-color: #e6e6e6;
+  transition-duration: 0.3s;
+}
+
 .container > table {
+  border-radius: 30px;
+  border: 2px solid #003459;
   border-collapse: collapse;
+  overflow:hidden;
 }
 
 .data {
   flex: 1 70px;
   text-align: left;
   padding: 5px;
+  font-weight: 700;
+  color: #003459;
+  text-align: center;
 }
 
-.buttonTd {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  flex: 1 140px;
-  min-width: 140px;
-  max-width: 140px;
+td > button:hover {
+  transform: scale(1.25);
 }

@@ -10,8 +10,8 @@
 }
 .inputsColumns {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-evenly;
   width: 100%;
 }
